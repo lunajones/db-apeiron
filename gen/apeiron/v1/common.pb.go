@@ -2609,6 +2609,11 @@ type CombatCoreProfile struct {
 	MaxPosture              float64                `protobuf:"fixed64,4,opt,name=max_posture,json=maxPosture,proto3" json:"max_posture,omitempty"`
 	PostureDamageMultiplier float64                `protobuf:"fixed64,5,opt,name=posture_damage_multiplier,json=postureDamageMultiplier,proto3" json:"posture_damage_multiplier,omitempty"`
 	PostureBreakDurationMs  int32                  `protobuf:"varint,6,opt,name=posture_break_duration_ms,json=postureBreakDurationMs,proto3" json:"posture_break_duration_ms,omitempty"`
+	DamageTakenMultiplier   float64                `protobuf:"fixed64,7,opt,name=damage_taken_multiplier,json=damageTakenMultiplier,proto3" json:"damage_taken_multiplier,omitempty"`
+	CanParry                bool                   `protobuf:"varint,8,opt,name=can_parry,json=canParry,proto3" json:"can_parry,omitempty"`
+	ParryWindowMs           int32                  `protobuf:"varint,9,opt,name=parry_window_ms,json=parryWindowMs,proto3" json:"parry_window_ms,omitempty"`
+	ParryRewardMultiplier   float64                `protobuf:"fixed64,10,opt,name=parry_reward_multiplier,json=parryRewardMultiplier,proto3" json:"parry_reward_multiplier,omitempty"`
+	DodgeIframeMs           int32                  `protobuf:"varint,11,opt,name=dodge_iframe_ms,json=dodgeIframeMs,proto3" json:"dodge_iframe_ms,omitempty"`
 	unknownFields           protoimpl.UnknownFields
 	sizeCache               protoimpl.SizeCache
 }
@@ -2685,6 +2690,197 @@ func (x *CombatCoreProfile) GetPostureBreakDurationMs() int32 {
 	return 0
 }
 
+func (x *CombatCoreProfile) GetDamageTakenMultiplier() float64 {
+	if x != nil {
+		return x.DamageTakenMultiplier
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetCanParry() bool {
+	if x != nil {
+		return x.CanParry
+	}
+	return false
+}
+
+func (x *CombatCoreProfile) GetParryWindowMs() int32 {
+	if x != nil {
+		return x.ParryWindowMs
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetParryRewardMultiplier() float64 {
+	if x != nil {
+		return x.ParryRewardMultiplier
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetDodgeIframeMs() int32 {
+	if x != nil {
+		return x.DodgeIframeMs
+	}
+	return 0
+}
+
+type CombatDefenseContract struct {
+	state                      protoimpl.MessageState `protogen:"open.v1"`
+	Id                         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                       string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description                string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	DefenseType                string                 `protobuf:"bytes,4,opt,name=defense_type,json=defenseType,proto3" json:"defense_type,omitempty"`
+	FrontalArcDeg              float64                `protobuf:"fixed64,5,opt,name=frontal_arc_deg,json=frontalArcDeg,proto3" json:"frontal_arc_deg,omitempty"`
+	DefenderMarginLeftRatio    float64                `protobuf:"fixed64,6,opt,name=defender_margin_left_ratio,json=defenderMarginLeftRatio,proto3" json:"defender_margin_left_ratio,omitempty"`
+	DefenderMarginRightRatio   float64                `protobuf:"fixed64,7,opt,name=defender_margin_right_ratio,json=defenderMarginRightRatio,proto3" json:"defender_margin_right_ratio,omitempty"`
+	StaminaDamageOnlyOnBlock   bool                   `protobuf:"varint,8,opt,name=stamina_damage_only_on_block,json=staminaDamageOnlyOnBlock,proto3" json:"stamina_damage_only_on_block,omitempty"`
+	HealthDamageOnUnblockedHit bool                   `protobuf:"varint,9,opt,name=health_damage_on_unblocked_hit,json=healthDamageOnUnblockedHit,proto3" json:"health_damage_on_unblocked_hit,omitempty"`
+	PostureDamageOnBlock       bool                   `protobuf:"varint,10,opt,name=posture_damage_on_block,json=postureDamageOnBlock,proto3" json:"posture_damage_on_block,omitempty"`
+	PerfectBlockWindowMs       int32                  `protobuf:"varint,11,opt,name=perfect_block_window_ms,json=perfectBlockWindowMs,proto3" json:"perfect_block_window_ms,omitempty"`
+	ParryWindowMs              int32                  `protobuf:"varint,12,opt,name=parry_window_ms,json=parryWindowMs,proto3" json:"parry_window_ms,omitempty"`
+	GuardDamageMultiplier      float64                `protobuf:"fixed64,13,opt,name=guard_damage_multiplier,json=guardDamageMultiplier,proto3" json:"guard_damage_multiplier,omitempty"`
+	BlockStaminaDrainPerSecond float64                `protobuf:"fixed64,14,opt,name=block_stamina_drain_per_second,json=blockStaminaDrainPerSecond,proto3" json:"block_stamina_drain_per_second,omitempty"`
+	MetadataJson               string                 `protobuf:"bytes,15,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
+}
+
+func (x *CombatDefenseContract) Reset() {
+	*x = CombatDefenseContract{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CombatDefenseContract) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CombatDefenseContract) ProtoMessage() {}
+
+func (x *CombatDefenseContract) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CombatDefenseContract.ProtoReflect.Descriptor instead.
+func (*CombatDefenseContract) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *CombatDefenseContract) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CombatDefenseContract) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CombatDefenseContract) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CombatDefenseContract) GetDefenseType() string {
+	if x != nil {
+		return x.DefenseType
+	}
+	return ""
+}
+
+func (x *CombatDefenseContract) GetFrontalArcDeg() float64 {
+	if x != nil {
+		return x.FrontalArcDeg
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetDefenderMarginLeftRatio() float64 {
+	if x != nil {
+		return x.DefenderMarginLeftRatio
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetDefenderMarginRightRatio() float64 {
+	if x != nil {
+		return x.DefenderMarginRightRatio
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetStaminaDamageOnlyOnBlock() bool {
+	if x != nil {
+		return x.StaminaDamageOnlyOnBlock
+	}
+	return false
+}
+
+func (x *CombatDefenseContract) GetHealthDamageOnUnblockedHit() bool {
+	if x != nil {
+		return x.HealthDamageOnUnblockedHit
+	}
+	return false
+}
+
+func (x *CombatDefenseContract) GetPostureDamageOnBlock() bool {
+	if x != nil {
+		return x.PostureDamageOnBlock
+	}
+	return false
+}
+
+func (x *CombatDefenseContract) GetPerfectBlockWindowMs() int32 {
+	if x != nil {
+		return x.PerfectBlockWindowMs
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetParryWindowMs() int32 {
+	if x != nil {
+		return x.ParryWindowMs
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetGuardDamageMultiplier() float64 {
+	if x != nil {
+		return x.GuardDamageMultiplier
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetBlockStaminaDrainPerSecond() float64 {
+	if x != nil {
+		return x.BlockStaminaDrainPerSecond
+	}
+	return 0
+}
+
+func (x *CombatDefenseContract) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
 type MovementProfile struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -2711,7 +2907,7 @@ type MovementProfile struct {
 
 func (x *MovementProfile) Reset() {
 	*x = MovementProfile{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2723,7 +2919,7 @@ func (x *MovementProfile) String() string {
 func (*MovementProfile) ProtoMessage() {}
 
 func (x *MovementProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2736,7 +2932,7 @@ func (x *MovementProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MovementProfile.ProtoReflect.Descriptor instead.
 func (*MovementProfile) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *MovementProfile) GetId() string {
@@ -2885,7 +3081,7 @@ type StatusEffect struct {
 
 func (x *StatusEffect) Reset() {
 	*x = StatusEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2897,7 +3093,7 @@ func (x *StatusEffect) String() string {
 func (*StatusEffect) ProtoMessage() {}
 
 func (x *StatusEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2910,7 +3106,7 @@ func (x *StatusEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
 func (*StatusEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *StatusEffect) GetId() string {
@@ -3011,7 +3207,7 @@ type SkillControlEffect struct {
 
 func (x *SkillControlEffect) Reset() {
 	*x = SkillControlEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3023,7 +3219,7 @@ func (x *SkillControlEffect) String() string {
 func (*SkillControlEffect) ProtoMessage() {}
 
 func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3036,7 +3232,7 @@ func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkillControlEffect.ProtoReflect.Descriptor instead.
 func (*SkillControlEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *SkillControlEffect) GetId() string {
@@ -3102,7 +3298,7 @@ type WorldRegion struct {
 
 func (x *WorldRegion) Reset() {
 	*x = WorldRegion{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3114,7 +3310,7 @@ func (x *WorldRegion) String() string {
 func (*WorldRegion) ProtoMessage() {}
 
 func (x *WorldRegion) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3127,7 +3323,7 @@ func (x *WorldRegion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorldRegion.ProtoReflect.Descriptor instead.
 func (*WorldRegion) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *WorldRegion) GetId() string {
@@ -3241,7 +3437,7 @@ type Biome struct {
 
 func (x *Biome) Reset() {
 	*x = Biome{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3253,7 +3449,7 @@ func (x *Biome) String() string {
 func (*Biome) ProtoMessage() {}
 
 func (x *Biome) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3266,7 +3462,7 @@ func (x *Biome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Biome.ProtoReflect.Descriptor instead.
 func (*Biome) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *Biome) GetId() string {
@@ -3376,7 +3572,7 @@ type SpawnZone struct {
 
 func (x *SpawnZone) Reset() {
 	*x = SpawnZone{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3388,7 +3584,7 @@ func (x *SpawnZone) String() string {
 func (*SpawnZone) ProtoMessage() {}
 
 func (x *SpawnZone) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3401,7 +3597,7 @@ func (x *SpawnZone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpawnZone.ProtoReflect.Descriptor instead.
 func (*SpawnZone) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *SpawnZone) GetId() string {
@@ -3534,7 +3730,7 @@ type Player struct {
 
 func (x *Player) Reset() {
 	*x = Player{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3546,7 +3742,7 @@ func (x *Player) String() string {
 func (*Player) ProtoMessage() {}
 
 func (x *Player) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3559,7 +3755,7 @@ func (x *Player) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Player.ProtoReflect.Descriptor instead.
 func (*Player) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *Player) GetId() string {
@@ -3697,7 +3893,7 @@ type Inventory struct {
 
 func (x *Inventory) Reset() {
 	*x = Inventory{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3709,7 +3905,7 @@ func (x *Inventory) String() string {
 func (*Inventory) ProtoMessage() {}
 
 func (x *Inventory) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3722,7 +3918,7 @@ func (x *Inventory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Inventory.ProtoReflect.Descriptor instead.
 func (*Inventory) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *Inventory) GetId() string {
@@ -3799,7 +3995,7 @@ type ItemTemplate struct {
 
 func (x *ItemTemplate) Reset() {
 	*x = ItemTemplate{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3811,7 +4007,7 @@ func (x *ItemTemplate) String() string {
 func (*ItemTemplate) ProtoMessage() {}
 
 func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3824,7 +4020,7 @@ func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
 func (*ItemTemplate) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *ItemTemplate) GetId() string {
@@ -3912,7 +4108,7 @@ type InventoryItem struct {
 
 func (x *InventoryItem) Reset() {
 	*x = InventoryItem{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3924,7 +4120,7 @@ func (x *InventoryItem) String() string {
 func (*InventoryItem) ProtoMessage() {}
 
 func (x *InventoryItem) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3937,7 +4133,7 @@ func (x *InventoryItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryItem.ProtoReflect.Descriptor instead.
 func (*InventoryItem) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *InventoryItem) GetId() string {
@@ -3999,7 +4195,7 @@ type InventoryWithItems struct {
 
 func (x *InventoryWithItems) Reset() {
 	*x = InventoryWithItems{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4011,7 +4207,7 @@ func (x *InventoryWithItems) String() string {
 func (*InventoryWithItems) ProtoMessage() {}
 
 func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4024,7 +4220,7 @@ func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryWithItems.ProtoReflect.Descriptor instead.
 func (*InventoryWithItems) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *InventoryWithItems) GetInventory() *Inventory {
@@ -4051,7 +4247,7 @@ type Readiness struct {
 
 func (x *Readiness) Reset() {
 	*x = Readiness{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4063,7 +4259,7 @@ func (x *Readiness) String() string {
 func (*Readiness) ProtoMessage() {}
 
 func (x *Readiness) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4076,7 +4272,7 @@ func (x *Readiness) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Readiness.ProtoReflect.Descriptor instead.
 func (*Readiness) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *Readiness) GetStatus() string {
@@ -4396,7 +4592,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16lock_side_during_setup\x18\v \x01(\bR\x13lockSideDuringSetup\x12\x1d\n" +
 	"\n" +
 	"is_enabled\x18\f \x01(\bR\tisEnabled\x12#\n" +
-	"\rmetadata_json\x18\r \x01(\tR\fmetadataJson\"\xb6\x02\n" +
+	"\rmetadata_json\x18\r \x01(\tR\fmetadataJson\"\x93\x04\n" +
 	"\x11CombatCoreProfile\x126\n" +
 	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
 	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
@@ -4404,7 +4600,30 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\vmax_posture\x18\x04 \x01(\x01R\n" +
 	"maxPosture\x12:\n" +
 	"\x19posture_damage_multiplier\x18\x05 \x01(\x01R\x17postureDamageMultiplier\x129\n" +
-	"\x19posture_break_duration_ms\x18\x06 \x01(\x05R\x16postureBreakDurationMs\"\xa3\x05\n" +
+	"\x19posture_break_duration_ms\x18\x06 \x01(\x05R\x16postureBreakDurationMs\x126\n" +
+	"\x17damage_taken_multiplier\x18\a \x01(\x01R\x15damageTakenMultiplier\x12\x1b\n" +
+	"\tcan_parry\x18\b \x01(\bR\bcanParry\x12&\n" +
+	"\x0fparry_window_ms\x18\t \x01(\x05R\rparryWindowMs\x126\n" +
+	"\x17parry_reward_multiplier\x18\n" +
+	" \x01(\x01R\x15parryRewardMultiplier\x12&\n" +
+	"\x0fdodge_iframe_ms\x18\v \x01(\x05R\rdodgeIframeMs\"\xdf\x05\n" +
+	"\x15CombatDefenseContract\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12!\n" +
+	"\fdefense_type\x18\x04 \x01(\tR\vdefenseType\x12&\n" +
+	"\x0ffrontal_arc_deg\x18\x05 \x01(\x01R\rfrontalArcDeg\x12;\n" +
+	"\x1adefender_margin_left_ratio\x18\x06 \x01(\x01R\x17defenderMarginLeftRatio\x12=\n" +
+	"\x1bdefender_margin_right_ratio\x18\a \x01(\x01R\x18defenderMarginRightRatio\x12>\n" +
+	"\x1cstamina_damage_only_on_block\x18\b \x01(\bR\x18staminaDamageOnlyOnBlock\x12B\n" +
+	"\x1ehealth_damage_on_unblocked_hit\x18\t \x01(\bR\x1ahealthDamageOnUnblockedHit\x125\n" +
+	"\x17posture_damage_on_block\x18\n" +
+	" \x01(\bR\x14postureDamageOnBlock\x125\n" +
+	"\x17perfect_block_window_ms\x18\v \x01(\x05R\x14perfectBlockWindowMs\x12&\n" +
+	"\x0fparry_window_ms\x18\f \x01(\x05R\rparryWindowMs\x126\n" +
+	"\x17guard_damage_multiplier\x18\r \x01(\x01R\x15guardDamageMultiplier\x12B\n" +
+	"\x1eblock_stamina_drain_per_second\x18\x0e \x01(\x01R\x1ablockStaminaDrainPerSecond\x12#\n" +
+	"\rmetadata_json\x18\x0f \x01(\tR\fmetadataJson\"\xa3\x05\n" +
 	"\x0fMovementProfile\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
 	"\tmax_speed\x18\x02 \x01(\x01R\bmaxSpeed\x12\"\n" +
@@ -4583,7 +4802,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                           // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),                 // 1: apeiron.v1.OperationResult
@@ -4607,18 +4826,19 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*CreatureEvasionPolicy)(nil),           // 19: apeiron.v1.CreatureEvasionPolicy
 	(*CreatureSkillSetupPolicy)(nil),        // 20: apeiron.v1.CreatureSkillSetupPolicy
 	(*CombatCoreProfile)(nil),               // 21: apeiron.v1.CombatCoreProfile
-	(*MovementProfile)(nil),                 // 22: apeiron.v1.MovementProfile
-	(*StatusEffect)(nil),                    // 23: apeiron.v1.StatusEffect
-	(*SkillControlEffect)(nil),              // 24: apeiron.v1.SkillControlEffect
-	(*WorldRegion)(nil),                     // 25: apeiron.v1.WorldRegion
-	(*Biome)(nil),                           // 26: apeiron.v1.Biome
-	(*SpawnZone)(nil),                       // 27: apeiron.v1.SpawnZone
-	(*Player)(nil),                          // 28: apeiron.v1.Player
-	(*Inventory)(nil),                       // 29: apeiron.v1.Inventory
-	(*ItemTemplate)(nil),                    // 30: apeiron.v1.ItemTemplate
-	(*InventoryItem)(nil),                   // 31: apeiron.v1.InventoryItem
-	(*InventoryWithItems)(nil),              // 32: apeiron.v1.InventoryWithItems
-	(*Readiness)(nil),                       // 33: apeiron.v1.Readiness
+	(*CombatDefenseContract)(nil),           // 22: apeiron.v1.CombatDefenseContract
+	(*MovementProfile)(nil),                 // 23: apeiron.v1.MovementProfile
+	(*StatusEffect)(nil),                    // 24: apeiron.v1.StatusEffect
+	(*SkillControlEffect)(nil),              // 25: apeiron.v1.SkillControlEffect
+	(*WorldRegion)(nil),                     // 26: apeiron.v1.WorldRegion
+	(*Biome)(nil),                           // 27: apeiron.v1.Biome
+	(*SpawnZone)(nil),                       // 28: apeiron.v1.SpawnZone
+	(*Player)(nil),                          // 29: apeiron.v1.Player
+	(*Inventory)(nil),                       // 30: apeiron.v1.Inventory
+	(*ItemTemplate)(nil),                    // 31: apeiron.v1.ItemTemplate
+	(*InventoryItem)(nil),                   // 32: apeiron.v1.InventoryItem
+	(*InventoryWithItems)(nil),              // 33: apeiron.v1.InventoryWithItems
+	(*Readiness)(nil),                       // 34: apeiron.v1.Readiness
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
 	5,  // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
@@ -4629,8 +4849,8 @@ var file_apeiron_v1_common_proto_depIdxs = []int32{
 	13, // 5: apeiron.v1.MovementActionContract.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
 	14, // 6: apeiron.v1.MovementActionContract.reconciliation_contract:type_name -> apeiron.v1.MovementReconciliationContract
 	15, // 7: apeiron.v1.SkillMovementActionBinding.movement_action_contract:type_name -> apeiron.v1.MovementActionContract
-	29, // 8: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
-	31, // 9: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
+	30, // 8: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
+	32, // 9: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
 	10, // [10:10] is the sub-list for method output_type
 	10, // [10:10] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
@@ -4650,7 +4870,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   34,
+			NumMessages:   35,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -301,6 +301,29 @@ message CombatCoreProfile {
   double max_posture = 4;
   double posture_damage_multiplier = 5;
   int32 posture_break_duration_ms = 6;
+  double damage_taken_multiplier = 7;
+  bool can_parry = 8;
+  int32 parry_window_ms = 9;
+  double parry_reward_multiplier = 10;
+  int32 dodge_iframe_ms = 11;
+}
+
+message CombatDefenseContract {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string defense_type = 4;
+  double frontal_arc_deg = 5;
+  double defender_margin_left_ratio = 6;
+  double defender_margin_right_ratio = 7;
+  bool stamina_damage_only_on_block = 8;
+  bool health_damage_on_unblocked_hit = 9;
+  bool posture_damage_on_block = 10;
+  int32 perfect_block_window_ms = 11;
+  int32 parry_window_ms = 12;
+  double guard_damage_multiplier = 13;
+  double block_stamina_drain_per_second = 14;
+  string metadata_json = 15;
 }
 
 message MovementProfile {

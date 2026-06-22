@@ -141,6 +141,66 @@ func (x *CombatCoreProfileResponse) GetError() string {
 	return ""
 }
 
+type CombatDefenseContractResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Found         bool                   `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Contract      *CombatDefenseContract `protobuf:"bytes,2,opt,name=contract,proto3" json:"contract,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CombatDefenseContractResponse) Reset() {
+	*x = CombatDefenseContractResponse{}
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CombatDefenseContractResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CombatDefenseContractResponse) ProtoMessage() {}
+
+func (x *CombatDefenseContractResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CombatDefenseContractResponse.ProtoReflect.Descriptor instead.
+func (*CombatDefenseContractResponse) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CombatDefenseContractResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *CombatDefenseContractResponse) GetContract() *CombatDefenseContract {
+	if x != nil {
+		return x.Contract
+	}
+	return nil
+}
+
+func (x *CombatDefenseContractResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 type MovementActionContractResponse struct {
 	state         protoimpl.MessageState  `protogen:"open.v1"`
 	Found         bool                    `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
@@ -152,7 +212,7 @@ type MovementActionContractResponse struct {
 
 func (x *MovementActionContractResponse) Reset() {
 	*x = MovementActionContractResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[2]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -164,7 +224,7 @@ func (x *MovementActionContractResponse) String() string {
 func (*MovementActionContractResponse) ProtoMessage() {}
 
 func (x *MovementActionContractResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[2]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -177,7 +237,7 @@ func (x *MovementActionContractResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MovementActionContractResponse.ProtoReflect.Descriptor instead.
 func (*MovementActionContractResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{2}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MovementActionContractResponse) GetFound() bool {
@@ -212,7 +272,7 @@ type MovementReconciliationContractResponse struct {
 
 func (x *MovementReconciliationContractResponse) Reset() {
 	*x = MovementReconciliationContractResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[3]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -224,7 +284,7 @@ func (x *MovementReconciliationContractResponse) String() string {
 func (*MovementReconciliationContractResponse) ProtoMessage() {}
 
 func (x *MovementReconciliationContractResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[3]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +297,7 @@ func (x *MovementReconciliationContractResponse) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use MovementReconciliationContractResponse.ProtoReflect.Descriptor instead.
 func (*MovementReconciliationContractResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{3}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MovementReconciliationContractResponse) GetFound() bool {
@@ -272,7 +332,7 @@ type CreatureBehaviorRuntimeContractResponse struct {
 
 func (x *CreatureBehaviorRuntimeContractResponse) Reset() {
 	*x = CreatureBehaviorRuntimeContractResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -284,7 +344,7 @@ func (x *CreatureBehaviorRuntimeContractResponse) String() string {
 func (*CreatureBehaviorRuntimeContractResponse) ProtoMessage() {}
 
 func (x *CreatureBehaviorRuntimeContractResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -297,7 +357,7 @@ func (x *CreatureBehaviorRuntimeContractResponse) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use CreatureBehaviorRuntimeContractResponse.ProtoReflect.Descriptor instead.
 func (*CreatureBehaviorRuntimeContractResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{4}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreatureBehaviorRuntimeContractResponse) GetFound() bool {
@@ -332,7 +392,7 @@ type CreatureEvasionPoliciesResponse struct {
 
 func (x *CreatureEvasionPoliciesResponse) Reset() {
 	*x = CreatureEvasionPoliciesResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -344,7 +404,7 @@ func (x *CreatureEvasionPoliciesResponse) String() string {
 func (*CreatureEvasionPoliciesResponse) ProtoMessage() {}
 
 func (x *CreatureEvasionPoliciesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +417,7 @@ func (x *CreatureEvasionPoliciesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureEvasionPoliciesResponse.ProtoReflect.Descriptor instead.
 func (*CreatureEvasionPoliciesResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{5}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreatureEvasionPoliciesResponse) GetFound() bool {
@@ -392,7 +452,7 @@ type CreatureSkillSetupPoliciesResponse struct {
 
 func (x *CreatureSkillSetupPoliciesResponse) Reset() {
 	*x = CreatureSkillSetupPoliciesResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -404,7 +464,7 @@ func (x *CreatureSkillSetupPoliciesResponse) String() string {
 func (*CreatureSkillSetupPoliciesResponse) ProtoMessage() {}
 
 func (x *CreatureSkillSetupPoliciesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -417,7 +477,7 @@ func (x *CreatureSkillSetupPoliciesResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use CreatureSkillSetupPoliciesResponse.ProtoReflect.Descriptor instead.
 func (*CreatureSkillSetupPoliciesResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{6}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreatureSkillSetupPoliciesResponse) GetFound() bool {
@@ -454,6 +514,10 @@ const file_apeiron_v1_profile_data_service_proto_rawDesc = "" +
 	"\x19CombatCoreProfileResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x127\n" +
 	"\aprofile\x18\x02 \x01(\v2\x1d.apeiron.v1.CombatCoreProfileR\aprofile\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"\x8a\x01\n" +
+	"\x1dCombatDefenseContractResponse\x12\x14\n" +
+	"\x05found\x18\x01 \x01(\bR\x05found\x12=\n" +
+	"\bcontract\x18\x02 \x01(\v2!.apeiron.v1.CombatDefenseContractR\bcontract\x12\x14\n" +
 	"\x05error\x18\x03 \x01(\tR\x05error\"\x8c\x01\n" +
 	"\x1eMovementActionContractResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12>\n" +
@@ -474,10 +538,11 @@ const file_apeiron_v1_profile_data_service_proto_rawDesc = "" +
 	"\"CreatureSkillSetupPoliciesResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12@\n" +
 	"\bpolicies\x18\x02 \x03(\v2$.apeiron.v1.CreatureSkillSetupPolicyR\bpolicies\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\tR\x05error2\xc8\x05\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error2\xa6\x06\n" +
 	"\x12ProfileDataService\x12P\n" +
 	"\x12GetMovementProfile\x12\x15.apeiron.v1.IdRequest\x1a#.apeiron.v1.MovementProfileResponse\x12T\n" +
-	"\x14GetCombatCoreProfile\x12\x15.apeiron.v1.IdRequest\x1a%.apeiron.v1.CombatCoreProfileResponse\x12^\n" +
+	"\x14GetCombatCoreProfile\x12\x15.apeiron.v1.IdRequest\x1a%.apeiron.v1.CombatCoreProfileResponse\x12\\\n" +
+	"\x18GetCombatDefenseContract\x12\x15.apeiron.v1.IdRequest\x1a).apeiron.v1.CombatDefenseContractResponse\x12^\n" +
 	"\x19GetMovementActionContract\x12\x15.apeiron.v1.IdRequest\x1a*.apeiron.v1.MovementActionContractResponse\x12n\n" +
 	"!GetMovementReconciliationContract\x12\x15.apeiron.v1.IdRequest\x1a2.apeiron.v1.MovementReconciliationContractResponse\x12p\n" +
 	"\"GetCreatureBehaviorRuntimeContract\x12\x15.apeiron.v1.IdRequest\x1a3.apeiron.v1.CreatureBehaviorRuntimeContractResponse\x12`\n" +
@@ -496,51 +561,56 @@ func file_apeiron_v1_profile_data_service_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_profile_data_service_proto_rawDescData
 }
 
-var file_apeiron_v1_profile_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_apeiron_v1_profile_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_apeiron_v1_profile_data_service_proto_goTypes = []any{
 	(*MovementProfileResponse)(nil),                 // 0: apeiron.v1.MovementProfileResponse
 	(*CombatCoreProfileResponse)(nil),               // 1: apeiron.v1.CombatCoreProfileResponse
-	(*MovementActionContractResponse)(nil),          // 2: apeiron.v1.MovementActionContractResponse
-	(*MovementReconciliationContractResponse)(nil),  // 3: apeiron.v1.MovementReconciliationContractResponse
-	(*CreatureBehaviorRuntimeContractResponse)(nil), // 4: apeiron.v1.CreatureBehaviorRuntimeContractResponse
-	(*CreatureEvasionPoliciesResponse)(nil),         // 5: apeiron.v1.CreatureEvasionPoliciesResponse
-	(*CreatureSkillSetupPoliciesResponse)(nil),      // 6: apeiron.v1.CreatureSkillSetupPoliciesResponse
-	(*MovementProfile)(nil),                         // 7: apeiron.v1.MovementProfile
-	(*CombatCoreProfile)(nil),                       // 8: apeiron.v1.CombatCoreProfile
-	(*MovementActionContract)(nil),                  // 9: apeiron.v1.MovementActionContract
-	(*MovementReconciliationContract)(nil),          // 10: apeiron.v1.MovementReconciliationContract
-	(*CreatureBehaviorRuntimeContract)(nil),         // 11: apeiron.v1.CreatureBehaviorRuntimeContract
-	(*CreatureEvasionPolicy)(nil),                   // 12: apeiron.v1.CreatureEvasionPolicy
-	(*CreatureSkillSetupPolicy)(nil),                // 13: apeiron.v1.CreatureSkillSetupPolicy
-	(*IdRequest)(nil),                               // 14: apeiron.v1.IdRequest
+	(*CombatDefenseContractResponse)(nil),           // 2: apeiron.v1.CombatDefenseContractResponse
+	(*MovementActionContractResponse)(nil),          // 3: apeiron.v1.MovementActionContractResponse
+	(*MovementReconciliationContractResponse)(nil),  // 4: apeiron.v1.MovementReconciliationContractResponse
+	(*CreatureBehaviorRuntimeContractResponse)(nil), // 5: apeiron.v1.CreatureBehaviorRuntimeContractResponse
+	(*CreatureEvasionPoliciesResponse)(nil),         // 6: apeiron.v1.CreatureEvasionPoliciesResponse
+	(*CreatureSkillSetupPoliciesResponse)(nil),      // 7: apeiron.v1.CreatureSkillSetupPoliciesResponse
+	(*MovementProfile)(nil),                         // 8: apeiron.v1.MovementProfile
+	(*CombatCoreProfile)(nil),                       // 9: apeiron.v1.CombatCoreProfile
+	(*CombatDefenseContract)(nil),                   // 10: apeiron.v1.CombatDefenseContract
+	(*MovementActionContract)(nil),                  // 11: apeiron.v1.MovementActionContract
+	(*MovementReconciliationContract)(nil),          // 12: apeiron.v1.MovementReconciliationContract
+	(*CreatureBehaviorRuntimeContract)(nil),         // 13: apeiron.v1.CreatureBehaviorRuntimeContract
+	(*CreatureEvasionPolicy)(nil),                   // 14: apeiron.v1.CreatureEvasionPolicy
+	(*CreatureSkillSetupPolicy)(nil),                // 15: apeiron.v1.CreatureSkillSetupPolicy
+	(*IdRequest)(nil),                               // 16: apeiron.v1.IdRequest
 }
 var file_apeiron_v1_profile_data_service_proto_depIdxs = []int32{
-	7,  // 0: apeiron.v1.MovementProfileResponse.profile:type_name -> apeiron.v1.MovementProfile
-	8,  // 1: apeiron.v1.CombatCoreProfileResponse.profile:type_name -> apeiron.v1.CombatCoreProfile
-	9,  // 2: apeiron.v1.MovementActionContractResponse.contract:type_name -> apeiron.v1.MovementActionContract
-	10, // 3: apeiron.v1.MovementReconciliationContractResponse.contract:type_name -> apeiron.v1.MovementReconciliationContract
-	11, // 4: apeiron.v1.CreatureBehaviorRuntimeContractResponse.contract:type_name -> apeiron.v1.CreatureBehaviorRuntimeContract
-	12, // 5: apeiron.v1.CreatureEvasionPoliciesResponse.policies:type_name -> apeiron.v1.CreatureEvasionPolicy
-	13, // 6: apeiron.v1.CreatureSkillSetupPoliciesResponse.policies:type_name -> apeiron.v1.CreatureSkillSetupPolicy
-	14, // 7: apeiron.v1.ProfileDataService.GetMovementProfile:input_type -> apeiron.v1.IdRequest
-	14, // 8: apeiron.v1.ProfileDataService.GetCombatCoreProfile:input_type -> apeiron.v1.IdRequest
-	14, // 9: apeiron.v1.ProfileDataService.GetMovementActionContract:input_type -> apeiron.v1.IdRequest
-	14, // 10: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:input_type -> apeiron.v1.IdRequest
-	14, // 11: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:input_type -> apeiron.v1.IdRequest
-	14, // 12: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:input_type -> apeiron.v1.IdRequest
-	14, // 13: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:input_type -> apeiron.v1.IdRequest
-	0,  // 14: apeiron.v1.ProfileDataService.GetMovementProfile:output_type -> apeiron.v1.MovementProfileResponse
-	1,  // 15: apeiron.v1.ProfileDataService.GetCombatCoreProfile:output_type -> apeiron.v1.CombatCoreProfileResponse
-	2,  // 16: apeiron.v1.ProfileDataService.GetMovementActionContract:output_type -> apeiron.v1.MovementActionContractResponse
-	3,  // 17: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:output_type -> apeiron.v1.MovementReconciliationContractResponse
-	4,  // 18: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:output_type -> apeiron.v1.CreatureBehaviorRuntimeContractResponse
-	5,  // 19: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:output_type -> apeiron.v1.CreatureEvasionPoliciesResponse
-	6,  // 20: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:output_type -> apeiron.v1.CreatureSkillSetupPoliciesResponse
-	14, // [14:21] is the sub-list for method output_type
-	7,  // [7:14] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	8,  // 0: apeiron.v1.MovementProfileResponse.profile:type_name -> apeiron.v1.MovementProfile
+	9,  // 1: apeiron.v1.CombatCoreProfileResponse.profile:type_name -> apeiron.v1.CombatCoreProfile
+	10, // 2: apeiron.v1.CombatDefenseContractResponse.contract:type_name -> apeiron.v1.CombatDefenseContract
+	11, // 3: apeiron.v1.MovementActionContractResponse.contract:type_name -> apeiron.v1.MovementActionContract
+	12, // 4: apeiron.v1.MovementReconciliationContractResponse.contract:type_name -> apeiron.v1.MovementReconciliationContract
+	13, // 5: apeiron.v1.CreatureBehaviorRuntimeContractResponse.contract:type_name -> apeiron.v1.CreatureBehaviorRuntimeContract
+	14, // 6: apeiron.v1.CreatureEvasionPoliciesResponse.policies:type_name -> apeiron.v1.CreatureEvasionPolicy
+	15, // 7: apeiron.v1.CreatureSkillSetupPoliciesResponse.policies:type_name -> apeiron.v1.CreatureSkillSetupPolicy
+	16, // 8: apeiron.v1.ProfileDataService.GetMovementProfile:input_type -> apeiron.v1.IdRequest
+	16, // 9: apeiron.v1.ProfileDataService.GetCombatCoreProfile:input_type -> apeiron.v1.IdRequest
+	16, // 10: apeiron.v1.ProfileDataService.GetCombatDefenseContract:input_type -> apeiron.v1.IdRequest
+	16, // 11: apeiron.v1.ProfileDataService.GetMovementActionContract:input_type -> apeiron.v1.IdRequest
+	16, // 12: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:input_type -> apeiron.v1.IdRequest
+	16, // 13: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:input_type -> apeiron.v1.IdRequest
+	16, // 14: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:input_type -> apeiron.v1.IdRequest
+	16, // 15: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:input_type -> apeiron.v1.IdRequest
+	0,  // 16: apeiron.v1.ProfileDataService.GetMovementProfile:output_type -> apeiron.v1.MovementProfileResponse
+	1,  // 17: apeiron.v1.ProfileDataService.GetCombatCoreProfile:output_type -> apeiron.v1.CombatCoreProfileResponse
+	2,  // 18: apeiron.v1.ProfileDataService.GetCombatDefenseContract:output_type -> apeiron.v1.CombatDefenseContractResponse
+	3,  // 19: apeiron.v1.ProfileDataService.GetMovementActionContract:output_type -> apeiron.v1.MovementActionContractResponse
+	4,  // 20: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:output_type -> apeiron.v1.MovementReconciliationContractResponse
+	5,  // 21: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:output_type -> apeiron.v1.CreatureBehaviorRuntimeContractResponse
+	6,  // 22: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:output_type -> apeiron.v1.CreatureEvasionPoliciesResponse
+	7,  // 23: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:output_type -> apeiron.v1.CreatureSkillSetupPoliciesResponse
+	16, // [16:24] is the sub-list for method output_type
+	8,  // [8:16] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_profile_data_service_proto_init() }
@@ -555,7 +625,7 @@ func file_apeiron_v1_profile_data_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_profile_data_service_proto_rawDesc), len(file_apeiron_v1_profile_data_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

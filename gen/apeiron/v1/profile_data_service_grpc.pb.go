@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	ProfileDataService_GetMovementProfile_FullMethodName                 = "/apeiron.v1.ProfileDataService/GetMovementProfile"
 	ProfileDataService_GetCombatCoreProfile_FullMethodName               = "/apeiron.v1.ProfileDataService/GetCombatCoreProfile"
+	ProfileDataService_GetCombatDefenseContract_FullMethodName           = "/apeiron.v1.ProfileDataService/GetCombatDefenseContract"
 	ProfileDataService_GetMovementActionContract_FullMethodName          = "/apeiron.v1.ProfileDataService/GetMovementActionContract"
 	ProfileDataService_GetMovementReconciliationContract_FullMethodName  = "/apeiron.v1.ProfileDataService/GetMovementReconciliationContract"
 	ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName = "/apeiron.v1.ProfileDataService/GetCreatureBehaviorRuntimeContract"
@@ -34,6 +35,7 @@ const (
 type ProfileDataServiceClient interface {
 	GetMovementProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementProfileResponse, error)
 	GetCombatCoreProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatCoreProfileResponse, error)
+	GetCombatDefenseContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatDefenseContractResponse, error)
 	GetMovementActionContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementActionContractResponse, error)
 	GetMovementReconciliationContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementReconciliationContractResponse, error)
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureBehaviorRuntimeContractResponse, error)
@@ -63,6 +65,16 @@ func (c *profileDataServiceClient) GetCombatCoreProfile(ctx context.Context, in 
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CombatCoreProfileResponse)
 	err := c.cc.Invoke(ctx, ProfileDataService_GetCombatCoreProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCombatDefenseContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatDefenseContractResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CombatDefenseContractResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCombatDefenseContract_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -125,6 +137,7 @@ func (c *profileDataServiceClient) GetCreatureSkillSetupPolicies(ctx context.Con
 type ProfileDataServiceServer interface {
 	GetMovementProfile(context.Context, *IdRequest) (*MovementProfileResponse, error)
 	GetCombatCoreProfile(context.Context, *IdRequest) (*CombatCoreProfileResponse, error)
+	GetCombatDefenseContract(context.Context, *IdRequest) (*CombatDefenseContractResponse, error)
 	GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error)
 	GetMovementReconciliationContract(context.Context, *IdRequest) (*MovementReconciliationContractResponse, error)
 	GetCreatureBehaviorRuntimeContract(context.Context, *IdRequest) (*CreatureBehaviorRuntimeContractResponse, error)
@@ -145,6 +158,9 @@ func (UnimplementedProfileDataServiceServer) GetMovementProfile(context.Context,
 }
 func (UnimplementedProfileDataServiceServer) GetCombatCoreProfile(context.Context, *IdRequest) (*CombatCoreProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCombatCoreProfile not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCombatDefenseContract(context.Context, *IdRequest) (*CombatDefenseContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCombatDefenseContract not implemented")
 }
 func (UnimplementedProfileDataServiceServer) GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMovementActionContract not implemented")
@@ -214,6 +230,24 @@ func _ProfileDataService_GetCombatCoreProfile_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProfileDataServiceServer).GetCombatCoreProfile(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCombatDefenseContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCombatDefenseContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCombatDefenseContract_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCombatDefenseContract(ctx, req.(*IdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -322,6 +356,10 @@ var ProfileDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCombatCoreProfile",
 			Handler:    _ProfileDataService_GetCombatCoreProfile_Handler,
+		},
+		{
+			MethodName: "GetCombatDefenseContract",
+			Handler:    _ProfileDataService_GetCombatDefenseContract_Handler,
 		},
 		{
 			MethodName: "GetMovementActionContract",

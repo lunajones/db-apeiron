@@ -11,6 +11,7 @@ import (
 type ProfileReader interface {
 	GetMovementProfile(ctx context.Context, id string) (postgres.MovementProfile, error)
 	GetCombatCoreProfile(ctx context.Context, id string) (postgres.CombatCoreProfile, error)
+	GetCombatDefenseContract(ctx context.Context, id string) (postgres.CombatDefenseContract, error)
 	GetMovementActionContract(ctx context.Context, id string) (postgres.MovementActionContract, error)
 	GetMovementReconciliationContract(ctx context.Context, id string) (postgres.MovementReconciliationContract, error)
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, id string) (postgres.CreatureBehaviorRuntimeContract, error)
@@ -44,6 +45,15 @@ func (h *ProfileDataHandler) GetCombatCoreProfile(ctx context.Context, req *apei
 	}
 
 	return &apeironv1.CombatCoreProfileResponse{Found: true, Profile: mapCombatCoreProfile(profile)}, nil
+}
+
+func (h *ProfileDataHandler) GetCombatDefenseContract(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.CombatDefenseContractResponse, error) {
+	contract, err := h.profiles.GetCombatDefenseContract(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.CombatDefenseContractResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.CombatDefenseContractResponse{Found: true, Contract: mapCombatDefenseContract(contract)}, nil
 }
 
 func (h *ProfileDataHandler) GetMovementActionContract(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.MovementActionContractResponse, error) {
@@ -130,6 +140,31 @@ func mapCombatCoreProfile(p postgres.CombatCoreProfile) *apeironv1.CombatCorePro
 		MaxPosture:              p.MaxPosture,
 		PostureDamageMultiplier: p.PostureDamageMultiplier,
 		PostureBreakDurationMs:  int32(p.PostureBreakDurationMS),
+		DamageTakenMultiplier:   p.DamageTakenMultiplier,
+		CanParry:                p.CanParry,
+		ParryWindowMs:           int32(p.ParryWindowMS),
+		ParryRewardMultiplier:   p.ParryRewardMultiplier,
+		DodgeIframeMs:           int32(p.DodgeIframeMS),
+	}
+}
+
+func mapCombatDefenseContract(c postgres.CombatDefenseContract) *apeironv1.CombatDefenseContract {
+	return &apeironv1.CombatDefenseContract{
+		Id:                         c.ID,
+		Name:                       c.Name,
+		Description:                c.Description,
+		DefenseType:                c.DefenseType,
+		FrontalArcDeg:              c.FrontalArcDeg,
+		DefenderMarginLeftRatio:    c.DefenderMarginLeftRatio,
+		DefenderMarginRightRatio:   c.DefenderMarginRightRatio,
+		StaminaDamageOnlyOnBlock:   c.StaminaDamageOnlyOnBlock,
+		HealthDamageOnUnblockedHit: c.HealthDamageOnUnblockedHit,
+		PostureDamageOnBlock:       c.PostureDamageOnBlock,
+		PerfectBlockWindowMs:       int32(c.PerfectBlockWindowMS),
+		ParryWindowMs:              int32(c.ParryWindowMS),
+		GuardDamageMultiplier:      c.GuardDamageMultiplier,
+		BlockStaminaDrainPerSecond: c.BlockStaminaDrainPerSecond,
+		MetadataJson:               c.MetadataJSON,
 	}
 }
 

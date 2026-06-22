@@ -19,19 +19,20 @@ type ProfileCache struct {
 	repository *postgres.ProfileRepository
 	ttl        time.Duration
 
-	movementProfiles      map[string]cacheEntry[postgres.MovementProfile]
-	combatCoreProfiles    map[string]cacheEntry[postgres.CombatCoreProfile]
-	movementActions       map[string]cacheEntry[postgres.MovementActionContract]
-	reconciliation        map[string]cacheEntry[postgres.MovementReconciliationContract]
-	creatureBehaviors     map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]
-	creatureEvasion       map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]
-	creatureSkillSetups   map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]
-	combatStyleProfiles   map[string]cacheEntry[postgres.CombatStyleProfile]
-	needsProfiles         map[string]cacheEntry[postgres.NeedsProfile]
-	aiPersonalityProfiles map[string]cacheEntry[postgres.AIPersonalityProfile]
-	aiDecisionProfiles    map[string]cacheEntry[postgres.AIDecisionProfile]
-	sensoryProfiles       map[string]cacheEntry[postgres.SensoryProfile]
-	spawnProfiles         map[string]cacheEntry[postgres.SpawnProfile]
+	movementProfiles       map[string]cacheEntry[postgres.MovementProfile]
+	combatCoreProfiles     map[string]cacheEntry[postgres.CombatCoreProfile]
+	combatDefenseContracts map[string]cacheEntry[postgres.CombatDefenseContract]
+	movementActions        map[string]cacheEntry[postgres.MovementActionContract]
+	reconciliation         map[string]cacheEntry[postgres.MovementReconciliationContract]
+	creatureBehaviors      map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]
+	creatureEvasion        map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]
+	creatureSkillSetups    map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]
+	combatStyleProfiles    map[string]cacheEntry[postgres.CombatStyleProfile]
+	needsProfiles          map[string]cacheEntry[postgres.NeedsProfile]
+	aiPersonalityProfiles  map[string]cacheEntry[postgres.AIPersonalityProfile]
+	aiDecisionProfiles     map[string]cacheEntry[postgres.AIDecisionProfile]
+	sensoryProfiles        map[string]cacheEntry[postgres.SensoryProfile]
+	spawnProfiles          map[string]cacheEntry[postgres.SpawnProfile]
 
 	mu sync.RWMutex
 }
@@ -45,19 +46,20 @@ func NewProfileCacheWithTTL(repository *postgres.ProfileRepository, ttl time.Dur
 		repository: repository,
 		ttl:        ttl,
 
-		movementProfiles:      make(map[string]cacheEntry[postgres.MovementProfile]),
-		combatCoreProfiles:    make(map[string]cacheEntry[postgres.CombatCoreProfile]),
-		movementActions:       make(map[string]cacheEntry[postgres.MovementActionContract]),
-		reconciliation:        make(map[string]cacheEntry[postgres.MovementReconciliationContract]),
-		creatureBehaviors:     make(map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]),
-		creatureEvasion:       make(map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]),
-		creatureSkillSetups:   make(map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]),
-		combatStyleProfiles:   make(map[string]cacheEntry[postgres.CombatStyleProfile]),
-		needsProfiles:         make(map[string]cacheEntry[postgres.NeedsProfile]),
-		aiPersonalityProfiles: make(map[string]cacheEntry[postgres.AIPersonalityProfile]),
-		aiDecisionProfiles:    make(map[string]cacheEntry[postgres.AIDecisionProfile]),
-		sensoryProfiles:       make(map[string]cacheEntry[postgres.SensoryProfile]),
-		spawnProfiles:         make(map[string]cacheEntry[postgres.SpawnProfile]),
+		movementProfiles:       make(map[string]cacheEntry[postgres.MovementProfile]),
+		combatCoreProfiles:     make(map[string]cacheEntry[postgres.CombatCoreProfile]),
+		combatDefenseContracts: make(map[string]cacheEntry[postgres.CombatDefenseContract]),
+		movementActions:        make(map[string]cacheEntry[postgres.MovementActionContract]),
+		reconciliation:         make(map[string]cacheEntry[postgres.MovementReconciliationContract]),
+		creatureBehaviors:      make(map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]),
+		creatureEvasion:        make(map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]),
+		creatureSkillSetups:    make(map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]),
+		combatStyleProfiles:    make(map[string]cacheEntry[postgres.CombatStyleProfile]),
+		needsProfiles:          make(map[string]cacheEntry[postgres.NeedsProfile]),
+		aiPersonalityProfiles:  make(map[string]cacheEntry[postgres.AIPersonalityProfile]),
+		aiDecisionProfiles:     make(map[string]cacheEntry[postgres.AIDecisionProfile]),
+		sensoryProfiles:        make(map[string]cacheEntry[postgres.SensoryProfile]),
+		spawnProfiles:          make(map[string]cacheEntry[postgres.SpawnProfile]),
 	}
 }
 
@@ -101,6 +103,20 @@ func (c *ProfileCache) GetCombatCoreProfile(ctx context.Context, id string) (pos
 
 	setCached(&c.mu, c.combatCoreProfiles, id, profile)
 	return profile, nil
+}
+
+func (c *ProfileCache) GetCombatDefenseContract(ctx context.Context, id string) (postgres.CombatDefenseContract, error) {
+	if value, ok := getCached(&c.mu, c.combatDefenseContracts, id, c.isExpired); ok {
+		return value, nil
+	}
+
+	contract, err := c.repository.GetCombatDefenseContractByID(ctx, id)
+	if err != nil {
+		return postgres.CombatDefenseContract{}, err
+	}
+
+	setCached(&c.mu, c.combatDefenseContracts, id, contract)
+	return contract, nil
 }
 
 func (c *ProfileCache) GetMovementActionContract(ctx context.Context, id string) (postgres.MovementActionContract, error) {
@@ -273,6 +289,16 @@ func (c *ProfileCache) ReloadCombatCoreProfile(ctx context.Context, id string) (
 	return profile, nil
 }
 
+func (c *ProfileCache) ReloadCombatDefenseContract(ctx context.Context, id string) (postgres.CombatDefenseContract, error) {
+	contract, err := c.repository.GetCombatDefenseContractByID(ctx, id)
+	if err != nil {
+		return postgres.CombatDefenseContract{}, err
+	}
+
+	setCached(&c.mu, c.combatDefenseContracts, id, contract)
+	return contract, nil
+}
+
 func (c *ProfileCache) ReloadCombatStyleProfile(ctx context.Context, id string) (postgres.CombatStyleProfile, error) {
 	profile, err := c.repository.GetCombatStyleProfileByID(ctx, id)
 	if err != nil {
@@ -330,6 +356,7 @@ func (c *ProfileCache) InvalidateProfile(id string) {
 	delete(c.spawnProfiles, id)
 	delete(c.movementProfiles, id)
 	delete(c.combatCoreProfiles, id)
+	delete(c.combatDefenseContracts, id)
 	delete(c.movementActions, id)
 	delete(c.reconciliation, id)
 	delete(c.creatureBehaviors, id)
@@ -349,6 +376,7 @@ func (c *ProfileCache) Clear() {
 	c.spawnProfiles = make(map[string]cacheEntry[postgres.SpawnProfile])
 	c.movementProfiles = make(map[string]cacheEntry[postgres.MovementProfile])
 	c.combatCoreProfiles = make(map[string]cacheEntry[postgres.CombatCoreProfile])
+	c.combatDefenseContracts = make(map[string]cacheEntry[postgres.CombatDefenseContract])
 	c.movementActions = make(map[string]cacheEntry[postgres.MovementActionContract])
 	c.reconciliation = make(map[string]cacheEntry[postgres.MovementReconciliationContract])
 	c.creatureBehaviors = make(map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract])

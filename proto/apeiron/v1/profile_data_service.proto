@@ -9,6 +9,7 @@ import "apeiron/v1/common.proto";
 service ProfileDataService {
   rpc GetMovementProfile(IdRequest) returns (MovementProfileResponse);
   rpc GetCombatCoreProfile(IdRequest) returns (CombatCoreProfileResponse);
+  rpc GetCombatDefenseContract(IdRequest) returns (CombatDefenseContractResponse);
   rpc GetMovementActionContract(IdRequest) returns (MovementActionContractResponse);
   rpc GetMovementReconciliationContract(IdRequest) returns (MovementReconciliationContractResponse);
   rpc GetCreatureBehaviorRuntimeContract(IdRequest) returns (CreatureBehaviorRuntimeContractResponse);
@@ -25,6 +26,12 @@ message MovementProfileResponse {
 message CombatCoreProfileResponse {
   bool found = 1;
   CombatCoreProfile profile = 2;
+  string error = 3;
+}
+
+message CombatDefenseContractResponse {
+  bool found = 1;
+  CombatDefenseContract contract = 2;
   string error = 3;
 }
 

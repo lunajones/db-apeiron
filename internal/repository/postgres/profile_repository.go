@@ -194,6 +194,53 @@ func (r *ProfileRepository) GetCombatCoreProfileByID(ctx context.Context, id str
 	return p, err
 }
 
+func (r *ProfileRepository) GetCombatDefenseContractByID(ctx context.Context, id string) (CombatDefenseContract, error) {
+	var c CombatDefenseContract
+
+	err := r.db.QueryRow(ctx, `
+		SELECT
+			id,
+			name,
+			description,
+			defense_type,
+			frontal_arc_deg,
+			defender_margin_left_ratio,
+			defender_margin_right_ratio,
+			stamina_damage_only_on_block,
+			health_damage_on_unblocked_hit,
+			posture_damage_on_block,
+			perfect_block_window_ms,
+			parry_window_ms,
+			guard_damage_multiplier,
+			block_stamina_drain_per_second,
+			metadata::text,
+			created_at,
+			updated_at
+		FROM apeiron.combat_defense_contract
+		WHERE id = $1
+	`, id).Scan(
+		&c.ID,
+		&c.Name,
+		&c.Description,
+		&c.DefenseType,
+		&c.FrontalArcDeg,
+		&c.DefenderMarginLeftRatio,
+		&c.DefenderMarginRightRatio,
+		&c.StaminaDamageOnlyOnBlock,
+		&c.HealthDamageOnUnblockedHit,
+		&c.PostureDamageOnBlock,
+		&c.PerfectBlockWindowMS,
+		&c.ParryWindowMS,
+		&c.GuardDamageMultiplier,
+		&c.BlockStaminaDrainPerSecond,
+		&c.MetadataJSON,
+		&c.CreatedAt,
+		&c.UpdatedAt,
+	)
+
+	return c, err
+}
+
 func (r *ProfileRepository) GetCombatStyleProfileByID(ctx context.Context, id string) (CombatStyleProfile, error) {
 	var p CombatStyleProfile
 
@@ -581,6 +628,32 @@ type CombatCoreProfile struct {
 
 	IsBoss      bool
 	IsPVPImmune bool
+
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type CombatDefenseContract struct {
+	ID string
+
+	Name        string
+	Description string
+	DefenseType string
+
+	FrontalArcDeg            float64
+	DefenderMarginLeftRatio  float64
+	DefenderMarginRightRatio float64
+
+	StaminaDamageOnlyOnBlock   bool
+	HealthDamageOnUnblockedHit bool
+	PostureDamageOnBlock       bool
+
+	PerfectBlockWindowMS int
+	ParryWindowMS        int
+
+	GuardDamageMultiplier      float64
+	BlockStaminaDrainPerSecond float64
+	MetadataJSON               string
 
 	CreatedAt time.Time
 	UpdatedAt time.Time
