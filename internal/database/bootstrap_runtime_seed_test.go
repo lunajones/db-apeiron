@@ -75,7 +75,7 @@ func TestBootstrapSeedsCoverTemporalHitboxesForCombatRuntime(t *testing.T) {
 func TestBootstrapSeedsCoverCurrentSwordShieldCombatModes(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	requiredSlots := []string{
-		"('mode_sword_shield_vanguard','M1','player_basic_attack_1'",
+		"('mode_sword_shield_vanguard','M1',NULL,FALSE,FALSE,FALSE",
 		"('mode_sword_shield_bulwark','M1','player_basic_attack_1'",
 		"('mode_sword_shield_bulwark','R','player_shield_bash'",
 		"('mode_sword_shield_bulwark','F','player_shield_rush'",
@@ -111,6 +111,7 @@ func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T
 func TestBootstrapSeedsKeepUnimplementedVanguardSlotsEmpty(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	requiredEmptySlots := []string{
+		"('mode_sword_shield_vanguard','M1',NULL,FALSE,FALSE,FALSE",
 		"('mode_sword_shield_vanguard','Q',NULL,FALSE,FALSE,FALSE",
 		"('mode_sword_shield_vanguard','R',NULL,FALSE,FALSE,FALSE",
 		"('mode_sword_shield_vanguard','F',NULL,FALSE,FALSE,FALSE",
@@ -121,6 +122,7 @@ func TestBootstrapSeedsKeepUnimplementedVanguardSlotsEmpty(t *testing.T) {
 		}
 	}
 	for _, forbidden := range []string{
+		"('mode_sword_shield_vanguard','M1','player_",
 		"('mode_sword_shield_vanguard','Q','player_",
 		"('mode_sword_shield_vanguard','R','player_",
 		"('mode_sword_shield_vanguard','F','player_",

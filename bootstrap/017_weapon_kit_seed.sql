@@ -44,7 +44,7 @@ INSERT INTO apeiron.weapon_combat_mode_skill_slot (
     combat_mode_id, input_slot, skill_id, is_basic_attack, is_fatality, is_enabled, metadata
 )
 VALUES
-('mode_sword_shield_vanguard','M1','player_basic_attack_1',TRUE,FALSE,TRUE,'{"comboGroup":"sword_shield_light_combo"}'),
+('mode_sword_shield_vanguard','M1',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_vanguard','Q',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_vanguard','R',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_vanguard','F',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
