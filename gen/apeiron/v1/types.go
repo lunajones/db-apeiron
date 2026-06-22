@@ -1,9 +1,4 @@
-package v1
-
-type OperationResult struct {
-	Success bool
-	Message string
-}
+package apeironv1
 
 type Skill struct {
 	Id                  string
@@ -635,10 +630,6 @@ func (e *SkillControlEffect) GetReleasePolicyId() string {
 		return ""
 	}
 	return e.ReleasePolicyId
-}
-
-type CreatureTemplate struct {
-	Id string
 }
 
 type ItemTemplate struct {
