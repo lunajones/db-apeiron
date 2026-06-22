@@ -22,6 +22,8 @@ type SkillCache struct {
 	hitboxProfiles     map[string]cacheEntry[[]postgres.SkillHitboxProfile]
 	areaEffectProfiles map[string]cacheEntry[postgres.SkillAreaEffectProfile]
 	movementEffects    map[string]cacheEntry[postgres.SkillMovementEffect]
+	actionTimings      map[string]cacheEntry[postgres.SkillActionTimingContract]
+	movementBindings   map[string]cacheEntry[postgres.SkillMovementActionBinding]
 	impactProfiles     map[string]cacheEntry[postgres.SkillImpactProfile]
 
 	mu sync.RWMutex
@@ -44,6 +46,8 @@ func NewSkillCacheWithTTL(repository *postgres.SkillRepository, ttl time.Duratio
 		hitboxProfiles:     make(map[string]cacheEntry[[]postgres.SkillHitboxProfile]),
 		areaEffectProfiles: make(map[string]cacheEntry[postgres.SkillAreaEffectProfile]),
 		movementEffects:    make(map[string]cacheEntry[postgres.SkillMovementEffect]),
+		actionTimings:      make(map[string]cacheEntry[postgres.SkillActionTimingContract]),
+		movementBindings:   make(map[string]cacheEntry[postgres.SkillMovementActionBinding]),
 		impactProfiles:     make(map[string]cacheEntry[postgres.SkillImpactProfile]),
 	}
 }
@@ -160,6 +164,34 @@ func (c *SkillCache) GetMovementEffect(ctx context.Context, skillID string) (pos
 	return effect, nil
 }
 
+func (c *SkillCache) GetSkillActionTiming(ctx context.Context, skillID string) (postgres.SkillActionTimingContract, error) {
+	if value, ok := getCached(&c.mu, c.actionTimings, skillID, c.isExpired); ok {
+		return value, nil
+	}
+
+	timing, err := c.repository.GetSkillActionTimingBySkillID(ctx, skillID)
+	if err != nil {
+		return postgres.SkillActionTimingContract{}, err
+	}
+
+	setCached(&c.mu, c.actionTimings, skillID, timing)
+	return timing, nil
+}
+
+func (c *SkillCache) GetSkillMovementActionBinding(ctx context.Context, skillID string) (postgres.SkillMovementActionBinding, error) {
+	if value, ok := getCached(&c.mu, c.movementBindings, skillID, c.isExpired); ok {
+		return value, nil
+	}
+
+	binding, err := c.repository.GetSkillMovementActionBindingBySkillID(ctx, skillID)
+	if err != nil {
+		return postgres.SkillMovementActionBinding{}, err
+	}
+
+	setCached(&c.mu, c.movementBindings, skillID, binding)
+	return binding, nil
+}
+
 func (c *SkillCache) GetImpactProfile(ctx context.Context, skillID string) (postgres.SkillImpactProfile, error) {
 	if value, ok := getCached(&c.mu, c.impactProfiles, skillID, c.isExpired); ok {
 		return value, nil
@@ -233,6 +265,8 @@ func (c *SkillCache) InvalidateSkill(id string) {
 	delete(c.hitboxProfiles, id)
 	delete(c.areaEffectProfiles, id)
 	delete(c.movementEffects, id)
+	delete(c.actionTimings, id)
+	delete(c.movementBindings, id)
 	delete(c.impactProfiles, id)
 }
 
@@ -257,6 +291,8 @@ func (c *SkillCache) Clear() {
 	c.hitboxProfiles = make(map[string]cacheEntry[[]postgres.SkillHitboxProfile])
 	c.areaEffectProfiles = make(map[string]cacheEntry[postgres.SkillAreaEffectProfile])
 	c.movementEffects = make(map[string]cacheEntry[postgres.SkillMovementEffect])
+	c.actionTimings = make(map[string]cacheEntry[postgres.SkillActionTimingContract])
+	c.movementBindings = make(map[string]cacheEntry[postgres.SkillMovementActionBinding])
 	c.impactProfiles = make(map[string]cacheEntry[postgres.SkillImpactProfile])
 }
 

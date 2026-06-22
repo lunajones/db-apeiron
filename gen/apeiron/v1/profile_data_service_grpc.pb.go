@@ -19,8 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProfileDataService_GetMovementProfile_FullMethodName   = "/apeiron.v1.ProfileDataService/GetMovementProfile"
-	ProfileDataService_GetCombatCoreProfile_FullMethodName = "/apeiron.v1.ProfileDataService/GetCombatCoreProfile"
+	ProfileDataService_GetMovementProfile_FullMethodName                 = "/apeiron.v1.ProfileDataService/GetMovementProfile"
+	ProfileDataService_GetCombatCoreProfile_FullMethodName               = "/apeiron.v1.ProfileDataService/GetCombatCoreProfile"
+	ProfileDataService_GetMovementActionContract_FullMethodName          = "/apeiron.v1.ProfileDataService/GetMovementActionContract"
+	ProfileDataService_GetMovementReconciliationContract_FullMethodName  = "/apeiron.v1.ProfileDataService/GetMovementReconciliationContract"
+	ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName = "/apeiron.v1.ProfileDataService/GetCreatureBehaviorRuntimeContract"
+	ProfileDataService_GetCreatureEvasionPolicies_FullMethodName         = "/apeiron.v1.ProfileDataService/GetCreatureEvasionPolicies"
+	ProfileDataService_GetCreatureSkillSetupPolicies_FullMethodName      = "/apeiron.v1.ProfileDataService/GetCreatureSkillSetupPolicies"
 )
 
 // ProfileDataServiceClient is the client API for ProfileDataService service.
@@ -29,6 +34,11 @@ const (
 type ProfileDataServiceClient interface {
 	GetMovementProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementProfileResponse, error)
 	GetCombatCoreProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatCoreProfileResponse, error)
+	GetMovementActionContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementActionContractResponse, error)
+	GetMovementReconciliationContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementReconciliationContractResponse, error)
+	GetCreatureBehaviorRuntimeContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureBehaviorRuntimeContractResponse, error)
+	GetCreatureEvasionPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureEvasionPoliciesResponse, error)
+	GetCreatureSkillSetupPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureSkillSetupPoliciesResponse, error)
 }
 
 type profileDataServiceClient struct {
@@ -59,12 +69,67 @@ func (c *profileDataServiceClient) GetCombatCoreProfile(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *profileDataServiceClient) GetMovementActionContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementActionContractResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MovementActionContractResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetMovementActionContract_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetMovementReconciliationContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementReconciliationContractResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MovementReconciliationContractResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetMovementReconciliationContract_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCreatureBehaviorRuntimeContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureBehaviorRuntimeContractResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureBehaviorRuntimeContractResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCreatureEvasionPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureEvasionPoliciesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureEvasionPoliciesResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureEvasionPolicies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCreatureSkillSetupPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureSkillSetupPoliciesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureSkillSetupPoliciesResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureSkillSetupPolicies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProfileDataServiceServer is the server API for ProfileDataService service.
 // All implementations must embed UnimplementedProfileDataServiceServer
 // for forward compatibility.
 type ProfileDataServiceServer interface {
 	GetMovementProfile(context.Context, *IdRequest) (*MovementProfileResponse, error)
 	GetCombatCoreProfile(context.Context, *IdRequest) (*CombatCoreProfileResponse, error)
+	GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error)
+	GetMovementReconciliationContract(context.Context, *IdRequest) (*MovementReconciliationContractResponse, error)
+	GetCreatureBehaviorRuntimeContract(context.Context, *IdRequest) (*CreatureBehaviorRuntimeContractResponse, error)
+	GetCreatureEvasionPolicies(context.Context, *IdRequest) (*CreatureEvasionPoliciesResponse, error)
+	GetCreatureSkillSetupPolicies(context.Context, *IdRequest) (*CreatureSkillSetupPoliciesResponse, error)
 	mustEmbedUnimplementedProfileDataServiceServer()
 }
 
@@ -80,6 +145,21 @@ func (UnimplementedProfileDataServiceServer) GetMovementProfile(context.Context,
 }
 func (UnimplementedProfileDataServiceServer) GetCombatCoreProfile(context.Context, *IdRequest) (*CombatCoreProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCombatCoreProfile not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMovementActionContract not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetMovementReconciliationContract(context.Context, *IdRequest) (*MovementReconciliationContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMovementReconciliationContract not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureBehaviorRuntimeContract(context.Context, *IdRequest) (*CreatureBehaviorRuntimeContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureBehaviorRuntimeContract not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureEvasionPolicies(context.Context, *IdRequest) (*CreatureEvasionPoliciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureEvasionPolicies not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureSkillSetupPolicies(context.Context, *IdRequest) (*CreatureSkillSetupPoliciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureSkillSetupPolicies not implemented")
 }
 func (UnimplementedProfileDataServiceServer) mustEmbedUnimplementedProfileDataServiceServer() {}
 func (UnimplementedProfileDataServiceServer) testEmbeddedByValue()                            {}
@@ -138,6 +218,96 @@ func _ProfileDataService_GetCombatCoreProfile_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProfileDataService_GetMovementActionContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetMovementActionContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetMovementActionContract_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetMovementActionContract(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetMovementReconciliationContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetMovementReconciliationContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetMovementReconciliationContract_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetMovementReconciliationContract(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCreatureBehaviorRuntimeContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureBehaviorRuntimeContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureBehaviorRuntimeContract(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCreatureEvasionPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureEvasionPolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureEvasionPolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureEvasionPolicies(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCreatureSkillSetupPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureSkillSetupPolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureSkillSetupPolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureSkillSetupPolicies(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProfileDataService_ServiceDesc is the grpc.ServiceDesc for ProfileDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +322,26 @@ var ProfileDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCombatCoreProfile",
 			Handler:    _ProfileDataService_GetCombatCoreProfile_Handler,
+		},
+		{
+			MethodName: "GetMovementActionContract",
+			Handler:    _ProfileDataService_GetMovementActionContract_Handler,
+		},
+		{
+			MethodName: "GetMovementReconciliationContract",
+			Handler:    _ProfileDataService_GetMovementReconciliationContract_Handler,
+		},
+		{
+			MethodName: "GetCreatureBehaviorRuntimeContract",
+			Handler:    _ProfileDataService_GetCreatureBehaviorRuntimeContract_Handler,
+		},
+		{
+			MethodName: "GetCreatureEvasionPolicies",
+			Handler:    _ProfileDataService_GetCreatureEvasionPolicies_Handler,
+		},
+		{
+			MethodName: "GetCreatureSkillSetupPolicies",
+			Handler:    _ProfileDataService_GetCreatureSkillSetupPolicies_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

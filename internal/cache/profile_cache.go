@@ -21,6 +21,11 @@ type ProfileCache struct {
 
 	movementProfiles      map[string]cacheEntry[postgres.MovementProfile]
 	combatCoreProfiles    map[string]cacheEntry[postgres.CombatCoreProfile]
+	movementActions       map[string]cacheEntry[postgres.MovementActionContract]
+	reconciliation        map[string]cacheEntry[postgres.MovementReconciliationContract]
+	creatureBehaviors     map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]
+	creatureEvasion       map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]
+	creatureSkillSetups   map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]
 	combatStyleProfiles   map[string]cacheEntry[postgres.CombatStyleProfile]
 	needsProfiles         map[string]cacheEntry[postgres.NeedsProfile]
 	aiPersonalityProfiles map[string]cacheEntry[postgres.AIPersonalityProfile]
@@ -42,6 +47,11 @@ func NewProfileCacheWithTTL(repository *postgres.ProfileRepository, ttl time.Dur
 
 		movementProfiles:      make(map[string]cacheEntry[postgres.MovementProfile]),
 		combatCoreProfiles:    make(map[string]cacheEntry[postgres.CombatCoreProfile]),
+		movementActions:       make(map[string]cacheEntry[postgres.MovementActionContract]),
+		reconciliation:        make(map[string]cacheEntry[postgres.MovementReconciliationContract]),
+		creatureBehaviors:     make(map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract]),
+		creatureEvasion:       make(map[string]cacheEntry[[]postgres.CreatureEvasionPolicy]),
+		creatureSkillSetups:   make(map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy]),
 		combatStyleProfiles:   make(map[string]cacheEntry[postgres.CombatStyleProfile]),
 		needsProfiles:         make(map[string]cacheEntry[postgres.NeedsProfile]),
 		aiPersonalityProfiles: make(map[string]cacheEntry[postgres.AIPersonalityProfile]),
@@ -91,6 +101,76 @@ func (c *ProfileCache) GetCombatCoreProfile(ctx context.Context, id string) (pos
 
 	setCached(&c.mu, c.combatCoreProfiles, id, profile)
 	return profile, nil
+}
+
+func (c *ProfileCache) GetMovementActionContract(ctx context.Context, id string) (postgres.MovementActionContract, error) {
+	if value, ok := getCached(&c.mu, c.movementActions, id, c.isExpired); ok {
+		return value, nil
+	}
+
+	contract, err := c.repository.GetMovementActionContractByID(ctx, id)
+	if err != nil {
+		return postgres.MovementActionContract{}, err
+	}
+
+	setCached(&c.mu, c.movementActions, id, contract)
+	return contract, nil
+}
+
+func (c *ProfileCache) GetMovementReconciliationContract(ctx context.Context, id string) (postgres.MovementReconciliationContract, error) {
+	if value, ok := getCached(&c.mu, c.reconciliation, id, c.isExpired); ok {
+		return value, nil
+	}
+
+	contract, err := c.repository.GetMovementReconciliationContractByID(ctx, id)
+	if err != nil {
+		return postgres.MovementReconciliationContract{}, err
+	}
+
+	setCached(&c.mu, c.reconciliation, id, contract)
+	return contract, nil
+}
+
+func (c *ProfileCache) GetCreatureBehaviorRuntimeContract(ctx context.Context, id string) (postgres.CreatureBehaviorRuntimeContract, error) {
+	if value, ok := getCached(&c.mu, c.creatureBehaviors, id, c.isExpired); ok {
+		return value, nil
+	}
+
+	contract, err := c.repository.GetCreatureBehaviorRuntimeContractByID(ctx, id)
+	if err != nil {
+		return postgres.CreatureBehaviorRuntimeContract{}, err
+	}
+
+	setCached(&c.mu, c.creatureBehaviors, id, contract)
+	return contract, nil
+}
+
+func (c *ProfileCache) GetCreatureEvasionPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureEvasionPolicy, error) {
+	if value, ok := getCached(&c.mu, c.creatureEvasion, behaviorContractID, c.isExpired); ok {
+		return value, nil
+	}
+
+	policies, err := c.repository.GetCreatureEvasionPoliciesByBehaviorContractID(ctx, behaviorContractID)
+	if err != nil {
+		return nil, err
+	}
+
+	setCached(&c.mu, c.creatureEvasion, behaviorContractID, policies)
+	return policies, nil
+}
+
+func (c *ProfileCache) GetCreatureSkillSetupPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureSkillSetupPolicy, error) {
+	if value, ok := getCached(&c.mu, c.creatureSkillSetups, behaviorContractID, c.isExpired); ok {
+		return value, nil
+	}
+
+	policies, err := c.repository.GetCreatureSkillSetupPoliciesByBehaviorContractID(ctx, behaviorContractID)
+	if err != nil {
+		return nil, err
+	}
+
+	setCached(&c.mu, c.creatureSkillSetups, behaviorContractID, policies)
+	return policies, nil
 }
 
 func (c *ProfileCache) GetCombatStyleProfile(ctx context.Context, id string) (postgres.CombatStyleProfile, error) {
@@ -250,6 +330,11 @@ func (c *ProfileCache) InvalidateProfile(id string) {
 	delete(c.spawnProfiles, id)
 	delete(c.movementProfiles, id)
 	delete(c.combatCoreProfiles, id)
+	delete(c.movementActions, id)
+	delete(c.reconciliation, id)
+	delete(c.creatureBehaviors, id)
+	delete(c.creatureEvasion, id)
+	delete(c.creatureSkillSetups, id)
 	delete(c.combatStyleProfiles, id)
 	delete(c.needsProfiles, id)
 	delete(c.aiPersonalityProfiles, id)
@@ -264,6 +349,11 @@ func (c *ProfileCache) Clear() {
 	c.spawnProfiles = make(map[string]cacheEntry[postgres.SpawnProfile])
 	c.movementProfiles = make(map[string]cacheEntry[postgres.MovementProfile])
 	c.combatCoreProfiles = make(map[string]cacheEntry[postgres.CombatCoreProfile])
+	c.movementActions = make(map[string]cacheEntry[postgres.MovementActionContract])
+	c.reconciliation = make(map[string]cacheEntry[postgres.MovementReconciliationContract])
+	c.creatureBehaviors = make(map[string]cacheEntry[postgres.CreatureBehaviorRuntimeContract])
+	c.creatureEvasion = make(map[string]cacheEntry[[]postgres.CreatureEvasionPolicy])
+	c.creatureSkillSetups = make(map[string]cacheEntry[[]postgres.CreatureSkillSetupPolicy])
 	c.combatStyleProfiles = make(map[string]cacheEntry[postgres.CombatStyleProfile])
 	c.needsProfiles = make(map[string]cacheEntry[postgres.NeedsProfile])
 	c.aiPersonalityProfiles = make(map[string]cacheEntry[postgres.AIPersonalityProfile])

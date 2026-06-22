@@ -9,6 +9,11 @@ import "apeiron/v1/common.proto";
 service ProfileDataService {
   rpc GetMovementProfile(IdRequest) returns (MovementProfileResponse);
   rpc GetCombatCoreProfile(IdRequest) returns (CombatCoreProfileResponse);
+  rpc GetMovementActionContract(IdRequest) returns (MovementActionContractResponse);
+  rpc GetMovementReconciliationContract(IdRequest) returns (MovementReconciliationContractResponse);
+  rpc GetCreatureBehaviorRuntimeContract(IdRequest) returns (CreatureBehaviorRuntimeContractResponse);
+  rpc GetCreatureEvasionPolicies(IdRequest) returns (CreatureEvasionPoliciesResponse);
+  rpc GetCreatureSkillSetupPolicies(IdRequest) returns (CreatureSkillSetupPoliciesResponse);
 }
 
 message MovementProfileResponse {
@@ -20,5 +25,35 @@ message MovementProfileResponse {
 message CombatCoreProfileResponse {
   bool found = 1;
   CombatCoreProfile profile = 2;
+  string error = 3;
+}
+
+message MovementActionContractResponse {
+  bool found = 1;
+  MovementActionContract contract = 2;
+  string error = 3;
+}
+
+message MovementReconciliationContractResponse {
+  bool found = 1;
+  MovementReconciliationContract contract = 2;
+  string error = 3;
+}
+
+message CreatureBehaviorRuntimeContractResponse {
+  bool found = 1;
+  CreatureBehaviorRuntimeContract contract = 2;
+  string error = 3;
+}
+
+message CreatureEvasionPoliciesResponse {
+  bool found = 1;
+  repeated CreatureEvasionPolicy policies = 2;
+  string error = 3;
+}
+
+message CreatureSkillSetupPoliciesResponse {
+  bool found = 1;
+  repeated CreatureSkillSetupPolicy policies = 2;
   string error = 3;
 }

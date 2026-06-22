@@ -11,6 +11,8 @@ service SkillDataService {
   rpc GetSkillSet(IdRequest) returns (SkillSetResponse);
   rpc GetSkillSetLoadout(IdRequest) returns (SkillSetLoadoutResponse);
   rpc GetSkillMovementEffect(IdRequest) returns (SkillMovementEffectResponse);
+  rpc GetSkillActionTiming(IdRequest) returns (SkillActionTimingResponse);
+  rpc GetSkillMovementActionBinding(IdRequest) returns (SkillMovementActionBindingResponse);
   rpc GetSkillHitboxProfiles(IdRequest) returns (SkillHitboxProfilesResponse);
   rpc GetSkillImpactProfile(IdRequest) returns (SkillImpactProfileResponse);
 }
@@ -36,6 +38,18 @@ message SkillSetLoadoutResponse {
 message SkillMovementEffectResponse {
   bool found = 1;
   SkillMovementProfile profile = 2;
+  string error = 3;
+}
+
+message SkillActionTimingResponse {
+  bool found = 1;
+  SkillActionTimingContract contract = 2;
+  string error = 3;
+}
+
+message SkillMovementActionBindingResponse {
+  bool found = 1;
+  SkillMovementActionBinding binding = 2;
   string error = 3;
 }
 

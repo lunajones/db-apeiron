@@ -605,6 +605,87 @@ func (r *SkillRepository) GetMovementEffectBySkillID(ctx context.Context, skillI
 	return effect, err
 }
 
+func (r *SkillRepository) GetSkillActionTimingBySkillID(ctx context.Context, skillID string) (SkillActionTimingContract, error) {
+	var timing SkillActionTimingContract
+
+	err := r.db.QueryRow(ctx, `
+		SELECT
+			skill_id,
+			windup_ms,
+			active_ms,
+			recovery_ms,
+			cooldown_ms,
+			combo_window_ms,
+			movement_lock_policy,
+			queue_policy,
+			cancel_policy,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.skill_action_timing
+		WHERE skill_id = $1
+	`, skillID).Scan(
+		&timing.SkillID,
+		&timing.WindupMS,
+		&timing.ActiveMS,
+		&timing.RecoveryMS,
+		&timing.CooldownMS,
+		&timing.ComboWindowMS,
+		&timing.MovementLockPolicy,
+		&timing.QueuePolicy,
+		&timing.CancelPolicy,
+		&timing.MetadataJSON,
+		&timing.CreatedAt,
+		&timing.UpdatedAt,
+	)
+
+	return timing, err
+}
+
+func (r *SkillRepository) GetSkillMovementActionBindingBySkillID(ctx context.Context, skillID string) (SkillMovementActionBinding, error) {
+	var binding SkillMovementActionBinding
+
+	err := r.db.QueryRow(ctx, `
+		SELECT
+			skill_id,
+			movement_action_contract_id,
+			starts_at_phase,
+			handoff_policy,
+			normal_input_policy,
+			target_policy,
+			contact_policy,
+			is_enabled,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.skill_movement_action_binding
+		WHERE skill_id = $1
+	`, skillID).Scan(
+		&binding.SkillID,
+		&binding.MovementActionContractID,
+		&binding.StartsAtPhase,
+		&binding.HandoffPolicy,
+		&binding.NormalInputPolicy,
+		&binding.TargetPolicy,
+		&binding.ContactPolicy,
+		&binding.IsEnabled,
+		&binding.MetadataJSON,
+		&binding.CreatedAt,
+		&binding.UpdatedAt,
+	)
+	if err != nil {
+		return binding, err
+	}
+
+	contract, err := getMovementActionContractByID(ctx, r.db, binding.MovementActionContractID)
+	if err != nil {
+		return binding, err
+	}
+	binding.MovementActionContract = contract
+
+	return binding, nil
+}
+
 func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID string) (SkillImpactProfile, error) {
 	var i SkillImpactProfile
 
@@ -930,6 +1011,42 @@ type SkillMovementEffect struct {
 
 	CanRotate        bool
 	IgnoresCollision bool
+
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type SkillActionTimingContract struct {
+	SkillID string
+
+	WindupMS      int
+	ActiveMS      int
+	RecoveryMS    int
+	CooldownMS    int
+	ComboWindowMS int
+
+	MovementLockPolicy string
+	QueuePolicy        string
+	CancelPolicy       string
+	MetadataJSON       string
+
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type SkillMovementActionBinding struct {
+	SkillID string
+
+	MovementActionContractID string
+	StartsAtPhase            string
+	HandoffPolicy            string
+	NormalInputPolicy        string
+	TargetPolicy             string
+	ContactPolicy            string
+	IsEnabled                bool
+	MetadataJSON             string
+
+	MovementActionContract MovementActionContract
 
 	CreatedAt time.Time
 	UpdatedAt time.Time

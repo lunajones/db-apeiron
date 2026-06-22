@@ -12,6 +12,8 @@ type SkillReader interface {
 	GetSkillSet(ctx context.Context, id string) (postgres.SkillSet, error)
 	GetSkillSetLoadout(ctx context.Context, skillSetID string) ([]postgres.SkillLoadoutItem, error)
 	GetMovementEffect(ctx context.Context, skillID string) (postgres.SkillMovementEffect, error)
+	GetSkillActionTiming(ctx context.Context, skillID string) (postgres.SkillActionTimingContract, error)
+	GetSkillMovementActionBinding(ctx context.Context, skillID string) (postgres.SkillMovementActionBinding, error)
 	GetHitboxProfiles(ctx context.Context, skillID string) ([]postgres.SkillHitboxProfile, error)
 	GetImpactProfile(ctx context.Context, skillID string) (postgres.SkillImpactProfile, error)
 }
@@ -68,6 +70,24 @@ func (h *SkillDataHandler) GetSkillMovementEffect(ctx context.Context, req *apei
 	}
 
 	return &apeironv1.SkillMovementEffectResponse{Found: true, Profile: mapSkillMovementEffect(effect)}, nil
+}
+
+func (h *SkillDataHandler) GetSkillActionTiming(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillActionTimingResponse, error) {
+	contract, err := h.skills.GetSkillActionTiming(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillActionTimingResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillActionTimingResponse{Found: true, Contract: mapSkillActionTimingContract(contract)}, nil
+}
+
+func (h *SkillDataHandler) GetSkillMovementActionBinding(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillMovementActionBindingResponse, error) {
+	binding, err := h.skills.GetSkillMovementActionBinding(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillMovementActionBindingResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillMovementActionBindingResponse{Found: true, Binding: mapSkillMovementActionBinding(binding)}, nil
 }
 
 func (h *SkillDataHandler) GetSkillHitboxProfiles(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillHitboxProfilesResponse, error) {
@@ -203,6 +223,36 @@ func legacyMovementSteeringPolicy(e postgres.SkillMovementEffect) string {
 		return "can_rotate"
 	}
 	return "locked_facing"
+}
+
+func mapSkillActionTimingContract(c postgres.SkillActionTimingContract) *apeironv1.SkillActionTimingContract {
+	return &apeironv1.SkillActionTimingContract{
+		SkillId:            c.SkillID,
+		WindupMs:           int32(c.WindupMS),
+		ActiveMs:           int32(c.ActiveMS),
+		RecoveryMs:         int32(c.RecoveryMS),
+		CooldownMs:         int32(c.CooldownMS),
+		ComboWindowMs:      int32(c.ComboWindowMS),
+		MovementLockPolicy: c.MovementLockPolicy,
+		QueuePolicy:        c.QueuePolicy,
+		CancelPolicy:       c.CancelPolicy,
+		MetadataJson:       c.MetadataJSON,
+	}
+}
+
+func mapSkillMovementActionBinding(b postgres.SkillMovementActionBinding) *apeironv1.SkillMovementActionBinding {
+	return &apeironv1.SkillMovementActionBinding{
+		SkillId:                  b.SkillID,
+		MovementActionContractId: b.MovementActionContractID,
+		StartsAtPhase:            b.StartsAtPhase,
+		HandoffPolicy:            b.HandoffPolicy,
+		NormalInputPolicy:        b.NormalInputPolicy,
+		TargetPolicy:             b.TargetPolicy,
+		ContactPolicy:            b.ContactPolicy,
+		IsEnabled:                b.IsEnabled,
+		MetadataJson:             b.MetadataJSON,
+		MovementActionContract:   mapMovementActionContract(b.MovementActionContract),
+	}
 }
 
 func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpactProfile {
