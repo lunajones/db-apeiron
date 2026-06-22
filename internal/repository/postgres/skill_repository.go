@@ -469,6 +469,8 @@ func (r *SkillRepository) GetHitboxProfilesBySkillID(ctx context.Context, skillI
 			max_hits_per_target,
 			hit_interval_ms,
 			friendly_fire,
+			motion_profile_id,
+			damage_group_id,
 			created_at,
 			updated_at
 		FROM apeiron.skill_hitbox_profile
@@ -507,16 +509,103 @@ func (r *SkillRepository) GetHitboxProfilesBySkillID(ctx context.Context, skillI
 			&h.MaxHitsPerTarget,
 			&h.HitIntervalMS,
 			&h.FriendlyFire,
+			&h.MotionProfileID,
+			&h.DamageGroupID,
 			&h.CreatedAt,
 			&h.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
 
+		if h.MotionProfileID.Valid {
+			motionProfile, err := r.getHitboxMotionProfile(ctx, h.MotionProfileID.String, h.DamageGroupID)
+			if err != nil {
+				return nil, err
+			}
+			h.MotionProfile = &motionProfile
+		}
+
 		out = append(out, h)
 	}
 
 	return out, rows.Err()
+}
+
+func (r *SkillRepository) getHitboxMotionProfile(ctx context.Context, id string, damageGroupID sql.NullString) (SkillHitboxMotionProfile, error) {
+	var profile SkillHitboxMotionProfile
+	profile.DamageGroupID = damageGroupID
+
+	err := r.db.QueryRow(ctx, `
+		SELECT
+			id,
+			motion_type,
+			time_basis
+		FROM apeiron.skill_hitbox_motion_profile
+		WHERE id = $1
+	`, id).Scan(
+		&profile.ID,
+		&profile.MotionType,
+		&profile.TimeBasis,
+	)
+	if err != nil {
+		return profile, err
+	}
+
+	rows, err := r.db.Query(ctx, `
+		SELECT
+			sample_index,
+			t,
+			shape,
+			offset_x,
+			offset_y,
+			offset_z,
+			size_x,
+			size_y,
+			size_z,
+			radius,
+			length,
+			min_angle_deg,
+			max_angle_deg
+		FROM apeiron.skill_hitbox_motion_sample
+		WHERE motion_profile_id = $1
+		ORDER BY sample_index ASC
+	`, id)
+	if err != nil {
+		return profile, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var sample SkillHitboxMotionSample
+		if err := rows.Scan(
+			&sample.SampleIndex,
+			&sample.T,
+			&sample.Shape,
+			&sample.OffsetX,
+			&sample.OffsetY,
+			&sample.OffsetZ,
+			&sample.SizeX,
+			&sample.SizeY,
+			&sample.SizeZ,
+			&sample.Radius,
+			&sample.Length,
+			&sample.StartAngleDeg,
+			&sample.EndAngleDeg,
+		); err != nil {
+			return profile, err
+		}
+		if profile.SweepShape == "" {
+			profile.SweepShape = sample.Shape
+		}
+		profile.Samples = append(profile.Samples, sample)
+	}
+	if err := rows.Err(); err != nil {
+		return profile, err
+	}
+
+	profile.Enabled = len(profile.Samples) > 0
+	profile.Interpolation = "linear"
+	return profile, nil
 }
 
 func (r *SkillRepository) GetAreaEffectProfileBySkillID(ctx context.Context, skillID string) (SkillAreaEffectProfile, error) {
@@ -963,8 +1052,39 @@ type SkillHitboxProfile struct {
 
 	FriendlyFire bool
 
+	MotionProfileID sql.NullString
+	DamageGroupID   sql.NullString
+	MotionProfile   *SkillHitboxMotionProfile
+
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+type SkillHitboxMotionProfile struct {
+	ID            string
+	Enabled       bool
+	MotionType    string
+	TimeBasis     string
+	Interpolation string
+	SweepShape    string
+	DamageGroupID sql.NullString
+	Samples       []SkillHitboxMotionSample
+}
+
+type SkillHitboxMotionSample struct {
+	SampleIndex   int
+	T             float64
+	Shape         string
+	OffsetX       float64
+	OffsetY       float64
+	OffsetZ       float64
+	SizeX         float64
+	SizeY         float64
+	SizeZ         float64
+	Radius        float64
+	Length        float64
+	StartAngleDeg float64
+	EndAngleDeg   float64
 }
 
 type SkillAreaEffectProfile struct {

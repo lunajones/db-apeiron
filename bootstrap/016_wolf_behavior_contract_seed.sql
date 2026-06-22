@@ -53,6 +53,74 @@ SET
     updated_at = NOW()
 WHERE id = 'lunge';
 
+INSERT INTO apeiron.skill_hitbox_damage_group (id, skill_id, description, max_hits_per_target, hit_interval_ms, can_multi_hit, metadata)
+VALUES
+('wolf_maul_damage','maul','Maul lateral counter applies one sweeping pressure hit.',1,0,FALSE,'{"target_lateral_cross":true}')
+ON CONFLICT (id) DO UPDATE SET
+    skill_id = EXCLUDED.skill_id,
+    description = EXCLUDED.description,
+    max_hits_per_target = EXCLUDED.max_hits_per_target,
+    hit_interval_ms = EXCLUDED.hit_interval_ms,
+    can_multi_hit = EXCLUDED.can_multi_hit,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+INSERT INTO apeiron.skill_hitbox_motion_profile (id, skill_id, motion_type, time_basis, description, metadata)
+VALUES
+('motion_wolf_maul_lateral_counter_v1','maul','timeline_sweep','hitbox_window_normalized','Maul sweeps laterally while crossing the target side-to-side.','{"target_lateral_cross":true}')
+ON CONFLICT (id) DO UPDATE SET
+    skill_id = EXCLUDED.skill_id,
+    motion_type = EXCLUDED.motion_type,
+    time_basis = EXCLUDED.time_basis,
+    description = EXCLUDED.description,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+DELETE FROM apeiron.skill_hitbox_motion_sample
+WHERE motion_profile_id = 'motion_wolf_maul_lateral_counter_v1';
+
+INSERT INTO apeiron.skill_hitbox_motion_sample (
+    motion_profile_id, sample_index, t, shape,
+    offset_x, offset_y, offset_z, size_x, size_y, size_z,
+    radius, length, min_angle_deg, max_angle_deg, metadata
+)
+VALUES
+('motion_wolf_maul_lateral_counter_v1',0,0.00,'asymmetric_arc',40,65,95,0,0,125,58,120,-70,-25,'{}'),
+('motion_wolf_maul_lateral_counter_v1',1,0.45,'asymmetric_arc',0,90,100,0,0,130,62,170,-25,25,'{}'),
+('motion_wolf_maul_lateral_counter_v1',2,1.00,'asymmetric_arc',-40,65,95,0,0,125,58,120,25,70,'{}');
+
+INSERT INTO apeiron.skill_hitbox_profile (
+    id, skill_id, hitbox_index, hitbox_shape, hitbox_start_ms, hitbox_end_ms,
+    offset_x, offset_y, offset_z, size_x, size_y, size_z, radius, length, angle,
+    follows_caster, follows_projectile, can_multi_hit, max_hits_per_target,
+    hit_interval_ms, friendly_fire, motion_profile_id, damage_group_id,
+    min_angle_deg, max_angle_deg, start_radius, end_radius
+)
+VALUES
+('hitbox_maul_0','maul',0,'temporal_sweep',180,440,0,80,100,0,0,130,62,170,140,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_maul_lateral_counter_v1','wolf_maul_damage',-70,70,58,62)
+ON CONFLICT (id) DO UPDATE SET
+    skill_id = EXCLUDED.skill_id,
+    hitbox_index = EXCLUDED.hitbox_index,
+    hitbox_shape = EXCLUDED.hitbox_shape,
+    hitbox_start_ms = EXCLUDED.hitbox_start_ms,
+    hitbox_end_ms = EXCLUDED.hitbox_end_ms,
+    offset_x = EXCLUDED.offset_x,
+    offset_y = EXCLUDED.offset_y,
+    offset_z = EXCLUDED.offset_z,
+    size_x = EXCLUDED.size_x,
+    size_y = EXCLUDED.size_y,
+    size_z = EXCLUDED.size_z,
+    radius = EXCLUDED.radius,
+    length = EXCLUDED.length,
+    angle = EXCLUDED.angle,
+    motion_profile_id = EXCLUDED.motion_profile_id,
+    damage_group_id = EXCLUDED.damage_group_id,
+    min_angle_deg = EXCLUDED.min_angle_deg,
+    max_angle_deg = EXCLUDED.max_angle_deg,
+    start_radius = EXCLUDED.start_radius,
+    end_radius = EXCLUDED.end_radius,
+    updated_at = NOW();
+
 INSERT INTO apeiron.movement_action_contract (
     id, action_type, description, duration_ms, active_ms, recovery_ms,
     distance_cm, base_speed_cm_s, yaw_degrees, phase_window_policy,

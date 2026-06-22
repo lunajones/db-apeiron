@@ -9,6 +9,7 @@ VALUES
 ('player_basic_attack_3_damage','player_basic_attack_3','Shield drive contact push damage group.',1,0,FALSE,'{}'),
 ('player_shield_bash_front_push','player_shield_bash','Shield Bash can push all targets in the path once.',1,0,FALSE,'{"multi_target_push":true}'),
 ('player_shield_rush_front_contact','player_shield_rush','Shield Rush can carry/push all targets in the front path once.',1,0,FALSE,'{"multi_target_push":true}'),
+('wolf_bite_damage','bite','Bite applies one close-range forward contact hit.',1,0,FALSE,'{"target_direction":true}'),
 ('wolf_lunge_damage','lunge','Lunge deals damage once while crossing target.',1,0,FALSE,'{"airborne_passthrough":true}')
 ON CONFLICT (id) DO UPDATE SET
     skill_id = EXCLUDED.skill_id,
@@ -26,6 +27,7 @@ VALUES
 ('motion_player_basic_attack_3_shield_drive_v1','player_basic_attack_3','timeline_sweep','hitbox_window_normalized','Shield drive front strip follows player movement.','{}'),
 ('motion_player_shield_bash_front_push_v1','player_shield_bash','timeline_sweep','hitbox_window_normalized','Wide front path push, two-cylinder width.','{}'),
 ('motion_player_shield_rush_front_contact_v1','player_shield_rush','timeline_sweep','hitbox_window_normalized','Front contact starts close to body and follows the rush.','{"front_contact_offset_cm":45}'),
+('motion_wolf_bite_melee_v1','bite','timeline_sweep','hitbox_window_normalized','Forward bite contact follows wolf target direction.','{}'),
 ('motion_wolf_lunge_cross_v1','lunge','timeline_sweep','hitbox_window_normalized','Airborne lunge hit volume travels through target.','{}')
 ON CONFLICT (id) DO UPDATE SET
     skill_id = EXCLUDED.skill_id,
@@ -42,6 +44,7 @@ WHERE motion_profile_id IN (
     'motion_player_basic_attack_3_shield_drive_v1',
     'motion_player_shield_bash_front_push_v1',
     'motion_player_shield_rush_front_contact_v1',
+    'motion_wolf_bite_melee_v1',
     'motion_wolf_lunge_cross_v1'
 );
 
@@ -66,6 +69,9 @@ VALUES
 ('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',0,45,100,0,190,160,96,105,0,0,'{}'),
 ('motion_player_shield_rush_front_contact_v1',1,0.50,'capsule_strip',0,105,100,0,190,160,96,220,0,0,'{}'),
 ('motion_player_shield_rush_front_contact_v1',2,1.00,'capsule_strip',0,145,100,0,190,160,96,290,0,0,'{}'),
+('motion_wolf_bite_melee_v1',0,0.00,'capsule_strip',0,45,85,0,90,115,45,70,0,0,'{}'),
+('motion_wolf_bite_melee_v1',1,0.55,'capsule_strip',0,80,90,0,95,115,48,125,0,0,'{}'),
+('motion_wolf_bite_melee_v1',2,1.00,'capsule_strip',0,95,85,0,90,115,45,145,0,0,'{}'),
 ('motion_wolf_lunge_cross_v1',0,0.00,'capsule_strip',0,60,90,0,100,120,50,100,0,0,'{}'),
 ('motion_wolf_lunge_cross_v1',1,0.55,'capsule_strip',0,140,110,0,100,120,50,230,0,0,'{}'),
 ('motion_wolf_lunge_cross_v1',2,1.00,'capsule_strip',0,210,90,0,100,120,50,320,0,0,'{}');
@@ -83,6 +89,7 @@ VALUES
 ('hitbox_player_basic_attack_3_0','player_basic_attack_3',0,'temporal_sweep',180,440,0,95,95,0,120,155,60,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_3_shield_drive_v1','player_basic_attack_3_damage',0,0,60,60),
 ('hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep',120,340,0,90,95,0,190,160,95,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_bash_front_push_v1','player_shield_bash_front_push',0,0,95,95),
 ('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep',160,590,0,120,100,0,190,160,96,290,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact',0,0,96,96),
+('hitbox_bite_0','bite',0,'temporal_sweep',120,340,0,80,90,0,95,115,48,145,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_bite_melee_v1','wolf_bite_damage',0,0,45,48),
 ('hitbox_lunge_0','lunge',0,'temporal_sweep',3600,4030,0,130,105,0,100,120,50,320,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_lunge_cross_v1','wolf_lunge_damage',0,0,50,50)
 ON CONFLICT (id) DO UPDATE SET
     skill_id = EXCLUDED.skill_id,

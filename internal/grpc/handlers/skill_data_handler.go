@@ -182,7 +182,7 @@ func mapSkillSlot(s postgres.SkillSlot) *apeironv1.SkillSlot {
 func mapSkillHitboxProfile(p postgres.SkillHitboxProfile) *apeironv1.SkillHitboxProfile {
 	maxTargets := int32(p.MaxHitsPerTarget)
 	targetType := ""
-	return &apeironv1.SkillHitboxProfile{
+	out := &apeironv1.SkillHitboxProfile{
 		Id:                  p.ID,
 		SkillId:             p.SkillID,
 		HitboxShape:         p.HitboxShape,
@@ -203,6 +203,47 @@ func mapSkillHitboxProfile(p postgres.SkillHitboxProfile) *apeironv1.SkillHitbox
 		RequiresLineOfSight: true,
 		CanHitNeutral:       p.FriendlyFire,
 	}
+	if p.DamageGroupID.Valid {
+		out.DamageGroupId = p.DamageGroupID.String
+	}
+	if p.MotionProfile != nil {
+		out.MotionProfile = mapSkillHitboxMotionProfile(*p.MotionProfile)
+	}
+	return out
+}
+
+func mapSkillHitboxMotionProfile(p postgres.SkillHitboxMotionProfile) *apeironv1.SkillHitboxMotionProfile {
+	samples := make([]*apeironv1.SkillHitboxMotionSample, 0, len(p.Samples))
+	for _, sample := range p.Samples {
+		samples = append(samples, &apeironv1.SkillHitboxMotionSample{
+			SampleIndex:   int32(sample.SampleIndex),
+			T:             sample.T,
+			OffsetX:       sample.OffsetX,
+			OffsetY:       sample.OffsetY,
+			OffsetZ:       sample.OffsetZ,
+			Length:        sample.Length,
+			Radius:        sample.Radius,
+			SizeX:         sample.SizeX,
+			SizeY:         sample.SizeY,
+			SizeZ:         sample.SizeZ,
+			StartAngleDeg: sample.StartAngleDeg,
+			EndAngleDeg:   sample.EndAngleDeg,
+		})
+	}
+
+	out := &apeironv1.SkillHitboxMotionProfile{
+		Id:            p.ID,
+		Enabled:       p.Enabled,
+		MotionType:    p.MotionType,
+		TimeBasis:     p.TimeBasis,
+		Interpolation: p.Interpolation,
+		SweepShape:    p.SweepShape,
+		Samples:       samples,
+	}
+	if p.DamageGroupID.Valid {
+		out.DamageGroupId = p.DamageGroupID.String
+	}
+	return out
 }
 
 func mapSkillMovementEffect(e postgres.SkillMovementEffect) *apeironv1.SkillMovementProfile {
