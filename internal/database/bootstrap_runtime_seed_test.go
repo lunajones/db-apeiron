@@ -87,6 +87,82 @@ func TestBootstrapSeedsCoverCurrentSwordShieldCombatModes(t *testing.T) {
 	}
 }
 
+func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	requiredBindings := map[string]string{
+		"player_basic_attack_1": "basic_attack_1_forward_cut_v1",
+		"player_basic_attack_2": "basic_attack_2_cross_cut_v1",
+		"player_basic_attack_3": "basic_attack_3_shield_drive_v1",
+		"player_shield_bash":    "shield_bash_front_push_v1",
+		"player_shield_rush":    "shield_rush_front_contact_v1",
+		"lunge":                 "wolf_lunge_airborne_v1",
+		"wolf_dodge":            "wolf_dodge_lateral_leap_v1",
+		"bite":                  "wolf_bite_melee_commit_v1",
+		"maul":                  "wolf_maul_lateral_counter_v1",
+	}
+	for skillID, contractID := range requiredBindings {
+		expected := "('" + skillID + "','" + contractID + "'"
+		if !strings.Contains(sql, expected) {
+			t.Fatalf("bootstrap is missing movement binding %s -> %s", skillID, contractID)
+		}
+	}
+}
+
+func TestBootstrapSeedsKeepUnimplementedVanguardSlotsEmpty(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	requiredEmptySlots := []string{
+		"('mode_sword_shield_vanguard','Q',NULL,FALSE,FALSE,FALSE",
+		"('mode_sword_shield_vanguard','R',NULL,FALSE,FALSE,FALSE",
+		"('mode_sword_shield_vanguard','F',NULL,FALSE,FALSE,FALSE",
+	}
+	for _, slot := range requiredEmptySlots {
+		if !strings.Contains(sql, slot) {
+			t.Fatalf("vanguard unimplemented slot should stay empty and disabled: %s", slot)
+		}
+	}
+	for _, forbidden := range []string{
+		"('mode_sword_shield_vanguard','Q','player_",
+		"('mode_sword_shield_vanguard','R','player_",
+		"('mode_sword_shield_vanguard','F','player_",
+	} {
+		if strings.Contains(sql, forbidden) {
+			t.Fatalf("vanguard has a fake player skill bound to an unimplemented slot: %s", forbidden)
+		}
+	}
+}
+
+func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		`"front_contact_offset_cm":45`,
+		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',0,45,100,0,190,160,96,105",
+		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
+		"'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact'",
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("shield rush front-contact geometry fragment missing: %s", fragment)
+		}
+	}
+}
+
+func TestBootstrapSeedsCoverWolfMaulCounterRuntime(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		"'maul','Maul','Pressure counter",
+		"'motion_wolf_maul_lateral_counter_v1'",
+		"'hitbox_maul_0','maul',0,'temporal_sweep'",
+		"'wolf_maul_lateral_counter_v1','grounded_skill'",
+		"('maul','wolf_maul_lateral_counter_v1'",
+		"'wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul'",
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("wolf maul counter runtime fragment missing: %s", fragment)
+		}
+	}
+}
+
 func readBootstrapSQL(t *testing.T) string {
 	t.Helper()
 	files, err := loadSQLFiles(filepath.Join("..", "..", "bootstrap"))
