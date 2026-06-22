@@ -61,6 +61,7 @@ INSERT INTO apeiron.movement_action_contract (
     allow_yaw_adjustment, root_motion_owner, contact_policy, speed_curve, vertical_curve, metadata
 )
 VALUES
+('wolf_bite_melee_commit_v1','grounded_skill','Wolf bite close-range committed melee action without displacement.',520,220,180,0,0,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','melee_contact','[]','[]','{"source":"reconstructed","skill":"bite"}'),
 ('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that crosses the player side-to-side during pressure punish.',800,260,360,140,420,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.15},{"t":0.25,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.20}]','[]','{"source":"reconstructed","setup_policy":"wolf_maul_pressure_counter_v1"}')
 ON CONFLICT (id) DO UPDATE SET
     action_type = EXCLUDED.action_type,
@@ -102,6 +103,7 @@ INSERT INTO apeiron.skill_action_timing (
     combo_window_ms, movement_lock_policy, queue_policy, cancel_policy, metadata
 )
 VALUES
+('bite',120,220,180,900,0,'contract','none','none','{"source":"reconstructed"}'),
 ('wolf_dodge',0,420,100,0,0,'contract','none','none','{"full_iframe":true,"source":"reconstructed"}'),
 ('maul',180,260,360,5200,0,'contract','none','none','{"pressureCounter":true,"source":"reconstructed"}')
 ON CONFLICT (skill_id) DO UPDATE SET
@@ -121,6 +123,7 @@ INSERT INTO apeiron.skill_movement_action_binding (
     normal_input_policy, target_policy, contact_policy, is_enabled, metadata
 )
 VALUES
+('bite','wolf_bite_melee_commit_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_direction','melee_contact',TRUE,'{"source":"reconstructed"}'),
 ('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root','evasion_direction','iframe',TRUE,'{"source":"reconstructed"}'),
 ('maul','wolf_maul_lateral_counter_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_lateral_cross','lateral_counter_contact',TRUE,'{"source":"reconstructed"}')
 ON CONFLICT (skill_id) DO UPDATE SET
