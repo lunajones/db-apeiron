@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+message Empty {}
+
+message OperationResult {
+  bool success = 1;
+  string message = 2;
+}
+
+message IdRequest {
+  string id = 1;
+}

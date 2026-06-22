@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service CreatureDataService {
+  rpc GetCreatureTemplate(IdRequest) returns (CreatureTemplateResponse);
+  rpc GetCreatureRuntimeData(IdRequest) returns (CreatureRuntimeDataResponse);
+}
+
+message CreatureTemplateResponse {
+  bool found = 1;
+  CreatureTemplate template = 2;
+}
+
+message CreatureRuntimeDataResponse {
+  bool found = 1;
+
+  CreatureTemplate template = 2;
+
+  string spawn_profile_id = 3;
+  string movement_profile_id = 4;
+  string combat_core_profile_id = 5;
+  string combat_style_profile_id = 6;
+  string needs_profile_id = 7;
+  string personality_profile_id = 8;
+  string ai_decision_profile_id = 9;
+  string sensory_profile_id = 10;
+  string skill_set_id = 11;
+}
+
+message CreatureTemplate {
+  string id = 1;
+  string name = 2;
+  string faction = 3;
+  int32 tier = 4;
+  string archetype = 5;
+
+  string spawn_profile_id = 6;
+  string movement_profile_id = 7;
+  string combat_core_profile_id = 8;
+  string combat_style_profile_id = 9;
+  string needs_profile_id = 10;
+  string personality_profile_id = 11;
+  string ai_decision_profile_id = 12;
+  string sensory_profile_id = 13;
+  string skill_set_id = 14;
+}

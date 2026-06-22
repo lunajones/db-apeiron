@@ -1,0 +1,19 @@
+# Runtime logs
+*.log
+*.out
+*.err
+logs/
+
+# Local Codex/build artifacts
+.codex/
+bin/
+*.exe
+
+# Local env files
+.ENV
+.env
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

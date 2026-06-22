@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service CacheService {
+  rpc WarmCreatureRuntimeData(WarmCreatureRuntimeDataRequest) returns (OperationResult);
+
+  rpc WarmCreatureTemplate(IdRequest) returns (OperationResult);
+  rpc WarmSkill(IdRequest) returns (OperationResult);
+  rpc WarmSkillBasic(IdRequest) returns (OperationResult);
+  rpc WarmSkillSet(IdRequest) returns (OperationResult);
+  rpc WarmItemTemplate(IdRequest) returns (OperationResult);
+  rpc WarmStatusEffect(IdRequest) returns (OperationResult);
+
+  rpc InvalidateCreatureTemplate(IdRequest) returns (OperationResult);
+  rpc InvalidateProfile(IdRequest) returns (OperationResult);
+  rpc InvalidateSkill(IdRequest) returns (OperationResult);
+  rpc InvalidateSkillSet(IdRequest) returns (OperationResult);
+  rpc InvalidateItemTemplate(IdRequest) returns (OperationResult);
+  rpc InvalidateStatusEffect(IdRequest) returns (OperationResult);
+
+  rpc ClearAll(Empty) returns (OperationResult);
+}
+
+message WarmCreatureRuntimeDataRequest {
+  string creature_template_id = 1;
+
+  ProfileLoadIds profiles = 2;
+
+  string skill_set_id = 3;
+  repeated string skill_ids = 4;
+  repeated string item_template_ids = 5;
+  repeated string status_effect_ids = 6;
+}
+
+message ProfileLoadIds {
+  string spawn_profile_id = 1;
+  string movement_profile_id = 2;
+  string combat_core_profile_id = 3;
+  string combat_style_profile_id = 4;
+  string needs_profile_id = 5;
+  string ai_personality_profile_id = 6;
+  string ai_decision_profile_id = 7;
+  string sensory_profile_id = 8;
+}
