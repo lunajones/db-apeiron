@@ -17,6 +17,9 @@ type ProfileReader interface {
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, id string) (postgres.CreatureBehaviorRuntimeContract, error)
 	GetCreatureEvasionPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureEvasionPolicy, error)
 	GetCreatureSkillSetupPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureSkillSetupPolicy, error)
+	GetCreatureTargetOpportunityPolicy(ctx context.Context, id string) (postgres.CreatureTargetOpportunityPolicy, error)
+	GetCreatureOrbitPolicy(ctx context.Context, id string) (postgres.CreatureOrbitPolicy, error)
+	GetCreatureSkillBehaviorBindings(ctx context.Context, behaviorContractID string) ([]postgres.CreatureSkillBehaviorBinding, error)
 }
 
 type ProfileDataHandler struct {
@@ -107,6 +110,37 @@ func (h *ProfileDataHandler) GetCreatureSkillSetupPolicies(ctx context.Context, 
 		out = append(out, mapCreatureSkillSetupPolicy(policy))
 	}
 	return &apeironv1.CreatureSkillSetupPoliciesResponse{Found: true, Policies: out}, nil
+}
+
+func (h *ProfileDataHandler) GetCreatureTargetOpportunityPolicy(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.CreatureTargetOpportunityPolicyResponse, error) {
+	policy, err := h.profiles.GetCreatureTargetOpportunityPolicy(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.CreatureTargetOpportunityPolicyResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.CreatureTargetOpportunityPolicyResponse{Found: true, Policy: mapCreatureTargetOpportunityPolicy(policy)}, nil
+}
+
+func (h *ProfileDataHandler) GetCreatureOrbitPolicy(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.CreatureOrbitPolicyResponse, error) {
+	policy, err := h.profiles.GetCreatureOrbitPolicy(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.CreatureOrbitPolicyResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.CreatureOrbitPolicyResponse{Found: true, Policy: mapCreatureOrbitPolicy(policy)}, nil
+}
+
+func (h *ProfileDataHandler) GetCreatureSkillBehaviorBindings(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.CreatureSkillBehaviorBindingsResponse, error) {
+	bindings, err := h.profiles.GetCreatureSkillBehaviorBindings(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.CreatureSkillBehaviorBindingsResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	out := make([]*apeironv1.CreatureSkillBehaviorBinding, 0, len(bindings))
+	for _, binding := range bindings {
+		out = append(out, mapCreatureSkillBehaviorBinding(binding))
+	}
+	return &apeironv1.CreatureSkillBehaviorBindingsResponse{Found: true, Bindings: out}, nil
 }
 
 func mapMovementProfile(p postgres.MovementProfile) *apeironv1.MovementProfile {
@@ -218,15 +252,17 @@ func mapMovementReconciliationContract(c postgres.MovementReconciliationContract
 
 func mapCreatureBehaviorRuntimeContract(c postgres.CreatureBehaviorRuntimeContract) *apeironv1.CreatureBehaviorRuntimeContract {
 	return &apeironv1.CreatureBehaviorRuntimeContract{
-		Id:                  c.ID,
-		CreatureTemplateId:  c.CreatureTemplateID,
-		Description:         c.Description,
-		AggressionCurveJson: c.AggressionCurveJSON,
-		RangePolicyJson:     c.RangePolicyJSON,
-		OrbitPolicyJson:     c.OrbitPolicyJSON,
-		PressurePolicyJson:  c.PressurePolicyJSON,
-		StaminaPolicyJson:   c.StaminaPolicyJSON,
-		MetadataJson:        c.MetadataJSON,
+		Id:                        c.ID,
+		CreatureTemplateId:        c.CreatureTemplateID,
+		Description:               c.Description,
+		AggressionCurveJson:       c.AggressionCurveJSON,
+		RangePolicyJson:           c.RangePolicyJSON,
+		OrbitPolicyJson:           c.OrbitPolicyJSON,
+		PressurePolicyJson:        c.PressurePolicyJSON,
+		StaminaPolicyJson:         c.StaminaPolicyJSON,
+		MetadataJson:              c.MetadataJSON,
+		TargetOpportunityPolicyId: c.TargetOpportunityPolicyID,
+		OrbitPolicyId:             c.OrbitPolicyID,
 	}
 }
 
@@ -260,6 +296,63 @@ func mapCreatureSkillSetupPolicy(p postgres.CreatureSkillSetupPolicy) *apeironv1
 		PreferredMaxRangeCm: p.PreferredMaxRangeCM,
 		MovementTactic:      p.MovementTactic,
 		LockSideDuringSetup: p.LockSideDuringSetup,
+		IsEnabled:           p.IsEnabled,
+		MetadataJson:        p.MetadataJSON,
+	}
+}
+
+func mapCreatureTargetOpportunityPolicy(p postgres.CreatureTargetOpportunityPolicy) *apeironv1.CreatureTargetOpportunityPolicy {
+	return &apeironv1.CreatureTargetOpportunityPolicy{
+		Id:                          p.ID,
+		Description:                 p.Description,
+		CommitAngleMaxDeg:           p.CommitAngleMaxDeg,
+		MinCommitDistanceCm:         p.MinCommitDistanceCM,
+		MaxCommitDistanceCm:         p.MaxCommitDistanceCM,
+		ApproachMinDistanceCm:       p.ApproachMinDistanceCM,
+		ApproachMaxDistanceCm:       p.ApproachMaxDistanceCM,
+		BiteRangeCm:                 p.BiteRangeCM,
+		LungeMinRangeCm:             p.LungeMinRangeCM,
+		LungeMaxRangeCm:             p.LungeMaxRangeCM,
+		MaulPressureThreshold:       p.MaulPressureThreshold,
+		TargetMemoryMs:              int32(p.TargetMemoryMS),
+		NoReadySkillMemoryPolicy:    p.NoReadySkillMemoryPolicy,
+		CandidateCooldownVisibility: p.CandidateCooldownVisibility,
+		AllowBacksideCommit:         p.AllowBacksideCommit,
+		MetadataJson:                p.MetadataJSON,
+	}
+}
+
+func mapCreatureOrbitPolicy(p postgres.CreatureOrbitPolicy) *apeironv1.CreatureOrbitPolicy {
+	return &apeironv1.CreatureOrbitPolicy{
+		Id:                             p.ID,
+		BehaviorContractId:             p.BehaviorContractID,
+		Description:                    p.Description,
+		OrbitLocomotionMode:            p.OrbitLocomotionMode,
+		OrbitSpeedScale:                p.OrbitSpeedScale,
+		MinOrbitDurationMs:             int32(p.MinOrbitDurationMS),
+		SideSwitchCooldownMs:           int32(p.SideSwitchCooldownMS),
+		AllowSideSwitchWhenTargetFaces: p.AllowSideSwitchWhenTargetFaces,
+		PreferLongSideCommit:           p.PreferLongSideCommit,
+		SideFlipChanceMultiplier:       p.SideFlipChanceMultiplier,
+		LockSideDuringSetup:            p.LockSideDuringSetup,
+		MetadataJson:                   p.MetadataJSON,
+	}
+}
+
+func mapCreatureSkillBehaviorBinding(p postgres.CreatureSkillBehaviorBinding) *apeironv1.CreatureSkillBehaviorBinding {
+	return &apeironv1.CreatureSkillBehaviorBinding{
+		Id:                  p.ID,
+		BehaviorContractId:  p.BehaviorContractID,
+		SkillId:             p.SkillID,
+		TacticalState:       p.TacticalState,
+		DecisionPhase:       p.DecisionPhase,
+		SetupPolicyId:       p.SetupPolicyID,
+		MinRangeCm:          p.MinRangeCM,
+		MaxRangeCm:          p.MaxRangeCM,
+		Priority:            int32(p.Priority),
+		UsageWeight:         p.UsageWeight,
+		CooldownGroup:       p.CooldownGroup,
+		RequiresLineOfSight: p.RequiresLineOfSight,
 		IsEnabled:           p.IsEnabled,
 		MetadataJson:        p.MetadataJSON,
 	}

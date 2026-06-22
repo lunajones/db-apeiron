@@ -273,3 +273,57 @@ From current thread and recovered roadmaps:
   - `server` / `first` threads for earliest schema and world/inventory structure;
   - current latest thread after the DB/server deletion for exact final requested skill movement and
     HUD changes.
+
+## 2026-06-22 - Creature Brain DB Contract Recovery Slice
+
+Recovered and applied the missing wolf behavior contract layer as DB authority instead of leaving
+it as server literals or loose JSON only.
+
+Files added/updated:
+
+- `migrations/041_creature_behavior_opportunity_contracts.sql`
+- `migrations/042_creature_orbit_legacy_column_finalization.sql`
+- `bootstrap/016_wolf_behavior_contract_seed.sql`
+- `proto/apeiron/v1/common.proto`
+- `proto/apeiron/v1/profile_data_service.proto`
+- `proto/apeiron/v1/creature_data_service.proto`
+- repository/cache/gRPC handlers for profile and creature runtime data.
+
+Recovered model:
+
+- `creature_target_opportunity_policy`
+  - `opportunity_wolf_harasser_v1`
+  - `commit_angle_max_deg = 180`
+  - `no_ready_skill_memory_policy = observe_only`
+  - exposes candidate/cooldown diagnostics in metadata.
+- `creature_orbit_policy`
+  - `orbit_wolf_harasser_combat_walk_v1`
+  - `orbit_locomotion_mode = combat_walk`
+  - `orbit_speed_scale = 0.55`
+  - `min_orbit_duration_ms = 700`
+  - `side_switch_cooldown_ms = 900`
+  - keeps side changes from thrashing.
+- `creature_skill_behavior_binding`
+  - bite: `approach/acquire`, `circle/reposition`
+  - lunge: `approach/acquire`, `circle/reposition`
+  - maul: `pressure/counter`
+  - wolf_dodge: `pressure/evade`
+
+Validation:
+
+- `go test ./...` passes in `db-apeiron`.
+- `go build -o bin/db-api.exe ./cmd/db-api` passes.
+- Live Postgres verification:
+  - migration `041` applied.
+  - migration `042` applied.
+  - `opportunity_wolf_harasser_v1` exists with `commit_angle_max_deg = 180`.
+  - `orbit_wolf_harasser_combat_walk_v1` exists with `orbit_locomotion_mode = combat_walk`.
+  - six wolf tactical skill bindings exist.
+  - `contract_wolf_pack_harasser_v1` links `steppe_wolf` to the recovered opportunity/orbit policies.
+
+Important design decision:
+
+- Do not add a reverse `creature_template.behavior_contract_id` column yet. The existing
+  authoritative relationship is `creature_behavior_runtime_contract.creature_template_id`.
+  This avoids a cyclic FK during recovery while still allowing `CreatureRuntimeData` to resolve
+  the behavior contract by template id.

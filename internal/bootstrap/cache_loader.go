@@ -95,6 +95,32 @@ func (l *CacheLoader) WarmProfiles(
 		}
 	}
 
+	if ids.CreatureBehaviorContractID != "" {
+		contract, err := l.Profiles.GetCreatureBehaviorRuntimeContract(ctx, ids.CreatureBehaviorContractID)
+		if err != nil {
+			return err
+		}
+		if contract.TargetOpportunityPolicyID != "" {
+			if _, err := l.Profiles.GetCreatureTargetOpportunityPolicy(ctx, contract.TargetOpportunityPolicyID); err != nil {
+				return err
+			}
+		}
+		if contract.OrbitPolicyID != "" {
+			if _, err := l.Profiles.GetCreatureOrbitPolicy(ctx, contract.OrbitPolicyID); err != nil {
+				return err
+			}
+		}
+		if _, err := l.Profiles.GetCreatureEvasionPolicies(ctx, ids.CreatureBehaviorContractID); err != nil {
+			return err
+		}
+		if _, err := l.Profiles.GetCreatureSkillSetupPolicies(ctx, ids.CreatureBehaviorContractID); err != nil {
+			return err
+		}
+		if _, err := l.Profiles.GetCreatureSkillBehaviorBindings(ctx, ids.CreatureBehaviorContractID); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 

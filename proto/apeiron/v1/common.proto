@@ -261,6 +261,10 @@ message CreatureBehaviorRuntimeContract {
   string pressure_policy_json = 7;
   string stamina_policy_json = 8;
   string metadata_json = 9;
+  string target_opportunity_policy_id = 10;
+  string orbit_policy_id = 11;
+  CreatureTargetOpportunityPolicy target_opportunity_policy = 12;
+  CreatureOrbitPolicy orbit_policy = 13;
 }
 
 message CreatureEvasionPolicy {
@@ -292,6 +296,57 @@ message CreatureSkillSetupPolicy {
   bool lock_side_during_setup = 11;
   bool is_enabled = 12;
   string metadata_json = 13;
+}
+
+message CreatureTargetOpportunityPolicy {
+  string id = 1;
+  string description = 2;
+  double commit_angle_max_deg = 3;
+  double min_commit_distance_cm = 4;
+  double max_commit_distance_cm = 5;
+  double approach_min_distance_cm = 6;
+  double approach_max_distance_cm = 7;
+  double bite_range_cm = 8;
+  double lunge_min_range_cm = 9;
+  double lunge_max_range_cm = 10;
+  double maul_pressure_threshold = 11;
+  int32 target_memory_ms = 12;
+  string no_ready_skill_memory_policy = 13;
+  bool candidate_cooldown_visibility = 14;
+  bool allow_backside_commit = 15;
+  string metadata_json = 16;
+}
+
+message CreatureOrbitPolicy {
+  string id = 1;
+  string behavior_contract_id = 2;
+  string description = 3;
+  string orbit_locomotion_mode = 4;
+  double orbit_speed_scale = 5;
+  int32 min_orbit_duration_ms = 6;
+  int32 side_switch_cooldown_ms = 7;
+  bool allow_side_switch_when_target_faces = 8;
+  bool prefer_long_side_commit = 9;
+  double side_flip_chance_multiplier = 10;
+  bool lock_side_during_setup = 11;
+  string metadata_json = 12;
+}
+
+message CreatureSkillBehaviorBinding {
+  string id = 1;
+  string behavior_contract_id = 2;
+  string skill_id = 3;
+  string tactical_state = 4;
+  string decision_phase = 5;
+  string setup_policy_id = 6;
+  double min_range_cm = 7;
+  double max_range_cm = 8;
+  int32 priority = 9;
+  double usage_weight = 10;
+  string cooldown_group = 11;
+  bool requires_line_of_sight = 12;
+  bool is_enabled = 13;
+  string metadata_json = 14;
 }
 
 message CombatCoreProfile {

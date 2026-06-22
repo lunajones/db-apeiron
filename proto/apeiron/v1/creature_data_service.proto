@@ -30,6 +30,13 @@ message CreatureRuntimeDataResponse {
   string ai_decision_profile_id = 9;
   string sensory_profile_id = 10;
   string skill_set_id = 11;
+  string behavior_contract_id = 12;
+  CreatureBehaviorRuntimeContract behavior_contract = 13;
+  CreatureTargetOpportunityPolicy target_opportunity_policy = 14;
+  CreatureOrbitPolicy orbit_policy = 15;
+  repeated CreatureEvasionPolicy evasion_policies = 16;
+  repeated CreatureSkillSetupPolicy skill_setup_policies = 17;
+  repeated CreatureSkillBehaviorBinding skill_behavior_bindings = 18;
 }
 
 message CreatureTemplate {
@@ -48,4 +55,5 @@ message CreatureTemplate {
   string ai_decision_profile_id = 12;
   string sensory_profile_id = 13;
   string skill_set_id = 14;
+  string behavior_contract_id = 15;
 }

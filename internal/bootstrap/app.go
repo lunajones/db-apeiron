@@ -48,7 +48,7 @@ func (a *App) Start(ctx context.Context) error {
 		)
 		apeironv1.RegisterCreatureDataServiceServer(
 			server,
-			handlers.NewCreatureDataHandler(a.Deps.Caches.Templates),
+			handlers.NewCreatureDataHandler(a.Deps.Caches.Templates, a.Deps.Caches.Profiles),
 		)
 		apeironv1.RegisterSkillDataServiceServer(
 			server,

@@ -246,6 +246,89 @@ ON CONFLICT (id) DO UPDATE SET
     metadata = EXCLUDED.metadata,
     updated_at = NOW();
 
+INSERT INTO apeiron.creature_target_opportunity_policy (
+    id, description, commit_angle_max_deg, min_commit_distance_cm, max_commit_distance_cm,
+    approach_min_distance_cm, approach_max_distance_cm, bite_range_cm,
+    lunge_min_range_cm, lunge_max_range_cm, maul_pressure_threshold,
+    target_memory_ms, no_ready_skill_memory_policy, candidate_cooldown_visibility,
+    allow_backside_commit, metadata
+)
+VALUES (
+    'opportunity_wolf_harasser_v1',
+    'Steppe wolf opportunity window: can commit from behind, exposes candidate/cooldown diagnostics, and never records no-ready-skill as attack failure.',
+    180,
+    0,
+    700,
+    180,
+    560,
+    260,
+    180,
+    700,
+    0.58,
+    1800,
+    'observe_only',
+    TRUE,
+    TRUE,
+    '{"source":"reconstructed","candidate_skills_diagnostics":true,"cooldown_skills_diagnostics":true}'
+)
+ON CONFLICT (id) DO UPDATE SET
+    description = EXCLUDED.description,
+    commit_angle_max_deg = EXCLUDED.commit_angle_max_deg,
+    min_commit_distance_cm = EXCLUDED.min_commit_distance_cm,
+    max_commit_distance_cm = EXCLUDED.max_commit_distance_cm,
+    approach_min_distance_cm = EXCLUDED.approach_min_distance_cm,
+    approach_max_distance_cm = EXCLUDED.approach_max_distance_cm,
+    bite_range_cm = EXCLUDED.bite_range_cm,
+    lunge_min_range_cm = EXCLUDED.lunge_min_range_cm,
+    lunge_max_range_cm = EXCLUDED.lunge_max_range_cm,
+    maul_pressure_threshold = EXCLUDED.maul_pressure_threshold,
+    target_memory_ms = EXCLUDED.target_memory_ms,
+    no_ready_skill_memory_policy = EXCLUDED.no_ready_skill_memory_policy,
+    candidate_cooldown_visibility = EXCLUDED.candidate_cooldown_visibility,
+    allow_backside_commit = EXCLUDED.allow_backside_commit,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+INSERT INTO apeiron.creature_orbit_policy (
+    id, behavior_contract_id, description, orbit_locomotion_mode, orbit_speed_scale,
+    min_orbit_duration_ms, side_switch_cooldown_ms, allow_side_switch_when_target_faces,
+    prefer_long_side_commit, side_flip_chance_multiplier, lock_side_during_setup, metadata
+)
+VALUES (
+    'orbit_wolf_harasser_combat_walk_v1',
+    'contract_wolf_pack_harasser_v1',
+    'Wolf circles in combat-walk/run setup, keeps side long enough to read naturally, and avoids rapid left/right thrashing.',
+    'combat_walk',
+    0.55,
+    700,
+    900,
+    TRUE,
+    TRUE,
+    0.35,
+    TRUE,
+    '{"source":"reconstructed","server_must_not_pick_side_by_target_id":true}'
+)
+ON CONFLICT (id) DO UPDATE SET
+    behavior_contract_id = EXCLUDED.behavior_contract_id,
+    description = EXCLUDED.description,
+    orbit_locomotion_mode = EXCLUDED.orbit_locomotion_mode,
+    orbit_speed_scale = EXCLUDED.orbit_speed_scale,
+    min_orbit_duration_ms = EXCLUDED.min_orbit_duration_ms,
+    side_switch_cooldown_ms = EXCLUDED.side_switch_cooldown_ms,
+    allow_side_switch_when_target_faces = EXCLUDED.allow_side_switch_when_target_faces,
+    prefer_long_side_commit = EXCLUDED.prefer_long_side_commit,
+    side_flip_chance_multiplier = EXCLUDED.side_flip_chance_multiplier,
+    lock_side_during_setup = EXCLUDED.lock_side_during_setup,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+UPDATE apeiron.creature_behavior_runtime_contract
+SET
+    target_opportunity_policy_id = 'opportunity_wolf_harasser_v1',
+    orbit_policy_id = 'orbit_wolf_harasser_combat_walk_v1',
+    updated_at = NOW()
+WHERE id = 'contract_wolf_pack_harasser_v1';
+
 INSERT INTO apeiron.creature_evasion_policy (
     id, behavior_contract_id, description, dodge_skill_id, max_chain_count,
     stamina_cost_multiplier, retreat_chance_multiplier, lateral_bias, backstep_bias,
@@ -302,3 +385,19 @@ ON CONFLICT (id) DO UPDATE SET
     is_enabled = EXCLUDED.is_enabled,
     metadata = EXCLUDED.metadata,
     updated_at = NOW();
+
+DELETE FROM apeiron.creature_skill_behavior_binding
+WHERE behavior_contract_id = 'contract_wolf_pack_harasser_v1';
+
+INSERT INTO apeiron.creature_skill_behavior_binding (
+    id, behavior_contract_id, skill_id, tactical_state, decision_phase, setup_policy_id,
+    min_range_cm, max_range_cm, priority, usage_weight, cooldown_group,
+    requires_line_of_sight, is_enabled, metadata
+)
+VALUES
+('wolf_bite_approach_acquire_v1','contract_wolf_pack_harasser_v1','bite','approach','acquire',NULL,0,260,80,1.20,'wolf_melee',TRUE,TRUE,'{"close_range_pressure":true}'),
+('wolf_bite_circle_reposition_v1','contract_wolf_pack_harasser_v1','bite','circle','reposition',NULL,0,260,62,0.85,'wolf_melee',TRUE,TRUE,'{"prevents_orbit_only_loop":true}'),
+('wolf_lunge_approach_acquire_v1','contract_wolf_pack_harasser_v1','lunge','approach','acquire','wolf_lunge_chase_windup_v1',180,700,92,0.95,'wolf_lunge',TRUE,TRUE,'{"commit_attack":true,"any_target_state_wildcard":true}'),
+('wolf_lunge_circle_reposition_v1','contract_wolf_pack_harasser_v1','lunge','circle','reposition','wolf_lunge_flank_windup_v1',180,700,90,0.85,'wolf_lunge',TRUE,TRUE,'{"flank_then_curve":true,"commit_angle_max_deg":180}'),
+('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure','counter','wolf_maul_pressure_counter_v1',0,220,86,0.58,'wolf_counter',TRUE,TRUE,'{"counter_player_overcommit":true}'),
+('wolf_dodge_pressure_evasion_v1','contract_wolf_pack_harasser_v1','wolf_dodge','pressure','evade',NULL,0,550,95,1.25,'wolf_evasion',TRUE,TRUE,'{"full_iframe":true,"chain_budget_from_evasion_policy":true}');

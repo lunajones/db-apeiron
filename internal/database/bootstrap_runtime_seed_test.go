@@ -165,6 +165,28 @@ func TestBootstrapSeedsCoverWolfMaulCounterRuntime(t *testing.T) {
 	}
 }
 
+func TestBootstrapSeedsCoverWolfBehaviorOpportunityRuntime(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		"'opportunity_wolf_harasser_v1'",
+		"commit_angle_max_deg",
+		"'orbit_wolf_harasser_combat_walk_v1'",
+		"'combat_walk'",
+		"'wolf_lunge_approach_acquire_v1'",
+		"'wolf_lunge_circle_reposition_v1'",
+		"'wolf_bite_approach_acquire_v1'",
+		"'wolf_bite_circle_reposition_v1'",
+		"'wolf_dodge_pressure_evasion_v1'",
+		"'observe_only'",
+		`"candidate_skills_diagnostics":true`,
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("wolf behavior opportunity runtime fragment missing: %s", fragment)
+		}
+	}
+}
+
 func readBootstrapSQL(t *testing.T) string {
 	t.Helper()
 	files, err := loadSQLFiles(filepath.Join("..", "..", "bootstrap"))

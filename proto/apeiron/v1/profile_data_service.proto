@@ -15,6 +15,9 @@ service ProfileDataService {
   rpc GetCreatureBehaviorRuntimeContract(IdRequest) returns (CreatureBehaviorRuntimeContractResponse);
   rpc GetCreatureEvasionPolicies(IdRequest) returns (CreatureEvasionPoliciesResponse);
   rpc GetCreatureSkillSetupPolicies(IdRequest) returns (CreatureSkillSetupPoliciesResponse);
+  rpc GetCreatureTargetOpportunityPolicy(IdRequest) returns (CreatureTargetOpportunityPolicyResponse);
+  rpc GetCreatureOrbitPolicy(IdRequest) returns (CreatureOrbitPolicyResponse);
+  rpc GetCreatureSkillBehaviorBindings(IdRequest) returns (CreatureSkillBehaviorBindingsResponse);
 }
 
 message MovementProfileResponse {
@@ -62,5 +65,23 @@ message CreatureEvasionPoliciesResponse {
 message CreatureSkillSetupPoliciesResponse {
   bool found = 1;
   repeated CreatureSkillSetupPolicy policies = 2;
+  string error = 3;
+}
+
+message CreatureTargetOpportunityPolicyResponse {
+  bool found = 1;
+  CreatureTargetOpportunityPolicy policy = 2;
+  string error = 3;
+}
+
+message CreatureOrbitPolicyResponse {
+  bool found = 1;
+  CreatureOrbitPolicy policy = 2;
+  string error = 3;
+}
+
+message CreatureSkillBehaviorBindingsResponse {
+  bool found = 1;
+  repeated CreatureSkillBehaviorBinding bindings = 2;
   string error = 3;
 }

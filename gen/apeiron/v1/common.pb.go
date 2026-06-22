@@ -2222,18 +2222,22 @@ func (x *SkillMovementActionBinding) GetMovementActionContract() *MovementAction
 }
 
 type CreatureBehaviorRuntimeContract struct {
-	state               protoimpl.MessageState `protogen:"open.v1"`
-	Id                  string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CreatureTemplateId  string                 `protobuf:"bytes,2,opt,name=creature_template_id,json=creatureTemplateId,proto3" json:"creature_template_id,omitempty"`
-	Description         string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	AggressionCurveJson string                 `protobuf:"bytes,4,opt,name=aggression_curve_json,json=aggressionCurveJson,proto3" json:"aggression_curve_json,omitempty"`
-	RangePolicyJson     string                 `protobuf:"bytes,5,opt,name=range_policy_json,json=rangePolicyJson,proto3" json:"range_policy_json,omitempty"`
-	OrbitPolicyJson     string                 `protobuf:"bytes,6,opt,name=orbit_policy_json,json=orbitPolicyJson,proto3" json:"orbit_policy_json,omitempty"`
-	PressurePolicyJson  string                 `protobuf:"bytes,7,opt,name=pressure_policy_json,json=pressurePolicyJson,proto3" json:"pressure_policy_json,omitempty"`
-	StaminaPolicyJson   string                 `protobuf:"bytes,8,opt,name=stamina_policy_json,json=staminaPolicyJson,proto3" json:"stamina_policy_json,omitempty"`
-	MetadataJson        string                 `protobuf:"bytes,9,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
-	unknownFields       protoimpl.UnknownFields
-	sizeCache           protoimpl.SizeCache
+	state                     protoimpl.MessageState           `protogen:"open.v1"`
+	Id                        string                           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CreatureTemplateId        string                           `protobuf:"bytes,2,opt,name=creature_template_id,json=creatureTemplateId,proto3" json:"creature_template_id,omitempty"`
+	Description               string                           `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	AggressionCurveJson       string                           `protobuf:"bytes,4,opt,name=aggression_curve_json,json=aggressionCurveJson,proto3" json:"aggression_curve_json,omitempty"`
+	RangePolicyJson           string                           `protobuf:"bytes,5,opt,name=range_policy_json,json=rangePolicyJson,proto3" json:"range_policy_json,omitempty"`
+	OrbitPolicyJson           string                           `protobuf:"bytes,6,opt,name=orbit_policy_json,json=orbitPolicyJson,proto3" json:"orbit_policy_json,omitempty"`
+	PressurePolicyJson        string                           `protobuf:"bytes,7,opt,name=pressure_policy_json,json=pressurePolicyJson,proto3" json:"pressure_policy_json,omitempty"`
+	StaminaPolicyJson         string                           `protobuf:"bytes,8,opt,name=stamina_policy_json,json=staminaPolicyJson,proto3" json:"stamina_policy_json,omitempty"`
+	MetadataJson              string                           `protobuf:"bytes,9,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	TargetOpportunityPolicyId string                           `protobuf:"bytes,10,opt,name=target_opportunity_policy_id,json=targetOpportunityPolicyId,proto3" json:"target_opportunity_policy_id,omitempty"`
+	OrbitPolicyId             string                           `protobuf:"bytes,11,opt,name=orbit_policy_id,json=orbitPolicyId,proto3" json:"orbit_policy_id,omitempty"`
+	TargetOpportunityPolicy   *CreatureTargetOpportunityPolicy `protobuf:"bytes,12,opt,name=target_opportunity_policy,json=targetOpportunityPolicy,proto3" json:"target_opportunity_policy,omitempty"`
+	OrbitPolicy               *CreatureOrbitPolicy             `protobuf:"bytes,13,opt,name=orbit_policy,json=orbitPolicy,proto3" json:"orbit_policy,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
 }
 
 func (x *CreatureBehaviorRuntimeContract) Reset() {
@@ -2327,6 +2331,34 @@ func (x *CreatureBehaviorRuntimeContract) GetMetadataJson() string {
 		return x.MetadataJson
 	}
 	return ""
+}
+
+func (x *CreatureBehaviorRuntimeContract) GetTargetOpportunityPolicyId() string {
+	if x != nil {
+		return x.TargetOpportunityPolicyId
+	}
+	return ""
+}
+
+func (x *CreatureBehaviorRuntimeContract) GetOrbitPolicyId() string {
+	if x != nil {
+		return x.OrbitPolicyId
+	}
+	return ""
+}
+
+func (x *CreatureBehaviorRuntimeContract) GetTargetOpportunityPolicy() *CreatureTargetOpportunityPolicy {
+	if x != nil {
+		return x.TargetOpportunityPolicy
+	}
+	return nil
+}
+
+func (x *CreatureBehaviorRuntimeContract) GetOrbitPolicy() *CreatureOrbitPolicy {
+	if x != nil {
+		return x.OrbitPolicy
+	}
+	return nil
 }
 
 type CreatureEvasionPolicy struct {
@@ -2601,6 +2633,450 @@ func (x *CreatureSkillSetupPolicy) GetMetadataJson() string {
 	return ""
 }
 
+type CreatureTargetOpportunityPolicy struct {
+	state                       protoimpl.MessageState `protogen:"open.v1"`
+	Id                          string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Description                 string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	CommitAngleMaxDeg           float64                `protobuf:"fixed64,3,opt,name=commit_angle_max_deg,json=commitAngleMaxDeg,proto3" json:"commit_angle_max_deg,omitempty"`
+	MinCommitDistanceCm         float64                `protobuf:"fixed64,4,opt,name=min_commit_distance_cm,json=minCommitDistanceCm,proto3" json:"min_commit_distance_cm,omitempty"`
+	MaxCommitDistanceCm         float64                `protobuf:"fixed64,5,opt,name=max_commit_distance_cm,json=maxCommitDistanceCm,proto3" json:"max_commit_distance_cm,omitempty"`
+	ApproachMinDistanceCm       float64                `protobuf:"fixed64,6,opt,name=approach_min_distance_cm,json=approachMinDistanceCm,proto3" json:"approach_min_distance_cm,omitempty"`
+	ApproachMaxDistanceCm       float64                `protobuf:"fixed64,7,opt,name=approach_max_distance_cm,json=approachMaxDistanceCm,proto3" json:"approach_max_distance_cm,omitempty"`
+	BiteRangeCm                 float64                `protobuf:"fixed64,8,opt,name=bite_range_cm,json=biteRangeCm,proto3" json:"bite_range_cm,omitempty"`
+	LungeMinRangeCm             float64                `protobuf:"fixed64,9,opt,name=lunge_min_range_cm,json=lungeMinRangeCm,proto3" json:"lunge_min_range_cm,omitempty"`
+	LungeMaxRangeCm             float64                `protobuf:"fixed64,10,opt,name=lunge_max_range_cm,json=lungeMaxRangeCm,proto3" json:"lunge_max_range_cm,omitempty"`
+	MaulPressureThreshold       float64                `protobuf:"fixed64,11,opt,name=maul_pressure_threshold,json=maulPressureThreshold,proto3" json:"maul_pressure_threshold,omitempty"`
+	TargetMemoryMs              int32                  `protobuf:"varint,12,opt,name=target_memory_ms,json=targetMemoryMs,proto3" json:"target_memory_ms,omitempty"`
+	NoReadySkillMemoryPolicy    string                 `protobuf:"bytes,13,opt,name=no_ready_skill_memory_policy,json=noReadySkillMemoryPolicy,proto3" json:"no_ready_skill_memory_policy,omitempty"`
+	CandidateCooldownVisibility bool                   `protobuf:"varint,14,opt,name=candidate_cooldown_visibility,json=candidateCooldownVisibility,proto3" json:"candidate_cooldown_visibility,omitempty"`
+	AllowBacksideCommit         bool                   `protobuf:"varint,15,opt,name=allow_backside_commit,json=allowBacksideCommit,proto3" json:"allow_backside_commit,omitempty"`
+	MetadataJson                string                 `protobuf:"bytes,16,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields               protoimpl.UnknownFields
+	sizeCache                   protoimpl.SizeCache
+}
+
+func (x *CreatureTargetOpportunityPolicy) Reset() {
+	*x = CreatureTargetOpportunityPolicy{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatureTargetOpportunityPolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatureTargetOpportunityPolicy) ProtoMessage() {}
+
+func (x *CreatureTargetOpportunityPolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatureTargetOpportunityPolicy.ProtoReflect.Descriptor instead.
+func (*CreatureTargetOpportunityPolicy) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetCommitAngleMaxDeg() float64 {
+	if x != nil {
+		return x.CommitAngleMaxDeg
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetMinCommitDistanceCm() float64 {
+	if x != nil {
+		return x.MinCommitDistanceCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetMaxCommitDistanceCm() float64 {
+	if x != nil {
+		return x.MaxCommitDistanceCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetApproachMinDistanceCm() float64 {
+	if x != nil {
+		return x.ApproachMinDistanceCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetApproachMaxDistanceCm() float64 {
+	if x != nil {
+		return x.ApproachMaxDistanceCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetBiteRangeCm() float64 {
+	if x != nil {
+		return x.BiteRangeCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetLungeMinRangeCm() float64 {
+	if x != nil {
+		return x.LungeMinRangeCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetLungeMaxRangeCm() float64 {
+	if x != nil {
+		return x.LungeMaxRangeCm
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetMaulPressureThreshold() float64 {
+	if x != nil {
+		return x.MaulPressureThreshold
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetTargetMemoryMs() int32 {
+	if x != nil {
+		return x.TargetMemoryMs
+	}
+	return 0
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetNoReadySkillMemoryPolicy() string {
+	if x != nil {
+		return x.NoReadySkillMemoryPolicy
+	}
+	return ""
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetCandidateCooldownVisibility() bool {
+	if x != nil {
+		return x.CandidateCooldownVisibility
+	}
+	return false
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetAllowBacksideCommit() bool {
+	if x != nil {
+		return x.AllowBacksideCommit
+	}
+	return false
+}
+
+func (x *CreatureTargetOpportunityPolicy) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
+type CreatureOrbitPolicy struct {
+	state                          protoimpl.MessageState `protogen:"open.v1"`
+	Id                             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	BehaviorContractId             string                 `protobuf:"bytes,2,opt,name=behavior_contract_id,json=behaviorContractId,proto3" json:"behavior_contract_id,omitempty"`
+	Description                    string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	OrbitLocomotionMode            string                 `protobuf:"bytes,4,opt,name=orbit_locomotion_mode,json=orbitLocomotionMode,proto3" json:"orbit_locomotion_mode,omitempty"`
+	OrbitSpeedScale                float64                `protobuf:"fixed64,5,opt,name=orbit_speed_scale,json=orbitSpeedScale,proto3" json:"orbit_speed_scale,omitempty"`
+	MinOrbitDurationMs             int32                  `protobuf:"varint,6,opt,name=min_orbit_duration_ms,json=minOrbitDurationMs,proto3" json:"min_orbit_duration_ms,omitempty"`
+	SideSwitchCooldownMs           int32                  `protobuf:"varint,7,opt,name=side_switch_cooldown_ms,json=sideSwitchCooldownMs,proto3" json:"side_switch_cooldown_ms,omitempty"`
+	AllowSideSwitchWhenTargetFaces bool                   `protobuf:"varint,8,opt,name=allow_side_switch_when_target_faces,json=allowSideSwitchWhenTargetFaces,proto3" json:"allow_side_switch_when_target_faces,omitempty"`
+	PreferLongSideCommit           bool                   `protobuf:"varint,9,opt,name=prefer_long_side_commit,json=preferLongSideCommit,proto3" json:"prefer_long_side_commit,omitempty"`
+	SideFlipChanceMultiplier       float64                `protobuf:"fixed64,10,opt,name=side_flip_chance_multiplier,json=sideFlipChanceMultiplier,proto3" json:"side_flip_chance_multiplier,omitempty"`
+	LockSideDuringSetup            bool                   `protobuf:"varint,11,opt,name=lock_side_during_setup,json=lockSideDuringSetup,proto3" json:"lock_side_during_setup,omitempty"`
+	MetadataJson                   string                 `protobuf:"bytes,12,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields                  protoimpl.UnknownFields
+	sizeCache                      protoimpl.SizeCache
+}
+
+func (x *CreatureOrbitPolicy) Reset() {
+	*x = CreatureOrbitPolicy{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatureOrbitPolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatureOrbitPolicy) ProtoMessage() {}
+
+func (x *CreatureOrbitPolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatureOrbitPolicy.ProtoReflect.Descriptor instead.
+func (*CreatureOrbitPolicy) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *CreatureOrbitPolicy) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreatureOrbitPolicy) GetBehaviorContractId() string {
+	if x != nil {
+		return x.BehaviorContractId
+	}
+	return ""
+}
+
+func (x *CreatureOrbitPolicy) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CreatureOrbitPolicy) GetOrbitLocomotionMode() string {
+	if x != nil {
+		return x.OrbitLocomotionMode
+	}
+	return ""
+}
+
+func (x *CreatureOrbitPolicy) GetOrbitSpeedScale() float64 {
+	if x != nil {
+		return x.OrbitSpeedScale
+	}
+	return 0
+}
+
+func (x *CreatureOrbitPolicy) GetMinOrbitDurationMs() int32 {
+	if x != nil {
+		return x.MinOrbitDurationMs
+	}
+	return 0
+}
+
+func (x *CreatureOrbitPolicy) GetSideSwitchCooldownMs() int32 {
+	if x != nil {
+		return x.SideSwitchCooldownMs
+	}
+	return 0
+}
+
+func (x *CreatureOrbitPolicy) GetAllowSideSwitchWhenTargetFaces() bool {
+	if x != nil {
+		return x.AllowSideSwitchWhenTargetFaces
+	}
+	return false
+}
+
+func (x *CreatureOrbitPolicy) GetPreferLongSideCommit() bool {
+	if x != nil {
+		return x.PreferLongSideCommit
+	}
+	return false
+}
+
+func (x *CreatureOrbitPolicy) GetSideFlipChanceMultiplier() float64 {
+	if x != nil {
+		return x.SideFlipChanceMultiplier
+	}
+	return 0
+}
+
+func (x *CreatureOrbitPolicy) GetLockSideDuringSetup() bool {
+	if x != nil {
+		return x.LockSideDuringSetup
+	}
+	return false
+}
+
+func (x *CreatureOrbitPolicy) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
+type CreatureSkillBehaviorBinding struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	Id                  string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	BehaviorContractId  string                 `protobuf:"bytes,2,opt,name=behavior_contract_id,json=behaviorContractId,proto3" json:"behavior_contract_id,omitempty"`
+	SkillId             string                 `protobuf:"bytes,3,opt,name=skill_id,json=skillId,proto3" json:"skill_id,omitempty"`
+	TacticalState       string                 `protobuf:"bytes,4,opt,name=tactical_state,json=tacticalState,proto3" json:"tactical_state,omitempty"`
+	DecisionPhase       string                 `protobuf:"bytes,5,opt,name=decision_phase,json=decisionPhase,proto3" json:"decision_phase,omitempty"`
+	SetupPolicyId       string                 `protobuf:"bytes,6,opt,name=setup_policy_id,json=setupPolicyId,proto3" json:"setup_policy_id,omitempty"`
+	MinRangeCm          float64                `protobuf:"fixed64,7,opt,name=min_range_cm,json=minRangeCm,proto3" json:"min_range_cm,omitempty"`
+	MaxRangeCm          float64                `protobuf:"fixed64,8,opt,name=max_range_cm,json=maxRangeCm,proto3" json:"max_range_cm,omitempty"`
+	Priority            int32                  `protobuf:"varint,9,opt,name=priority,proto3" json:"priority,omitempty"`
+	UsageWeight         float64                `protobuf:"fixed64,10,opt,name=usage_weight,json=usageWeight,proto3" json:"usage_weight,omitempty"`
+	CooldownGroup       string                 `protobuf:"bytes,11,opt,name=cooldown_group,json=cooldownGroup,proto3" json:"cooldown_group,omitempty"`
+	RequiresLineOfSight bool                   `protobuf:"varint,12,opt,name=requires_line_of_sight,json=requiresLineOfSight,proto3" json:"requires_line_of_sight,omitempty"`
+	IsEnabled           bool                   `protobuf:"varint,13,opt,name=is_enabled,json=isEnabled,proto3" json:"is_enabled,omitempty"`
+	MetadataJson        string                 `protobuf:"bytes,14,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *CreatureSkillBehaviorBinding) Reset() {
+	*x = CreatureSkillBehaviorBinding{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatureSkillBehaviorBinding) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatureSkillBehaviorBinding) ProtoMessage() {}
+
+func (x *CreatureSkillBehaviorBinding) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatureSkillBehaviorBinding.ProtoReflect.Descriptor instead.
+func (*CreatureSkillBehaviorBinding) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *CreatureSkillBehaviorBinding) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetBehaviorContractId() string {
+	if x != nil {
+		return x.BehaviorContractId
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetSkillId() string {
+	if x != nil {
+		return x.SkillId
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetTacticalState() string {
+	if x != nil {
+		return x.TacticalState
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetDecisionPhase() string {
+	if x != nil {
+		return x.DecisionPhase
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetSetupPolicyId() string {
+	if x != nil {
+		return x.SetupPolicyId
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetMinRangeCm() float64 {
+	if x != nil {
+		return x.MinRangeCm
+	}
+	return 0
+}
+
+func (x *CreatureSkillBehaviorBinding) GetMaxRangeCm() float64 {
+	if x != nil {
+		return x.MaxRangeCm
+	}
+	return 0
+}
+
+func (x *CreatureSkillBehaviorBinding) GetPriority() int32 {
+	if x != nil {
+		return x.Priority
+	}
+	return 0
+}
+
+func (x *CreatureSkillBehaviorBinding) GetUsageWeight() float64 {
+	if x != nil {
+		return x.UsageWeight
+	}
+	return 0
+}
+
+func (x *CreatureSkillBehaviorBinding) GetCooldownGroup() string {
+	if x != nil {
+		return x.CooldownGroup
+	}
+	return ""
+}
+
+func (x *CreatureSkillBehaviorBinding) GetRequiresLineOfSight() bool {
+	if x != nil {
+		return x.RequiresLineOfSight
+	}
+	return false
+}
+
+func (x *CreatureSkillBehaviorBinding) GetIsEnabled() bool {
+	if x != nil {
+		return x.IsEnabled
+	}
+	return false
+}
+
+func (x *CreatureSkillBehaviorBinding) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
 type CombatCoreProfile struct {
 	state                   protoimpl.MessageState `protogen:"open.v1"`
 	DamageDealtMultiplier   float64                `protobuf:"fixed64,1,opt,name=damage_dealt_multiplier,json=damageDealtMultiplier,proto3" json:"damage_dealt_multiplier,omitempty"`
@@ -2620,7 +3096,7 @@ type CombatCoreProfile struct {
 
 func (x *CombatCoreProfile) Reset() {
 	*x = CombatCoreProfile{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2632,7 +3108,7 @@ func (x *CombatCoreProfile) String() string {
 func (*CombatCoreProfile) ProtoMessage() {}
 
 func (x *CombatCoreProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2645,7 +3121,7 @@ func (x *CombatCoreProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CombatCoreProfile.ProtoReflect.Descriptor instead.
 func (*CombatCoreProfile) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{21}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *CombatCoreProfile) GetDamageDealtMultiplier() float64 {
@@ -2748,7 +3224,7 @@ type CombatDefenseContract struct {
 
 func (x *CombatDefenseContract) Reset() {
 	*x = CombatDefenseContract{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2760,7 +3236,7 @@ func (x *CombatDefenseContract) String() string {
 func (*CombatDefenseContract) ProtoMessage() {}
 
 func (x *CombatDefenseContract) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2773,7 +3249,7 @@ func (x *CombatDefenseContract) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CombatDefenseContract.ProtoReflect.Descriptor instead.
 func (*CombatDefenseContract) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *CombatDefenseContract) GetId() string {
@@ -2907,7 +3383,7 @@ type MovementProfile struct {
 
 func (x *MovementProfile) Reset() {
 	*x = MovementProfile{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2919,7 +3395,7 @@ func (x *MovementProfile) String() string {
 func (*MovementProfile) ProtoMessage() {}
 
 func (x *MovementProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2932,7 +3408,7 @@ func (x *MovementProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MovementProfile.ProtoReflect.Descriptor instead.
 func (*MovementProfile) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *MovementProfile) GetId() string {
@@ -3081,7 +3557,7 @@ type StatusEffect struct {
 
 func (x *StatusEffect) Reset() {
 	*x = StatusEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3093,7 +3569,7 @@ func (x *StatusEffect) String() string {
 func (*StatusEffect) ProtoMessage() {}
 
 func (x *StatusEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3106,7 +3582,7 @@ func (x *StatusEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
 func (*StatusEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *StatusEffect) GetId() string {
@@ -3207,7 +3683,7 @@ type SkillControlEffect struct {
 
 func (x *SkillControlEffect) Reset() {
 	*x = SkillControlEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3219,7 +3695,7 @@ func (x *SkillControlEffect) String() string {
 func (*SkillControlEffect) ProtoMessage() {}
 
 func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3232,7 +3708,7 @@ func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkillControlEffect.ProtoReflect.Descriptor instead.
 func (*SkillControlEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *SkillControlEffect) GetId() string {
@@ -3298,7 +3774,7 @@ type WorldRegion struct {
 
 func (x *WorldRegion) Reset() {
 	*x = WorldRegion{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3310,7 +3786,7 @@ func (x *WorldRegion) String() string {
 func (*WorldRegion) ProtoMessage() {}
 
 func (x *WorldRegion) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3323,7 +3799,7 @@ func (x *WorldRegion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorldRegion.ProtoReflect.Descriptor instead.
 func (*WorldRegion) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *WorldRegion) GetId() string {
@@ -3437,7 +3913,7 @@ type Biome struct {
 
 func (x *Biome) Reset() {
 	*x = Biome{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3449,7 +3925,7 @@ func (x *Biome) String() string {
 func (*Biome) ProtoMessage() {}
 
 func (x *Biome) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3462,7 +3938,7 @@ func (x *Biome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Biome.ProtoReflect.Descriptor instead.
 func (*Biome) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *Biome) GetId() string {
@@ -3572,7 +4048,7 @@ type SpawnZone struct {
 
 func (x *SpawnZone) Reset() {
 	*x = SpawnZone{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3584,7 +4060,7 @@ func (x *SpawnZone) String() string {
 func (*SpawnZone) ProtoMessage() {}
 
 func (x *SpawnZone) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3597,7 +4073,7 @@ func (x *SpawnZone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpawnZone.ProtoReflect.Descriptor instead.
 func (*SpawnZone) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *SpawnZone) GetId() string {
@@ -3730,7 +4206,7 @@ type Player struct {
 
 func (x *Player) Reset() {
 	*x = Player{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3742,7 +4218,7 @@ func (x *Player) String() string {
 func (*Player) ProtoMessage() {}
 
 func (x *Player) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3755,7 +4231,7 @@ func (x *Player) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Player.ProtoReflect.Descriptor instead.
 func (*Player) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *Player) GetId() string {
@@ -3893,7 +4369,7 @@ type Inventory struct {
 
 func (x *Inventory) Reset() {
 	*x = Inventory{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3905,7 +4381,7 @@ func (x *Inventory) String() string {
 func (*Inventory) ProtoMessage() {}
 
 func (x *Inventory) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3918,7 +4394,7 @@ func (x *Inventory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Inventory.ProtoReflect.Descriptor instead.
 func (*Inventory) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *Inventory) GetId() string {
@@ -3995,7 +4471,7 @@ type ItemTemplate struct {
 
 func (x *ItemTemplate) Reset() {
 	*x = ItemTemplate{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4007,7 +4483,7 @@ func (x *ItemTemplate) String() string {
 func (*ItemTemplate) ProtoMessage() {}
 
 func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4020,7 +4496,7 @@ func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
 func (*ItemTemplate) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *ItemTemplate) GetId() string {
@@ -4108,7 +4584,7 @@ type InventoryItem struct {
 
 func (x *InventoryItem) Reset() {
 	*x = InventoryItem{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4120,7 +4596,7 @@ func (x *InventoryItem) String() string {
 func (*InventoryItem) ProtoMessage() {}
 
 func (x *InventoryItem) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4133,7 +4609,7 @@ func (x *InventoryItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryItem.ProtoReflect.Descriptor instead.
 func (*InventoryItem) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *InventoryItem) GetId() string {
@@ -4195,7 +4671,7 @@ type InventoryWithItems struct {
 
 func (x *InventoryWithItems) Reset() {
 	*x = InventoryWithItems{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4207,7 +4683,7 @@ func (x *InventoryWithItems) String() string {
 func (*InventoryWithItems) ProtoMessage() {}
 
 func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4220,7 +4696,7 @@ func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryWithItems.ProtoReflect.Descriptor instead.
 func (*InventoryWithItems) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *InventoryWithItems) GetInventory() *Inventory {
@@ -4247,7 +4723,7 @@ type Readiness struct {
 
 func (x *Readiness) Reset() {
 	*x = Readiness{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[34]
+	mi := &file_apeiron_v1_common_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4259,7 +4735,7 @@ func (x *Readiness) String() string {
 func (*Readiness) ProtoMessage() {}
 
 func (x *Readiness) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[34]
+	mi := &file_apeiron_v1_common_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4272,7 +4748,7 @@ func (x *Readiness) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Readiness.ProtoReflect.Descriptor instead.
 func (*Readiness) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{34}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *Readiness) GetStatus() string {
@@ -4548,7 +5024,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"is_enabled\x18\b \x01(\bR\tisEnabled\x12#\n" +
 	"\rmetadata_json\x18\t \x01(\tR\fmetadataJson\x12\\\n" +
 	"\x18movement_action_contract\x18\n" +
-	" \x01(\v2\".apeiron.v1.MovementActionContractR\x16movementActionContract\"\x98\x03\n" +
+	" \x01(\v2\".apeiron.v1.MovementActionContractR\x16movementActionContract\"\xae\x05\n" +
 	"\x1fCreatureBehaviorRuntimeContract\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
 	"\x14creature_template_id\x18\x02 \x01(\tR\x12creatureTemplateId\x12 \n" +
@@ -4558,7 +5034,12 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x11orbit_policy_json\x18\x06 \x01(\tR\x0forbitPolicyJson\x120\n" +
 	"\x14pressure_policy_json\x18\a \x01(\tR\x12pressurePolicyJson\x12.\n" +
 	"\x13stamina_policy_json\x18\b \x01(\tR\x11staminaPolicyJson\x12#\n" +
-	"\rmetadata_json\x18\t \x01(\tR\fmetadataJson\"\xfa\x03\n" +
+	"\rmetadata_json\x18\t \x01(\tR\fmetadataJson\x12?\n" +
+	"\x1ctarget_opportunity_policy_id\x18\n" +
+	" \x01(\tR\x19targetOpportunityPolicyId\x12&\n" +
+	"\x0forbit_policy_id\x18\v \x01(\tR\rorbitPolicyId\x12g\n" +
+	"\x19target_opportunity_policy\x18\f \x01(\v2+.apeiron.v1.CreatureTargetOpportunityPolicyR\x17targetOpportunityPolicy\x12B\n" +
+	"\forbit_policy\x18\r \x01(\v2\x1f.apeiron.v1.CreatureOrbitPolicyR\vorbitPolicy\"\xfa\x03\n" +
 	"\x15CreatureEvasionPolicy\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
 	"\x14behavior_contract_id\x18\x02 \x01(\tR\x12behaviorContractId\x12 \n" +
@@ -4592,7 +5073,58 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16lock_side_during_setup\x18\v \x01(\bR\x13lockSideDuringSetup\x12\x1d\n" +
 	"\n" +
 	"is_enabled\x18\f \x01(\bR\tisEnabled\x12#\n" +
-	"\rmetadata_json\x18\r \x01(\tR\fmetadataJson\"\x93\x04\n" +
+	"\rmetadata_json\x18\r \x01(\tR\fmetadataJson\"\x9d\x06\n" +
+	"\x1fCreatureTargetOpportunityPolicy\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\x12/\n" +
+	"\x14commit_angle_max_deg\x18\x03 \x01(\x01R\x11commitAngleMaxDeg\x123\n" +
+	"\x16min_commit_distance_cm\x18\x04 \x01(\x01R\x13minCommitDistanceCm\x123\n" +
+	"\x16max_commit_distance_cm\x18\x05 \x01(\x01R\x13maxCommitDistanceCm\x127\n" +
+	"\x18approach_min_distance_cm\x18\x06 \x01(\x01R\x15approachMinDistanceCm\x127\n" +
+	"\x18approach_max_distance_cm\x18\a \x01(\x01R\x15approachMaxDistanceCm\x12\"\n" +
+	"\rbite_range_cm\x18\b \x01(\x01R\vbiteRangeCm\x12+\n" +
+	"\x12lunge_min_range_cm\x18\t \x01(\x01R\x0flungeMinRangeCm\x12+\n" +
+	"\x12lunge_max_range_cm\x18\n" +
+	" \x01(\x01R\x0flungeMaxRangeCm\x126\n" +
+	"\x17maul_pressure_threshold\x18\v \x01(\x01R\x15maulPressureThreshold\x12(\n" +
+	"\x10target_memory_ms\x18\f \x01(\x05R\x0etargetMemoryMs\x12>\n" +
+	"\x1cno_ready_skill_memory_policy\x18\r \x01(\tR\x18noReadySkillMemoryPolicy\x12B\n" +
+	"\x1dcandidate_cooldown_visibility\x18\x0e \x01(\bR\x1bcandidateCooldownVisibility\x122\n" +
+	"\x15allow_backside_commit\x18\x0f \x01(\bR\x13allowBacksideCommit\x12#\n" +
+	"\rmetadata_json\x18\x10 \x01(\tR\fmetadataJson\"\xe0\x04\n" +
+	"\x13CreatureOrbitPolicy\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
+	"\x14behavior_contract_id\x18\x02 \x01(\tR\x12behaviorContractId\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x122\n" +
+	"\x15orbit_locomotion_mode\x18\x04 \x01(\tR\x13orbitLocomotionMode\x12*\n" +
+	"\x11orbit_speed_scale\x18\x05 \x01(\x01R\x0forbitSpeedScale\x121\n" +
+	"\x15min_orbit_duration_ms\x18\x06 \x01(\x05R\x12minOrbitDurationMs\x125\n" +
+	"\x17side_switch_cooldown_ms\x18\a \x01(\x05R\x14sideSwitchCooldownMs\x12K\n" +
+	"#allow_side_switch_when_target_faces\x18\b \x01(\bR\x1eallowSideSwitchWhenTargetFaces\x125\n" +
+	"\x17prefer_long_side_commit\x18\t \x01(\bR\x14preferLongSideCommit\x12=\n" +
+	"\x1bside_flip_chance_multiplier\x18\n" +
+	" \x01(\x01R\x18sideFlipChanceMultiplier\x123\n" +
+	"\x16lock_side_during_setup\x18\v \x01(\bR\x13lockSideDuringSetup\x12#\n" +
+	"\rmetadata_json\x18\f \x01(\tR\fmetadataJson\"\x94\x04\n" +
+	"\x1cCreatureSkillBehaviorBinding\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
+	"\x14behavior_contract_id\x18\x02 \x01(\tR\x12behaviorContractId\x12\x19\n" +
+	"\bskill_id\x18\x03 \x01(\tR\askillId\x12%\n" +
+	"\x0etactical_state\x18\x04 \x01(\tR\rtacticalState\x12%\n" +
+	"\x0edecision_phase\x18\x05 \x01(\tR\rdecisionPhase\x12&\n" +
+	"\x0fsetup_policy_id\x18\x06 \x01(\tR\rsetupPolicyId\x12 \n" +
+	"\fmin_range_cm\x18\a \x01(\x01R\n" +
+	"minRangeCm\x12 \n" +
+	"\fmax_range_cm\x18\b \x01(\x01R\n" +
+	"maxRangeCm\x12\x1a\n" +
+	"\bpriority\x18\t \x01(\x05R\bpriority\x12!\n" +
+	"\fusage_weight\x18\n" +
+	" \x01(\x01R\vusageWeight\x12%\n" +
+	"\x0ecooldown_group\x18\v \x01(\tR\rcooldownGroup\x123\n" +
+	"\x16requires_line_of_sight\x18\f \x01(\bR\x13requiresLineOfSight\x12\x1d\n" +
+	"\n" +
+	"is_enabled\x18\r \x01(\bR\tisEnabled\x12#\n" +
+	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\x93\x04\n" +
 	"\x11CombatCoreProfile\x126\n" +
 	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
 	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
@@ -4802,7 +5334,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                           // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),                 // 1: apeiron.v1.OperationResult
@@ -4825,20 +5357,23 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*CreatureBehaviorRuntimeContract)(nil), // 18: apeiron.v1.CreatureBehaviorRuntimeContract
 	(*CreatureEvasionPolicy)(nil),           // 19: apeiron.v1.CreatureEvasionPolicy
 	(*CreatureSkillSetupPolicy)(nil),        // 20: apeiron.v1.CreatureSkillSetupPolicy
-	(*CombatCoreProfile)(nil),               // 21: apeiron.v1.CombatCoreProfile
-	(*CombatDefenseContract)(nil),           // 22: apeiron.v1.CombatDefenseContract
-	(*MovementProfile)(nil),                 // 23: apeiron.v1.MovementProfile
-	(*StatusEffect)(nil),                    // 24: apeiron.v1.StatusEffect
-	(*SkillControlEffect)(nil),              // 25: apeiron.v1.SkillControlEffect
-	(*WorldRegion)(nil),                     // 26: apeiron.v1.WorldRegion
-	(*Biome)(nil),                           // 27: apeiron.v1.Biome
-	(*SpawnZone)(nil),                       // 28: apeiron.v1.SpawnZone
-	(*Player)(nil),                          // 29: apeiron.v1.Player
-	(*Inventory)(nil),                       // 30: apeiron.v1.Inventory
-	(*ItemTemplate)(nil),                    // 31: apeiron.v1.ItemTemplate
-	(*InventoryItem)(nil),                   // 32: apeiron.v1.InventoryItem
-	(*InventoryWithItems)(nil),              // 33: apeiron.v1.InventoryWithItems
-	(*Readiness)(nil),                       // 34: apeiron.v1.Readiness
+	(*CreatureTargetOpportunityPolicy)(nil), // 21: apeiron.v1.CreatureTargetOpportunityPolicy
+	(*CreatureOrbitPolicy)(nil),             // 22: apeiron.v1.CreatureOrbitPolicy
+	(*CreatureSkillBehaviorBinding)(nil),    // 23: apeiron.v1.CreatureSkillBehaviorBinding
+	(*CombatCoreProfile)(nil),               // 24: apeiron.v1.CombatCoreProfile
+	(*CombatDefenseContract)(nil),           // 25: apeiron.v1.CombatDefenseContract
+	(*MovementProfile)(nil),                 // 26: apeiron.v1.MovementProfile
+	(*StatusEffect)(nil),                    // 27: apeiron.v1.StatusEffect
+	(*SkillControlEffect)(nil),              // 28: apeiron.v1.SkillControlEffect
+	(*WorldRegion)(nil),                     // 29: apeiron.v1.WorldRegion
+	(*Biome)(nil),                           // 30: apeiron.v1.Biome
+	(*SpawnZone)(nil),                       // 31: apeiron.v1.SpawnZone
+	(*Player)(nil),                          // 32: apeiron.v1.Player
+	(*Inventory)(nil),                       // 33: apeiron.v1.Inventory
+	(*ItemTemplate)(nil),                    // 34: apeiron.v1.ItemTemplate
+	(*InventoryItem)(nil),                   // 35: apeiron.v1.InventoryItem
+	(*InventoryWithItems)(nil),              // 36: apeiron.v1.InventoryWithItems
+	(*Readiness)(nil),                       // 37: apeiron.v1.Readiness
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
 	5,  // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
@@ -4849,13 +5384,15 @@ var file_apeiron_v1_common_proto_depIdxs = []int32{
 	13, // 5: apeiron.v1.MovementActionContract.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
 	14, // 6: apeiron.v1.MovementActionContract.reconciliation_contract:type_name -> apeiron.v1.MovementReconciliationContract
 	15, // 7: apeiron.v1.SkillMovementActionBinding.movement_action_contract:type_name -> apeiron.v1.MovementActionContract
-	30, // 8: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
-	32, // 9: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	21, // 8: apeiron.v1.CreatureBehaviorRuntimeContract.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
+	22, // 9: apeiron.v1.CreatureBehaviorRuntimeContract.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
+	33, // 10: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
+	35, // 11: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_common_proto_init() }
@@ -4870,7 +5407,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   35,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

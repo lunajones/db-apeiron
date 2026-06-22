@@ -74,20 +74,27 @@ func (x *CreatureTemplateResponse) GetTemplate() *CreatureTemplate {
 }
 
 type CreatureRuntimeDataResponse struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	Found                bool                   `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
-	Template             *CreatureTemplate      `protobuf:"bytes,2,opt,name=template,proto3" json:"template,omitempty"`
-	SpawnProfileId       string                 `protobuf:"bytes,3,opt,name=spawn_profile_id,json=spawnProfileId,proto3" json:"spawn_profile_id,omitempty"`
-	MovementProfileId    string                 `protobuf:"bytes,4,opt,name=movement_profile_id,json=movementProfileId,proto3" json:"movement_profile_id,omitempty"`
-	CombatCoreProfileId  string                 `protobuf:"bytes,5,opt,name=combat_core_profile_id,json=combatCoreProfileId,proto3" json:"combat_core_profile_id,omitempty"`
-	CombatStyleProfileId string                 `protobuf:"bytes,6,opt,name=combat_style_profile_id,json=combatStyleProfileId,proto3" json:"combat_style_profile_id,omitempty"`
-	NeedsProfileId       string                 `protobuf:"bytes,7,opt,name=needs_profile_id,json=needsProfileId,proto3" json:"needs_profile_id,omitempty"`
-	PersonalityProfileId string                 `protobuf:"bytes,8,opt,name=personality_profile_id,json=personalityProfileId,proto3" json:"personality_profile_id,omitempty"`
-	AiDecisionProfileId  string                 `protobuf:"bytes,9,opt,name=ai_decision_profile_id,json=aiDecisionProfileId,proto3" json:"ai_decision_profile_id,omitempty"`
-	SensoryProfileId     string                 `protobuf:"bytes,10,opt,name=sensory_profile_id,json=sensoryProfileId,proto3" json:"sensory_profile_id,omitempty"`
-	SkillSetId           string                 `protobuf:"bytes,11,opt,name=skill_set_id,json=skillSetId,proto3" json:"skill_set_id,omitempty"`
-	unknownFields        protoimpl.UnknownFields
-	sizeCache            protoimpl.SizeCache
+	state                   protoimpl.MessageState           `protogen:"open.v1"`
+	Found                   bool                             `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Template                *CreatureTemplate                `protobuf:"bytes,2,opt,name=template,proto3" json:"template,omitempty"`
+	SpawnProfileId          string                           `protobuf:"bytes,3,opt,name=spawn_profile_id,json=spawnProfileId,proto3" json:"spawn_profile_id,omitempty"`
+	MovementProfileId       string                           `protobuf:"bytes,4,opt,name=movement_profile_id,json=movementProfileId,proto3" json:"movement_profile_id,omitempty"`
+	CombatCoreProfileId     string                           `protobuf:"bytes,5,opt,name=combat_core_profile_id,json=combatCoreProfileId,proto3" json:"combat_core_profile_id,omitempty"`
+	CombatStyleProfileId    string                           `protobuf:"bytes,6,opt,name=combat_style_profile_id,json=combatStyleProfileId,proto3" json:"combat_style_profile_id,omitempty"`
+	NeedsProfileId          string                           `protobuf:"bytes,7,opt,name=needs_profile_id,json=needsProfileId,proto3" json:"needs_profile_id,omitempty"`
+	PersonalityProfileId    string                           `protobuf:"bytes,8,opt,name=personality_profile_id,json=personalityProfileId,proto3" json:"personality_profile_id,omitempty"`
+	AiDecisionProfileId     string                           `protobuf:"bytes,9,opt,name=ai_decision_profile_id,json=aiDecisionProfileId,proto3" json:"ai_decision_profile_id,omitempty"`
+	SensoryProfileId        string                           `protobuf:"bytes,10,opt,name=sensory_profile_id,json=sensoryProfileId,proto3" json:"sensory_profile_id,omitempty"`
+	SkillSetId              string                           `protobuf:"bytes,11,opt,name=skill_set_id,json=skillSetId,proto3" json:"skill_set_id,omitempty"`
+	BehaviorContractId      string                           `protobuf:"bytes,12,opt,name=behavior_contract_id,json=behaviorContractId,proto3" json:"behavior_contract_id,omitempty"`
+	BehaviorContract        *CreatureBehaviorRuntimeContract `protobuf:"bytes,13,opt,name=behavior_contract,json=behaviorContract,proto3" json:"behavior_contract,omitempty"`
+	TargetOpportunityPolicy *CreatureTargetOpportunityPolicy `protobuf:"bytes,14,opt,name=target_opportunity_policy,json=targetOpportunityPolicy,proto3" json:"target_opportunity_policy,omitempty"`
+	OrbitPolicy             *CreatureOrbitPolicy             `protobuf:"bytes,15,opt,name=orbit_policy,json=orbitPolicy,proto3" json:"orbit_policy,omitempty"`
+	EvasionPolicies         []*CreatureEvasionPolicy         `protobuf:"bytes,16,rep,name=evasion_policies,json=evasionPolicies,proto3" json:"evasion_policies,omitempty"`
+	SkillSetupPolicies      []*CreatureSkillSetupPolicy      `protobuf:"bytes,17,rep,name=skill_setup_policies,json=skillSetupPolicies,proto3" json:"skill_setup_policies,omitempty"`
+	SkillBehaviorBindings   []*CreatureSkillBehaviorBinding  `protobuf:"bytes,18,rep,name=skill_behavior_bindings,json=skillBehaviorBindings,proto3" json:"skill_behavior_bindings,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *CreatureRuntimeDataResponse) Reset() {
@@ -197,6 +204,55 @@ func (x *CreatureRuntimeDataResponse) GetSkillSetId() string {
 	return ""
 }
 
+func (x *CreatureRuntimeDataResponse) GetBehaviorContractId() string {
+	if x != nil {
+		return x.BehaviorContractId
+	}
+	return ""
+}
+
+func (x *CreatureRuntimeDataResponse) GetBehaviorContract() *CreatureBehaviorRuntimeContract {
+	if x != nil {
+		return x.BehaviorContract
+	}
+	return nil
+}
+
+func (x *CreatureRuntimeDataResponse) GetTargetOpportunityPolicy() *CreatureTargetOpportunityPolicy {
+	if x != nil {
+		return x.TargetOpportunityPolicy
+	}
+	return nil
+}
+
+func (x *CreatureRuntimeDataResponse) GetOrbitPolicy() *CreatureOrbitPolicy {
+	if x != nil {
+		return x.OrbitPolicy
+	}
+	return nil
+}
+
+func (x *CreatureRuntimeDataResponse) GetEvasionPolicies() []*CreatureEvasionPolicy {
+	if x != nil {
+		return x.EvasionPolicies
+	}
+	return nil
+}
+
+func (x *CreatureRuntimeDataResponse) GetSkillSetupPolicies() []*CreatureSkillSetupPolicy {
+	if x != nil {
+		return x.SkillSetupPolicies
+	}
+	return nil
+}
+
+func (x *CreatureRuntimeDataResponse) GetSkillBehaviorBindings() []*CreatureSkillBehaviorBinding {
+	if x != nil {
+		return x.SkillBehaviorBindings
+	}
+	return nil
+}
+
 type CreatureTemplate struct {
 	state                protoimpl.MessageState `protogen:"open.v1"`
 	Id                   string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -213,6 +269,7 @@ type CreatureTemplate struct {
 	AiDecisionProfileId  string                 `protobuf:"bytes,12,opt,name=ai_decision_profile_id,json=aiDecisionProfileId,proto3" json:"ai_decision_profile_id,omitempty"`
 	SensoryProfileId     string                 `protobuf:"bytes,13,opt,name=sensory_profile_id,json=sensoryProfileId,proto3" json:"sensory_profile_id,omitempty"`
 	SkillSetId           string                 `protobuf:"bytes,14,opt,name=skill_set_id,json=skillSetId,proto3" json:"skill_set_id,omitempty"`
+	BehaviorContractId   string                 `protobuf:"bytes,15,opt,name=behavior_contract_id,json=behaviorContractId,proto3" json:"behavior_contract_id,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -345,6 +402,13 @@ func (x *CreatureTemplate) GetSkillSetId() string {
 	return ""
 }
 
+func (x *CreatureTemplate) GetBehaviorContractId() string {
+	if x != nil {
+		return x.BehaviorContractId
+	}
+	return ""
+}
+
 var File_apeiron_v1_creature_data_service_proto protoreflect.FileDescriptor
 
 const file_apeiron_v1_creature_data_service_proto_rawDesc = "" +
@@ -353,7 +417,7 @@ const file_apeiron_v1_creature_data_service_proto_rawDesc = "" +
 	"apeiron.v1\x1a\x17apeiron/v1/common.proto\"j\n" +
 	"\x18CreatureTemplateResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x128\n" +
-	"\btemplate\x18\x02 \x01(\v2\x1c.apeiron.v1.CreatureTemplateR\btemplate\"\x98\x04\n" +
+	"\btemplate\x18\x02 \x01(\v2\x1c.apeiron.v1.CreatureTemplateR\btemplate\"\xd9\b\n" +
 	"\x1bCreatureRuntimeDataResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x128\n" +
 	"\btemplate\x18\x02 \x01(\v2\x1c.apeiron.v1.CreatureTemplateR\btemplate\x12(\n" +
@@ -367,7 +431,14 @@ const file_apeiron_v1_creature_data_service_proto_rawDesc = "" +
 	"\x12sensory_profile_id\x18\n" +
 	" \x01(\tR\x10sensoryProfileId\x12 \n" +
 	"\fskill_set_id\x18\v \x01(\tR\n" +
-	"skillSetId\"\xad\x04\n" +
+	"skillSetId\x120\n" +
+	"\x14behavior_contract_id\x18\f \x01(\tR\x12behaviorContractId\x12X\n" +
+	"\x11behavior_contract\x18\r \x01(\v2+.apeiron.v1.CreatureBehaviorRuntimeContractR\x10behaviorContract\x12g\n" +
+	"\x19target_opportunity_policy\x18\x0e \x01(\v2+.apeiron.v1.CreatureTargetOpportunityPolicyR\x17targetOpportunityPolicy\x12B\n" +
+	"\forbit_policy\x18\x0f \x01(\v2\x1f.apeiron.v1.CreatureOrbitPolicyR\vorbitPolicy\x12L\n" +
+	"\x10evasion_policies\x18\x10 \x03(\v2!.apeiron.v1.CreatureEvasionPolicyR\x0fevasionPolicies\x12V\n" +
+	"\x14skill_setup_policies\x18\x11 \x03(\v2$.apeiron.v1.CreatureSkillSetupPolicyR\x12skillSetupPolicies\x12`\n" +
+	"\x17skill_behavior_bindings\x18\x12 \x03(\v2(.apeiron.v1.CreatureSkillBehaviorBindingR\x15skillBehaviorBindings\"\xdf\x04\n" +
 	"\x10CreatureTemplate\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
@@ -384,7 +455,8 @@ const file_apeiron_v1_creature_data_service_proto_rawDesc = "" +
 	"\x16ai_decision_profile_id\x18\f \x01(\tR\x13aiDecisionProfileId\x12,\n" +
 	"\x12sensory_profile_id\x18\r \x01(\tR\x10sensoryProfileId\x12 \n" +
 	"\fskill_set_id\x18\x0e \x01(\tR\n" +
-	"skillSetId2\xc3\x01\n" +
+	"skillSetId\x120\n" +
+	"\x14behavior_contract_id\x18\x0f \x01(\tR\x12behaviorContractId2\xc3\x01\n" +
 	"\x13CreatureDataService\x12R\n" +
 	"\x13GetCreatureTemplate\x12\x15.apeiron.v1.IdRequest\x1a$.apeiron.v1.CreatureTemplateResponse\x12X\n" +
 	"\x16GetCreatureRuntimeData\x12\x15.apeiron.v1.IdRequest\x1a'.apeiron.v1.CreatureRuntimeDataResponseB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
@@ -403,23 +475,35 @@ func file_apeiron_v1_creature_data_service_proto_rawDescGZIP() []byte {
 
 var file_apeiron_v1_creature_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_apeiron_v1_creature_data_service_proto_goTypes = []any{
-	(*CreatureTemplateResponse)(nil),    // 0: apeiron.v1.CreatureTemplateResponse
-	(*CreatureRuntimeDataResponse)(nil), // 1: apeiron.v1.CreatureRuntimeDataResponse
-	(*CreatureTemplate)(nil),            // 2: apeiron.v1.CreatureTemplate
-	(*IdRequest)(nil),                   // 3: apeiron.v1.IdRequest
+	(*CreatureTemplateResponse)(nil),        // 0: apeiron.v1.CreatureTemplateResponse
+	(*CreatureRuntimeDataResponse)(nil),     // 1: apeiron.v1.CreatureRuntimeDataResponse
+	(*CreatureTemplate)(nil),                // 2: apeiron.v1.CreatureTemplate
+	(*CreatureBehaviorRuntimeContract)(nil), // 3: apeiron.v1.CreatureBehaviorRuntimeContract
+	(*CreatureTargetOpportunityPolicy)(nil), // 4: apeiron.v1.CreatureTargetOpportunityPolicy
+	(*CreatureOrbitPolicy)(nil),             // 5: apeiron.v1.CreatureOrbitPolicy
+	(*CreatureEvasionPolicy)(nil),           // 6: apeiron.v1.CreatureEvasionPolicy
+	(*CreatureSkillSetupPolicy)(nil),        // 7: apeiron.v1.CreatureSkillSetupPolicy
+	(*CreatureSkillBehaviorBinding)(nil),    // 8: apeiron.v1.CreatureSkillBehaviorBinding
+	(*IdRequest)(nil),                       // 9: apeiron.v1.IdRequest
 }
 var file_apeiron_v1_creature_data_service_proto_depIdxs = []int32{
-	2, // 0: apeiron.v1.CreatureTemplateResponse.template:type_name -> apeiron.v1.CreatureTemplate
-	2, // 1: apeiron.v1.CreatureRuntimeDataResponse.template:type_name -> apeiron.v1.CreatureTemplate
-	3, // 2: apeiron.v1.CreatureDataService.GetCreatureTemplate:input_type -> apeiron.v1.IdRequest
-	3, // 3: apeiron.v1.CreatureDataService.GetCreatureRuntimeData:input_type -> apeiron.v1.IdRequest
-	0, // 4: apeiron.v1.CreatureDataService.GetCreatureTemplate:output_type -> apeiron.v1.CreatureTemplateResponse
-	1, // 5: apeiron.v1.CreatureDataService.GetCreatureRuntimeData:output_type -> apeiron.v1.CreatureRuntimeDataResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2,  // 0: apeiron.v1.CreatureTemplateResponse.template:type_name -> apeiron.v1.CreatureTemplate
+	2,  // 1: apeiron.v1.CreatureRuntimeDataResponse.template:type_name -> apeiron.v1.CreatureTemplate
+	3,  // 2: apeiron.v1.CreatureRuntimeDataResponse.behavior_contract:type_name -> apeiron.v1.CreatureBehaviorRuntimeContract
+	4,  // 3: apeiron.v1.CreatureRuntimeDataResponse.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
+	5,  // 4: apeiron.v1.CreatureRuntimeDataResponse.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
+	6,  // 5: apeiron.v1.CreatureRuntimeDataResponse.evasion_policies:type_name -> apeiron.v1.CreatureEvasionPolicy
+	7,  // 6: apeiron.v1.CreatureRuntimeDataResponse.skill_setup_policies:type_name -> apeiron.v1.CreatureSkillSetupPolicy
+	8,  // 7: apeiron.v1.CreatureRuntimeDataResponse.skill_behavior_bindings:type_name -> apeiron.v1.CreatureSkillBehaviorBinding
+	9,  // 8: apeiron.v1.CreatureDataService.GetCreatureTemplate:input_type -> apeiron.v1.IdRequest
+	9,  // 9: apeiron.v1.CreatureDataService.GetCreatureRuntimeData:input_type -> apeiron.v1.IdRequest
+	0,  // 10: apeiron.v1.CreatureDataService.GetCreatureTemplate:output_type -> apeiron.v1.CreatureTemplateResponse
+	1,  // 11: apeiron.v1.CreatureDataService.GetCreatureRuntimeData:output_type -> apeiron.v1.CreatureRuntimeDataResponse
+	10, // [10:12] is the sub-list for method output_type
+	8,  // [8:10] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_creature_data_service_proto_init() }

@@ -27,6 +27,9 @@ const (
 	ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName = "/apeiron.v1.ProfileDataService/GetCreatureBehaviorRuntimeContract"
 	ProfileDataService_GetCreatureEvasionPolicies_FullMethodName         = "/apeiron.v1.ProfileDataService/GetCreatureEvasionPolicies"
 	ProfileDataService_GetCreatureSkillSetupPolicies_FullMethodName      = "/apeiron.v1.ProfileDataService/GetCreatureSkillSetupPolicies"
+	ProfileDataService_GetCreatureTargetOpportunityPolicy_FullMethodName = "/apeiron.v1.ProfileDataService/GetCreatureTargetOpportunityPolicy"
+	ProfileDataService_GetCreatureOrbitPolicy_FullMethodName             = "/apeiron.v1.ProfileDataService/GetCreatureOrbitPolicy"
+	ProfileDataService_GetCreatureSkillBehaviorBindings_FullMethodName   = "/apeiron.v1.ProfileDataService/GetCreatureSkillBehaviorBindings"
 )
 
 // ProfileDataServiceClient is the client API for ProfileDataService service.
@@ -41,6 +44,9 @@ type ProfileDataServiceClient interface {
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureBehaviorRuntimeContractResponse, error)
 	GetCreatureEvasionPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureEvasionPoliciesResponse, error)
 	GetCreatureSkillSetupPolicies(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureSkillSetupPoliciesResponse, error)
+	GetCreatureTargetOpportunityPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureTargetOpportunityPolicyResponse, error)
+	GetCreatureOrbitPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureOrbitPolicyResponse, error)
+	GetCreatureSkillBehaviorBindings(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureSkillBehaviorBindingsResponse, error)
 }
 
 type profileDataServiceClient struct {
@@ -131,6 +137,36 @@ func (c *profileDataServiceClient) GetCreatureSkillSetupPolicies(ctx context.Con
 	return out, nil
 }
 
+func (c *profileDataServiceClient) GetCreatureTargetOpportunityPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureTargetOpportunityPolicyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureTargetOpportunityPolicyResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureTargetOpportunityPolicy_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCreatureOrbitPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureOrbitPolicyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureOrbitPolicyResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureOrbitPolicy_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetCreatureSkillBehaviorBindings(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureSkillBehaviorBindingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatureSkillBehaviorBindingsResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetCreatureSkillBehaviorBindings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProfileDataServiceServer is the server API for ProfileDataService service.
 // All implementations must embed UnimplementedProfileDataServiceServer
 // for forward compatibility.
@@ -143,6 +179,9 @@ type ProfileDataServiceServer interface {
 	GetCreatureBehaviorRuntimeContract(context.Context, *IdRequest) (*CreatureBehaviorRuntimeContractResponse, error)
 	GetCreatureEvasionPolicies(context.Context, *IdRequest) (*CreatureEvasionPoliciesResponse, error)
 	GetCreatureSkillSetupPolicies(context.Context, *IdRequest) (*CreatureSkillSetupPoliciesResponse, error)
+	GetCreatureTargetOpportunityPolicy(context.Context, *IdRequest) (*CreatureTargetOpportunityPolicyResponse, error)
+	GetCreatureOrbitPolicy(context.Context, *IdRequest) (*CreatureOrbitPolicyResponse, error)
+	GetCreatureSkillBehaviorBindings(context.Context, *IdRequest) (*CreatureSkillBehaviorBindingsResponse, error)
 	mustEmbedUnimplementedProfileDataServiceServer()
 }
 
@@ -176,6 +215,15 @@ func (UnimplementedProfileDataServiceServer) GetCreatureEvasionPolicies(context.
 }
 func (UnimplementedProfileDataServiceServer) GetCreatureSkillSetupPolicies(context.Context, *IdRequest) (*CreatureSkillSetupPoliciesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureSkillSetupPolicies not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureTargetOpportunityPolicy(context.Context, *IdRequest) (*CreatureTargetOpportunityPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureTargetOpportunityPolicy not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureOrbitPolicy(context.Context, *IdRequest) (*CreatureOrbitPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureOrbitPolicy not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetCreatureSkillBehaviorBindings(context.Context, *IdRequest) (*CreatureSkillBehaviorBindingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCreatureSkillBehaviorBindings not implemented")
 }
 func (UnimplementedProfileDataServiceServer) mustEmbedUnimplementedProfileDataServiceServer() {}
 func (UnimplementedProfileDataServiceServer) testEmbeddedByValue()                            {}
@@ -342,6 +390,60 @@ func _ProfileDataService_GetCreatureSkillSetupPolicies_Handler(srv interface{}, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProfileDataService_GetCreatureTargetOpportunityPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureTargetOpportunityPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureTargetOpportunityPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureTargetOpportunityPolicy(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCreatureOrbitPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureOrbitPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureOrbitPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureOrbitPolicy(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetCreatureSkillBehaviorBindings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetCreatureSkillBehaviorBindings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetCreatureSkillBehaviorBindings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetCreatureSkillBehaviorBindings(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProfileDataService_ServiceDesc is the grpc.ServiceDesc for ProfileDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -380,6 +482,18 @@ var ProfileDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCreatureSkillSetupPolicies",
 			Handler:    _ProfileDataService_GetCreatureSkillSetupPolicies_Handler,
+		},
+		{
+			MethodName: "GetCreatureTargetOpportunityPolicy",
+			Handler:    _ProfileDataService_GetCreatureTargetOpportunityPolicy_Handler,
+		},
+		{
+			MethodName: "GetCreatureOrbitPolicy",
+			Handler:    _ProfileDataService_GetCreatureOrbitPolicy_Handler,
+		},
+		{
+			MethodName: "GetCreatureSkillBehaviorBindings",
+			Handler:    _ProfileDataService_GetCreatureSkillBehaviorBindings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
