@@ -11,6 +11,7 @@ type SkillReader interface {
 	GetSkill(ctx context.Context, id string) (postgres.Skill, error)
 	GetSkillSet(ctx context.Context, id string) (postgres.SkillSet, error)
 	GetSkillSetLoadout(ctx context.Context, skillSetID string) ([]postgres.SkillLoadoutItem, error)
+	GetWeaponCombatModeSlots(ctx context.Context, weaponKitID string) ([]postgres.WeaponCombatModeSlot, error)
 	GetMovementEffect(ctx context.Context, skillID string) (postgres.SkillMovementEffect, error)
 	GetSkillActionTiming(ctx context.Context, skillID string) (postgres.SkillActionTimingContract, error)
 	GetSkillMovementActionBinding(ctx context.Context, skillID string) (postgres.SkillMovementActionBinding, error)
@@ -61,6 +62,19 @@ func (h *SkillDataHandler) GetSkillSetLoadout(ctx context.Context, req *apeironv
 	}
 
 	return &apeironv1.SkillSetLoadoutResponse{Found: true, Items: items}, nil
+}
+
+func (h *SkillDataHandler) GetWeaponCombatModeSlots(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.WeaponCombatModeSlotsResponse, error) {
+	slots, err := h.skills.GetWeaponCombatModeSlots(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.WeaponCombatModeSlotsResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	out := make([]*apeironv1.WeaponCombatModeSlot, 0, len(slots))
+	for _, slot := range slots {
+		out = append(out, mapWeaponCombatModeSlot(slot))
+	}
+	return &apeironv1.WeaponCombatModeSlotsResponse{Found: true, Slots: out}, nil
 }
 
 func (h *SkillDataHandler) GetSkillMovementEffect(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillMovementEffectResponse, error) {
@@ -244,6 +258,18 @@ func mapSkillHitboxMotionProfile(p postgres.SkillHitboxMotionProfile) *apeironv1
 		out.DamageGroupId = p.DamageGroupID.String
 	}
 	return out
+}
+
+func mapWeaponCombatModeSlot(s postgres.WeaponCombatModeSlot) *apeironv1.WeaponCombatModeSlot {
+	return &apeironv1.WeaponCombatModeSlot{
+		CombatModeId:  s.CombatModeID,
+		InputSlot:     s.InputSlot,
+		SkillId:       nullString(s.SkillID),
+		IsBasicAttack: s.IsBasicAttack,
+		IsFatality:    s.IsFatality,
+		IsEnabled:     s.IsEnabled,
+		MetadataJson:  s.MetadataJSON,
+	}
 }
 
 func mapSkillMovementEffect(e postgres.SkillMovementEffect) *apeironv1.SkillMovementProfile {

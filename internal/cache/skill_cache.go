@@ -108,6 +108,10 @@ func (c *SkillCache) GetSkillSetLoadout(ctx context.Context, skillSetID string) 
 	return loadout, nil
 }
 
+func (c *SkillCache) GetWeaponCombatModeSlots(ctx context.Context, weaponKitID string) ([]postgres.WeaponCombatModeSlot, error) {
+	return c.repository.GetWeaponCombatModeSlotsByKitID(ctx, weaponKitID)
+}
+
 func (c *SkillCache) GetProjectileProfile(ctx context.Context, skillID string) (postgres.SkillProjectileProfile, error) {
 	if value, ok := getCached(&c.mu, c.projectileProfiles, skillID, c.isExpired); ok {
 		return value, nil

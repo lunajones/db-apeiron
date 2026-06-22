@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"db-apeiron/internal/database"
+
+	"github.com/jackc/pgx/v5"
 )
 
 type SkillRepository struct {
@@ -382,6 +384,62 @@ func (r *SkillRepository) GetSkillSetLoadout(ctx context.Context, skillSetID str
 	}
 
 	return out, rows.Err()
+}
+
+func (r *SkillRepository) GetWeaponCombatModeSlotsByKitID(ctx context.Context, weaponKitID string) ([]WeaponCombatModeSlot, error) {
+	const query = `
+		SELECT
+			mode.id,
+			slot.input_slot,
+			slot.skill_id,
+			slot.is_basic_attack,
+			slot.is_fatality,
+			slot.is_enabled,
+			slot.metadata::text
+		FROM apeiron.weapon_combat_mode AS mode
+		INNER JOIN apeiron.weapon_combat_mode_skill_slot AS slot
+			ON slot.combat_mode_id = mode.id
+		WHERE mode.weapon_kit_id = $1
+			AND mode.is_enabled = TRUE
+		ORDER BY mode.mode_index ASC,
+			CASE slot.input_slot
+				WHEN 'M1' THEN 1
+				WHEN 'Q' THEN 2
+				WHEN 'R' THEN 3
+				WHEN 'F' THEN 4
+				WHEN 'G' THEN 5
+				ELSE 99
+			END ASC`
+
+	rows, err := r.db.Query(ctx, query, weaponKitID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var slots []WeaponCombatModeSlot
+	for rows.Next() {
+		var slot WeaponCombatModeSlot
+		if err := rows.Scan(
+			&slot.CombatModeID,
+			&slot.InputSlot,
+			&slot.SkillID,
+			&slot.IsBasicAttack,
+			&slot.IsFatality,
+			&slot.IsEnabled,
+			&slot.MetadataJSON,
+		); err != nil {
+			return nil, err
+		}
+		slots = append(slots, slot)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	if len(slots) == 0 {
+		return nil, pgx.ErrNoRows
+	}
+	return slots, nil
 }
 
 func (r *SkillRepository) GetProjectileProfileBySkillID(ctx context.Context, skillID string) (SkillProjectileProfile, error) {
@@ -1206,6 +1264,17 @@ type SkillImpactProfile struct {
 type SkillLoadoutItem struct {
 	Slot  SkillSlot
 	Skill Skill
+}
+
+type WeaponCombatModeSlot struct {
+	CombatModeID string
+	InputSlot    string
+	SkillID      sql.NullString
+
+	IsBasicAttack bool
+	IsFatality    bool
+	IsEnabled     bool
+	MetadataJSON  string
 }
 
 type StatusEffect struct {

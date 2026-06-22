@@ -10,6 +10,7 @@ service SkillDataService {
   rpc GetSkill(IdRequest) returns (SkillResponse);
   rpc GetSkillSet(IdRequest) returns (SkillSetResponse);
   rpc GetSkillSetLoadout(IdRequest) returns (SkillSetLoadoutResponse);
+  rpc GetWeaponCombatModeSlots(IdRequest) returns (WeaponCombatModeSlotsResponse);
   rpc GetSkillMovementEffect(IdRequest) returns (SkillMovementEffectResponse);
   rpc GetSkillActionTiming(IdRequest) returns (SkillActionTimingResponse);
   rpc GetSkillMovementActionBinding(IdRequest) returns (SkillMovementActionBindingResponse);
@@ -32,6 +33,22 @@ message SkillSetResponse {
 message SkillSetLoadoutResponse {
   bool found = 1;
   repeated SkillLoadoutItem items = 2;
+  string error = 3;
+}
+
+message WeaponCombatModeSlot {
+  string combat_mode_id = 1;
+  string input_slot = 2;
+  string skill_id = 3;
+  bool is_basic_attack = 4;
+  bool is_fatality = 5;
+  bool is_enabled = 6;
+  string metadata_json = 7;
+}
+
+message WeaponCombatModeSlotsResponse {
+  bool found = 1;
+  repeated WeaponCombatModeSlot slots = 2;
   string error = 3;
 }
 

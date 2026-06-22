@@ -22,6 +22,7 @@ const (
 	SkillDataService_GetSkill_FullMethodName                      = "/apeiron.v1.SkillDataService/GetSkill"
 	SkillDataService_GetSkillSet_FullMethodName                   = "/apeiron.v1.SkillDataService/GetSkillSet"
 	SkillDataService_GetSkillSetLoadout_FullMethodName            = "/apeiron.v1.SkillDataService/GetSkillSetLoadout"
+	SkillDataService_GetWeaponCombatModeSlots_FullMethodName      = "/apeiron.v1.SkillDataService/GetWeaponCombatModeSlots"
 	SkillDataService_GetSkillMovementEffect_FullMethodName        = "/apeiron.v1.SkillDataService/GetSkillMovementEffect"
 	SkillDataService_GetSkillActionTiming_FullMethodName          = "/apeiron.v1.SkillDataService/GetSkillActionTiming"
 	SkillDataService_GetSkillMovementActionBinding_FullMethodName = "/apeiron.v1.SkillDataService/GetSkillMovementActionBinding"
@@ -36,6 +37,7 @@ type SkillDataServiceClient interface {
 	GetSkill(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillResponse, error)
 	GetSkillSet(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetResponse, error)
 	GetSkillSetLoadout(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetLoadoutResponse, error)
+	GetWeaponCombatModeSlots(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*WeaponCombatModeSlotsResponse, error)
 	GetSkillMovementEffect(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementEffectResponse, error)
 	GetSkillActionTiming(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillActionTimingResponse, error)
 	GetSkillMovementActionBinding(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementActionBindingResponse, error)
@@ -75,6 +77,16 @@ func (c *skillDataServiceClient) GetSkillSetLoadout(ctx context.Context, in *IdR
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SkillSetLoadoutResponse)
 	err := c.cc.Invoke(ctx, SkillDataService_GetSkillSetLoadout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *skillDataServiceClient) GetWeaponCombatModeSlots(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*WeaponCombatModeSlotsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WeaponCombatModeSlotsResponse)
+	err := c.cc.Invoke(ctx, SkillDataService_GetWeaponCombatModeSlots_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ type SkillDataServiceServer interface {
 	GetSkill(context.Context, *IdRequest) (*SkillResponse, error)
 	GetSkillSet(context.Context, *IdRequest) (*SkillSetResponse, error)
 	GetSkillSetLoadout(context.Context, *IdRequest) (*SkillSetLoadoutResponse, error)
+	GetWeaponCombatModeSlots(context.Context, *IdRequest) (*WeaponCombatModeSlotsResponse, error)
 	GetSkillMovementEffect(context.Context, *IdRequest) (*SkillMovementEffectResponse, error)
 	GetSkillActionTiming(context.Context, *IdRequest) (*SkillActionTimingResponse, error)
 	GetSkillMovementActionBinding(context.Context, *IdRequest) (*SkillMovementActionBindingResponse, error)
@@ -161,6 +174,9 @@ func (UnimplementedSkillDataServiceServer) GetSkillSet(context.Context, *IdReque
 }
 func (UnimplementedSkillDataServiceServer) GetSkillSetLoadout(context.Context, *IdRequest) (*SkillSetLoadoutResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkillSetLoadout not implemented")
+}
+func (UnimplementedSkillDataServiceServer) GetWeaponCombatModeSlots(context.Context, *IdRequest) (*WeaponCombatModeSlotsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWeaponCombatModeSlots not implemented")
 }
 func (UnimplementedSkillDataServiceServer) GetSkillMovementEffect(context.Context, *IdRequest) (*SkillMovementEffectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkillMovementEffect not implemented")
@@ -248,6 +264,24 @@ func _SkillDataService_GetSkillSetLoadout_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillDataServiceServer).GetSkillSetLoadout(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SkillDataService_GetWeaponCombatModeSlots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SkillDataServiceServer).GetWeaponCombatModeSlots(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SkillDataService_GetWeaponCombatModeSlots_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SkillDataServiceServer).GetWeaponCombatModeSlots(ctx, req.(*IdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -360,6 +394,10 @@ var SkillDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSkillSetLoadout",
 			Handler:    _SkillDataService_GetSkillSetLoadout_Handler,
+		},
+		{
+			MethodName: "GetWeaponCombatModeSlots",
+			Handler:    _SkillDataService_GetWeaponCombatModeSlots_Handler,
 		},
 		{
 			MethodName: "GetSkillMovementEffect",
