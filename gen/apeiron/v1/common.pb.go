@@ -2065,50 +2065,6 @@ func (x *SkillControlEffect) GetReleasePolicyId() string {
 	return ""
 }
 
-type ItemTemplate struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ItemTemplate) Reset() {
-	*x = ItemTemplate{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[17]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ItemTemplate) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ItemTemplate) ProtoMessage() {}
-
-func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[17]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
-func (*ItemTemplate) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{17}
-}
-
-func (x *ItemTemplate) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
 type WorldRegion struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -2130,7 +2086,7 @@ type WorldRegion struct {
 
 func (x *WorldRegion) Reset() {
 	*x = WorldRegion{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[18]
+	mi := &file_apeiron_v1_common_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2142,7 +2098,7 @@ func (x *WorldRegion) String() string {
 func (*WorldRegion) ProtoMessage() {}
 
 func (x *WorldRegion) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[18]
+	mi := &file_apeiron_v1_common_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2155,7 +2111,7 @@ func (x *WorldRegion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorldRegion.ProtoReflect.Descriptor instead.
 func (*WorldRegion) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{18}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *WorldRegion) GetId() string {
@@ -2269,7 +2225,7 @@ type Biome struct {
 
 func (x *Biome) Reset() {
 	*x = Biome{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	mi := &file_apeiron_v1_common_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2281,7 +2237,7 @@ func (x *Biome) String() string {
 func (*Biome) ProtoMessage() {}
 
 func (x *Biome) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	mi := &file_apeiron_v1_common_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2294,7 +2250,7 @@ func (x *Biome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Biome.ProtoReflect.Descriptor instead.
 func (*Biome) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{19}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *Biome) GetId() string {
@@ -2404,7 +2360,7 @@ type SpawnZone struct {
 
 func (x *SpawnZone) Reset() {
 	*x = SpawnZone{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2416,7 +2372,7 @@ func (x *SpawnZone) String() string {
 func (*SpawnZone) ProtoMessage() {}
 
 func (x *SpawnZone) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2429,7 +2385,7 @@ func (x *SpawnZone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpawnZone.ProtoReflect.Descriptor instead.
 func (*SpawnZone) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{20}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SpawnZone) GetId() string {
@@ -2535,6 +2491,538 @@ func (x *SpawnZone) GetLeashEnabled() bool {
 		return x.LeashEnabled
 	}
 	return false
+}
+
+type Player struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	AccountId          string                 `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	Name               string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	CreatureInstanceId string                 `protobuf:"bytes,4,opt,name=creature_instance_id,json=creatureInstanceId,proto3" json:"creature_instance_id,omitempty"`
+	Level              int32                  `protobuf:"varint,5,opt,name=level,proto3" json:"level,omitempty"`
+	Experience         int64                  `protobuf:"varint,6,opt,name=experience,proto3" json:"experience,omitempty"`
+	AttributePoints    int32                  `protobuf:"varint,7,opt,name=attribute_points,json=attributePoints,proto3" json:"attribute_points,omitempty"`
+	Strength           float64                `protobuf:"fixed64,8,opt,name=strength,proto3" json:"strength,omitempty"`
+	Dexterity          float64                `protobuf:"fixed64,9,opt,name=dexterity,proto3" json:"dexterity,omitempty"`
+	Intelligence       float64                `protobuf:"fixed64,10,opt,name=intelligence,proto3" json:"intelligence,omitempty"`
+	Endurance          float64                `protobuf:"fixed64,11,opt,name=endurance,proto3" json:"endurance,omitempty"`
+	PvpEnabled         bool                   `protobuf:"varint,12,opt,name=pvp_enabled,json=pvpEnabled,proto3" json:"pvp_enabled,omitempty"`
+	IsInSafeZone       bool                   `protobuf:"varint,13,opt,name=is_in_safe_zone,json=isInSafeZone,proto3" json:"is_in_safe_zone,omitempty"`
+	GuildId            string                 `protobuf:"bytes,14,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
+	PartyId            string                 `protobuf:"bytes,15,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
+	Reputation         float64                `protobuf:"fixed64,16,opt,name=reputation,proto3" json:"reputation,omitempty"`
+	Coin               int64                  `protobuf:"varint,17,opt,name=coin,proto3" json:"coin,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *Player) Reset() {
+	*x = Player{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Player) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Player) ProtoMessage() {}
+
+func (x *Player) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Player.ProtoReflect.Descriptor instead.
+func (*Player) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *Player) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Player) GetAccountId() string {
+	if x != nil {
+		return x.AccountId
+	}
+	return ""
+}
+
+func (x *Player) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Player) GetCreatureInstanceId() string {
+	if x != nil {
+		return x.CreatureInstanceId
+	}
+	return ""
+}
+
+func (x *Player) GetLevel() int32 {
+	if x != nil {
+		return x.Level
+	}
+	return 0
+}
+
+func (x *Player) GetExperience() int64 {
+	if x != nil {
+		return x.Experience
+	}
+	return 0
+}
+
+func (x *Player) GetAttributePoints() int32 {
+	if x != nil {
+		return x.AttributePoints
+	}
+	return 0
+}
+
+func (x *Player) GetStrength() float64 {
+	if x != nil {
+		return x.Strength
+	}
+	return 0
+}
+
+func (x *Player) GetDexterity() float64 {
+	if x != nil {
+		return x.Dexterity
+	}
+	return 0
+}
+
+func (x *Player) GetIntelligence() float64 {
+	if x != nil {
+		return x.Intelligence
+	}
+	return 0
+}
+
+func (x *Player) GetEndurance() float64 {
+	if x != nil {
+		return x.Endurance
+	}
+	return 0
+}
+
+func (x *Player) GetPvpEnabled() bool {
+	if x != nil {
+		return x.PvpEnabled
+	}
+	return false
+}
+
+func (x *Player) GetIsInSafeZone() bool {
+	if x != nil {
+		return x.IsInSafeZone
+	}
+	return false
+}
+
+func (x *Player) GetGuildId() string {
+	if x != nil {
+		return x.GuildId
+	}
+	return ""
+}
+
+func (x *Player) GetPartyId() string {
+	if x != nil {
+		return x.PartyId
+	}
+	return ""
+}
+
+func (x *Player) GetReputation() float64 {
+	if x != nil {
+		return x.Reputation
+	}
+	return 0
+}
+
+func (x *Player) GetCoin() int64 {
+	if x != nil {
+		return x.Coin
+	}
+	return 0
+}
+
+type Inventory struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerType     string                 `protobuf:"bytes,2,opt,name=owner_type,json=ownerType,proto3" json:"owner_type,omitempty"`
+	OwnerId       string                 `protobuf:"bytes,3,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	InventoryType string                 `protobuf:"bytes,4,opt,name=inventory_type,json=inventoryType,proto3" json:"inventory_type,omitempty"`
+	MaxSlots      int32                  `protobuf:"varint,5,opt,name=max_slots,json=maxSlots,proto3" json:"max_slots,omitempty"`
+	MaxWeight     float64                `protobuf:"fixed64,6,opt,name=max_weight,json=maxWeight,proto3" json:"max_weight,omitempty"`
+	CurrentWeight float64                `protobuf:"fixed64,7,opt,name=current_weight,json=currentWeight,proto3" json:"current_weight,omitempty"`
+	IsLocked      bool                   `protobuf:"varint,8,opt,name=is_locked,json=isLocked,proto3" json:"is_locked,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Inventory) Reset() {
+	*x = Inventory{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Inventory) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Inventory) ProtoMessage() {}
+
+func (x *Inventory) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Inventory.ProtoReflect.Descriptor instead.
+func (*Inventory) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *Inventory) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Inventory) GetOwnerType() string {
+	if x != nil {
+		return x.OwnerType
+	}
+	return ""
+}
+
+func (x *Inventory) GetOwnerId() string {
+	if x != nil {
+		return x.OwnerId
+	}
+	return ""
+}
+
+func (x *Inventory) GetInventoryType() string {
+	if x != nil {
+		return x.InventoryType
+	}
+	return ""
+}
+
+func (x *Inventory) GetMaxSlots() int32 {
+	if x != nil {
+		return x.MaxSlots
+	}
+	return 0
+}
+
+func (x *Inventory) GetMaxWeight() float64 {
+	if x != nil {
+		return x.MaxWeight
+	}
+	return 0
+}
+
+func (x *Inventory) GetCurrentWeight() float64 {
+	if x != nil {
+		return x.CurrentWeight
+	}
+	return 0
+}
+
+func (x *Inventory) GetIsLocked() bool {
+	if x != nil {
+		return x.IsLocked
+	}
+	return false
+}
+
+type ItemTemplate struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	ItemType      string                 `protobuf:"bytes,4,opt,name=item_type,json=itemType,proto3" json:"item_type,omitempty"`
+	Rarity        string                 `protobuf:"bytes,5,opt,name=rarity,proto3" json:"rarity,omitempty"`
+	MaxStack      int32                  `protobuf:"varint,6,opt,name=max_stack,json=maxStack,proto3" json:"max_stack,omitempty"`
+	Weight        float64                `protobuf:"fixed64,7,opt,name=weight,proto3" json:"weight,omitempty"`
+	IsTradable    bool                   `protobuf:"varint,8,opt,name=is_tradable,json=isTradable,proto3" json:"is_tradable,omitempty"`
+	IsDestroyable bool                   `protobuf:"varint,9,opt,name=is_destroyable,json=isDestroyable,proto3" json:"is_destroyable,omitempty"`
+	BaseValue     int64                  `protobuf:"varint,10,opt,name=base_value,json=baseValue,proto3" json:"base_value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemTemplate) Reset() {
+	*x = ItemTemplate{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemTemplate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemTemplate) ProtoMessage() {}
+
+func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
+func (*ItemTemplate) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ItemTemplate) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ItemTemplate) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ItemTemplate) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ItemTemplate) GetItemType() string {
+	if x != nil {
+		return x.ItemType
+	}
+	return ""
+}
+
+func (x *ItemTemplate) GetRarity() string {
+	if x != nil {
+		return x.Rarity
+	}
+	return ""
+}
+
+func (x *ItemTemplate) GetMaxStack() int32 {
+	if x != nil {
+		return x.MaxStack
+	}
+	return 0
+}
+
+func (x *ItemTemplate) GetWeight() float64 {
+	if x != nil {
+		return x.Weight
+	}
+	return 0
+}
+
+func (x *ItemTemplate) GetIsTradable() bool {
+	if x != nil {
+		return x.IsTradable
+	}
+	return false
+}
+
+func (x *ItemTemplate) GetIsDestroyable() bool {
+	if x != nil {
+		return x.IsDestroyable
+	}
+	return false
+}
+
+func (x *ItemTemplate) GetBaseValue() int64 {
+	if x != nil {
+		return x.BaseValue
+	}
+	return 0
+}
+
+type InventoryItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	InventoryId   string                 `protobuf:"bytes,2,opt,name=inventory_id,json=inventoryId,proto3" json:"inventory_id,omitempty"`
+	ItemId        string                 `protobuf:"bytes,3,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+	SlotIndex     int32                  `protobuf:"varint,4,opt,name=slot_index,json=slotIndex,proto3" json:"slot_index,omitempty"`
+	Quantity      int32                  `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Durability    float64                `protobuf:"fixed64,6,opt,name=durability,proto3" json:"durability,omitempty"`
+	IsEquipped    bool                   `protobuf:"varint,7,opt,name=is_equipped,json=isEquipped,proto3" json:"is_equipped,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InventoryItem) Reset() {
+	*x = InventoryItem{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InventoryItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InventoryItem) ProtoMessage() {}
+
+func (x *InventoryItem) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InventoryItem.ProtoReflect.Descriptor instead.
+func (*InventoryItem) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *InventoryItem) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *InventoryItem) GetInventoryId() string {
+	if x != nil {
+		return x.InventoryId
+	}
+	return ""
+}
+
+func (x *InventoryItem) GetItemId() string {
+	if x != nil {
+		return x.ItemId
+	}
+	return ""
+}
+
+func (x *InventoryItem) GetSlotIndex() int32 {
+	if x != nil {
+		return x.SlotIndex
+	}
+	return 0
+}
+
+func (x *InventoryItem) GetQuantity() int32 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *InventoryItem) GetDurability() float64 {
+	if x != nil {
+		return x.Durability
+	}
+	return 0
+}
+
+func (x *InventoryItem) GetIsEquipped() bool {
+	if x != nil {
+		return x.IsEquipped
+	}
+	return false
+}
+
+type InventoryWithItems struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Inventory     *Inventory             `protobuf:"bytes,1,opt,name=inventory,proto3" json:"inventory,omitempty"`
+	Items         []*InventoryItem       `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InventoryWithItems) Reset() {
+	*x = InventoryWithItems{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InventoryWithItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InventoryWithItems) ProtoMessage() {}
+
+func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InventoryWithItems.ProtoReflect.Descriptor instead.
+func (*InventoryWithItems) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *InventoryWithItems) GetInventory() *Inventory {
+	if x != nil {
+		return x.Inventory
+	}
+	return nil
+}
+
+func (x *InventoryWithItems) GetItems() []*InventoryItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
 }
 
 var File_apeiron_v1_common_proto protoreflect.FileDescriptor
@@ -2776,9 +3264,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\vduration_ms\x18\x04 \x01(\x05R\n" +
 	"durationMs\x12!\n" +
 	"\fcontrol_type\x18\x05 \x01(\tR\vcontrolType\x12*\n" +
-	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\"\x1e\n" +
-	"\fItemTemplate\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"\xf0\x02\n" +
+	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\"\xf0\x02\n" +
 	"\vWorldRegion\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +
@@ -2828,7 +3314,72 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\rspawn_density\x18\f \x01(\x01R\fspawnDensity\x12-\n" +
 	"\x12allowed_archetypes\x18\r \x01(\tR\x11allowedArchetypes\x12)\n" +
 	"\x10aggression_level\x18\x0e \x01(\x01R\x0faggressionLevel\x12#\n" +
-	"\rleash_enabled\x18\x0f \x01(\bR\fleashEnabledB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
+	"\rleash_enabled\x18\x0f \x01(\bR\fleashEnabled\"\x8c\x04\n" +
+	"\x06Player\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"account_id\x18\x02 \x01(\tR\taccountId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x120\n" +
+	"\x14creature_instance_id\x18\x04 \x01(\tR\x12creatureInstanceId\x12\x14\n" +
+	"\x05level\x18\x05 \x01(\x05R\x05level\x12\x1e\n" +
+	"\n" +
+	"experience\x18\x06 \x01(\x03R\n" +
+	"experience\x12)\n" +
+	"\x10attribute_points\x18\a \x01(\x05R\x0fattributePoints\x12\x1a\n" +
+	"\bstrength\x18\b \x01(\x01R\bstrength\x12\x1c\n" +
+	"\tdexterity\x18\t \x01(\x01R\tdexterity\x12\"\n" +
+	"\fintelligence\x18\n" +
+	" \x01(\x01R\fintelligence\x12\x1c\n" +
+	"\tendurance\x18\v \x01(\x01R\tendurance\x12\x1f\n" +
+	"\vpvp_enabled\x18\f \x01(\bR\n" +
+	"pvpEnabled\x12%\n" +
+	"\x0fis_in_safe_zone\x18\r \x01(\bR\fisInSafeZone\x12\x19\n" +
+	"\bguild_id\x18\x0e \x01(\tR\aguildId\x12\x19\n" +
+	"\bparty_id\x18\x0f \x01(\tR\apartyId\x12\x1e\n" +
+	"\n" +
+	"reputation\x18\x10 \x01(\x01R\n" +
+	"reputation\x12\x12\n" +
+	"\x04coin\x18\x11 \x01(\x03R\x04coin\"\xfc\x01\n" +
+	"\tInventory\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"owner_type\x18\x02 \x01(\tR\townerType\x12\x19\n" +
+	"\bowner_id\x18\x03 \x01(\tR\aownerId\x12%\n" +
+	"\x0einventory_type\x18\x04 \x01(\tR\rinventoryType\x12\x1b\n" +
+	"\tmax_slots\x18\x05 \x01(\x05R\bmaxSlots\x12\x1d\n" +
+	"\n" +
+	"max_weight\x18\x06 \x01(\x01R\tmaxWeight\x12%\n" +
+	"\x0ecurrent_weight\x18\a \x01(\x01R\rcurrentWeight\x12\x1b\n" +
+	"\tis_locked\x18\b \x01(\bR\bisLocked\"\xa5\x02\n" +
+	"\fItemTemplate\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1b\n" +
+	"\titem_type\x18\x04 \x01(\tR\bitemType\x12\x16\n" +
+	"\x06rarity\x18\x05 \x01(\tR\x06rarity\x12\x1b\n" +
+	"\tmax_stack\x18\x06 \x01(\x05R\bmaxStack\x12\x16\n" +
+	"\x06weight\x18\a \x01(\x01R\x06weight\x12\x1f\n" +
+	"\vis_tradable\x18\b \x01(\bR\n" +
+	"isTradable\x12%\n" +
+	"\x0eis_destroyable\x18\t \x01(\bR\risDestroyable\x12\x1d\n" +
+	"\n" +
+	"base_value\x18\n" +
+	" \x01(\x03R\tbaseValue\"\xd7\x01\n" +
+	"\rInventoryItem\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
+	"\finventory_id\x18\x02 \x01(\tR\vinventoryId\x12\x17\n" +
+	"\aitem_id\x18\x03 \x01(\tR\x06itemId\x12\x1d\n" +
+	"\n" +
+	"slot_index\x18\x04 \x01(\x05R\tslotIndex\x12\x1a\n" +
+	"\bquantity\x18\x05 \x01(\x05R\bquantity\x12\x1e\n" +
+	"\n" +
+	"durability\x18\x06 \x01(\x01R\n" +
+	"durability\x12\x1f\n" +
+	"\vis_equipped\x18\a \x01(\bR\n" +
+	"isEquipped\"z\n" +
+	"\x12InventoryWithItems\x123\n" +
+	"\tinventory\x18\x01 \x01(\v2\x15.apeiron.v1.InventoryR\tinventory\x12/\n" +
+	"\x05items\x18\x02 \x03(\v2\x19.apeiron.v1.InventoryItemR\x05itemsB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
 var (
 	file_apeiron_v1_common_proto_rawDescOnce sync.Once
@@ -2842,7 +3393,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                    // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),          // 1: apeiron.v1.OperationResult
@@ -2861,21 +3412,27 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*MovementProfile)(nil),          // 14: apeiron.v1.MovementProfile
 	(*StatusEffect)(nil),             // 15: apeiron.v1.StatusEffect
 	(*SkillControlEffect)(nil),       // 16: apeiron.v1.SkillControlEffect
-	(*ItemTemplate)(nil),             // 17: apeiron.v1.ItemTemplate
-	(*WorldRegion)(nil),              // 18: apeiron.v1.WorldRegion
-	(*Biome)(nil),                    // 19: apeiron.v1.Biome
-	(*SpawnZone)(nil),                // 20: apeiron.v1.SpawnZone
+	(*WorldRegion)(nil),              // 17: apeiron.v1.WorldRegion
+	(*Biome)(nil),                    // 18: apeiron.v1.Biome
+	(*SpawnZone)(nil),                // 19: apeiron.v1.SpawnZone
+	(*Player)(nil),                   // 20: apeiron.v1.Player
+	(*Inventory)(nil),                // 21: apeiron.v1.Inventory
+	(*ItemTemplate)(nil),             // 22: apeiron.v1.ItemTemplate
+	(*InventoryItem)(nil),            // 23: apeiron.v1.InventoryItem
+	(*InventoryWithItems)(nil),       // 24: apeiron.v1.InventoryWithItems
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
-	5, // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
-	3, // 1: apeiron.v1.SkillLoadoutItem.skill:type_name -> apeiron.v1.Skill
-	8, // 2: apeiron.v1.SkillHitboxMotionProfile.samples:type_name -> apeiron.v1.SkillHitboxMotionSample
-	9, // 3: apeiron.v1.SkillHitboxProfile.motion_profile:type_name -> apeiron.v1.SkillHitboxMotionProfile
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	5,  // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
+	3,  // 1: apeiron.v1.SkillLoadoutItem.skill:type_name -> apeiron.v1.Skill
+	8,  // 2: apeiron.v1.SkillHitboxMotionProfile.samples:type_name -> apeiron.v1.SkillHitboxMotionSample
+	9,  // 3: apeiron.v1.SkillHitboxProfile.motion_profile:type_name -> apeiron.v1.SkillHitboxMotionProfile
+	21, // 4: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
+	23, // 5: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_common_proto_init() }
@@ -2890,7 +3447,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   21,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

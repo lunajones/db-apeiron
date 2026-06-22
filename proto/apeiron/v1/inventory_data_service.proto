@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service InventoryDataService {
+  rpc GetInventory(IdRequest) returns (InventoryResponse);
+  rpc GetInventoryByOwner(InventoryOwnerRequest) returns (InventoryResponse);
+  rpc GetInventoryWithItems(IdRequest) returns (InventoryWithItemsResponse);
+  rpc GetItemTemplate(IdRequest) returns (ItemTemplateResponse);
+  rpc ListItemTemplatesByType(IdRequest) returns (ItemTemplatesResponse);
+  rpc GetItem(IdRequest) returns (InventoryItemResponse);
+  rpc GetItemsByInventory(IdRequest) returns (InventoryItemsResponse);
+}
+
+message InventoryOwnerRequest {
+  string owner_type = 1;
+  string owner_id = 2;
+  string inventory_type = 3;
+}
+
+message InventoryResponse {
+  bool found = 1;
+  Inventory inventory = 2;
+  string error = 3;
+}
+
+message InventoryWithItemsResponse {
+  bool found = 1;
+  InventoryWithItems inventory = 2;
+  string error = 3;
+}
+
+message ItemTemplateResponse {
+  bool found = 1;
+  ItemTemplate item_template = 2;
+  string error = 3;
+}
+
+message ItemTemplatesResponse {
+  repeated ItemTemplate item_templates = 1;
+  string error = 2;
+}
+
+message InventoryItemResponse {
+  bool found = 1;
+  InventoryItem item = 2;
+  string error = 3;
+}
+
+message InventoryItemsResponse {
+  repeated InventoryItem items = 1;
+  string error = 2;
+}

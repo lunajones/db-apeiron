@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service PlayerDataService {
+  rpc GetPlayer(IdRequest) returns (PlayerResponse);
+}
+
+message PlayerResponse {
+  bool found = 1;
+  Player player = 2;
+  string error = 3;
+}

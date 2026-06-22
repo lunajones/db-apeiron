@@ -233,10 +233,6 @@ message SkillControlEffect {
   string release_policy_id = 6;
 }
 
-message ItemTemplate {
-  string id = 1;
-}
-
 message WorldRegion {
   string id = 1;
   string name = 2;
@@ -284,4 +280,63 @@ message SpawnZone {
   string allowed_archetypes = 13;
   double aggression_level = 14;
   bool leash_enabled = 15;
+}
+
+message Player {
+  string id = 1;
+  string account_id = 2;
+  string name = 3;
+  string creature_instance_id = 4;
+  int32 level = 5;
+  int64 experience = 6;
+  int32 attribute_points = 7;
+  double strength = 8;
+  double dexterity = 9;
+  double intelligence = 10;
+  double endurance = 11;
+  bool pvp_enabled = 12;
+  bool is_in_safe_zone = 13;
+  string guild_id = 14;
+  string party_id = 15;
+  double reputation = 16;
+  int64 coin = 17;
+}
+
+message Inventory {
+  string id = 1;
+  string owner_type = 2;
+  string owner_id = 3;
+  string inventory_type = 4;
+  int32 max_slots = 5;
+  double max_weight = 6;
+  double current_weight = 7;
+  bool is_locked = 8;
+}
+
+message ItemTemplate {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string item_type = 4;
+  string rarity = 5;
+  int32 max_stack = 6;
+  double weight = 7;
+  bool is_tradable = 8;
+  bool is_destroyable = 9;
+  int64 base_value = 10;
+}
+
+message InventoryItem {
+  string id = 1;
+  string inventory_id = 2;
+  string item_id = 3;
+  int32 slot_index = 4;
+  int32 quantity = 5;
+  double durability = 6;
+  bool is_equipped = 7;
+}
+
+message InventoryWithItems {
+  Inventory inventory = 1;
+  repeated InventoryItem items = 2;
 }

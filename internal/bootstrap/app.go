@@ -62,6 +62,14 @@ func (a *App) Start(ctx context.Context) error {
 			server,
 			handlers.NewWorldDataHandler(a.Deps.Caches.World),
 		)
+		apeironv1.RegisterPlayerDataServiceServer(
+			server,
+			handlers.NewPlayerDataHandler(a.Deps.Repositories.Players),
+		)
+		apeironv1.RegisterInventoryDataServiceServer(
+			server,
+			handlers.NewInventoryDataHandler(a.Deps.Repositories.Inventory),
+		)
 	})
 
 	go func() {
