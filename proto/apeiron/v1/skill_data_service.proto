@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service SkillDataService {
+  rpc GetSkill(IdRequest) returns (SkillResponse);
+  rpc GetSkillSet(IdRequest) returns (SkillSetResponse);
+  rpc GetSkillSetLoadout(IdRequest) returns (SkillSetLoadoutResponse);
+  rpc GetSkillHitboxProfiles(IdRequest) returns (SkillHitboxProfilesResponse);
+  rpc GetSkillImpactProfile(IdRequest) returns (SkillImpactProfileResponse);
+}
+
+message SkillResponse {
+  bool found = 1;
+  Skill skill = 2;
+  string error = 3;
+}
+
+message SkillSetResponse {
+  bool found = 1;
+  SkillSet skill_set = 2;
+  string error = 3;
+}
+
+message SkillSetLoadoutResponse {
+  bool found = 1;
+  repeated SkillLoadoutItem items = 2;
+  string error = 3;
+}
+
+message SkillHitboxProfilesResponse {
+  bool found = 1;
+  repeated SkillHitboxProfile profiles = 2;
+  string error = 3;
+}
+
+message SkillImpactProfileResponse {
+  bool found = 1;
+  SkillImpactProfile profile = 2;
+  string error = 3;
+}

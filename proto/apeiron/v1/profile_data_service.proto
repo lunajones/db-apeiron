@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service ProfileDataService {
+  rpc GetMovementProfile(IdRequest) returns (MovementProfileResponse);
+  rpc GetCombatCoreProfile(IdRequest) returns (CombatCoreProfileResponse);
+}
+
+message MovementProfileResponse {
+  bool found = 1;
+  MovementProfile profile = 2;
+  string error = 3;
+}
+
+message CombatCoreProfileResponse {
+  bool found = 1;
+  CombatCoreProfile profile = 2;
+  string error = 3;
+}

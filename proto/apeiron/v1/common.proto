@@ -14,3 +14,224 @@ message OperationResult {
 message IdRequest {
   string id = 1;
 }
+
+message Skill {
+  string id = 1;
+  double base_damage = 2;
+  double stamina_cost = 3;
+  double mana_cost = 4;
+  double health_cost = 5;
+  int32 cooldown_ms = 6;
+  int32 global_cooldown_ms = 7;
+  double max_range = 8;
+  bool requires_target = 9;
+  bool requires_line_of_sight = 10;
+  bool allow_movement = 11;
+  int32 movement_lock_ms = 12;
+  string skill_type = 13;
+  string target_type = 14;
+  double damage_multiplier = 15;
+  double posture_damage = 16;
+  bool is_blockable = 17;
+  bool is_parryable = 18;
+  int32 max_targets = 19;
+  double movement_distance = 20;
+  string combo_group = 21;
+  int32 combo_step = 22;
+  int32 combo_window_ms = 23;
+  int32 combo_reset_ms = 24;
+  bool interruptible = 25;
+  repeated string tags = 26;
+  string damage_type = 27;
+  string elemental_type = 28;
+}
+
+message SkillSet {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  bool is_player_usable = 4;
+  bool is_npc_usable = 5;
+}
+
+message SkillSlot {
+  int64 id = 1;
+  string skill_set_id = 2;
+  string skill_id = 3;
+  int32 slot_index = 4;
+  bool is_enabled = 5;
+  int32 priority = 6;
+  double usage_weight = 7;
+  int64 cooldown_override_ms = 8;
+  double min_target_hp_percent = 9;
+  double max_target_hp_percent = 10;
+  double min_self_hp_percent = 11;
+  double max_self_hp_percent = 12;
+  double required_distance_min = 13;
+  double required_distance_max = 14;
+  bool requires_line_of_sight = 15;
+  double opener_weight = 16;
+  double finisher_weight = 17;
+  string shared_cooldown_group = 18;
+  bool use_only_in_combat = 19;
+}
+
+message SkillLoadoutItem {
+  SkillSlot slot = 1;
+  Skill skill = 2;
+}
+
+message SkillMovementProfile {
+  string id = 1;
+  string movement_type = 2;
+  double distance = 3;
+  double speed = 4;
+  int32 duration_ms = 5;
+  string movement_start_phase = 6;
+  int32 movement_start_offset_ms = 7;
+  int32 takeoff_ms = 8;
+  int32 landing_lock_ms = 9;
+  double arc_height = 10;
+  string arc_curve = 11;
+  string bounds = 12;
+  string steering_policy = 13;
+  double max_turn_deg_per_sec = 14;
+  double max_total_redirect_angle = 15;
+  int32 redirect_lockout_ms = 16;
+  bool can_phase_through_targets = 17;
+  double min_landing_distance = 18;
+  double desired_landing_distance = 19;
+  double stop_at_contact_ratio = 20;
+  bool applies_knockback = 21;
+  double knockback_distance = 22;
+  double knockback_speed = 23;
+}
+
+message SkillHitboxMotionSample {
+  int32 sample_index = 1;
+  double t = 2;
+  double offset_x = 3;
+  double offset_y = 4;
+  double offset_z = 5;
+  double length = 6;
+  double radius = 7;
+  double size_x = 8;
+  double size_y = 9;
+  double size_z = 10;
+  double start_angle_deg = 11;
+  double end_angle_deg = 12;
+}
+
+message SkillHitboxMotionProfile {
+  string id = 1;
+  bool enabled = 2;
+  string motion_type = 3;
+  string time_basis = 4;
+  string interpolation = 5;
+  string sweep_shape = 6;
+  string damage_group_id = 7;
+  repeated SkillHitboxMotionSample samples = 8;
+}
+
+message SkillHitboxProfile {
+  string id = 1;
+  string skill_id = 2;
+  string hitbox_shape = 3;
+  int32 hitbox_start_ms = 4;
+  int32 hitbox_end_ms = 5;
+  double offset_x = 6;
+  double offset_y = 7;
+  double offset_z = 8;
+  double length = 9;
+  double radius = 10;
+  double size_x = 11;
+  double size_y = 12;
+  double size_z = 13;
+  SkillHitboxMotionProfile motion_profile = 14;
+  string damage_group_id = 15;
+  int32 hitbox_index = 16;
+  double angle = 17;
+  optional string target_type = 18;
+  optional int32 max_targets = 19;
+  int32 priority = 20;
+  bool requires_line_of_sight = 21;
+  bool can_hit_neutral = 22;
+}
+
+message SkillImpactProfile {
+  string skill_id = 1;
+  string impact_type = 2;
+  double poise_damage = 3;
+  double stagger_power = 4;
+  double interrupt_power = 5;
+  string hit_reaction = 6;
+  double guard_damage_multiplier = 7;
+}
+
+message SkillTimingProfile {
+  int32 windup_ms = 1;
+  int32 active_start_ms = 2;
+  int32 active_end_ms = 3;
+  int32 recovery_ms = 4;
+  int32 action_lock_ms = 5;
+  int32 global_cooldown_ms = 6;
+  string movement_lock_policy = 7;
+}
+
+message CombatCoreProfile {
+  double damage_dealt_multiplier = 1;
+  bool can_block = 2;
+  double block_damage_reduction = 3;
+  double max_posture = 4;
+  double posture_damage_multiplier = 5;
+  int32 posture_break_duration_ms = 6;
+}
+
+message MovementProfile {
+  string id = 1;
+  double max_speed = 2;
+  double acceleration = 3;
+  double deceleration = 4;
+  double friction = 5;
+  double gravity_multiplier = 6;
+  double mass = 7;
+  double momentum_retention = 8;
+  double turn_rate = 9;
+  double air_control = 10;
+  double strafe_efficiency = 11;
+  double backpedal_penalty = 12;
+  double dodge_distance = 13;
+  int32 dodge_duration_ms = 14;
+  double sprint_multiplier = 15;
+  double slope_limit = 16;
+  bool slide_on_slope = 17;
+  bool is_airborne_enabled = 18;
+}
+
+message StatusEffect {
+  string id = 1;
+  string name = 2;
+  string effect_type = 3;
+  string effect_category = 4;
+  string control_type = 5;
+  string stacking_mode = 6;
+  int32 max_stacks = 7;
+  int32 duration_ms = 8;
+  bool is_pvp_enabled = 9;
+  bool blocks_movement = 10;
+  bool blocks_actions = 11;
+  bool blocks_skills = 12;
+}
+
+message SkillControlEffect {
+  string id = 1;
+  bool enabled = 2;
+  string status_effect_id = 3;
+  int32 duration_ms = 4;
+  string control_type = 5;
+  string release_policy_id = 6;
+}
+
+message ItemTemplate {
+  string id = 1;
+}

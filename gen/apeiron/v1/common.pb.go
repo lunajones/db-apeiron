@@ -153,6 +153,1954 @@ func (x *IdRequest) GetId() string {
 	return ""
 }
 
+type Skill struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	Id                  string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	BaseDamage          float64                `protobuf:"fixed64,2,opt,name=base_damage,json=baseDamage,proto3" json:"base_damage,omitempty"`
+	StaminaCost         float64                `protobuf:"fixed64,3,opt,name=stamina_cost,json=staminaCost,proto3" json:"stamina_cost,omitempty"`
+	ManaCost            float64                `protobuf:"fixed64,4,opt,name=mana_cost,json=manaCost,proto3" json:"mana_cost,omitempty"`
+	HealthCost          float64                `protobuf:"fixed64,5,opt,name=health_cost,json=healthCost,proto3" json:"health_cost,omitempty"`
+	CooldownMs          int32                  `protobuf:"varint,6,opt,name=cooldown_ms,json=cooldownMs,proto3" json:"cooldown_ms,omitempty"`
+	GlobalCooldownMs    int32                  `protobuf:"varint,7,opt,name=global_cooldown_ms,json=globalCooldownMs,proto3" json:"global_cooldown_ms,omitempty"`
+	MaxRange            float64                `protobuf:"fixed64,8,opt,name=max_range,json=maxRange,proto3" json:"max_range,omitempty"`
+	RequiresTarget      bool                   `protobuf:"varint,9,opt,name=requires_target,json=requiresTarget,proto3" json:"requires_target,omitempty"`
+	RequiresLineOfSight bool                   `protobuf:"varint,10,opt,name=requires_line_of_sight,json=requiresLineOfSight,proto3" json:"requires_line_of_sight,omitempty"`
+	AllowMovement       bool                   `protobuf:"varint,11,opt,name=allow_movement,json=allowMovement,proto3" json:"allow_movement,omitempty"`
+	MovementLockMs      int32                  `protobuf:"varint,12,opt,name=movement_lock_ms,json=movementLockMs,proto3" json:"movement_lock_ms,omitempty"`
+	SkillType           string                 `protobuf:"bytes,13,opt,name=skill_type,json=skillType,proto3" json:"skill_type,omitempty"`
+	TargetType          string                 `protobuf:"bytes,14,opt,name=target_type,json=targetType,proto3" json:"target_type,omitempty"`
+	DamageMultiplier    float64                `protobuf:"fixed64,15,opt,name=damage_multiplier,json=damageMultiplier,proto3" json:"damage_multiplier,omitempty"`
+	PostureDamage       float64                `protobuf:"fixed64,16,opt,name=posture_damage,json=postureDamage,proto3" json:"posture_damage,omitempty"`
+	IsBlockable         bool                   `protobuf:"varint,17,opt,name=is_blockable,json=isBlockable,proto3" json:"is_blockable,omitempty"`
+	IsParryable         bool                   `protobuf:"varint,18,opt,name=is_parryable,json=isParryable,proto3" json:"is_parryable,omitempty"`
+	MaxTargets          int32                  `protobuf:"varint,19,opt,name=max_targets,json=maxTargets,proto3" json:"max_targets,omitempty"`
+	MovementDistance    float64                `protobuf:"fixed64,20,opt,name=movement_distance,json=movementDistance,proto3" json:"movement_distance,omitempty"`
+	ComboGroup          string                 `protobuf:"bytes,21,opt,name=combo_group,json=comboGroup,proto3" json:"combo_group,omitempty"`
+	ComboStep           int32                  `protobuf:"varint,22,opt,name=combo_step,json=comboStep,proto3" json:"combo_step,omitempty"`
+	ComboWindowMs       int32                  `protobuf:"varint,23,opt,name=combo_window_ms,json=comboWindowMs,proto3" json:"combo_window_ms,omitempty"`
+	ComboResetMs        int32                  `protobuf:"varint,24,opt,name=combo_reset_ms,json=comboResetMs,proto3" json:"combo_reset_ms,omitempty"`
+	Interruptible       bool                   `protobuf:"varint,25,opt,name=interruptible,proto3" json:"interruptible,omitempty"`
+	Tags                []string               `protobuf:"bytes,26,rep,name=tags,proto3" json:"tags,omitempty"`
+	DamageType          string                 `protobuf:"bytes,27,opt,name=damage_type,json=damageType,proto3" json:"damage_type,omitempty"`
+	ElementalType       string                 `protobuf:"bytes,28,opt,name=elemental_type,json=elementalType,proto3" json:"elemental_type,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *Skill) Reset() {
+	*x = Skill{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Skill) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Skill) ProtoMessage() {}
+
+func (x *Skill) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Skill.ProtoReflect.Descriptor instead.
+func (*Skill) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Skill) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Skill) GetBaseDamage() float64 {
+	if x != nil {
+		return x.BaseDamage
+	}
+	return 0
+}
+
+func (x *Skill) GetStaminaCost() float64 {
+	if x != nil {
+		return x.StaminaCost
+	}
+	return 0
+}
+
+func (x *Skill) GetManaCost() float64 {
+	if x != nil {
+		return x.ManaCost
+	}
+	return 0
+}
+
+func (x *Skill) GetHealthCost() float64 {
+	if x != nil {
+		return x.HealthCost
+	}
+	return 0
+}
+
+func (x *Skill) GetCooldownMs() int32 {
+	if x != nil {
+		return x.CooldownMs
+	}
+	return 0
+}
+
+func (x *Skill) GetGlobalCooldownMs() int32 {
+	if x != nil {
+		return x.GlobalCooldownMs
+	}
+	return 0
+}
+
+func (x *Skill) GetMaxRange() float64 {
+	if x != nil {
+		return x.MaxRange
+	}
+	return 0
+}
+
+func (x *Skill) GetRequiresTarget() bool {
+	if x != nil {
+		return x.RequiresTarget
+	}
+	return false
+}
+
+func (x *Skill) GetRequiresLineOfSight() bool {
+	if x != nil {
+		return x.RequiresLineOfSight
+	}
+	return false
+}
+
+func (x *Skill) GetAllowMovement() bool {
+	if x != nil {
+		return x.AllowMovement
+	}
+	return false
+}
+
+func (x *Skill) GetMovementLockMs() int32 {
+	if x != nil {
+		return x.MovementLockMs
+	}
+	return 0
+}
+
+func (x *Skill) GetSkillType() string {
+	if x != nil {
+		return x.SkillType
+	}
+	return ""
+}
+
+func (x *Skill) GetTargetType() string {
+	if x != nil {
+		return x.TargetType
+	}
+	return ""
+}
+
+func (x *Skill) GetDamageMultiplier() float64 {
+	if x != nil {
+		return x.DamageMultiplier
+	}
+	return 0
+}
+
+func (x *Skill) GetPostureDamage() float64 {
+	if x != nil {
+		return x.PostureDamage
+	}
+	return 0
+}
+
+func (x *Skill) GetIsBlockable() bool {
+	if x != nil {
+		return x.IsBlockable
+	}
+	return false
+}
+
+func (x *Skill) GetIsParryable() bool {
+	if x != nil {
+		return x.IsParryable
+	}
+	return false
+}
+
+func (x *Skill) GetMaxTargets() int32 {
+	if x != nil {
+		return x.MaxTargets
+	}
+	return 0
+}
+
+func (x *Skill) GetMovementDistance() float64 {
+	if x != nil {
+		return x.MovementDistance
+	}
+	return 0
+}
+
+func (x *Skill) GetComboGroup() string {
+	if x != nil {
+		return x.ComboGroup
+	}
+	return ""
+}
+
+func (x *Skill) GetComboStep() int32 {
+	if x != nil {
+		return x.ComboStep
+	}
+	return 0
+}
+
+func (x *Skill) GetComboWindowMs() int32 {
+	if x != nil {
+		return x.ComboWindowMs
+	}
+	return 0
+}
+
+func (x *Skill) GetComboResetMs() int32 {
+	if x != nil {
+		return x.ComboResetMs
+	}
+	return 0
+}
+
+func (x *Skill) GetInterruptible() bool {
+	if x != nil {
+		return x.Interruptible
+	}
+	return false
+}
+
+func (x *Skill) GetTags() []string {
+	if x != nil {
+		return x.Tags
+	}
+	return nil
+}
+
+func (x *Skill) GetDamageType() string {
+	if x != nil {
+		return x.DamageType
+	}
+	return ""
+}
+
+func (x *Skill) GetElementalType() string {
+	if x != nil {
+		return x.ElementalType
+	}
+	return ""
+}
+
+type SkillSet struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name           string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description    string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	IsPlayerUsable bool                   `protobuf:"varint,4,opt,name=is_player_usable,json=isPlayerUsable,proto3" json:"is_player_usable,omitempty"`
+	IsNpcUsable    bool                   `protobuf:"varint,5,opt,name=is_npc_usable,json=isNpcUsable,proto3" json:"is_npc_usable,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SkillSet) Reset() {
+	*x = SkillSet{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillSet) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillSet) ProtoMessage() {}
+
+func (x *SkillSet) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillSet.ProtoReflect.Descriptor instead.
+func (*SkillSet) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SkillSet) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SkillSet) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SkillSet) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *SkillSet) GetIsPlayerUsable() bool {
+	if x != nil {
+		return x.IsPlayerUsable
+	}
+	return false
+}
+
+func (x *SkillSet) GetIsNpcUsable() bool {
+	if x != nil {
+		return x.IsNpcUsable
+	}
+	return false
+}
+
+type SkillSlot struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	Id                  int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	SkillSetId          string                 `protobuf:"bytes,2,opt,name=skill_set_id,json=skillSetId,proto3" json:"skill_set_id,omitempty"`
+	SkillId             string                 `protobuf:"bytes,3,opt,name=skill_id,json=skillId,proto3" json:"skill_id,omitempty"`
+	SlotIndex           int32                  `protobuf:"varint,4,opt,name=slot_index,json=slotIndex,proto3" json:"slot_index,omitempty"`
+	IsEnabled           bool                   `protobuf:"varint,5,opt,name=is_enabled,json=isEnabled,proto3" json:"is_enabled,omitempty"`
+	Priority            int32                  `protobuf:"varint,6,opt,name=priority,proto3" json:"priority,omitempty"`
+	UsageWeight         float64                `protobuf:"fixed64,7,opt,name=usage_weight,json=usageWeight,proto3" json:"usage_weight,omitempty"`
+	CooldownOverrideMs  int64                  `protobuf:"varint,8,opt,name=cooldown_override_ms,json=cooldownOverrideMs,proto3" json:"cooldown_override_ms,omitempty"`
+	MinTargetHpPercent  float64                `protobuf:"fixed64,9,opt,name=min_target_hp_percent,json=minTargetHpPercent,proto3" json:"min_target_hp_percent,omitempty"`
+	MaxTargetHpPercent  float64                `protobuf:"fixed64,10,opt,name=max_target_hp_percent,json=maxTargetHpPercent,proto3" json:"max_target_hp_percent,omitempty"`
+	MinSelfHpPercent    float64                `protobuf:"fixed64,11,opt,name=min_self_hp_percent,json=minSelfHpPercent,proto3" json:"min_self_hp_percent,omitempty"`
+	MaxSelfHpPercent    float64                `protobuf:"fixed64,12,opt,name=max_self_hp_percent,json=maxSelfHpPercent,proto3" json:"max_self_hp_percent,omitempty"`
+	RequiredDistanceMin float64                `protobuf:"fixed64,13,opt,name=required_distance_min,json=requiredDistanceMin,proto3" json:"required_distance_min,omitempty"`
+	RequiredDistanceMax float64                `protobuf:"fixed64,14,opt,name=required_distance_max,json=requiredDistanceMax,proto3" json:"required_distance_max,omitempty"`
+	RequiresLineOfSight bool                   `protobuf:"varint,15,opt,name=requires_line_of_sight,json=requiresLineOfSight,proto3" json:"requires_line_of_sight,omitempty"`
+	OpenerWeight        float64                `protobuf:"fixed64,16,opt,name=opener_weight,json=openerWeight,proto3" json:"opener_weight,omitempty"`
+	FinisherWeight      float64                `protobuf:"fixed64,17,opt,name=finisher_weight,json=finisherWeight,proto3" json:"finisher_weight,omitempty"`
+	SharedCooldownGroup string                 `protobuf:"bytes,18,opt,name=shared_cooldown_group,json=sharedCooldownGroup,proto3" json:"shared_cooldown_group,omitempty"`
+	UseOnlyInCombat     bool                   `protobuf:"varint,19,opt,name=use_only_in_combat,json=useOnlyInCombat,proto3" json:"use_only_in_combat,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *SkillSlot) Reset() {
+	*x = SkillSlot{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillSlot) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillSlot) ProtoMessage() {}
+
+func (x *SkillSlot) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillSlot.ProtoReflect.Descriptor instead.
+func (*SkillSlot) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SkillSlot) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetSkillSetId() string {
+	if x != nil {
+		return x.SkillSetId
+	}
+	return ""
+}
+
+func (x *SkillSlot) GetSkillId() string {
+	if x != nil {
+		return x.SkillId
+	}
+	return ""
+}
+
+func (x *SkillSlot) GetSlotIndex() int32 {
+	if x != nil {
+		return x.SlotIndex
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetIsEnabled() bool {
+	if x != nil {
+		return x.IsEnabled
+	}
+	return false
+}
+
+func (x *SkillSlot) GetPriority() int32 {
+	if x != nil {
+		return x.Priority
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetUsageWeight() float64 {
+	if x != nil {
+		return x.UsageWeight
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetCooldownOverrideMs() int64 {
+	if x != nil {
+		return x.CooldownOverrideMs
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetMinTargetHpPercent() float64 {
+	if x != nil {
+		return x.MinTargetHpPercent
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetMaxTargetHpPercent() float64 {
+	if x != nil {
+		return x.MaxTargetHpPercent
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetMinSelfHpPercent() float64 {
+	if x != nil {
+		return x.MinSelfHpPercent
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetMaxSelfHpPercent() float64 {
+	if x != nil {
+		return x.MaxSelfHpPercent
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetRequiredDistanceMin() float64 {
+	if x != nil {
+		return x.RequiredDistanceMin
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetRequiredDistanceMax() float64 {
+	if x != nil {
+		return x.RequiredDistanceMax
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetRequiresLineOfSight() bool {
+	if x != nil {
+		return x.RequiresLineOfSight
+	}
+	return false
+}
+
+func (x *SkillSlot) GetOpenerWeight() float64 {
+	if x != nil {
+		return x.OpenerWeight
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetFinisherWeight() float64 {
+	if x != nil {
+		return x.FinisherWeight
+	}
+	return 0
+}
+
+func (x *SkillSlot) GetSharedCooldownGroup() string {
+	if x != nil {
+		return x.SharedCooldownGroup
+	}
+	return ""
+}
+
+func (x *SkillSlot) GetUseOnlyInCombat() bool {
+	if x != nil {
+		return x.UseOnlyInCombat
+	}
+	return false
+}
+
+type SkillLoadoutItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Slot          *SkillSlot             `protobuf:"bytes,1,opt,name=slot,proto3" json:"slot,omitempty"`
+	Skill         *Skill                 `protobuf:"bytes,2,opt,name=skill,proto3" json:"skill,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SkillLoadoutItem) Reset() {
+	*x = SkillLoadoutItem{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillLoadoutItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillLoadoutItem) ProtoMessage() {}
+
+func (x *SkillLoadoutItem) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillLoadoutItem.ProtoReflect.Descriptor instead.
+func (*SkillLoadoutItem) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SkillLoadoutItem) GetSlot() *SkillSlot {
+	if x != nil {
+		return x.Slot
+	}
+	return nil
+}
+
+func (x *SkillLoadoutItem) GetSkill() *Skill {
+	if x != nil {
+		return x.Skill
+	}
+	return nil
+}
+
+type SkillMovementProfile struct {
+	state                  protoimpl.MessageState `protogen:"open.v1"`
+	Id                     string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	MovementType           string                 `protobuf:"bytes,2,opt,name=movement_type,json=movementType,proto3" json:"movement_type,omitempty"`
+	Distance               float64                `protobuf:"fixed64,3,opt,name=distance,proto3" json:"distance,omitempty"`
+	Speed                  float64                `protobuf:"fixed64,4,opt,name=speed,proto3" json:"speed,omitempty"`
+	DurationMs             int32                  `protobuf:"varint,5,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
+	MovementStartPhase     string                 `protobuf:"bytes,6,opt,name=movement_start_phase,json=movementStartPhase,proto3" json:"movement_start_phase,omitempty"`
+	MovementStartOffsetMs  int32                  `protobuf:"varint,7,opt,name=movement_start_offset_ms,json=movementStartOffsetMs,proto3" json:"movement_start_offset_ms,omitempty"`
+	TakeoffMs              int32                  `protobuf:"varint,8,opt,name=takeoff_ms,json=takeoffMs,proto3" json:"takeoff_ms,omitempty"`
+	LandingLockMs          int32                  `protobuf:"varint,9,opt,name=landing_lock_ms,json=landingLockMs,proto3" json:"landing_lock_ms,omitempty"`
+	ArcHeight              float64                `protobuf:"fixed64,10,opt,name=arc_height,json=arcHeight,proto3" json:"arc_height,omitempty"`
+	ArcCurve               string                 `protobuf:"bytes,11,opt,name=arc_curve,json=arcCurve,proto3" json:"arc_curve,omitempty"`
+	Bounds                 string                 `protobuf:"bytes,12,opt,name=bounds,proto3" json:"bounds,omitempty"`
+	SteeringPolicy         string                 `protobuf:"bytes,13,opt,name=steering_policy,json=steeringPolicy,proto3" json:"steering_policy,omitempty"`
+	MaxTurnDegPerSec       float64                `protobuf:"fixed64,14,opt,name=max_turn_deg_per_sec,json=maxTurnDegPerSec,proto3" json:"max_turn_deg_per_sec,omitempty"`
+	MaxTotalRedirectAngle  float64                `protobuf:"fixed64,15,opt,name=max_total_redirect_angle,json=maxTotalRedirectAngle,proto3" json:"max_total_redirect_angle,omitempty"`
+	RedirectLockoutMs      int32                  `protobuf:"varint,16,opt,name=redirect_lockout_ms,json=redirectLockoutMs,proto3" json:"redirect_lockout_ms,omitempty"`
+	CanPhaseThroughTargets bool                   `protobuf:"varint,17,opt,name=can_phase_through_targets,json=canPhaseThroughTargets,proto3" json:"can_phase_through_targets,omitempty"`
+	MinLandingDistance     float64                `protobuf:"fixed64,18,opt,name=min_landing_distance,json=minLandingDistance,proto3" json:"min_landing_distance,omitempty"`
+	DesiredLandingDistance float64                `protobuf:"fixed64,19,opt,name=desired_landing_distance,json=desiredLandingDistance,proto3" json:"desired_landing_distance,omitempty"`
+	StopAtContactRatio     float64                `protobuf:"fixed64,20,opt,name=stop_at_contact_ratio,json=stopAtContactRatio,proto3" json:"stop_at_contact_ratio,omitempty"`
+	AppliesKnockback       bool                   `protobuf:"varint,21,opt,name=applies_knockback,json=appliesKnockback,proto3" json:"applies_knockback,omitempty"`
+	KnockbackDistance      float64                `protobuf:"fixed64,22,opt,name=knockback_distance,json=knockbackDistance,proto3" json:"knockback_distance,omitempty"`
+	KnockbackSpeed         float64                `protobuf:"fixed64,23,opt,name=knockback_speed,json=knockbackSpeed,proto3" json:"knockback_speed,omitempty"`
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *SkillMovementProfile) Reset() {
+	*x = SkillMovementProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillMovementProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillMovementProfile) ProtoMessage() {}
+
+func (x *SkillMovementProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillMovementProfile.ProtoReflect.Descriptor instead.
+func (*SkillMovementProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *SkillMovementProfile) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetMovementType() string {
+	if x != nil {
+		return x.MovementType
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetDistance() float64 {
+	if x != nil {
+		return x.Distance
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetSpeed() float64 {
+	if x != nil {
+		return x.Speed
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetDurationMs() int32 {
+	if x != nil {
+		return x.DurationMs
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetMovementStartPhase() string {
+	if x != nil {
+		return x.MovementStartPhase
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetMovementStartOffsetMs() int32 {
+	if x != nil {
+		return x.MovementStartOffsetMs
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetTakeoffMs() int32 {
+	if x != nil {
+		return x.TakeoffMs
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetLandingLockMs() int32 {
+	if x != nil {
+		return x.LandingLockMs
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetArcHeight() float64 {
+	if x != nil {
+		return x.ArcHeight
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetArcCurve() string {
+	if x != nil {
+		return x.ArcCurve
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetBounds() string {
+	if x != nil {
+		return x.Bounds
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetSteeringPolicy() string {
+	if x != nil {
+		return x.SteeringPolicy
+	}
+	return ""
+}
+
+func (x *SkillMovementProfile) GetMaxTurnDegPerSec() float64 {
+	if x != nil {
+		return x.MaxTurnDegPerSec
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetMaxTotalRedirectAngle() float64 {
+	if x != nil {
+		return x.MaxTotalRedirectAngle
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetRedirectLockoutMs() int32 {
+	if x != nil {
+		return x.RedirectLockoutMs
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetCanPhaseThroughTargets() bool {
+	if x != nil {
+		return x.CanPhaseThroughTargets
+	}
+	return false
+}
+
+func (x *SkillMovementProfile) GetMinLandingDistance() float64 {
+	if x != nil {
+		return x.MinLandingDistance
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetDesiredLandingDistance() float64 {
+	if x != nil {
+		return x.DesiredLandingDistance
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetStopAtContactRatio() float64 {
+	if x != nil {
+		return x.StopAtContactRatio
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetAppliesKnockback() bool {
+	if x != nil {
+		return x.AppliesKnockback
+	}
+	return false
+}
+
+func (x *SkillMovementProfile) GetKnockbackDistance() float64 {
+	if x != nil {
+		return x.KnockbackDistance
+	}
+	return 0
+}
+
+func (x *SkillMovementProfile) GetKnockbackSpeed() float64 {
+	if x != nil {
+		return x.KnockbackSpeed
+	}
+	return 0
+}
+
+type SkillHitboxMotionSample struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SampleIndex   int32                  `protobuf:"varint,1,opt,name=sample_index,json=sampleIndex,proto3" json:"sample_index,omitempty"`
+	T             float64                `protobuf:"fixed64,2,opt,name=t,proto3" json:"t,omitempty"`
+	OffsetX       float64                `protobuf:"fixed64,3,opt,name=offset_x,json=offsetX,proto3" json:"offset_x,omitempty"`
+	OffsetY       float64                `protobuf:"fixed64,4,opt,name=offset_y,json=offsetY,proto3" json:"offset_y,omitempty"`
+	OffsetZ       float64                `protobuf:"fixed64,5,opt,name=offset_z,json=offsetZ,proto3" json:"offset_z,omitempty"`
+	Length        float64                `protobuf:"fixed64,6,opt,name=length,proto3" json:"length,omitempty"`
+	Radius        float64                `protobuf:"fixed64,7,opt,name=radius,proto3" json:"radius,omitempty"`
+	SizeX         float64                `protobuf:"fixed64,8,opt,name=size_x,json=sizeX,proto3" json:"size_x,omitempty"`
+	SizeY         float64                `protobuf:"fixed64,9,opt,name=size_y,json=sizeY,proto3" json:"size_y,omitempty"`
+	SizeZ         float64                `protobuf:"fixed64,10,opt,name=size_z,json=sizeZ,proto3" json:"size_z,omitempty"`
+	StartAngleDeg float64                `protobuf:"fixed64,11,opt,name=start_angle_deg,json=startAngleDeg,proto3" json:"start_angle_deg,omitempty"`
+	EndAngleDeg   float64                `protobuf:"fixed64,12,opt,name=end_angle_deg,json=endAngleDeg,proto3" json:"end_angle_deg,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SkillHitboxMotionSample) Reset() {
+	*x = SkillHitboxMotionSample{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillHitboxMotionSample) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillHitboxMotionSample) ProtoMessage() {}
+
+func (x *SkillHitboxMotionSample) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillHitboxMotionSample.ProtoReflect.Descriptor instead.
+func (*SkillHitboxMotionSample) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *SkillHitboxMotionSample) GetSampleIndex() int32 {
+	if x != nil {
+		return x.SampleIndex
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetT() float64 {
+	if x != nil {
+		return x.T
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetOffsetX() float64 {
+	if x != nil {
+		return x.OffsetX
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetOffsetY() float64 {
+	if x != nil {
+		return x.OffsetY
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetOffsetZ() float64 {
+	if x != nil {
+		return x.OffsetZ
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetLength() float64 {
+	if x != nil {
+		return x.Length
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetRadius() float64 {
+	if x != nil {
+		return x.Radius
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetSizeX() float64 {
+	if x != nil {
+		return x.SizeX
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetSizeY() float64 {
+	if x != nil {
+		return x.SizeY
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetSizeZ() float64 {
+	if x != nil {
+		return x.SizeZ
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetStartAngleDeg() float64 {
+	if x != nil {
+		return x.StartAngleDeg
+	}
+	return 0
+}
+
+func (x *SkillHitboxMotionSample) GetEndAngleDeg() float64 {
+	if x != nil {
+		return x.EndAngleDeg
+	}
+	return 0
+}
+
+type SkillHitboxMotionProfile struct {
+	state         protoimpl.MessageState     `protogen:"open.v1"`
+	Id            string                     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Enabled       bool                       `protobuf:"varint,2,opt,name=enabled,proto3" json:"enabled,omitempty"`
+	MotionType    string                     `protobuf:"bytes,3,opt,name=motion_type,json=motionType,proto3" json:"motion_type,omitempty"`
+	TimeBasis     string                     `protobuf:"bytes,4,opt,name=time_basis,json=timeBasis,proto3" json:"time_basis,omitempty"`
+	Interpolation string                     `protobuf:"bytes,5,opt,name=interpolation,proto3" json:"interpolation,omitempty"`
+	SweepShape    string                     `protobuf:"bytes,6,opt,name=sweep_shape,json=sweepShape,proto3" json:"sweep_shape,omitempty"`
+	DamageGroupId string                     `protobuf:"bytes,7,opt,name=damage_group_id,json=damageGroupId,proto3" json:"damage_group_id,omitempty"`
+	Samples       []*SkillHitboxMotionSample `protobuf:"bytes,8,rep,name=samples,proto3" json:"samples,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SkillHitboxMotionProfile) Reset() {
+	*x = SkillHitboxMotionProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillHitboxMotionProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillHitboxMotionProfile) ProtoMessage() {}
+
+func (x *SkillHitboxMotionProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillHitboxMotionProfile.ProtoReflect.Descriptor instead.
+func (*SkillHitboxMotionProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *SkillHitboxMotionProfile) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetEnabled() bool {
+	if x != nil {
+		return x.Enabled
+	}
+	return false
+}
+
+func (x *SkillHitboxMotionProfile) GetMotionType() string {
+	if x != nil {
+		return x.MotionType
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetTimeBasis() string {
+	if x != nil {
+		return x.TimeBasis
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetInterpolation() string {
+	if x != nil {
+		return x.Interpolation
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetSweepShape() string {
+	if x != nil {
+		return x.SweepShape
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetDamageGroupId() string {
+	if x != nil {
+		return x.DamageGroupId
+	}
+	return ""
+}
+
+func (x *SkillHitboxMotionProfile) GetSamples() []*SkillHitboxMotionSample {
+	if x != nil {
+		return x.Samples
+	}
+	return nil
+}
+
+type SkillHitboxProfile struct {
+	state               protoimpl.MessageState    `protogen:"open.v1"`
+	Id                  string                    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	SkillId             string                    `protobuf:"bytes,2,opt,name=skill_id,json=skillId,proto3" json:"skill_id,omitempty"`
+	HitboxShape         string                    `protobuf:"bytes,3,opt,name=hitbox_shape,json=hitboxShape,proto3" json:"hitbox_shape,omitempty"`
+	HitboxStartMs       int32                     `protobuf:"varint,4,opt,name=hitbox_start_ms,json=hitboxStartMs,proto3" json:"hitbox_start_ms,omitempty"`
+	HitboxEndMs         int32                     `protobuf:"varint,5,opt,name=hitbox_end_ms,json=hitboxEndMs,proto3" json:"hitbox_end_ms,omitempty"`
+	OffsetX             float64                   `protobuf:"fixed64,6,opt,name=offset_x,json=offsetX,proto3" json:"offset_x,omitempty"`
+	OffsetY             float64                   `protobuf:"fixed64,7,opt,name=offset_y,json=offsetY,proto3" json:"offset_y,omitempty"`
+	OffsetZ             float64                   `protobuf:"fixed64,8,opt,name=offset_z,json=offsetZ,proto3" json:"offset_z,omitempty"`
+	Length              float64                   `protobuf:"fixed64,9,opt,name=length,proto3" json:"length,omitempty"`
+	Radius              float64                   `protobuf:"fixed64,10,opt,name=radius,proto3" json:"radius,omitempty"`
+	SizeX               float64                   `protobuf:"fixed64,11,opt,name=size_x,json=sizeX,proto3" json:"size_x,omitempty"`
+	SizeY               float64                   `protobuf:"fixed64,12,opt,name=size_y,json=sizeY,proto3" json:"size_y,omitempty"`
+	SizeZ               float64                   `protobuf:"fixed64,13,opt,name=size_z,json=sizeZ,proto3" json:"size_z,omitempty"`
+	MotionProfile       *SkillHitboxMotionProfile `protobuf:"bytes,14,opt,name=motion_profile,json=motionProfile,proto3" json:"motion_profile,omitempty"`
+	DamageGroupId       string                    `protobuf:"bytes,15,opt,name=damage_group_id,json=damageGroupId,proto3" json:"damage_group_id,omitempty"`
+	HitboxIndex         int32                     `protobuf:"varint,16,opt,name=hitbox_index,json=hitboxIndex,proto3" json:"hitbox_index,omitempty"`
+	Angle               float64                   `protobuf:"fixed64,17,opt,name=angle,proto3" json:"angle,omitempty"`
+	TargetType          *string                   `protobuf:"bytes,18,opt,name=target_type,json=targetType,proto3,oneof" json:"target_type,omitempty"`
+	MaxTargets          *int32                    `protobuf:"varint,19,opt,name=max_targets,json=maxTargets,proto3,oneof" json:"max_targets,omitempty"`
+	Priority            int32                     `protobuf:"varint,20,opt,name=priority,proto3" json:"priority,omitempty"`
+	RequiresLineOfSight bool                      `protobuf:"varint,21,opt,name=requires_line_of_sight,json=requiresLineOfSight,proto3" json:"requires_line_of_sight,omitempty"`
+	CanHitNeutral       bool                      `protobuf:"varint,22,opt,name=can_hit_neutral,json=canHitNeutral,proto3" json:"can_hit_neutral,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *SkillHitboxProfile) Reset() {
+	*x = SkillHitboxProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillHitboxProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillHitboxProfile) ProtoMessage() {}
+
+func (x *SkillHitboxProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillHitboxProfile.ProtoReflect.Descriptor instead.
+func (*SkillHitboxProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *SkillHitboxProfile) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SkillHitboxProfile) GetSkillId() string {
+	if x != nil {
+		return x.SkillId
+	}
+	return ""
+}
+
+func (x *SkillHitboxProfile) GetHitboxShape() string {
+	if x != nil {
+		return x.HitboxShape
+	}
+	return ""
+}
+
+func (x *SkillHitboxProfile) GetHitboxStartMs() int32 {
+	if x != nil {
+		return x.HitboxStartMs
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetHitboxEndMs() int32 {
+	if x != nil {
+		return x.HitboxEndMs
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetOffsetX() float64 {
+	if x != nil {
+		return x.OffsetX
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetOffsetY() float64 {
+	if x != nil {
+		return x.OffsetY
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetOffsetZ() float64 {
+	if x != nil {
+		return x.OffsetZ
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetLength() float64 {
+	if x != nil {
+		return x.Length
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetRadius() float64 {
+	if x != nil {
+		return x.Radius
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetSizeX() float64 {
+	if x != nil {
+		return x.SizeX
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetSizeY() float64 {
+	if x != nil {
+		return x.SizeY
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetSizeZ() float64 {
+	if x != nil {
+		return x.SizeZ
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetMotionProfile() *SkillHitboxMotionProfile {
+	if x != nil {
+		return x.MotionProfile
+	}
+	return nil
+}
+
+func (x *SkillHitboxProfile) GetDamageGroupId() string {
+	if x != nil {
+		return x.DamageGroupId
+	}
+	return ""
+}
+
+func (x *SkillHitboxProfile) GetHitboxIndex() int32 {
+	if x != nil {
+		return x.HitboxIndex
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetAngle() float64 {
+	if x != nil {
+		return x.Angle
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetTargetType() string {
+	if x != nil && x.TargetType != nil {
+		return *x.TargetType
+	}
+	return ""
+}
+
+func (x *SkillHitboxProfile) GetMaxTargets() int32 {
+	if x != nil && x.MaxTargets != nil {
+		return *x.MaxTargets
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetPriority() int32 {
+	if x != nil {
+		return x.Priority
+	}
+	return 0
+}
+
+func (x *SkillHitboxProfile) GetRequiresLineOfSight() bool {
+	if x != nil {
+		return x.RequiresLineOfSight
+	}
+	return false
+}
+
+func (x *SkillHitboxProfile) GetCanHitNeutral() bool {
+	if x != nil {
+		return x.CanHitNeutral
+	}
+	return false
+}
+
+type SkillImpactProfile struct {
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	SkillId               string                 `protobuf:"bytes,1,opt,name=skill_id,json=skillId,proto3" json:"skill_id,omitempty"`
+	ImpactType            string                 `protobuf:"bytes,2,opt,name=impact_type,json=impactType,proto3" json:"impact_type,omitempty"`
+	PoiseDamage           float64                `protobuf:"fixed64,3,opt,name=poise_damage,json=poiseDamage,proto3" json:"poise_damage,omitempty"`
+	StaggerPower          float64                `protobuf:"fixed64,4,opt,name=stagger_power,json=staggerPower,proto3" json:"stagger_power,omitempty"`
+	InterruptPower        float64                `protobuf:"fixed64,5,opt,name=interrupt_power,json=interruptPower,proto3" json:"interrupt_power,omitempty"`
+	HitReaction           string                 `protobuf:"bytes,6,opt,name=hit_reaction,json=hitReaction,proto3" json:"hit_reaction,omitempty"`
+	GuardDamageMultiplier float64                `protobuf:"fixed64,7,opt,name=guard_damage_multiplier,json=guardDamageMultiplier,proto3" json:"guard_damage_multiplier,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *SkillImpactProfile) Reset() {
+	*x = SkillImpactProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillImpactProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillImpactProfile) ProtoMessage() {}
+
+func (x *SkillImpactProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillImpactProfile.ProtoReflect.Descriptor instead.
+func (*SkillImpactProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *SkillImpactProfile) GetSkillId() string {
+	if x != nil {
+		return x.SkillId
+	}
+	return ""
+}
+
+func (x *SkillImpactProfile) GetImpactType() string {
+	if x != nil {
+		return x.ImpactType
+	}
+	return ""
+}
+
+func (x *SkillImpactProfile) GetPoiseDamage() float64 {
+	if x != nil {
+		return x.PoiseDamage
+	}
+	return 0
+}
+
+func (x *SkillImpactProfile) GetStaggerPower() float64 {
+	if x != nil {
+		return x.StaggerPower
+	}
+	return 0
+}
+
+func (x *SkillImpactProfile) GetInterruptPower() float64 {
+	if x != nil {
+		return x.InterruptPower
+	}
+	return 0
+}
+
+func (x *SkillImpactProfile) GetHitReaction() string {
+	if x != nil {
+		return x.HitReaction
+	}
+	return ""
+}
+
+func (x *SkillImpactProfile) GetGuardDamageMultiplier() float64 {
+	if x != nil {
+		return x.GuardDamageMultiplier
+	}
+	return 0
+}
+
+type SkillTimingProfile struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	WindupMs           int32                  `protobuf:"varint,1,opt,name=windup_ms,json=windupMs,proto3" json:"windup_ms,omitempty"`
+	ActiveStartMs      int32                  `protobuf:"varint,2,opt,name=active_start_ms,json=activeStartMs,proto3" json:"active_start_ms,omitempty"`
+	ActiveEndMs        int32                  `protobuf:"varint,3,opt,name=active_end_ms,json=activeEndMs,proto3" json:"active_end_ms,omitempty"`
+	RecoveryMs         int32                  `protobuf:"varint,4,opt,name=recovery_ms,json=recoveryMs,proto3" json:"recovery_ms,omitempty"`
+	ActionLockMs       int32                  `protobuf:"varint,5,opt,name=action_lock_ms,json=actionLockMs,proto3" json:"action_lock_ms,omitempty"`
+	GlobalCooldownMs   int32                  `protobuf:"varint,6,opt,name=global_cooldown_ms,json=globalCooldownMs,proto3" json:"global_cooldown_ms,omitempty"`
+	MovementLockPolicy string                 `protobuf:"bytes,7,opt,name=movement_lock_policy,json=movementLockPolicy,proto3" json:"movement_lock_policy,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *SkillTimingProfile) Reset() {
+	*x = SkillTimingProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillTimingProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillTimingProfile) ProtoMessage() {}
+
+func (x *SkillTimingProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillTimingProfile.ProtoReflect.Descriptor instead.
+func (*SkillTimingProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *SkillTimingProfile) GetWindupMs() int32 {
+	if x != nil {
+		return x.WindupMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetActiveStartMs() int32 {
+	if x != nil {
+		return x.ActiveStartMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetActiveEndMs() int32 {
+	if x != nil {
+		return x.ActiveEndMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetRecoveryMs() int32 {
+	if x != nil {
+		return x.RecoveryMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetActionLockMs() int32 {
+	if x != nil {
+		return x.ActionLockMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetGlobalCooldownMs() int32 {
+	if x != nil {
+		return x.GlobalCooldownMs
+	}
+	return 0
+}
+
+func (x *SkillTimingProfile) GetMovementLockPolicy() string {
+	if x != nil {
+		return x.MovementLockPolicy
+	}
+	return ""
+}
+
+type CombatCoreProfile struct {
+	state                   protoimpl.MessageState `protogen:"open.v1"`
+	DamageDealtMultiplier   float64                `protobuf:"fixed64,1,opt,name=damage_dealt_multiplier,json=damageDealtMultiplier,proto3" json:"damage_dealt_multiplier,omitempty"`
+	CanBlock                bool                   `protobuf:"varint,2,opt,name=can_block,json=canBlock,proto3" json:"can_block,omitempty"`
+	BlockDamageReduction    float64                `protobuf:"fixed64,3,opt,name=block_damage_reduction,json=blockDamageReduction,proto3" json:"block_damage_reduction,omitempty"`
+	MaxPosture              float64                `protobuf:"fixed64,4,opt,name=max_posture,json=maxPosture,proto3" json:"max_posture,omitempty"`
+	PostureDamageMultiplier float64                `protobuf:"fixed64,5,opt,name=posture_damage_multiplier,json=postureDamageMultiplier,proto3" json:"posture_damage_multiplier,omitempty"`
+	PostureBreakDurationMs  int32                  `protobuf:"varint,6,opt,name=posture_break_duration_ms,json=postureBreakDurationMs,proto3" json:"posture_break_duration_ms,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
+}
+
+func (x *CombatCoreProfile) Reset() {
+	*x = CombatCoreProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CombatCoreProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CombatCoreProfile) ProtoMessage() {}
+
+func (x *CombatCoreProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CombatCoreProfile.ProtoReflect.Descriptor instead.
+func (*CombatCoreProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *CombatCoreProfile) GetDamageDealtMultiplier() float64 {
+	if x != nil {
+		return x.DamageDealtMultiplier
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetCanBlock() bool {
+	if x != nil {
+		return x.CanBlock
+	}
+	return false
+}
+
+func (x *CombatCoreProfile) GetBlockDamageReduction() float64 {
+	if x != nil {
+		return x.BlockDamageReduction
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetMaxPosture() float64 {
+	if x != nil {
+		return x.MaxPosture
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetPostureDamageMultiplier() float64 {
+	if x != nil {
+		return x.PostureDamageMultiplier
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetPostureBreakDurationMs() int32 {
+	if x != nil {
+		return x.PostureBreakDurationMs
+	}
+	return 0
+}
+
+type MovementProfile struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	MaxSpeed          float64                `protobuf:"fixed64,2,opt,name=max_speed,json=maxSpeed,proto3" json:"max_speed,omitempty"`
+	Acceleration      float64                `protobuf:"fixed64,3,opt,name=acceleration,proto3" json:"acceleration,omitempty"`
+	Deceleration      float64                `protobuf:"fixed64,4,opt,name=deceleration,proto3" json:"deceleration,omitempty"`
+	Friction          float64                `protobuf:"fixed64,5,opt,name=friction,proto3" json:"friction,omitempty"`
+	GravityMultiplier float64                `protobuf:"fixed64,6,opt,name=gravity_multiplier,json=gravityMultiplier,proto3" json:"gravity_multiplier,omitempty"`
+	Mass              float64                `protobuf:"fixed64,7,opt,name=mass,proto3" json:"mass,omitempty"`
+	MomentumRetention float64                `protobuf:"fixed64,8,opt,name=momentum_retention,json=momentumRetention,proto3" json:"momentum_retention,omitempty"`
+	TurnRate          float64                `protobuf:"fixed64,9,opt,name=turn_rate,json=turnRate,proto3" json:"turn_rate,omitempty"`
+	AirControl        float64                `protobuf:"fixed64,10,opt,name=air_control,json=airControl,proto3" json:"air_control,omitempty"`
+	StrafeEfficiency  float64                `protobuf:"fixed64,11,opt,name=strafe_efficiency,json=strafeEfficiency,proto3" json:"strafe_efficiency,omitempty"`
+	BackpedalPenalty  float64                `protobuf:"fixed64,12,opt,name=backpedal_penalty,json=backpedalPenalty,proto3" json:"backpedal_penalty,omitempty"`
+	DodgeDistance     float64                `protobuf:"fixed64,13,opt,name=dodge_distance,json=dodgeDistance,proto3" json:"dodge_distance,omitempty"`
+	DodgeDurationMs   int32                  `protobuf:"varint,14,opt,name=dodge_duration_ms,json=dodgeDurationMs,proto3" json:"dodge_duration_ms,omitempty"`
+	SprintMultiplier  float64                `protobuf:"fixed64,15,opt,name=sprint_multiplier,json=sprintMultiplier,proto3" json:"sprint_multiplier,omitempty"`
+	SlopeLimit        float64                `protobuf:"fixed64,16,opt,name=slope_limit,json=slopeLimit,proto3" json:"slope_limit,omitempty"`
+	SlideOnSlope      bool                   `protobuf:"varint,17,opt,name=slide_on_slope,json=slideOnSlope,proto3" json:"slide_on_slope,omitempty"`
+	IsAirborneEnabled bool                   `protobuf:"varint,18,opt,name=is_airborne_enabled,json=isAirborneEnabled,proto3" json:"is_airborne_enabled,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *MovementProfile) Reset() {
+	*x = MovementProfile{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MovementProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MovementProfile) ProtoMessage() {}
+
+func (x *MovementProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MovementProfile.ProtoReflect.Descriptor instead.
+func (*MovementProfile) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *MovementProfile) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *MovementProfile) GetMaxSpeed() float64 {
+	if x != nil {
+		return x.MaxSpeed
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetAcceleration() float64 {
+	if x != nil {
+		return x.Acceleration
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetDeceleration() float64 {
+	if x != nil {
+		return x.Deceleration
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetFriction() float64 {
+	if x != nil {
+		return x.Friction
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetGravityMultiplier() float64 {
+	if x != nil {
+		return x.GravityMultiplier
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetMass() float64 {
+	if x != nil {
+		return x.Mass
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetMomentumRetention() float64 {
+	if x != nil {
+		return x.MomentumRetention
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetTurnRate() float64 {
+	if x != nil {
+		return x.TurnRate
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetAirControl() float64 {
+	if x != nil {
+		return x.AirControl
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetStrafeEfficiency() float64 {
+	if x != nil {
+		return x.StrafeEfficiency
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetBackpedalPenalty() float64 {
+	if x != nil {
+		return x.BackpedalPenalty
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetDodgeDistance() float64 {
+	if x != nil {
+		return x.DodgeDistance
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetDodgeDurationMs() int32 {
+	if x != nil {
+		return x.DodgeDurationMs
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetSprintMultiplier() float64 {
+	if x != nil {
+		return x.SprintMultiplier
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetSlopeLimit() float64 {
+	if x != nil {
+		return x.SlopeLimit
+	}
+	return 0
+}
+
+func (x *MovementProfile) GetSlideOnSlope() bool {
+	if x != nil {
+		return x.SlideOnSlope
+	}
+	return false
+}
+
+func (x *MovementProfile) GetIsAirborneEnabled() bool {
+	if x != nil {
+		return x.IsAirborneEnabled
+	}
+	return false
+}
+
+type StatusEffect struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name           string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	EffectType     string                 `protobuf:"bytes,3,opt,name=effect_type,json=effectType,proto3" json:"effect_type,omitempty"`
+	EffectCategory string                 `protobuf:"bytes,4,opt,name=effect_category,json=effectCategory,proto3" json:"effect_category,omitempty"`
+	ControlType    string                 `protobuf:"bytes,5,opt,name=control_type,json=controlType,proto3" json:"control_type,omitempty"`
+	StackingMode   string                 `protobuf:"bytes,6,opt,name=stacking_mode,json=stackingMode,proto3" json:"stacking_mode,omitempty"`
+	MaxStacks      int32                  `protobuf:"varint,7,opt,name=max_stacks,json=maxStacks,proto3" json:"max_stacks,omitempty"`
+	DurationMs     int32                  `protobuf:"varint,8,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
+	IsPvpEnabled   bool                   `protobuf:"varint,9,opt,name=is_pvp_enabled,json=isPvpEnabled,proto3" json:"is_pvp_enabled,omitempty"`
+	BlocksMovement bool                   `protobuf:"varint,10,opt,name=blocks_movement,json=blocksMovement,proto3" json:"blocks_movement,omitempty"`
+	BlocksActions  bool                   `protobuf:"varint,11,opt,name=blocks_actions,json=blocksActions,proto3" json:"blocks_actions,omitempty"`
+	BlocksSkills   bool                   `protobuf:"varint,12,opt,name=blocks_skills,json=blocksSkills,proto3" json:"blocks_skills,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *StatusEffect) Reset() {
+	*x = StatusEffect{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatusEffect) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatusEffect) ProtoMessage() {}
+
+func (x *StatusEffect) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
+func (*StatusEffect) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *StatusEffect) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetEffectType() string {
+	if x != nil {
+		return x.EffectType
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetEffectCategory() string {
+	if x != nil {
+		return x.EffectCategory
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetControlType() string {
+	if x != nil {
+		return x.ControlType
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetStackingMode() string {
+	if x != nil {
+		return x.StackingMode
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetMaxStacks() int32 {
+	if x != nil {
+		return x.MaxStacks
+	}
+	return 0
+}
+
+func (x *StatusEffect) GetDurationMs() int32 {
+	if x != nil {
+		return x.DurationMs
+	}
+	return 0
+}
+
+func (x *StatusEffect) GetIsPvpEnabled() bool {
+	if x != nil {
+		return x.IsPvpEnabled
+	}
+	return false
+}
+
+func (x *StatusEffect) GetBlocksMovement() bool {
+	if x != nil {
+		return x.BlocksMovement
+	}
+	return false
+}
+
+func (x *StatusEffect) GetBlocksActions() bool {
+	if x != nil {
+		return x.BlocksActions
+	}
+	return false
+}
+
+func (x *StatusEffect) GetBlocksSkills() bool {
+	if x != nil {
+		return x.BlocksSkills
+	}
+	return false
+}
+
+type SkillControlEffect struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Enabled         bool                   `protobuf:"varint,2,opt,name=enabled,proto3" json:"enabled,omitempty"`
+	StatusEffectId  string                 `protobuf:"bytes,3,opt,name=status_effect_id,json=statusEffectId,proto3" json:"status_effect_id,omitempty"`
+	DurationMs      int32                  `protobuf:"varint,4,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
+	ControlType     string                 `protobuf:"bytes,5,opt,name=control_type,json=controlType,proto3" json:"control_type,omitempty"`
+	ReleasePolicyId string                 `protobuf:"bytes,6,opt,name=release_policy_id,json=releasePolicyId,proto3" json:"release_policy_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *SkillControlEffect) Reset() {
+	*x = SkillControlEffect{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillControlEffect) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillControlEffect) ProtoMessage() {}
+
+func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillControlEffect.ProtoReflect.Descriptor instead.
+func (*SkillControlEffect) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *SkillControlEffect) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SkillControlEffect) GetEnabled() bool {
+	if x != nil {
+		return x.Enabled
+	}
+	return false
+}
+
+func (x *SkillControlEffect) GetStatusEffectId() string {
+	if x != nil {
+		return x.StatusEffectId
+	}
+	return ""
+}
+
+func (x *SkillControlEffect) GetDurationMs() int32 {
+	if x != nil {
+		return x.DurationMs
+	}
+	return 0
+}
+
+func (x *SkillControlEffect) GetControlType() string {
+	if x != nil {
+		return x.ControlType
+	}
+	return ""
+}
+
+func (x *SkillControlEffect) GetReleasePolicyId() string {
+	if x != nil {
+		return x.ReleasePolicyId
+	}
+	return ""
+}
+
+type ItemTemplate struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ItemTemplate) Reset() {
+	*x = ItemTemplate{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ItemTemplate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemTemplate) ProtoMessage() {}
+
+func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
+func (*ItemTemplate) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *ItemTemplate) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 var File_apeiron_v1_common_proto protoreflect.FileDescriptor
 
 const file_apeiron_v1_common_proto_rawDesc = "" +
@@ -164,6 +2112,235 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\x1b\n" +
 	"\tIdRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\xec\a\n" +
+	"\x05Skill\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
+	"\vbase_damage\x18\x02 \x01(\x01R\n" +
+	"baseDamage\x12!\n" +
+	"\fstamina_cost\x18\x03 \x01(\x01R\vstaminaCost\x12\x1b\n" +
+	"\tmana_cost\x18\x04 \x01(\x01R\bmanaCost\x12\x1f\n" +
+	"\vhealth_cost\x18\x05 \x01(\x01R\n" +
+	"healthCost\x12\x1f\n" +
+	"\vcooldown_ms\x18\x06 \x01(\x05R\n" +
+	"cooldownMs\x12,\n" +
+	"\x12global_cooldown_ms\x18\a \x01(\x05R\x10globalCooldownMs\x12\x1b\n" +
+	"\tmax_range\x18\b \x01(\x01R\bmaxRange\x12'\n" +
+	"\x0frequires_target\x18\t \x01(\bR\x0erequiresTarget\x123\n" +
+	"\x16requires_line_of_sight\x18\n" +
+	" \x01(\bR\x13requiresLineOfSight\x12%\n" +
+	"\x0eallow_movement\x18\v \x01(\bR\rallowMovement\x12(\n" +
+	"\x10movement_lock_ms\x18\f \x01(\x05R\x0emovementLockMs\x12\x1d\n" +
+	"\n" +
+	"skill_type\x18\r \x01(\tR\tskillType\x12\x1f\n" +
+	"\vtarget_type\x18\x0e \x01(\tR\n" +
+	"targetType\x12+\n" +
+	"\x11damage_multiplier\x18\x0f \x01(\x01R\x10damageMultiplier\x12%\n" +
+	"\x0eposture_damage\x18\x10 \x01(\x01R\rpostureDamage\x12!\n" +
+	"\fis_blockable\x18\x11 \x01(\bR\visBlockable\x12!\n" +
+	"\fis_parryable\x18\x12 \x01(\bR\visParryable\x12\x1f\n" +
+	"\vmax_targets\x18\x13 \x01(\x05R\n" +
+	"maxTargets\x12+\n" +
+	"\x11movement_distance\x18\x14 \x01(\x01R\x10movementDistance\x12\x1f\n" +
+	"\vcombo_group\x18\x15 \x01(\tR\n" +
+	"comboGroup\x12\x1d\n" +
+	"\n" +
+	"combo_step\x18\x16 \x01(\x05R\tcomboStep\x12&\n" +
+	"\x0fcombo_window_ms\x18\x17 \x01(\x05R\rcomboWindowMs\x12$\n" +
+	"\x0ecombo_reset_ms\x18\x18 \x01(\x05R\fcomboResetMs\x12$\n" +
+	"\rinterruptible\x18\x19 \x01(\bR\rinterruptible\x12\x12\n" +
+	"\x04tags\x18\x1a \x03(\tR\x04tags\x12\x1f\n" +
+	"\vdamage_type\x18\x1b \x01(\tR\n" +
+	"damageType\x12%\n" +
+	"\x0eelemental_type\x18\x1c \x01(\tR\relementalType\"\x9e\x01\n" +
+	"\bSkillSet\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12(\n" +
+	"\x10is_player_usable\x18\x04 \x01(\bR\x0eisPlayerUsable\x12\"\n" +
+	"\ris_npc_usable\x18\x05 \x01(\bR\visNpcUsable\"\x97\x06\n" +
+	"\tSkillSlot\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12 \n" +
+	"\fskill_set_id\x18\x02 \x01(\tR\n" +
+	"skillSetId\x12\x19\n" +
+	"\bskill_id\x18\x03 \x01(\tR\askillId\x12\x1d\n" +
+	"\n" +
+	"slot_index\x18\x04 \x01(\x05R\tslotIndex\x12\x1d\n" +
+	"\n" +
+	"is_enabled\x18\x05 \x01(\bR\tisEnabled\x12\x1a\n" +
+	"\bpriority\x18\x06 \x01(\x05R\bpriority\x12!\n" +
+	"\fusage_weight\x18\a \x01(\x01R\vusageWeight\x120\n" +
+	"\x14cooldown_override_ms\x18\b \x01(\x03R\x12cooldownOverrideMs\x121\n" +
+	"\x15min_target_hp_percent\x18\t \x01(\x01R\x12minTargetHpPercent\x121\n" +
+	"\x15max_target_hp_percent\x18\n" +
+	" \x01(\x01R\x12maxTargetHpPercent\x12-\n" +
+	"\x13min_self_hp_percent\x18\v \x01(\x01R\x10minSelfHpPercent\x12-\n" +
+	"\x13max_self_hp_percent\x18\f \x01(\x01R\x10maxSelfHpPercent\x122\n" +
+	"\x15required_distance_min\x18\r \x01(\x01R\x13requiredDistanceMin\x122\n" +
+	"\x15required_distance_max\x18\x0e \x01(\x01R\x13requiredDistanceMax\x123\n" +
+	"\x16requires_line_of_sight\x18\x0f \x01(\bR\x13requiresLineOfSight\x12#\n" +
+	"\ropener_weight\x18\x10 \x01(\x01R\fopenerWeight\x12'\n" +
+	"\x0ffinisher_weight\x18\x11 \x01(\x01R\x0efinisherWeight\x122\n" +
+	"\x15shared_cooldown_group\x18\x12 \x01(\tR\x13sharedCooldownGroup\x12+\n" +
+	"\x12use_only_in_combat\x18\x13 \x01(\bR\x0fuseOnlyInCombat\"f\n" +
+	"\x10SkillLoadoutItem\x12)\n" +
+	"\x04slot\x18\x01 \x01(\v2\x15.apeiron.v1.SkillSlotR\x04slot\x12'\n" +
+	"\x05skill\x18\x02 \x01(\v2\x11.apeiron.v1.SkillR\x05skill\"\xc5\a\n" +
+	"\x14SkillMovementProfile\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12#\n" +
+	"\rmovement_type\x18\x02 \x01(\tR\fmovementType\x12\x1a\n" +
+	"\bdistance\x18\x03 \x01(\x01R\bdistance\x12\x14\n" +
+	"\x05speed\x18\x04 \x01(\x01R\x05speed\x12\x1f\n" +
+	"\vduration_ms\x18\x05 \x01(\x05R\n" +
+	"durationMs\x120\n" +
+	"\x14movement_start_phase\x18\x06 \x01(\tR\x12movementStartPhase\x127\n" +
+	"\x18movement_start_offset_ms\x18\a \x01(\x05R\x15movementStartOffsetMs\x12\x1d\n" +
+	"\n" +
+	"takeoff_ms\x18\b \x01(\x05R\ttakeoffMs\x12&\n" +
+	"\x0flanding_lock_ms\x18\t \x01(\x05R\rlandingLockMs\x12\x1d\n" +
+	"\n" +
+	"arc_height\x18\n" +
+	" \x01(\x01R\tarcHeight\x12\x1b\n" +
+	"\tarc_curve\x18\v \x01(\tR\barcCurve\x12\x16\n" +
+	"\x06bounds\x18\f \x01(\tR\x06bounds\x12'\n" +
+	"\x0fsteering_policy\x18\r \x01(\tR\x0esteeringPolicy\x12.\n" +
+	"\x14max_turn_deg_per_sec\x18\x0e \x01(\x01R\x10maxTurnDegPerSec\x127\n" +
+	"\x18max_total_redirect_angle\x18\x0f \x01(\x01R\x15maxTotalRedirectAngle\x12.\n" +
+	"\x13redirect_lockout_ms\x18\x10 \x01(\x05R\x11redirectLockoutMs\x129\n" +
+	"\x19can_phase_through_targets\x18\x11 \x01(\bR\x16canPhaseThroughTargets\x120\n" +
+	"\x14min_landing_distance\x18\x12 \x01(\x01R\x12minLandingDistance\x128\n" +
+	"\x18desired_landing_distance\x18\x13 \x01(\x01R\x16desiredLandingDistance\x121\n" +
+	"\x15stop_at_contact_ratio\x18\x14 \x01(\x01R\x12stopAtContactRatio\x12+\n" +
+	"\x11applies_knockback\x18\x15 \x01(\bR\x10appliesKnockback\x12-\n" +
+	"\x12knockback_distance\x18\x16 \x01(\x01R\x11knockbackDistance\x12'\n" +
+	"\x0fknockback_speed\x18\x17 \x01(\x01R\x0eknockbackSpeed\"\xdc\x02\n" +
+	"\x17SkillHitboxMotionSample\x12!\n" +
+	"\fsample_index\x18\x01 \x01(\x05R\vsampleIndex\x12\f\n" +
+	"\x01t\x18\x02 \x01(\x01R\x01t\x12\x19\n" +
+	"\boffset_x\x18\x03 \x01(\x01R\aoffsetX\x12\x19\n" +
+	"\boffset_y\x18\x04 \x01(\x01R\aoffsetY\x12\x19\n" +
+	"\boffset_z\x18\x05 \x01(\x01R\aoffsetZ\x12\x16\n" +
+	"\x06length\x18\x06 \x01(\x01R\x06length\x12\x16\n" +
+	"\x06radius\x18\a \x01(\x01R\x06radius\x12\x15\n" +
+	"\x06size_x\x18\b \x01(\x01R\x05sizeX\x12\x15\n" +
+	"\x06size_y\x18\t \x01(\x01R\x05sizeY\x12\x15\n" +
+	"\x06size_z\x18\n" +
+	" \x01(\x01R\x05sizeZ\x12&\n" +
+	"\x0fstart_angle_deg\x18\v \x01(\x01R\rstartAngleDeg\x12\"\n" +
+	"\rend_angle_deg\x18\f \x01(\x01R\vendAngleDeg\"\xb2\x02\n" +
+	"\x18SkillHitboxMotionProfile\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
+	"\aenabled\x18\x02 \x01(\bR\aenabled\x12\x1f\n" +
+	"\vmotion_type\x18\x03 \x01(\tR\n" +
+	"motionType\x12\x1d\n" +
+	"\n" +
+	"time_basis\x18\x04 \x01(\tR\ttimeBasis\x12$\n" +
+	"\rinterpolation\x18\x05 \x01(\tR\rinterpolation\x12\x1f\n" +
+	"\vsweep_shape\x18\x06 \x01(\tR\n" +
+	"sweepShape\x12&\n" +
+	"\x0fdamage_group_id\x18\a \x01(\tR\rdamageGroupId\x12=\n" +
+	"\asamples\x18\b \x03(\v2#.apeiron.v1.SkillHitboxMotionSampleR\asamples\"\x87\x06\n" +
+	"\x12SkillHitboxProfile\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
+	"\bskill_id\x18\x02 \x01(\tR\askillId\x12!\n" +
+	"\fhitbox_shape\x18\x03 \x01(\tR\vhitboxShape\x12&\n" +
+	"\x0fhitbox_start_ms\x18\x04 \x01(\x05R\rhitboxStartMs\x12\"\n" +
+	"\rhitbox_end_ms\x18\x05 \x01(\x05R\vhitboxEndMs\x12\x19\n" +
+	"\boffset_x\x18\x06 \x01(\x01R\aoffsetX\x12\x19\n" +
+	"\boffset_y\x18\a \x01(\x01R\aoffsetY\x12\x19\n" +
+	"\boffset_z\x18\b \x01(\x01R\aoffsetZ\x12\x16\n" +
+	"\x06length\x18\t \x01(\x01R\x06length\x12\x16\n" +
+	"\x06radius\x18\n" +
+	" \x01(\x01R\x06radius\x12\x15\n" +
+	"\x06size_x\x18\v \x01(\x01R\x05sizeX\x12\x15\n" +
+	"\x06size_y\x18\f \x01(\x01R\x05sizeY\x12\x15\n" +
+	"\x06size_z\x18\r \x01(\x01R\x05sizeZ\x12K\n" +
+	"\x0emotion_profile\x18\x0e \x01(\v2$.apeiron.v1.SkillHitboxMotionProfileR\rmotionProfile\x12&\n" +
+	"\x0fdamage_group_id\x18\x0f \x01(\tR\rdamageGroupId\x12!\n" +
+	"\fhitbox_index\x18\x10 \x01(\x05R\vhitboxIndex\x12\x14\n" +
+	"\x05angle\x18\x11 \x01(\x01R\x05angle\x12$\n" +
+	"\vtarget_type\x18\x12 \x01(\tH\x00R\n" +
+	"targetType\x88\x01\x01\x12$\n" +
+	"\vmax_targets\x18\x13 \x01(\x05H\x01R\n" +
+	"maxTargets\x88\x01\x01\x12\x1a\n" +
+	"\bpriority\x18\x14 \x01(\x05R\bpriority\x123\n" +
+	"\x16requires_line_of_sight\x18\x15 \x01(\bR\x13requiresLineOfSight\x12&\n" +
+	"\x0fcan_hit_neutral\x18\x16 \x01(\bR\rcanHitNeutralB\x0e\n" +
+	"\f_target_typeB\x0e\n" +
+	"\f_max_targets\"\x9c\x02\n" +
+	"\x12SkillImpactProfile\x12\x19\n" +
+	"\bskill_id\x18\x01 \x01(\tR\askillId\x12\x1f\n" +
+	"\vimpact_type\x18\x02 \x01(\tR\n" +
+	"impactType\x12!\n" +
+	"\fpoise_damage\x18\x03 \x01(\x01R\vpoiseDamage\x12#\n" +
+	"\rstagger_power\x18\x04 \x01(\x01R\fstaggerPower\x12'\n" +
+	"\x0finterrupt_power\x18\x05 \x01(\x01R\x0einterruptPower\x12!\n" +
+	"\fhit_reaction\x18\x06 \x01(\tR\vhitReaction\x126\n" +
+	"\x17guard_damage_multiplier\x18\a \x01(\x01R\x15guardDamageMultiplier\"\xa4\x02\n" +
+	"\x12SkillTimingProfile\x12\x1b\n" +
+	"\twindup_ms\x18\x01 \x01(\x05R\bwindupMs\x12&\n" +
+	"\x0factive_start_ms\x18\x02 \x01(\x05R\ractiveStartMs\x12\"\n" +
+	"\ractive_end_ms\x18\x03 \x01(\x05R\vactiveEndMs\x12\x1f\n" +
+	"\vrecovery_ms\x18\x04 \x01(\x05R\n" +
+	"recoveryMs\x12$\n" +
+	"\x0eaction_lock_ms\x18\x05 \x01(\x05R\factionLockMs\x12,\n" +
+	"\x12global_cooldown_ms\x18\x06 \x01(\x05R\x10globalCooldownMs\x120\n" +
+	"\x14movement_lock_policy\x18\a \x01(\tR\x12movementLockPolicy\"\xb6\x02\n" +
+	"\x11CombatCoreProfile\x126\n" +
+	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
+	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
+	"\x16block_damage_reduction\x18\x03 \x01(\x01R\x14blockDamageReduction\x12\x1f\n" +
+	"\vmax_posture\x18\x04 \x01(\x01R\n" +
+	"maxPosture\x12:\n" +
+	"\x19posture_damage_multiplier\x18\x05 \x01(\x01R\x17postureDamageMultiplier\x129\n" +
+	"\x19posture_break_duration_ms\x18\x06 \x01(\x05R\x16postureBreakDurationMs\"\xa3\x05\n" +
+	"\x0fMovementProfile\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
+	"\tmax_speed\x18\x02 \x01(\x01R\bmaxSpeed\x12\"\n" +
+	"\facceleration\x18\x03 \x01(\x01R\facceleration\x12\"\n" +
+	"\fdeceleration\x18\x04 \x01(\x01R\fdeceleration\x12\x1a\n" +
+	"\bfriction\x18\x05 \x01(\x01R\bfriction\x12-\n" +
+	"\x12gravity_multiplier\x18\x06 \x01(\x01R\x11gravityMultiplier\x12\x12\n" +
+	"\x04mass\x18\a \x01(\x01R\x04mass\x12-\n" +
+	"\x12momentum_retention\x18\b \x01(\x01R\x11momentumRetention\x12\x1b\n" +
+	"\tturn_rate\x18\t \x01(\x01R\bturnRate\x12\x1f\n" +
+	"\vair_control\x18\n" +
+	" \x01(\x01R\n" +
+	"airControl\x12+\n" +
+	"\x11strafe_efficiency\x18\v \x01(\x01R\x10strafeEfficiency\x12+\n" +
+	"\x11backpedal_penalty\x18\f \x01(\x01R\x10backpedalPenalty\x12%\n" +
+	"\x0edodge_distance\x18\r \x01(\x01R\rdodgeDistance\x12*\n" +
+	"\x11dodge_duration_ms\x18\x0e \x01(\x05R\x0fdodgeDurationMs\x12+\n" +
+	"\x11sprint_multiplier\x18\x0f \x01(\x01R\x10sprintMultiplier\x12\x1f\n" +
+	"\vslope_limit\x18\x10 \x01(\x01R\n" +
+	"slopeLimit\x12$\n" +
+	"\x0eslide_on_slope\x18\x11 \x01(\bR\fslideOnSlope\x12.\n" +
+	"\x13is_airborne_enabled\x18\x12 \x01(\bR\x11isAirborneEnabled\"\x9f\x03\n" +
+	"\fStatusEffect\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +
+	"\veffect_type\x18\x03 \x01(\tR\n" +
+	"effectType\x12'\n" +
+	"\x0feffect_category\x18\x04 \x01(\tR\x0eeffectCategory\x12!\n" +
+	"\fcontrol_type\x18\x05 \x01(\tR\vcontrolType\x12#\n" +
+	"\rstacking_mode\x18\x06 \x01(\tR\fstackingMode\x12\x1d\n" +
+	"\n" +
+	"max_stacks\x18\a \x01(\x05R\tmaxStacks\x12\x1f\n" +
+	"\vduration_ms\x18\b \x01(\x05R\n" +
+	"durationMs\x12$\n" +
+	"\x0eis_pvp_enabled\x18\t \x01(\bR\fisPvpEnabled\x12'\n" +
+	"\x0fblocks_movement\x18\n" +
+	" \x01(\bR\x0eblocksMovement\x12%\n" +
+	"\x0eblocks_actions\x18\v \x01(\bR\rblocksActions\x12#\n" +
+	"\rblocks_skills\x18\f \x01(\bR\fblocksSkills\"\xd8\x01\n" +
+	"\x12SkillControlEffect\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
+	"\aenabled\x18\x02 \x01(\bR\aenabled\x12(\n" +
+	"\x10status_effect_id\x18\x03 \x01(\tR\x0estatusEffectId\x12\x1f\n" +
+	"\vduration_ms\x18\x04 \x01(\x05R\n" +
+	"durationMs\x12!\n" +
+	"\fcontrol_type\x18\x05 \x01(\tR\vcontrolType\x12*\n" +
+	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\"\x1e\n" +
+	"\fItemTemplate\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02idB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
 var (
@@ -178,18 +2355,37 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_apeiron_v1_common_proto_goTypes = []any{
-	(*Empty)(nil),           // 0: apeiron.v1.Empty
-	(*OperationResult)(nil), // 1: apeiron.v1.OperationResult
-	(*IdRequest)(nil),       // 2: apeiron.v1.IdRequest
+	(*Empty)(nil),                    // 0: apeiron.v1.Empty
+	(*OperationResult)(nil),          // 1: apeiron.v1.OperationResult
+	(*IdRequest)(nil),                // 2: apeiron.v1.IdRequest
+	(*Skill)(nil),                    // 3: apeiron.v1.Skill
+	(*SkillSet)(nil),                 // 4: apeiron.v1.SkillSet
+	(*SkillSlot)(nil),                // 5: apeiron.v1.SkillSlot
+	(*SkillLoadoutItem)(nil),         // 6: apeiron.v1.SkillLoadoutItem
+	(*SkillMovementProfile)(nil),     // 7: apeiron.v1.SkillMovementProfile
+	(*SkillHitboxMotionSample)(nil),  // 8: apeiron.v1.SkillHitboxMotionSample
+	(*SkillHitboxMotionProfile)(nil), // 9: apeiron.v1.SkillHitboxMotionProfile
+	(*SkillHitboxProfile)(nil),       // 10: apeiron.v1.SkillHitboxProfile
+	(*SkillImpactProfile)(nil),       // 11: apeiron.v1.SkillImpactProfile
+	(*SkillTimingProfile)(nil),       // 12: apeiron.v1.SkillTimingProfile
+	(*CombatCoreProfile)(nil),        // 13: apeiron.v1.CombatCoreProfile
+	(*MovementProfile)(nil),          // 14: apeiron.v1.MovementProfile
+	(*StatusEffect)(nil),             // 15: apeiron.v1.StatusEffect
+	(*SkillControlEffect)(nil),       // 16: apeiron.v1.SkillControlEffect
+	(*ItemTemplate)(nil),             // 17: apeiron.v1.ItemTemplate
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	5, // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
+	3, // 1: apeiron.v1.SkillLoadoutItem.skill:type_name -> apeiron.v1.Skill
+	8, // 2: apeiron.v1.SkillHitboxMotionProfile.samples:type_name -> apeiron.v1.SkillHitboxMotionSample
+	9, // 3: apeiron.v1.SkillHitboxProfile.motion_profile:type_name -> apeiron.v1.SkillHitboxMotionProfile
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_common_proto_init() }
@@ -197,13 +2393,14 @@ func file_apeiron_v1_common_proto_init() {
 	if File_apeiron_v1_common_proto != nil {
 		return
 	}
+	file_apeiron_v1_common_proto_msgTypes[10].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -1,0 +1,188 @@
+package handlers
+
+import (
+	"context"
+
+	apeironv1 "db-apeiron/gen/apeiron/v1"
+	"db-apeiron/internal/repository/postgres"
+)
+
+type SkillReader interface {
+	GetSkill(ctx context.Context, id string) (postgres.Skill, error)
+	GetSkillSet(ctx context.Context, id string) (postgres.SkillSet, error)
+	GetSkillSetLoadout(ctx context.Context, skillSetID string) ([]postgres.SkillLoadoutItem, error)
+	GetHitboxProfiles(ctx context.Context, skillID string) ([]postgres.SkillHitboxProfile, error)
+	GetImpactProfile(ctx context.Context, skillID string) (postgres.SkillImpactProfile, error)
+}
+
+type SkillDataHandler struct {
+	apeironv1.UnimplementedSkillDataServiceServer
+
+	skills SkillReader
+}
+
+func NewSkillDataHandler(skills SkillReader) *SkillDataHandler {
+	return &SkillDataHandler{skills: skills}
+}
+
+func (h *SkillDataHandler) GetSkill(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillResponse, error) {
+	skill, err := h.skills.GetSkill(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillResponse{Found: true, Skill: mapSkill(skill)}, nil
+}
+
+func (h *SkillDataHandler) GetSkillSet(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillSetResponse, error) {
+	skillSet, err := h.skills.GetSkillSet(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillSetResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillSetResponse{Found: true, SkillSet: mapSkillSet(skillSet)}, nil
+}
+
+func (h *SkillDataHandler) GetSkillSetLoadout(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillSetLoadoutResponse, error) {
+	loadout, err := h.skills.GetSkillSetLoadout(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillSetLoadoutResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	items := make([]*apeironv1.SkillLoadoutItem, 0, len(loadout))
+	for _, item := range loadout {
+		items = append(items, &apeironv1.SkillLoadoutItem{
+			Slot:  mapSkillSlot(item.Slot),
+			Skill: mapSkill(item.Skill),
+		})
+	}
+
+	return &apeironv1.SkillSetLoadoutResponse{Found: true, Items: items}, nil
+}
+
+func (h *SkillDataHandler) GetSkillHitboxProfiles(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillHitboxProfilesResponse, error) {
+	profiles, err := h.skills.GetHitboxProfiles(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillHitboxProfilesResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	out := make([]*apeironv1.SkillHitboxProfile, 0, len(profiles))
+	for _, profile := range profiles {
+		out = append(out, mapSkillHitboxProfile(profile))
+	}
+
+	return &apeironv1.SkillHitboxProfilesResponse{Found: true, Profiles: out}, nil
+}
+
+func (h *SkillDataHandler) GetSkillImpactProfile(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillImpactProfileResponse, error) {
+	profile, err := h.skills.GetImpactProfile(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillImpactProfileResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillImpactProfileResponse{Found: true, Profile: mapSkillImpactProfile(profile)}, nil
+}
+
+func mapSkill(s postgres.Skill) *apeironv1.Skill {
+	return &apeironv1.Skill{
+		Id:                  s.ID,
+		BaseDamage:          s.BaseDamage,
+		StaminaCost:         s.StaminaCost,
+		ManaCost:            s.ManaCost,
+		HealthCost:          s.HealthCost,
+		CooldownMs:          int32(s.CooldownMS),
+		GlobalCooldownMs:    int32(s.CooldownMS),
+		MaxRange:            s.MaxRange,
+		RequiresTarget:      s.RequiresTarget,
+		RequiresLineOfSight: !s.IgnoresLineOfSight,
+		AllowMovement:       !s.LocksMovement,
+		MovementLockMs:      int32(s.WindupMS + s.ActiveFramesMS + s.RecoveryMS),
+		SkillType:           s.SkillType,
+		TargetType:          s.TargetType,
+		DamageMultiplier:    s.DamageMultiplier,
+		PostureDamage:       s.PostureDamage,
+		IsBlockable:         s.IsBlockable,
+		IsParryable:         s.IsParryable,
+		MaxTargets:          int32(s.MaxTargets),
+		MovementDistance:    s.MovementDistance,
+		ComboGroup:          nullString(s.ComboGroup),
+		ComboStep:           int32(nullInt64(s.ComboIndex)),
+		ComboWindowMs:       int32(s.ComboWindowMS),
+		ComboResetMs:        int32(s.ComboWindowMS),
+		Interruptible:       s.IsInterruptible,
+		DamageType:          s.DamageType,
+		ElementalType:       nullString(s.ElementalType),
+	}
+}
+
+func mapSkillSet(s postgres.SkillSet) *apeironv1.SkillSet {
+	return &apeironv1.SkillSet{
+		Id:             s.ID,
+		Name:           s.Name,
+		Description:    s.Description,
+		IsPlayerUsable: s.IsPlayerUsable,
+		IsNpcUsable:    s.IsNPCUsable,
+	}
+}
+
+func mapSkillSlot(s postgres.SkillSlot) *apeironv1.SkillSlot {
+	return &apeironv1.SkillSlot{
+		Id:                  s.ID,
+		SkillSetId:          s.SkillSetID,
+		SkillId:             s.SkillID,
+		SlotIndex:           int32(s.SlotIndex),
+		IsEnabled:           s.IsEnabled,
+		Priority:            int32(s.Priority),
+		UsageWeight:         s.UsageWeight,
+		CooldownOverrideMs:  nullInt64(s.CooldownOverrideMS),
+		MinTargetHpPercent:  nullFloat64(s.MinTargetHPPercent),
+		MaxTargetHpPercent:  nullFloat64(s.MaxTargetHPPercent),
+		MinSelfHpPercent:    nullFloat64(s.MinSelfHPPercent),
+		MaxSelfHpPercent:    nullFloat64(s.MaxSelfHPPercent),
+		RequiredDistanceMin: nullFloat64(s.RequiredDistanceMin),
+		RequiredDistanceMax: nullFloat64(s.RequiredDistanceMax),
+		RequiresLineOfSight: s.RequiresLineOfSight,
+		OpenerWeight:        s.OpenerWeight,
+		FinisherWeight:      s.FinisherWeight,
+		SharedCooldownGroup: nullString(s.SharedCooldownGroup),
+		UseOnlyInCombat:     s.UseOnlyInCombat,
+	}
+}
+
+func mapSkillHitboxProfile(p postgres.SkillHitboxProfile) *apeironv1.SkillHitboxProfile {
+	maxTargets := int32(p.MaxHitsPerTarget)
+	targetType := ""
+	return &apeironv1.SkillHitboxProfile{
+		Id:                  p.ID,
+		SkillId:             p.SkillID,
+		HitboxShape:         p.HitboxShape,
+		HitboxStartMs:       int32(p.HitboxStartMS),
+		HitboxEndMs:         int32(p.HitboxEndMS),
+		OffsetX:             p.OffsetX,
+		OffsetY:             p.OffsetY,
+		OffsetZ:             p.OffsetZ,
+		Length:              p.Length,
+		Radius:              p.Radius,
+		SizeX:               p.SizeX,
+		SizeY:               p.SizeY,
+		SizeZ:               p.SizeZ,
+		HitboxIndex:         int32(p.HitboxIndex),
+		Angle:               p.Angle,
+		TargetType:          &targetType,
+		MaxTargets:          &maxTargets,
+		RequiresLineOfSight: true,
+		CanHitNeutral:       p.FriendlyFire,
+	}
+}
+
+func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpactProfile {
+	return &apeironv1.SkillImpactProfile{
+		SkillId:               p.SkillID,
+		ImpactType:            p.ImpactType,
+		PoiseDamage:           p.PoiseDamage,
+		StaggerPower:          p.StaggerPower,
+		InterruptPower:        p.InterruptPower,
+		HitReaction:           p.HitReaction,
+		GuardDamageMultiplier: p.GuardDamageMultiplier,
+	}
+}
