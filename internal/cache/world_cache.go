@@ -17,6 +17,7 @@ type WorldCache struct {
 	regions            map[string]cacheEntry[postgres.WorldRegion]
 	biomes             map[string]cacheEntry[postgres.Biome]
 	spawnZones         map[string]cacheEntry[postgres.SpawnZone]
+	regionsList        map[string]cacheEntry[[]postgres.WorldRegion]
 	biomesByRegion     map[string]cacheEntry[[]postgres.Biome]
 	spawnZonesByRegion map[string]cacheEntry[[]postgres.SpawnZone]
 	spawnZonesByBiome  map[string]cacheEntry[[]postgres.SpawnZone]
@@ -36,6 +37,7 @@ func NewWorldCacheWithTTL(repository *postgres.WorldRepository, ttl time.Duratio
 		regions:            make(map[string]cacheEntry[postgres.WorldRegion]),
 		biomes:             make(map[string]cacheEntry[postgres.Biome]),
 		spawnZones:         make(map[string]cacheEntry[postgres.SpawnZone]),
+		regionsList:        make(map[string]cacheEntry[[]postgres.WorldRegion]),
 		biomesByRegion:     make(map[string]cacheEntry[[]postgres.Biome]),
 		spawnZonesByRegion: make(map[string]cacheEntry[[]postgres.SpawnZone]),
 		spawnZonesByBiome:  make(map[string]cacheEntry[[]postgres.SpawnZone]),
@@ -82,6 +84,21 @@ func (c *WorldCache) GetSpawnZone(ctx context.Context, id string) (postgres.Spaw
 
 	setCached(&c.mu, c.spawnZones, id, spawnZone)
 	return spawnZone, nil
+}
+
+func (c *WorldCache) ListRegions(ctx context.Context) ([]postgres.WorldRegion, error) {
+	const cacheKey = "all"
+	if value, ok := getCached(&c.mu, c.regionsList, cacheKey, c.isExpired); ok {
+		return value, nil
+	}
+
+	regions, err := c.repository.ListRegions(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	setCached(&c.mu, c.regionsList, cacheKey, regions)
+	return regions, nil
 }
 
 func (c *WorldCache) GetBiomesByRegion(ctx context.Context, regionID string) ([]postgres.Biome, error) {
@@ -191,6 +208,7 @@ func (c *WorldCache) InvalidateRegion(id string) {
 	defer c.mu.Unlock()
 
 	delete(c.regions, id)
+	c.regionsList = make(map[string]cacheEntry[[]postgres.WorldRegion])
 	delete(c.biomesByRegion, id)
 	delete(c.spawnZonesByRegion, id)
 }
@@ -217,6 +235,7 @@ func (c *WorldCache) Clear() {
 	c.regions = make(map[string]cacheEntry[postgres.WorldRegion])
 	c.biomes = make(map[string]cacheEntry[postgres.Biome])
 	c.spawnZones = make(map[string]cacheEntry[postgres.SpawnZone])
+	c.regionsList = make(map[string]cacheEntry[[]postgres.WorldRegion])
 	c.biomesByRegion = make(map[string]cacheEntry[[]postgres.Biome])
 	c.spawnZonesByRegion = make(map[string]cacheEntry[[]postgres.SpawnZone])
 	c.spawnZonesByBiome = make(map[string]cacheEntry[[]postgres.SpawnZone])

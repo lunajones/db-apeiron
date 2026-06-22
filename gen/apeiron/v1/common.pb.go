@@ -2109,6 +2109,434 @@ func (x *ItemTemplate) GetId() string {
 	return ""
 }
 
+type WorldRegion struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	RegionType    string                 `protobuf:"bytes,3,opt,name=region_type,json=regionType,proto3" json:"region_type,omitempty"`
+	WorldScale    int32                  `protobuf:"varint,4,opt,name=world_scale,json=worldScale,proto3" json:"world_scale,omitempty"`
+	IsInstanced   bool                   `protobuf:"varint,5,opt,name=is_instanced,json=isInstanced,proto3" json:"is_instanced,omitempty"`
+	MaxPlayers    int32                  `protobuf:"varint,6,opt,name=max_players,json=maxPlayers,proto3" json:"max_players,omitempty"`
+	CenterX       float64                `protobuf:"fixed64,7,opt,name=center_x,json=centerX,proto3" json:"center_x,omitempty"`
+	CenterY       float64                `protobuf:"fixed64,8,opt,name=center_y,json=centerY,proto3" json:"center_y,omitempty"`
+	CenterZ       float64                `protobuf:"fixed64,9,opt,name=center_z,json=centerZ,proto3" json:"center_z,omitempty"`
+	SizeX         float64                `protobuf:"fixed64,10,opt,name=size_x,json=sizeX,proto3" json:"size_x,omitempty"`
+	SizeY         float64                `protobuf:"fixed64,11,opt,name=size_y,json=sizeY,proto3" json:"size_y,omitempty"`
+	SizeZ         float64                `protobuf:"fixed64,12,opt,name=size_z,json=sizeZ,proto3" json:"size_z,omitempty"`
+	DangerLevel   float64                `protobuf:"fixed64,13,opt,name=danger_level,json=dangerLevel,proto3" json:"danger_level,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WorldRegion) Reset() {
+	*x = WorldRegion{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WorldRegion) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WorldRegion) ProtoMessage() {}
+
+func (x *WorldRegion) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WorldRegion.ProtoReflect.Descriptor instead.
+func (*WorldRegion) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *WorldRegion) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *WorldRegion) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *WorldRegion) GetRegionType() string {
+	if x != nil {
+		return x.RegionType
+	}
+	return ""
+}
+
+func (x *WorldRegion) GetWorldScale() int32 {
+	if x != nil {
+		return x.WorldScale
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetIsInstanced() bool {
+	if x != nil {
+		return x.IsInstanced
+	}
+	return false
+}
+
+func (x *WorldRegion) GetMaxPlayers() int32 {
+	if x != nil {
+		return x.MaxPlayers
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetCenterX() float64 {
+	if x != nil {
+		return x.CenterX
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetCenterY() float64 {
+	if x != nil {
+		return x.CenterY
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetCenterZ() float64 {
+	if x != nil {
+		return x.CenterZ
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetSizeX() float64 {
+	if x != nil {
+		return x.SizeX
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetSizeY() float64 {
+	if x != nil {
+		return x.SizeY
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetSizeZ() float64 {
+	if x != nil {
+		return x.SizeZ
+	}
+	return 0
+}
+
+func (x *WorldRegion) GetDangerLevel() float64 {
+	if x != nil {
+		return x.DangerLevel
+	}
+	return 0
+}
+
+type Biome struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name               string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	RegionId           string                 `protobuf:"bytes,3,opt,name=region_id,json=regionId,proto3" json:"region_id,omitempty"`
+	BiomeType          string                 `protobuf:"bytes,4,opt,name=biome_type,json=biomeType,proto3" json:"biome_type,omitempty"`
+	Temperature        float64                `protobuf:"fixed64,5,opt,name=temperature,proto3" json:"temperature,omitempty"`
+	Humidity           float64                `protobuf:"fixed64,6,opt,name=humidity,proto3" json:"humidity,omitempty"`
+	VisibilityModifier float64                `protobuf:"fixed64,7,opt,name=visibility_modifier,json=visibilityModifier,proto3" json:"visibility_modifier,omitempty"`
+	MovementModifier   float64                `protobuf:"fixed64,8,opt,name=movement_modifier,json=movementModifier,proto3" json:"movement_modifier,omitempty"`
+	StealthModifier    float64                `protobuf:"fixed64,9,opt,name=stealth_modifier,json=stealthModifier,proto3" json:"stealth_modifier,omitempty"`
+	AggressionModifier float64                `protobuf:"fixed64,10,opt,name=aggression_modifier,json=aggressionModifier,proto3" json:"aggression_modifier,omitempty"`
+	ResourceRichness   float64                `protobuf:"fixed64,11,opt,name=resource_richness,json=resourceRichness,proto3" json:"resource_richness,omitempty"`
+	IsSafe             bool                   `protobuf:"varint,12,opt,name=is_safe,json=isSafe,proto3" json:"is_safe,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *Biome) Reset() {
+	*x = Biome{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Biome) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Biome) ProtoMessage() {}
+
+func (x *Biome) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Biome.ProtoReflect.Descriptor instead.
+func (*Biome) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *Biome) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Biome) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Biome) GetRegionId() string {
+	if x != nil {
+		return x.RegionId
+	}
+	return ""
+}
+
+func (x *Biome) GetBiomeType() string {
+	if x != nil {
+		return x.BiomeType
+	}
+	return ""
+}
+
+func (x *Biome) GetTemperature() float64 {
+	if x != nil {
+		return x.Temperature
+	}
+	return 0
+}
+
+func (x *Biome) GetHumidity() float64 {
+	if x != nil {
+		return x.Humidity
+	}
+	return 0
+}
+
+func (x *Biome) GetVisibilityModifier() float64 {
+	if x != nil {
+		return x.VisibilityModifier
+	}
+	return 0
+}
+
+func (x *Biome) GetMovementModifier() float64 {
+	if x != nil {
+		return x.MovementModifier
+	}
+	return 0
+}
+
+func (x *Biome) GetStealthModifier() float64 {
+	if x != nil {
+		return x.StealthModifier
+	}
+	return 0
+}
+
+func (x *Biome) GetAggressionModifier() float64 {
+	if x != nil {
+		return x.AggressionModifier
+	}
+	return 0
+}
+
+func (x *Biome) GetResourceRichness() float64 {
+	if x != nil {
+		return x.ResourceRichness
+	}
+	return 0
+}
+
+func (x *Biome) GetIsSafe() bool {
+	if x != nil {
+		return x.IsSafe
+	}
+	return false
+}
+
+type SpawnZone struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	RegionId          string                 `protobuf:"bytes,2,opt,name=region_id,json=regionId,proto3" json:"region_id,omitempty"`
+	BiomeId           string                 `protobuf:"bytes,3,opt,name=biome_id,json=biomeId,proto3" json:"biome_id,omitempty"`
+	Name              string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	CenterX           float64                `protobuf:"fixed64,5,opt,name=center_x,json=centerX,proto3" json:"center_x,omitempty"`
+	CenterY           float64                `protobuf:"fixed64,6,opt,name=center_y,json=centerY,proto3" json:"center_y,omitempty"`
+	CenterZ           float64                `protobuf:"fixed64,7,opt,name=center_z,json=centerZ,proto3" json:"center_z,omitempty"`
+	Radius            float64                `protobuf:"fixed64,8,opt,name=radius,proto3" json:"radius,omitempty"`
+	MaxEntities       int32                  `protobuf:"varint,9,opt,name=max_entities,json=maxEntities,proto3" json:"max_entities,omitempty"`
+	CurrentEntities   int32                  `protobuf:"varint,10,opt,name=current_entities,json=currentEntities,proto3" json:"current_entities,omitempty"`
+	RespawnTimeMs     int64                  `protobuf:"varint,11,opt,name=respawn_time_ms,json=respawnTimeMs,proto3" json:"respawn_time_ms,omitempty"`
+	SpawnDensity      float64                `protobuf:"fixed64,12,opt,name=spawn_density,json=spawnDensity,proto3" json:"spawn_density,omitempty"`
+	AllowedArchetypes string                 `protobuf:"bytes,13,opt,name=allowed_archetypes,json=allowedArchetypes,proto3" json:"allowed_archetypes,omitempty"`
+	AggressionLevel   float64                `protobuf:"fixed64,14,opt,name=aggression_level,json=aggressionLevel,proto3" json:"aggression_level,omitempty"`
+	LeashEnabled      bool                   `protobuf:"varint,15,opt,name=leash_enabled,json=leashEnabled,proto3" json:"leash_enabled,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *SpawnZone) Reset() {
+	*x = SpawnZone{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SpawnZone) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SpawnZone) ProtoMessage() {}
+
+func (x *SpawnZone) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SpawnZone.ProtoReflect.Descriptor instead.
+func (*SpawnZone) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *SpawnZone) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SpawnZone) GetRegionId() string {
+	if x != nil {
+		return x.RegionId
+	}
+	return ""
+}
+
+func (x *SpawnZone) GetBiomeId() string {
+	if x != nil {
+		return x.BiomeId
+	}
+	return ""
+}
+
+func (x *SpawnZone) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SpawnZone) GetCenterX() float64 {
+	if x != nil {
+		return x.CenterX
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetCenterY() float64 {
+	if x != nil {
+		return x.CenterY
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetCenterZ() float64 {
+	if x != nil {
+		return x.CenterZ
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetRadius() float64 {
+	if x != nil {
+		return x.Radius
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetMaxEntities() int32 {
+	if x != nil {
+		return x.MaxEntities
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetCurrentEntities() int32 {
+	if x != nil {
+		return x.CurrentEntities
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetRespawnTimeMs() int64 {
+	if x != nil {
+		return x.RespawnTimeMs
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetSpawnDensity() float64 {
+	if x != nil {
+		return x.SpawnDensity
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetAllowedArchetypes() string {
+	if x != nil {
+		return x.AllowedArchetypes
+	}
+	return ""
+}
+
+func (x *SpawnZone) GetAggressionLevel() float64 {
+	if x != nil {
+		return x.AggressionLevel
+	}
+	return 0
+}
+
+func (x *SpawnZone) GetLeashEnabled() bool {
+	if x != nil {
+		return x.LeashEnabled
+	}
+	return false
+}
+
 var File_apeiron_v1_common_proto protoreflect.FileDescriptor
 
 const file_apeiron_v1_common_proto_rawDesc = "" +
@@ -2350,7 +2778,57 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\fcontrol_type\x18\x05 \x01(\tR\vcontrolType\x12*\n" +
 	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\"\x1e\n" +
 	"\fItemTemplate\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02idB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
+	"\x02id\x18\x01 \x01(\tR\x02id\"\xf0\x02\n" +
+	"\vWorldRegion\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +
+	"\vregion_type\x18\x03 \x01(\tR\n" +
+	"regionType\x12\x1f\n" +
+	"\vworld_scale\x18\x04 \x01(\x05R\n" +
+	"worldScale\x12!\n" +
+	"\fis_instanced\x18\x05 \x01(\bR\visInstanced\x12\x1f\n" +
+	"\vmax_players\x18\x06 \x01(\x05R\n" +
+	"maxPlayers\x12\x19\n" +
+	"\bcenter_x\x18\a \x01(\x01R\acenterX\x12\x19\n" +
+	"\bcenter_y\x18\b \x01(\x01R\acenterY\x12\x19\n" +
+	"\bcenter_z\x18\t \x01(\x01R\acenterZ\x12\x15\n" +
+	"\x06size_x\x18\n" +
+	" \x01(\x01R\x05sizeX\x12\x15\n" +
+	"\x06size_y\x18\v \x01(\x01R\x05sizeY\x12\x15\n" +
+	"\x06size_z\x18\f \x01(\x01R\x05sizeZ\x12!\n" +
+	"\fdanger_level\x18\r \x01(\x01R\vdangerLevel\"\xa5\x03\n" +
+	"\x05Biome\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +
+	"\tregion_id\x18\x03 \x01(\tR\bregionId\x12\x1d\n" +
+	"\n" +
+	"biome_type\x18\x04 \x01(\tR\tbiomeType\x12 \n" +
+	"\vtemperature\x18\x05 \x01(\x01R\vtemperature\x12\x1a\n" +
+	"\bhumidity\x18\x06 \x01(\x01R\bhumidity\x12/\n" +
+	"\x13visibility_modifier\x18\a \x01(\x01R\x12visibilityModifier\x12+\n" +
+	"\x11movement_modifier\x18\b \x01(\x01R\x10movementModifier\x12)\n" +
+	"\x10stealth_modifier\x18\t \x01(\x01R\x0fstealthModifier\x12/\n" +
+	"\x13aggression_modifier\x18\n" +
+	" \x01(\x01R\x12aggressionModifier\x12+\n" +
+	"\x11resource_richness\x18\v \x01(\x01R\x10resourceRichness\x12\x17\n" +
+	"\ais_safe\x18\f \x01(\bR\x06isSafe\"\xea\x03\n" +
+	"\tSpawnZone\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
+	"\tregion_id\x18\x02 \x01(\tR\bregionId\x12\x19\n" +
+	"\bbiome_id\x18\x03 \x01(\tR\abiomeId\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x19\n" +
+	"\bcenter_x\x18\x05 \x01(\x01R\acenterX\x12\x19\n" +
+	"\bcenter_y\x18\x06 \x01(\x01R\acenterY\x12\x19\n" +
+	"\bcenter_z\x18\a \x01(\x01R\acenterZ\x12\x16\n" +
+	"\x06radius\x18\b \x01(\x01R\x06radius\x12!\n" +
+	"\fmax_entities\x18\t \x01(\x05R\vmaxEntities\x12)\n" +
+	"\x10current_entities\x18\n" +
+	" \x01(\x05R\x0fcurrentEntities\x12&\n" +
+	"\x0frespawn_time_ms\x18\v \x01(\x03R\rrespawnTimeMs\x12#\n" +
+	"\rspawn_density\x18\f \x01(\x01R\fspawnDensity\x12-\n" +
+	"\x12allowed_archetypes\x18\r \x01(\tR\x11allowedArchetypes\x12)\n" +
+	"\x10aggression_level\x18\x0e \x01(\x01R\x0faggressionLevel\x12#\n" +
+	"\rleash_enabled\x18\x0f \x01(\bR\fleashEnabledB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
 var (
 	file_apeiron_v1_common_proto_rawDescOnce sync.Once
@@ -2364,7 +2842,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                    // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),          // 1: apeiron.v1.OperationResult
@@ -2384,6 +2862,9 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*StatusEffect)(nil),             // 15: apeiron.v1.StatusEffect
 	(*SkillControlEffect)(nil),       // 16: apeiron.v1.SkillControlEffect
 	(*ItemTemplate)(nil),             // 17: apeiron.v1.ItemTemplate
+	(*WorldRegion)(nil),              // 18: apeiron.v1.WorldRegion
+	(*Biome)(nil),                    // 19: apeiron.v1.Biome
+	(*SpawnZone)(nil),                // 20: apeiron.v1.SpawnZone
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
 	5, // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
@@ -2409,7 +2890,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

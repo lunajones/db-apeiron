@@ -30,6 +30,7 @@ type Caches struct {
 	Templates     *cache.TemplateCache
 	Profiles      *cache.ProfileCache
 	Skills        *cache.SkillCache
+	World         *cache.WorldCache
 	Items         *cache.ItemCache
 	StatusEffects *cache.StatusEffectCache
 }
@@ -50,6 +51,7 @@ func NewDependencies(pool *pgxpool.Pool) *Dependencies {
 		Templates:     cache.NewTemplateCache(repositories.Creatures),
 		Profiles:      cache.NewProfileCache(repositories.Profiles),
 		Skills:        cache.NewSkillCache(repositories.Skills),
+		World:         cache.NewWorldCache(repositories.World),
 		Items:         cache.NewItemCache(repositories.Inventory),
 		StatusEffects: cache.NewStatusEffectCache(repositories.Skills),
 	}

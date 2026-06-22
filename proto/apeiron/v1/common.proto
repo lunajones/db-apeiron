@@ -236,3 +236,52 @@ message SkillControlEffect {
 message ItemTemplate {
   string id = 1;
 }
+
+message WorldRegion {
+  string id = 1;
+  string name = 2;
+  string region_type = 3;
+  int32 world_scale = 4;
+  bool is_instanced = 5;
+  int32 max_players = 6;
+  double center_x = 7;
+  double center_y = 8;
+  double center_z = 9;
+  double size_x = 10;
+  double size_y = 11;
+  double size_z = 12;
+  double danger_level = 13;
+}
+
+message Biome {
+  string id = 1;
+  string name = 2;
+  string region_id = 3;
+  string biome_type = 4;
+  double temperature = 5;
+  double humidity = 6;
+  double visibility_modifier = 7;
+  double movement_modifier = 8;
+  double stealth_modifier = 9;
+  double aggression_modifier = 10;
+  double resource_richness = 11;
+  bool is_safe = 12;
+}
+
+message SpawnZone {
+  string id = 1;
+  string region_id = 2;
+  string biome_id = 3;
+  string name = 4;
+  double center_x = 5;
+  double center_y = 6;
+  double center_z = 7;
+  double radius = 8;
+  int32 max_entities = 9;
+  int32 current_entities = 10;
+  int64 respawn_time_ms = 11;
+  double spawn_density = 12;
+  string allowed_archetypes = 13;
+  double aggression_level = 14;
+  bool leash_enabled = 15;
+}

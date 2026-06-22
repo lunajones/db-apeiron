@@ -58,6 +58,10 @@ func (a *App) Start(ctx context.Context) error {
 			server,
 			handlers.NewProfileDataHandler(a.Deps.Caches.Profiles),
 		)
+		apeironv1.RegisterWorldDataServiceServer(
+			server,
+			handlers.NewWorldDataHandler(a.Deps.Caches.World),
+		)
 	})
 
 	go func() {

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service WorldDataService {
+  rpc GetRegion(IdRequest) returns (WorldRegionResponse);
+  rpc ListRegions(Empty) returns (WorldRegionsResponse);
+  rpc GetBiome(IdRequest) returns (BiomeResponse);
+  rpc GetBiomesByRegion(IdRequest) returns (BiomesResponse);
+  rpc GetSpawnZone(IdRequest) returns (SpawnZoneResponse);
+  rpc GetSpawnZonesByRegion(IdRequest) returns (SpawnZonesResponse);
+  rpc GetSpawnZonesByBiome(IdRequest) returns (SpawnZonesResponse);
+}
+
+message WorldRegionResponse {
+  bool found = 1;
+  WorldRegion region = 2;
+  string error = 3;
+}
+
+message WorldRegionsResponse {
+  repeated WorldRegion regions = 1;
+  string error = 2;
+}
+
+message BiomeResponse {
+  bool found = 1;
+  Biome biome = 2;
+  string error = 3;
+}
+
+message BiomesResponse {
+  repeated Biome biomes = 1;
+  string error = 2;
+}
+
+message SpawnZoneResponse {
+  bool found = 1;
+  SpawnZone spawn_zone = 2;
+  string error = 3;
+}
+
+message SpawnZonesResponse {
+  repeated SpawnZone spawn_zones = 1;
+  string error = 2;
+}
