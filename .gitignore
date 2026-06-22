@@ -8,6 +8,7 @@ logs/
 .codex/
 bin/
 *.exe
+*.exe~
 
 # Local env files
 .ENV
