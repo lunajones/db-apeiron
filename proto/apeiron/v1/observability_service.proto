@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package apeiron.v1;
+
+option go_package = "db-apeiron/gen/apeiron/v1;apeironv1";
+
+import "apeiron/v1/common.proto";
+
+service ObservabilityService {
+  rpc GetReadiness(Empty) returns (ReadinessResponse);
+}
+
+message ReadinessResponse {
+  Readiness readiness = 1;
+}

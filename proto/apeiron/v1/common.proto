@@ -340,3 +340,8 @@ message InventoryWithItems {
   Inventory inventory = 1;
   repeated InventoryItem items = 2;
 }
+
+message Readiness {
+  string status = 1;
+  string message = 2;
+}

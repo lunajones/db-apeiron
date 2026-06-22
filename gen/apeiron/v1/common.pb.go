@@ -3025,6 +3025,58 @@ func (x *InventoryWithItems) GetItems() []*InventoryItem {
 	return nil
 }
 
+type Readiness struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Readiness) Reset() {
+	*x = Readiness{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Readiness) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Readiness) ProtoMessage() {}
+
+func (x *Readiness) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Readiness.ProtoReflect.Descriptor instead.
+func (*Readiness) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *Readiness) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *Readiness) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_apeiron_v1_common_proto protoreflect.FileDescriptor
 
 const file_apeiron_v1_common_proto_rawDesc = "" +
@@ -3379,7 +3431,10 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"isEquipped\"z\n" +
 	"\x12InventoryWithItems\x123\n" +
 	"\tinventory\x18\x01 \x01(\v2\x15.apeiron.v1.InventoryR\tinventory\x12/\n" +
-	"\x05items\x18\x02 \x03(\v2\x19.apeiron.v1.InventoryItemR\x05itemsB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
+	"\x05items\x18\x02 \x03(\v2\x19.apeiron.v1.InventoryItemR\x05items\"=\n" +
+	"\tReadiness\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessageB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
 var (
 	file_apeiron_v1_common_proto_rawDescOnce sync.Once
@@ -3393,7 +3448,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                    // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),          // 1: apeiron.v1.OperationResult
@@ -3420,6 +3475,7 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*ItemTemplate)(nil),             // 22: apeiron.v1.ItemTemplate
 	(*InventoryItem)(nil),            // 23: apeiron.v1.InventoryItem
 	(*InventoryWithItems)(nil),       // 24: apeiron.v1.InventoryWithItems
+	(*Readiness)(nil),                // 25: apeiron.v1.Readiness
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
 	5,  // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
@@ -3447,7 +3503,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   25,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

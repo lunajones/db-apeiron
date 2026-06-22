@@ -17,6 +17,7 @@ protoc ^
   proto/apeiron/v1/cache_service.proto ^
   proto/apeiron/v1/creature_data_service.proto ^
   proto/apeiron/v1/inventory_data_service.proto ^
+  proto/apeiron/v1/observability_service.proto ^
   proto/apeiron/v1/player_data_service.proto ^
   proto/apeiron/v1/profile_data_service.proto ^
   proto/apeiron/v1/skill_data_service.proto ^

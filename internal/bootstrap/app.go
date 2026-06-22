@@ -70,6 +70,10 @@ func (a *App) Start(ctx context.Context) error {
 			server,
 			handlers.NewInventoryDataHandler(a.Deps.Repositories.Inventory),
 		)
+		apeironv1.RegisterObservabilityServiceServer(
+			server,
+			handlers.NewObservabilityHandler(a.DB.Pool),
+		)
 	})
 
 	go func() {
