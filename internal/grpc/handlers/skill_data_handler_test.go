@@ -48,3 +48,26 @@ func TestMapSkillHitboxProfileIncludesTemporalMotionProfile(t *testing.T) {
 		t.Fatalf("samples = %d", got)
 	}
 }
+
+func TestMapWeaponCombatModeSlotPreservesEmptyDisabledSlots(t *testing.T) {
+	out := mapWeaponCombatModeSlot(postgres.WeaponCombatModeSlot{
+		CombatModeID: "mode_sword_shield_vanguard",
+		InputSlot:    "R",
+		SkillID:      sql.NullString{},
+		IsEnabled:    false,
+		MetadataJSON: `{"emptyUntilSelected":true}`,
+	})
+
+	if out.GetCombatModeId() != "mode_sword_shield_vanguard" {
+		t.Fatalf("combat mode id = %q", out.GetCombatModeId())
+	}
+	if out.GetInputSlot() != "R" {
+		t.Fatalf("input slot = %q", out.GetInputSlot())
+	}
+	if out.GetSkillId() != "" {
+		t.Fatalf("empty vanguard slot leaked skill id %q", out.GetSkillId())
+	}
+	if out.GetIsEnabled() {
+		t.Fatal("empty vanguard slot should stay disabled")
+	}
+}
