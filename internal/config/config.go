@@ -55,64 +55,64 @@ func LoadConfig() (*Config, error) {
 		return nil, err
 	}
 
-	maxConns, err := getInt32("DB_MAX_CONNS")
+	maxConns, err := getOptionalInt32("DB_MAX_CONNS", 10)
 	if err != nil {
 		return nil, err
 	}
 
-	minConns, err := getInt32("DB_MIN_CONNS")
+	minConns, err := getOptionalInt32("DB_MIN_CONNS", 1)
 	if err != nil {
 		return nil, err
 	}
 
-	maxConnLifetimeMinutes, err := getInt("DB_MAX_CONN_LIFETIME_MINUTES")
+	maxConnLifetimeMinutes, err := getOptionalInt("DB_MAX_CONN_LIFETIME_MINUTES", 30)
 	if err != nil {
 		return nil, err
 	}
 
-	maxConnIdleMinutes, err := getInt("DB_MAX_CONN_IDLE_TIME_MINUTES")
+	maxConnIdleMinutes, err := getOptionalInt("DB_MAX_CONN_IDLE_TIME_MINUTES", 5)
 	if err != nil {
 		return nil, err
 	}
 
-	connectRetries, err := getInt("DB_CONNECT_RETRIES")
+	connectRetries, err := getOptionalInt("DB_CONNECT_RETRIES", 3)
 	if err != nil {
 		return nil, err
 	}
 
-	connectRetryDelaySeconds, err := getInt("DB_CONNECT_RETRY_DELAY_SECONDS")
+	connectRetryDelaySeconds, err := getOptionalInt("DB_CONNECT_RETRY_DELAY_SECONDS", 2)
 	if err != nil {
 		return nil, err
 	}
 
-	logPretty, err := getBool("LOG_PRETTY")
+	logPretty, err := getOptionalBool("LOG_PRETTY", true)
 	if err != nil {
 		return nil, err
 	}
 
-	shutdownTimeoutSeconds, err := getInt("SHUTDOWN_TIMEOUT_SECONDS")
+	shutdownTimeoutSeconds, err := getOptionalInt("SHUTDOWN_TIMEOUT_SECONDS", 10)
 	if err != nil {
 		return nil, err
 	}
 
 	cfg := &Config{
 		App: AppConfig{
-			Name:        getEnv("APP_NAME"),
-			Environment: getEnv("ENVIRONMENT"),
+			Name:        getOptionalEnv("APP_NAME", "db-apeiron"),
+			Environment: getOptionalEnv("ENVIRONMENT", "development"),
 		},
 
 		GRPC: GRPCConfig{
-			Host: getEnv("GRPC_HOST"),
-			Port: getEnv("GRPC_PORT"),
+			Host: getOptionalEnv("GRPC_HOST", "127.0.0.1"),
+			Port: getOptionalEnv("GRPC_PORT", "50051"),
 		},
 
 		DB: DatabaseConfig{
-			Host:              getEnv("DB_HOST"),
-			Port:              getEnv("DB_PORT"),
-			User:              getEnv("DB_USER"),
+			Host:              getOptionalEnv("DB_HOST", "127.0.0.1"),
+			Port:              getOptionalEnv("DB_PORT", "5432"),
+			User:              getOptionalEnv("DB_USER", "postgres"),
 			Password:          getEnv("DB_PASSWORD"),
-			Name:              getEnv("DB_NAME"),
-			SSLMode:           getEnv("DB_SSL_MODE"),
+			Name:              getOptionalEnv("DB_NAME", "apeiron"),
+			SSLMode:           getOptionalEnv("DB_SSL_MODE", "disable"),
 			MaxConns:          maxConns,
 			MinConns:          minConns,
 			MaxConnLifetime:   time.Duration(maxConnLifetimeMinutes) * time.Minute,
@@ -122,7 +122,7 @@ func LoadConfig() (*Config, error) {
 		},
 
 		Logger: LoggerConfig{
-			Level:  getEnv("LOG_LEVEL"),
+			Level:  getOptionalEnv("LOG_LEVEL", "info"),
 			Pretty: logPretty,
 		},
 
@@ -138,8 +138,34 @@ func getEnv(key string) string {
 	return os.Getenv(key)
 }
 
+func getOptionalEnv(key string, fallback string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback
+	}
+	return value
+}
+
 func getInt(key string) (int, error) {
 	value := os.Getenv(key)
+
+	parsed, err := strconv.Atoi(value)
+	if err != nil {
+		return 0, fmt.Errorf(
+			"invalid integer value for %s: %w",
+			key,
+			err,
+		)
+	}
+
+	return parsed, nil
+}
+
+func getOptionalInt(key string, fallback int) (int, error) {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback, nil
+	}
 
 	parsed, err := strconv.Atoi(value)
 	if err != nil {
@@ -162,8 +188,35 @@ func getInt32(key string) (int32, error) {
 	return int32(value), nil
 }
 
+func getOptionalInt32(key string, fallback int32) (int32, error) {
+	value, err := getOptionalInt(key, int(fallback))
+	if err != nil {
+		return 0, err
+	}
+
+	return int32(value), nil
+}
+
 func getBool(key string) (bool, error) {
 	value := os.Getenv(key)
+
+	parsed, err := strconv.ParseBool(value)
+	if err != nil {
+		return false, fmt.Errorf(
+			"invalid boolean value for %s: %w",
+			key,
+			err,
+		)
+	}
+
+	return parsed, nil
+}
+
+func getOptionalBool(key string, fallback bool) (bool, error) {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback, nil
+	}
 
 	parsed, err := strconv.ParseBool(value)
 	if err != nil {
