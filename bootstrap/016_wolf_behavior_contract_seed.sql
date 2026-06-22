@@ -53,6 +53,37 @@ SET
     updated_at = NOW()
 WHERE id = 'lunge';
 
+INSERT INTO apeiron.movement_action_contract (
+    id, action_type, description, duration_ms, active_ms, recovery_ms,
+    distance_cm, base_speed_cm_s, yaw_degrees, phase_window_policy,
+    prediction_error_policy, reconciliation_contract_id,
+    allow_windup_locomotion, allow_active_locomotion, allow_recovery_locomotion,
+    allow_yaw_adjustment, root_motion_owner, contact_policy, speed_curve, vertical_curve, metadata
+)
+VALUES
+('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that crosses the player side-to-side during pressure punish.',800,260,360,140,420,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.15},{"t":0.25,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.20}]','[]','{"source":"reconstructed","setup_policy":"wolf_maul_pressure_counter_v1"}')
+ON CONFLICT (id) DO UPDATE SET
+    action_type = EXCLUDED.action_type,
+    description = EXCLUDED.description,
+    duration_ms = EXCLUDED.duration_ms,
+    active_ms = EXCLUDED.active_ms,
+    recovery_ms = EXCLUDED.recovery_ms,
+    distance_cm = EXCLUDED.distance_cm,
+    base_speed_cm_s = EXCLUDED.base_speed_cm_s,
+    phase_window_policy = EXCLUDED.phase_window_policy,
+    prediction_error_policy = EXCLUDED.prediction_error_policy,
+    reconciliation_contract_id = EXCLUDED.reconciliation_contract_id,
+    allow_windup_locomotion = EXCLUDED.allow_windup_locomotion,
+    allow_active_locomotion = EXCLUDED.allow_active_locomotion,
+    allow_recovery_locomotion = EXCLUDED.allow_recovery_locomotion,
+    allow_yaw_adjustment = EXCLUDED.allow_yaw_adjustment,
+    root_motion_owner = EXCLUDED.root_motion_owner,
+    contact_policy = EXCLUDED.contact_policy,
+    speed_curve = EXCLUDED.speed_curve,
+    vertical_curve = EXCLUDED.vertical_curve,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
 UPDATE apeiron.skill AS s
 SET
     base_damage = tuned.base_damage,
@@ -90,7 +121,8 @@ INSERT INTO apeiron.skill_movement_action_binding (
     normal_input_policy, target_policy, contact_policy, is_enabled, metadata
 )
 VALUES
-('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root','evasion_direction','iframe',TRUE,'{"source":"reconstructed"}')
+('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root','evasion_direction','iframe',TRUE,'{"source":"reconstructed"}'),
+('maul','wolf_maul_lateral_counter_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_lateral_cross','lateral_counter_contact',TRUE,'{"source":"reconstructed"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     movement_action_contract_id = EXCLUDED.movement_action_contract_id,
     starts_at_phase = EXCLUDED.starts_at_phase,
