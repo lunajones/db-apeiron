@@ -3,7 +3,7 @@
 -- APEIRON MMO - BEHAVIOR / TENDENCY LAYER
 -- =========================================================
 
-CREATE TABLE apeiron.combat_style_profile (
+CREATE TABLE IF NOT EXISTS apeiron.combat_style_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================

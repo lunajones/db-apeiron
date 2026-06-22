@@ -1,4 +1,4 @@
-CREATE TABLE apeiron.skill_set (
+CREATE TABLE IF NOT EXISTS apeiron.skill_set (
     id TEXT PRIMARY KEY,
 
     -- =========================

@@ -3,7 +3,7 @@
 -- APEIRON MMO - HIT REACTION / IMPACT RESULT CONFIG
 -- =========================================================
 
-CREATE TABLE apeiron.skill_impact_profile (
+CREATE TABLE IF NOT EXISTS apeiron.skill_impact_profile (
     skill_id TEXT PRIMARY KEY,
 
     impact_type TEXT NOT NULL DEFAULT 'normal',
@@ -76,11 +76,11 @@ CREATE TABLE apeiron.skill_impact_profile (
         CHECK (hitstop_ms >= 0)
 );
 
-CREATE INDEX idx_skill_impact_type
+CREATE INDEX IF NOT EXISTS idx_skill_impact_type
 ON apeiron.skill_impact_profile(impact_type);
 
-CREATE INDEX idx_skill_impact_reaction
+CREATE INDEX IF NOT EXISTS idx_skill_impact_reaction
 ON apeiron.skill_impact_profile(hit_reaction);
 
-CREATE INDEX idx_skill_impact_status
+CREATE INDEX IF NOT EXISTS idx_skill_impact_status
 ON apeiron.skill_impact_profile(status_effect_id);

@@ -3,7 +3,7 @@
 -- APEIRON MMO - RUNTIME ENTITY (LIVE WORLD STATE)
 -- =========================================================
 
-CREATE TABLE apeiron.creature_instance (
+CREATE TABLE IF NOT EXISTS apeiron.creature_instance (
     id TEXT PRIMARY KEY,
 
     -- =========================
@@ -124,14 +124,14 @@ CREATE TABLE apeiron.creature_instance (
         REFERENCES apeiron.skill_set(id)
 );
 
-CREATE INDEX idx_creature_instance_region
+CREATE INDEX IF NOT EXISTS idx_creature_instance_region
 ON apeiron.creature_instance(region_id);
 
-CREATE INDEX idx_creature_instance_zone
+CREATE INDEX IF NOT EXISTS idx_creature_instance_zone
 ON apeiron.creature_instance(zone_id);
 
-CREATE INDEX idx_creature_instance_combat
+CREATE INDEX IF NOT EXISTS idx_creature_instance_combat
 ON apeiron.creature_instance(in_combat);
 
-CREATE INDEX idx_creature_instance_template
+CREATE INDEX IF NOT EXISTS idx_creature_instance_template
 ON apeiron.creature_instance(template_id);

@@ -3,7 +3,7 @@
 -- APEIRON MMO - ENVIRONMENTAL BEHAVIOR LAYER
 -- =========================================================
 
-CREATE TABLE apeiron.biome (
+CREATE TABLE IF NOT EXISTS apeiron.biome (
     id TEXT PRIMARY KEY,
 
     name TEXT NOT NULL,

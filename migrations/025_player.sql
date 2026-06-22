@@ -3,7 +3,7 @@
 -- APEIRON MMO - HUMAN RUNTIME ENTITY
 -- =========================================================
 
-CREATE TABLE apeiron.player (
+CREATE TABLE IF NOT EXISTS apeiron.player (
     id TEXT PRIMARY KEY,
 
     -- =========================
@@ -70,8 +70,8 @@ CREATE TABLE apeiron.player (
         REFERENCES apeiron.creature_instance(id)
 );
 
-CREATE INDEX idx_player_account
+CREATE INDEX IF NOT EXISTS idx_player_account
 ON apeiron.player(account_id);
 
-CREATE INDEX idx_player_creature
+CREATE INDEX IF NOT EXISTS idx_player_creature
 ON apeiron.player(creature_instance_id);

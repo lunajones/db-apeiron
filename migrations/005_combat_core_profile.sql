@@ -3,7 +3,7 @@
 -- APEIRON MMO - PvP CORE RULESET (PHYSICS ONLY)
 -- =========================================================
 
-CREATE TABLE apeiron.combat_core_profile (
+CREATE TABLE IF NOT EXISTS apeiron.combat_core_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================

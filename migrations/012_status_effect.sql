@@ -3,7 +3,7 @@
 -- APEIRON MMO - STATIC STATUS EFFECT DEFINITION
 -- =========================================================
 
-CREATE TABLE apeiron.status_effect (
+CREATE TABLE IF NOT EXISTS apeiron.status_effect (
     id TEXT PRIMARY KEY,
 
     name TEXT NOT NULL,
@@ -65,8 +65,8 @@ CREATE TABLE apeiron.status_effect (
         CHECK (tick_interval_ms >= 0)
 );
 
-CREATE INDEX idx_status_effect_type
+CREATE INDEX IF NOT EXISTS idx_status_effect_type
 ON apeiron.status_effect(effect_type);
 
-CREATE INDEX idx_status_effect_stacking_mode
+CREATE INDEX IF NOT EXISTS idx_status_effect_stacking_mode
 ON apeiron.status_effect(stacking_mode);

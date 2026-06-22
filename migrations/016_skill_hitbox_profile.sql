@@ -3,7 +3,7 @@
 -- APEIRON MMO - MELEE / PROJECTILE HITBOX GEOMETRY
 -- =========================================================
 
-CREATE TABLE apeiron.skill_hitbox_profile (
+CREATE TABLE IF NOT EXISTS apeiron.skill_hitbox_profile (
     id TEXT PRIMARY KEY,
 
     skill_id TEXT NOT NULL,
@@ -66,8 +66,8 @@ CREATE TABLE apeiron.skill_hitbox_profile (
         CHECK (max_hits_per_target >= 1)
 );
 
-CREATE INDEX idx_skill_hitbox_profile_skill
+CREATE INDEX IF NOT EXISTS idx_skill_hitbox_profile_skill
 ON apeiron.skill_hitbox_profile(skill_id);
 
-CREATE INDEX idx_skill_hitbox_profile_shape
+CREATE INDEX IF NOT EXISTS idx_skill_hitbox_profile_shape
 ON apeiron.skill_hitbox_profile(hitbox_shape);

@@ -3,7 +3,7 @@
 -- APEIRON MMO - COGNITION / TIMING LAYER
 -- =========================================================
 
-CREATE TABLE apeiron.ai_decision_profile (
+CREATE TABLE IF NOT EXISTS apeiron.ai_decision_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================

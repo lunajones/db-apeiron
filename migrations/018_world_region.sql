@@ -3,7 +3,7 @@
 -- APEIRON MMO - WORLD SHARD / MACRO ZONE
 -- =========================================================
 
-CREATE TABLE apeiron.world_region (
+CREATE TABLE IF NOT EXISTS apeiron.world_region (
     id TEXT PRIMARY KEY,
 
     name TEXT NOT NULL,

@@ -1,4 +1,4 @@
-CREATE TABLE apeiron.creature_instance_skill_state (
+CREATE TABLE IF NOT EXISTS apeiron.creature_instance_skill_state (
     creature_instance_id TEXT NOT NULL,
     skill_id TEXT NOT NULL,
 

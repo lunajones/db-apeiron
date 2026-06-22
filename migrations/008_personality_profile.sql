@@ -3,7 +3,7 @@
 -- APEIRON MMO - CORE PERSONALITY DNA
 -- =========================================================
 
-CREATE TABLE apeiron.ai_personality_profile (
+CREATE TABLE IF NOT EXISTS apeiron.ai_personality_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================

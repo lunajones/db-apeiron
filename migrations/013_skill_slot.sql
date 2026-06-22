@@ -3,7 +3,7 @@
 -- APEIRON MMO - SKILL LOADOUT CONFIGURATION
 -- =========================================================
 
-CREATE TABLE apeiron.skill_slot (
+CREATE TABLE IF NOT EXISTS apeiron.skill_slot (
     id BIGSERIAL PRIMARY KEY,
 
     -- =========================
@@ -176,8 +176,8 @@ CREATE TABLE apeiron.skill_slot (
     )
 );
 
-CREATE INDEX idx_skill_slot_skill_set
-ON skill_slot(skill_set_id);
+CREATE INDEX IF NOT EXISTS idx_skill_slot_skill_set
+ON apeiron.skill_slot(skill_set_id);
 
-CREATE INDEX idx_skill_slot_skill
-ON skill_slot(skill_id);
+CREATE INDEX IF NOT EXISTS idx_skill_slot_skill
+ON apeiron.skill_slot(skill_id);

@@ -3,7 +3,7 @@
 -- APEIRON MMO - AOE / DOT / FIELD EFFECT CONFIG
 -- =========================================================
 
-CREATE TABLE apeiron.skill_area_effect_profile (
+CREATE TABLE IF NOT EXISTS apeiron.skill_area_effect_profile (
     skill_id TEXT PRIMARY KEY,
 
     area_shape TEXT NOT NULL DEFAULT 'sphere',
@@ -76,8 +76,8 @@ CREATE TABLE apeiron.skill_area_effect_profile (
         CHECK (max_targets >= 0)
 );
 
-CREATE INDEX idx_skill_area_effect_shape
+CREATE INDEX IF NOT EXISTS idx_skill_area_effect_shape
 ON apeiron.skill_area_effect_profile(area_shape);
 
-CREATE INDEX idx_skill_area_effect_status
+CREATE INDEX IF NOT EXISTS idx_skill_area_effect_status
 ON apeiron.skill_area_effect_profile(status_effect_id);

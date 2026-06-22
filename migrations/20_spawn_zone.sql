@@ -3,7 +3,7 @@
 -- APEIRON MMO - LIVING SPAWN SYSTEM
 -- =========================================================
 
-CREATE TABLE apeiron.spawn_zone (
+CREATE TABLE IF NOT EXISTS apeiron.spawn_zone (
     id TEXT PRIMARY KEY,
 
     region_id TEXT NOT NULL,

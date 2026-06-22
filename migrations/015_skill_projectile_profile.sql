@@ -3,7 +3,7 @@
 -- APEIRON MMO - PROJECTILE CONFIG FOR SKILLS
 -- =========================================================
 
-CREATE TABLE apeiron.skill_projectile_profile (
+CREATE TABLE IF NOT EXISTS apeiron.skill_projectile_profile (
     skill_id TEXT PRIMARY KEY,
 
     trajectory_type TEXT NOT NULL DEFAULT 'linear',
@@ -80,8 +80,8 @@ CREATE TABLE apeiron.skill_projectile_profile (
         CHECK (max_ricochet_count >= 0)
 );
 
-CREATE INDEX idx_skill_projectile_trajectory_type
+CREATE INDEX IF NOT EXISTS idx_skill_projectile_trajectory_type
 ON apeiron.skill_projectile_profile(trajectory_type);
 
-CREATE INDEX idx_skill_projectile_collision_mode
+CREATE INDEX IF NOT EXISTS idx_skill_projectile_collision_mode
 ON apeiron.skill_projectile_profile(collision_mode);

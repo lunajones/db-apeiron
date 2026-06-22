@@ -3,7 +3,7 @@
 -- APEIRON MMO - UNIVERSAL SKILL SYSTEM
 -- =========================================================
 
-CREATE TABLE apeiron.skill (
+CREATE TABLE IF NOT EXISTS apeiron.skill (
     id TEXT PRIMARY KEY,
 
     -- =========================

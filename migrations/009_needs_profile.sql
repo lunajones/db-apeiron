@@ -3,7 +3,7 @@
 -- APEIRON MMO - SURVIVAL / LIFE SYSTEM LAYER
 -- =========================================================
 
-CREATE TABLE apeiron.needs_profile (
+CREATE TABLE IF NOT EXISTS apeiron.needs_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================

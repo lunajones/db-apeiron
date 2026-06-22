@@ -3,7 +3,7 @@
 -- APEIRON MMO - INVENTORY CONTAINER
 -- =========================================================
 
-CREATE TABLE apeiron.inventory (
+CREATE TABLE IF NOT EXISTS apeiron.inventory (
     id TEXT PRIMARY KEY,
 
     -- =========================
@@ -68,10 +68,10 @@ CREATE TABLE apeiron.inventory (
         CHECK (current_weight >= 0)
 );
 
-CREATE INDEX idx_inventory_owner
+CREATE INDEX IF NOT EXISTS idx_inventory_owner
 ON apeiron.inventory(owner_type, owner_id);
 
-CREATE INDEX idx_inventory_type
+CREATE INDEX IF NOT EXISTS idx_inventory_type
 ON apeiron.inventory(inventory_type);
 
 -- =========================================================
@@ -79,7 +79,7 @@ ON apeiron.inventory(inventory_type);
 -- APEIRON MMO - STATIC ITEM DEFINITION
 -- =========================================================
 
-CREATE TABLE apeiron.item_template (
+CREATE TABLE IF NOT EXISTS apeiron.item_template (
     id TEXT PRIMARY KEY,
 
     name TEXT NOT NULL,
@@ -134,10 +134,10 @@ CREATE TABLE apeiron.item_template (
         CHECK (base_value >= 0)
 );
 
-CREATE INDEX idx_item_template_item_type
+CREATE INDEX IF NOT EXISTS idx_item_template_item_type
 ON apeiron.item_template(item_type);
 
-CREATE INDEX idx_item_template_rarity
+CREATE INDEX IF NOT EXISTS idx_item_template_rarity
 ON apeiron.item_template(rarity);
 
 -- =========================================================
@@ -145,7 +145,7 @@ ON apeiron.item_template(rarity);
 -- APEIRON MMO - ITEM INSTANCE
 -- =========================================================
 
-CREATE TABLE apeiron.inventory_item (
+CREATE TABLE IF NOT EXISTS apeiron.inventory_item (
     id TEXT PRIMARY KEY,
 
     inventory_id TEXT NOT NULL,
@@ -187,8 +187,8 @@ CREATE TABLE apeiron.inventory_item (
         CHECK (durability IS NULL OR durability >= 0)
 );
 
-CREATE INDEX idx_inventory_item_inventory
+CREATE INDEX IF NOT EXISTS idx_inventory_item_inventory
 ON apeiron.inventory_item(inventory_id);
 
-CREATE INDEX idx_inventory_item_item_template
+CREATE INDEX IF NOT EXISTS idx_inventory_item_item_template
 ON apeiron.inventory_item(item_id);

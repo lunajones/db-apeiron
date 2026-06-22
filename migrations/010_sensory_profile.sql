@@ -3,7 +3,7 @@
 -- APEIRON MMO - CREATURE PERCEPTION CONFIG
 -- =========================================================
 
-CREATE TABLE apeiron.sensory_profile (
+CREATE TABLE IF NOT EXISTS apeiron.sensory_profile (
     id TEXT PRIMARY KEY,
 
     -- =========================
@@ -76,11 +76,11 @@ CREATE TABLE apeiron.sensory_profile (
         CHECK (last_known_position_memory_ms >= 0)
 );
 
-CREATE INDEX idx_sensory_profile_vision_range
+CREATE INDEX IF NOT EXISTS idx_sensory_profile_vision_range
 ON apeiron.sensory_profile(vision_range);
 
-CREATE INDEX idx_sensory_profile_hearing_range
+CREATE INDEX IF NOT EXISTS idx_sensory_profile_hearing_range
 ON apeiron.sensory_profile(hearing_range);
 
-CREATE INDEX idx_sensory_profile_smell_range
+CREATE INDEX IF NOT EXISTS idx_sensory_profile_smell_range
 ON apeiron.sensory_profile(smell_range);

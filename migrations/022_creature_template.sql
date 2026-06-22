@@ -3,7 +3,7 @@
 -- APEIRON MMO - PvP FIRST / DATA DRIVEN
 -- =========================================================
 
-CREATE TABLE apeiron.creature_template (
+CREATE TABLE IF NOT EXISTS apeiron.creature_template (
     id TEXT PRIMARY KEY,
 
     -- =========================
@@ -127,29 +127,29 @@ CREATE TABLE apeiron.creature_template (
         REFERENCES apeiron.spawn_profile(id)
 );
 
-CREATE INDEX idx_creature_template_movement_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_movement_profile
 ON apeiron.creature_template(movement_profile_id);
 
-CREATE INDEX idx_creature_template_combat_core_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_combat_core_profile
 ON apeiron.creature_template(combat_core_profile_id);
 
-CREATE INDEX idx_creature_template_combat_style_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_combat_style_profile
 ON apeiron.creature_template(combat_style_profile_id);
 
-CREATE INDEX idx_creature_template_ai_decision_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_ai_decision_profile
 ON apeiron.creature_template(ai_decision_profile_id);
 
-CREATE INDEX idx_creature_template_personality_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_personality_profile
 ON apeiron.creature_template(personality_profile_id);
 
-CREATE INDEX idx_creature_template_sensory_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_sensory_profile
 ON apeiron.creature_template(sensory_profile_id);
 
-CREATE INDEX idx_creature_template_needs_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_needs_profile
 ON apeiron.creature_template(needs_profile_id);
 
-CREATE INDEX idx_creature_template_skill_set
+CREATE INDEX IF NOT EXISTS idx_creature_template_skill_set
 ON apeiron.creature_template(skill_set_id);
 
-CREATE INDEX idx_creature_template_spawn_profile
+CREATE INDEX IF NOT EXISTS idx_creature_template_spawn_profile
 ON apeiron.creature_template(spawn_profile_id);
