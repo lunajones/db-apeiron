@@ -22,6 +22,7 @@ const (
 	SkillDataService_GetSkill_FullMethodName               = "/apeiron.v1.SkillDataService/GetSkill"
 	SkillDataService_GetSkillSet_FullMethodName            = "/apeiron.v1.SkillDataService/GetSkillSet"
 	SkillDataService_GetSkillSetLoadout_FullMethodName     = "/apeiron.v1.SkillDataService/GetSkillSetLoadout"
+	SkillDataService_GetSkillMovementEffect_FullMethodName = "/apeiron.v1.SkillDataService/GetSkillMovementEffect"
 	SkillDataService_GetSkillHitboxProfiles_FullMethodName = "/apeiron.v1.SkillDataService/GetSkillHitboxProfiles"
 	SkillDataService_GetSkillImpactProfile_FullMethodName  = "/apeiron.v1.SkillDataService/GetSkillImpactProfile"
 )
@@ -33,6 +34,7 @@ type SkillDataServiceClient interface {
 	GetSkill(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillResponse, error)
 	GetSkillSet(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetResponse, error)
 	GetSkillSetLoadout(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetLoadoutResponse, error)
+	GetSkillMovementEffect(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementEffectResponse, error)
 	GetSkillHitboxProfiles(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillHitboxProfilesResponse, error)
 	GetSkillImpactProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillImpactProfileResponse, error)
 }
@@ -75,6 +77,16 @@ func (c *skillDataServiceClient) GetSkillSetLoadout(ctx context.Context, in *IdR
 	return out, nil
 }
 
+func (c *skillDataServiceClient) GetSkillMovementEffect(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementEffectResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SkillMovementEffectResponse)
+	err := c.cc.Invoke(ctx, SkillDataService_GetSkillMovementEffect_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *skillDataServiceClient) GetSkillHitboxProfiles(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillHitboxProfilesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SkillHitboxProfilesResponse)
@@ -102,6 +114,7 @@ type SkillDataServiceServer interface {
 	GetSkill(context.Context, *IdRequest) (*SkillResponse, error)
 	GetSkillSet(context.Context, *IdRequest) (*SkillSetResponse, error)
 	GetSkillSetLoadout(context.Context, *IdRequest) (*SkillSetLoadoutResponse, error)
+	GetSkillMovementEffect(context.Context, *IdRequest) (*SkillMovementEffectResponse, error)
 	GetSkillHitboxProfiles(context.Context, *IdRequest) (*SkillHitboxProfilesResponse, error)
 	GetSkillImpactProfile(context.Context, *IdRequest) (*SkillImpactProfileResponse, error)
 	mustEmbedUnimplementedSkillDataServiceServer()
@@ -122,6 +135,9 @@ func (UnimplementedSkillDataServiceServer) GetSkillSet(context.Context, *IdReque
 }
 func (UnimplementedSkillDataServiceServer) GetSkillSetLoadout(context.Context, *IdRequest) (*SkillSetLoadoutResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkillSetLoadout not implemented")
+}
+func (UnimplementedSkillDataServiceServer) GetSkillMovementEffect(context.Context, *IdRequest) (*SkillMovementEffectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSkillMovementEffect not implemented")
 }
 func (UnimplementedSkillDataServiceServer) GetSkillHitboxProfiles(context.Context, *IdRequest) (*SkillHitboxProfilesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkillHitboxProfiles not implemented")
@@ -204,6 +220,24 @@ func _SkillDataService_GetSkillSetLoadout_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SkillDataService_GetSkillMovementEffect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SkillDataServiceServer).GetSkillMovementEffect(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SkillDataService_GetSkillMovementEffect_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SkillDataServiceServer).GetSkillMovementEffect(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SkillDataService_GetSkillHitboxProfiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(IdRequest)
 	if err := dec(in); err != nil {
@@ -258,6 +292,10 @@ var SkillDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSkillSetLoadout",
 			Handler:    _SkillDataService_GetSkillSetLoadout_Handler,
+		},
+		{
+			MethodName: "GetSkillMovementEffect",
+			Handler:    _SkillDataService_GetSkillMovementEffect_Handler,
 		},
 		{
 			MethodName: "GetSkillHitboxProfiles",

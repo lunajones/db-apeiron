@@ -754,6 +754,7 @@ type SkillMovementProfile struct {
 	AppliesKnockback       bool                   `protobuf:"varint,21,opt,name=applies_knockback,json=appliesKnockback,proto3" json:"applies_knockback,omitempty"`
 	KnockbackDistance      float64                `protobuf:"fixed64,22,opt,name=knockback_distance,json=knockbackDistance,proto3" json:"knockback_distance,omitempty"`
 	KnockbackSpeed         float64                `protobuf:"fixed64,23,opt,name=knockback_speed,json=knockbackSpeed,proto3" json:"knockback_speed,omitempty"`
+	IgnoresCollision       bool                   `protobuf:"varint,24,opt,name=ignores_collision,json=ignoresCollision,proto3" json:"ignores_collision,omitempty"`
 	unknownFields          protoimpl.UnknownFields
 	sizeCache              protoimpl.SizeCache
 }
@@ -947,6 +948,13 @@ func (x *SkillMovementProfile) GetKnockbackSpeed() float64 {
 		return x.KnockbackSpeed
 	}
 	return 0
+}
+
+func (x *SkillMovementProfile) GetIgnoresCollision() bool {
+	if x != nil {
+		return x.IgnoresCollision
+	}
+	return false
 }
 
 type SkillHitboxMotionSample struct {
@@ -2184,7 +2192,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x12use_only_in_combat\x18\x13 \x01(\bR\x0fuseOnlyInCombat\"f\n" +
 	"\x10SkillLoadoutItem\x12)\n" +
 	"\x04slot\x18\x01 \x01(\v2\x15.apeiron.v1.SkillSlotR\x04slot\x12'\n" +
-	"\x05skill\x18\x02 \x01(\v2\x11.apeiron.v1.SkillR\x05skill\"\xc5\a\n" +
+	"\x05skill\x18\x02 \x01(\v2\x11.apeiron.v1.SkillR\x05skill\"\xf2\a\n" +
 	"\x14SkillMovementProfile\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12#\n" +
 	"\rmovement_type\x18\x02 \x01(\tR\fmovementType\x12\x1a\n" +
@@ -2212,7 +2220,8 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x15stop_at_contact_ratio\x18\x14 \x01(\x01R\x12stopAtContactRatio\x12+\n" +
 	"\x11applies_knockback\x18\x15 \x01(\bR\x10appliesKnockback\x12-\n" +
 	"\x12knockback_distance\x18\x16 \x01(\x01R\x11knockbackDistance\x12'\n" +
-	"\x0fknockback_speed\x18\x17 \x01(\x01R\x0eknockbackSpeed\"\xdc\x02\n" +
+	"\x0fknockback_speed\x18\x17 \x01(\x01R\x0eknockbackSpeed\x12+\n" +
+	"\x11ignores_collision\x18\x18 \x01(\bR\x10ignoresCollision\"\xdc\x02\n" +
 	"\x17SkillHitboxMotionSample\x12!\n" +
 	"\fsample_index\x18\x01 \x01(\x05R\vsampleIndex\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x01R\x01t\x12\x19\n" +

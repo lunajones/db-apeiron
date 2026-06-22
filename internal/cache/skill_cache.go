@@ -21,6 +21,7 @@ type SkillCache struct {
 	projectileProfiles map[string]cacheEntry[postgres.SkillProjectileProfile]
 	hitboxProfiles     map[string]cacheEntry[[]postgres.SkillHitboxProfile]
 	areaEffectProfiles map[string]cacheEntry[postgres.SkillAreaEffectProfile]
+	movementEffects    map[string]cacheEntry[postgres.SkillMovementEffect]
 	impactProfiles     map[string]cacheEntry[postgres.SkillImpactProfile]
 
 	mu sync.RWMutex
@@ -42,6 +43,7 @@ func NewSkillCacheWithTTL(repository *postgres.SkillRepository, ttl time.Duratio
 		projectileProfiles: make(map[string]cacheEntry[postgres.SkillProjectileProfile]),
 		hitboxProfiles:     make(map[string]cacheEntry[[]postgres.SkillHitboxProfile]),
 		areaEffectProfiles: make(map[string]cacheEntry[postgres.SkillAreaEffectProfile]),
+		movementEffects:    make(map[string]cacheEntry[postgres.SkillMovementEffect]),
 		impactProfiles:     make(map[string]cacheEntry[postgres.SkillImpactProfile]),
 	}
 }
@@ -144,6 +146,20 @@ func (c *SkillCache) GetAreaEffectProfile(ctx context.Context, skillID string) (
 	return profile, nil
 }
 
+func (c *SkillCache) GetMovementEffect(ctx context.Context, skillID string) (postgres.SkillMovementEffect, error) {
+	if value, ok := getCached(&c.mu, c.movementEffects, skillID, c.isExpired); ok {
+		return value, nil
+	}
+
+	effect, err := c.repository.GetMovementEffectBySkillID(ctx, skillID)
+	if err != nil {
+		return postgres.SkillMovementEffect{}, err
+	}
+
+	setCached(&c.mu, c.movementEffects, skillID, effect)
+	return effect, nil
+}
+
 func (c *SkillCache) GetImpactProfile(ctx context.Context, skillID string) (postgres.SkillImpactProfile, error) {
 	if value, ok := getCached(&c.mu, c.impactProfiles, skillID, c.isExpired); ok {
 		return value, nil
@@ -216,6 +232,7 @@ func (c *SkillCache) InvalidateSkill(id string) {
 	delete(c.projectileProfiles, id)
 	delete(c.hitboxProfiles, id)
 	delete(c.areaEffectProfiles, id)
+	delete(c.movementEffects, id)
 	delete(c.impactProfiles, id)
 }
 
@@ -239,6 +256,7 @@ func (c *SkillCache) Clear() {
 	c.projectileProfiles = make(map[string]cacheEntry[postgres.SkillProjectileProfile])
 	c.hitboxProfiles = make(map[string]cacheEntry[[]postgres.SkillHitboxProfile])
 	c.areaEffectProfiles = make(map[string]cacheEntry[postgres.SkillAreaEffectProfile])
+	c.movementEffects = make(map[string]cacheEntry[postgres.SkillMovementEffect])
 	c.impactProfiles = make(map[string]cacheEntry[postgres.SkillImpactProfile])
 }
 

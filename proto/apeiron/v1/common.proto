@@ -105,6 +105,7 @@ message SkillMovementProfile {
   bool applies_knockback = 21;
   double knockback_distance = 22;
   double knockback_speed = 23;
+  bool ignores_collision = 24;
 }
 
 message SkillHitboxMotionSample {

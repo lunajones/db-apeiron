@@ -201,6 +201,66 @@ func (x *SkillSetLoadoutResponse) GetError() string {
 	return ""
 }
 
+type SkillMovementEffectResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Found         bool                   `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Profile       *SkillMovementProfile  `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SkillMovementEffectResponse) Reset() {
+	*x = SkillMovementEffectResponse{}
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillMovementEffectResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillMovementEffectResponse) ProtoMessage() {}
+
+func (x *SkillMovementEffectResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillMovementEffectResponse.ProtoReflect.Descriptor instead.
+func (*SkillMovementEffectResponse) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_skill_data_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SkillMovementEffectResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *SkillMovementEffectResponse) GetProfile() *SkillMovementProfile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
+}
+
+func (x *SkillMovementEffectResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 type SkillHitboxProfilesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Found         bool                   `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
@@ -212,7 +272,7 @@ type SkillHitboxProfilesResponse struct {
 
 func (x *SkillHitboxProfilesResponse) Reset() {
 	*x = SkillHitboxProfilesResponse{}
-	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[3]
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -224,7 +284,7 @@ func (x *SkillHitboxProfilesResponse) String() string {
 func (*SkillHitboxProfilesResponse) ProtoMessage() {}
 
 func (x *SkillHitboxProfilesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[3]
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +297,7 @@ func (x *SkillHitboxProfilesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkillHitboxProfilesResponse.ProtoReflect.Descriptor instead.
 func (*SkillHitboxProfilesResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_skill_data_service_proto_rawDescGZIP(), []int{3}
+	return file_apeiron_v1_skill_data_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SkillHitboxProfilesResponse) GetFound() bool {
@@ -272,7 +332,7 @@ type SkillImpactProfileResponse struct {
 
 func (x *SkillImpactProfileResponse) Reset() {
 	*x = SkillImpactProfileResponse{}
-	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -284,7 +344,7 @@ func (x *SkillImpactProfileResponse) String() string {
 func (*SkillImpactProfileResponse) ProtoMessage() {}
 
 func (x *SkillImpactProfileResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_skill_data_service_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -297,7 +357,7 @@ func (x *SkillImpactProfileResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkillImpactProfileResponse.ProtoReflect.Descriptor instead.
 func (*SkillImpactProfileResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_skill_data_service_proto_rawDescGZIP(), []int{4}
+	return file_apeiron_v1_skill_data_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SkillImpactProfileResponse) GetFound() bool {
@@ -339,6 +399,10 @@ const file_apeiron_v1_skill_data_service_proto_rawDesc = "" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x122\n" +
 	"\x05items\x18\x02 \x03(\v2\x1c.apeiron.v1.SkillLoadoutItemR\x05items\x12\x14\n" +
 	"\x05error\x18\x03 \x01(\tR\x05error\"\x85\x01\n" +
+	"\x1bSkillMovementEffectResponse\x12\x14\n" +
+	"\x05found\x18\x01 \x01(\bR\x05found\x12:\n" +
+	"\aprofile\x18\x02 \x01(\v2 .apeiron.v1.SkillMovementProfileR\aprofile\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"\x85\x01\n" +
 	"\x1bSkillHitboxProfilesResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12:\n" +
 	"\bprofiles\x18\x02 \x03(\v2\x1e.apeiron.v1.SkillHitboxProfileR\bprofiles\x12\x14\n" +
@@ -346,11 +410,12 @@ const file_apeiron_v1_skill_data_service_proto_rawDesc = "" +
 	"\x1aSkillImpactProfileResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x128\n" +
 	"\aprofile\x18\x02 \x01(\v2\x1e.apeiron.v1.SkillImpactProfileR\aprofile\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\tR\x05error2\x98\x03\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error2\xf2\x03\n" +
 	"\x10SkillDataService\x12<\n" +
 	"\bGetSkill\x12\x15.apeiron.v1.IdRequest\x1a\x19.apeiron.v1.SkillResponse\x12B\n" +
 	"\vGetSkillSet\x12\x15.apeiron.v1.IdRequest\x1a\x1c.apeiron.v1.SkillSetResponse\x12P\n" +
 	"\x12GetSkillSetLoadout\x12\x15.apeiron.v1.IdRequest\x1a#.apeiron.v1.SkillSetLoadoutResponse\x12X\n" +
+	"\x16GetSkillMovementEffect\x12\x15.apeiron.v1.IdRequest\x1a'.apeiron.v1.SkillMovementEffectResponse\x12X\n" +
 	"\x16GetSkillHitboxProfiles\x12\x15.apeiron.v1.IdRequest\x1a'.apeiron.v1.SkillHitboxProfilesResponse\x12V\n" +
 	"\x15GetSkillImpactProfile\x12\x15.apeiron.v1.IdRequest\x1a&.apeiron.v1.SkillImpactProfileResponseB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
@@ -366,41 +431,46 @@ func file_apeiron_v1_skill_data_service_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_skill_data_service_proto_rawDescData
 }
 
-var file_apeiron_v1_skill_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_apeiron_v1_skill_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_apeiron_v1_skill_data_service_proto_goTypes = []any{
 	(*SkillResponse)(nil),               // 0: apeiron.v1.SkillResponse
 	(*SkillSetResponse)(nil),            // 1: apeiron.v1.SkillSetResponse
 	(*SkillSetLoadoutResponse)(nil),     // 2: apeiron.v1.SkillSetLoadoutResponse
-	(*SkillHitboxProfilesResponse)(nil), // 3: apeiron.v1.SkillHitboxProfilesResponse
-	(*SkillImpactProfileResponse)(nil),  // 4: apeiron.v1.SkillImpactProfileResponse
-	(*Skill)(nil),                       // 5: apeiron.v1.Skill
-	(*SkillSet)(nil),                    // 6: apeiron.v1.SkillSet
-	(*SkillLoadoutItem)(nil),            // 7: apeiron.v1.SkillLoadoutItem
-	(*SkillHitboxProfile)(nil),          // 8: apeiron.v1.SkillHitboxProfile
-	(*SkillImpactProfile)(nil),          // 9: apeiron.v1.SkillImpactProfile
-	(*IdRequest)(nil),                   // 10: apeiron.v1.IdRequest
+	(*SkillMovementEffectResponse)(nil), // 3: apeiron.v1.SkillMovementEffectResponse
+	(*SkillHitboxProfilesResponse)(nil), // 4: apeiron.v1.SkillHitboxProfilesResponse
+	(*SkillImpactProfileResponse)(nil),  // 5: apeiron.v1.SkillImpactProfileResponse
+	(*Skill)(nil),                       // 6: apeiron.v1.Skill
+	(*SkillSet)(nil),                    // 7: apeiron.v1.SkillSet
+	(*SkillLoadoutItem)(nil),            // 8: apeiron.v1.SkillLoadoutItem
+	(*SkillMovementProfile)(nil),        // 9: apeiron.v1.SkillMovementProfile
+	(*SkillHitboxProfile)(nil),          // 10: apeiron.v1.SkillHitboxProfile
+	(*SkillImpactProfile)(nil),          // 11: apeiron.v1.SkillImpactProfile
+	(*IdRequest)(nil),                   // 12: apeiron.v1.IdRequest
 }
 var file_apeiron_v1_skill_data_service_proto_depIdxs = []int32{
-	5,  // 0: apeiron.v1.SkillResponse.skill:type_name -> apeiron.v1.Skill
-	6,  // 1: apeiron.v1.SkillSetResponse.skill_set:type_name -> apeiron.v1.SkillSet
-	7,  // 2: apeiron.v1.SkillSetLoadoutResponse.items:type_name -> apeiron.v1.SkillLoadoutItem
-	8,  // 3: apeiron.v1.SkillHitboxProfilesResponse.profiles:type_name -> apeiron.v1.SkillHitboxProfile
-	9,  // 4: apeiron.v1.SkillImpactProfileResponse.profile:type_name -> apeiron.v1.SkillImpactProfile
-	10, // 5: apeiron.v1.SkillDataService.GetSkill:input_type -> apeiron.v1.IdRequest
-	10, // 6: apeiron.v1.SkillDataService.GetSkillSet:input_type -> apeiron.v1.IdRequest
-	10, // 7: apeiron.v1.SkillDataService.GetSkillSetLoadout:input_type -> apeiron.v1.IdRequest
-	10, // 8: apeiron.v1.SkillDataService.GetSkillHitboxProfiles:input_type -> apeiron.v1.IdRequest
-	10, // 9: apeiron.v1.SkillDataService.GetSkillImpactProfile:input_type -> apeiron.v1.IdRequest
-	0,  // 10: apeiron.v1.SkillDataService.GetSkill:output_type -> apeiron.v1.SkillResponse
-	1,  // 11: apeiron.v1.SkillDataService.GetSkillSet:output_type -> apeiron.v1.SkillSetResponse
-	2,  // 12: apeiron.v1.SkillDataService.GetSkillSetLoadout:output_type -> apeiron.v1.SkillSetLoadoutResponse
-	3,  // 13: apeiron.v1.SkillDataService.GetSkillHitboxProfiles:output_type -> apeiron.v1.SkillHitboxProfilesResponse
-	4,  // 14: apeiron.v1.SkillDataService.GetSkillImpactProfile:output_type -> apeiron.v1.SkillImpactProfileResponse
-	10, // [10:15] is the sub-list for method output_type
-	5,  // [5:10] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	6,  // 0: apeiron.v1.SkillResponse.skill:type_name -> apeiron.v1.Skill
+	7,  // 1: apeiron.v1.SkillSetResponse.skill_set:type_name -> apeiron.v1.SkillSet
+	8,  // 2: apeiron.v1.SkillSetLoadoutResponse.items:type_name -> apeiron.v1.SkillLoadoutItem
+	9,  // 3: apeiron.v1.SkillMovementEffectResponse.profile:type_name -> apeiron.v1.SkillMovementProfile
+	10, // 4: apeiron.v1.SkillHitboxProfilesResponse.profiles:type_name -> apeiron.v1.SkillHitboxProfile
+	11, // 5: apeiron.v1.SkillImpactProfileResponse.profile:type_name -> apeiron.v1.SkillImpactProfile
+	12, // 6: apeiron.v1.SkillDataService.GetSkill:input_type -> apeiron.v1.IdRequest
+	12, // 7: apeiron.v1.SkillDataService.GetSkillSet:input_type -> apeiron.v1.IdRequest
+	12, // 8: apeiron.v1.SkillDataService.GetSkillSetLoadout:input_type -> apeiron.v1.IdRequest
+	12, // 9: apeiron.v1.SkillDataService.GetSkillMovementEffect:input_type -> apeiron.v1.IdRequest
+	12, // 10: apeiron.v1.SkillDataService.GetSkillHitboxProfiles:input_type -> apeiron.v1.IdRequest
+	12, // 11: apeiron.v1.SkillDataService.GetSkillImpactProfile:input_type -> apeiron.v1.IdRequest
+	0,  // 12: apeiron.v1.SkillDataService.GetSkill:output_type -> apeiron.v1.SkillResponse
+	1,  // 13: apeiron.v1.SkillDataService.GetSkillSet:output_type -> apeiron.v1.SkillSetResponse
+	2,  // 14: apeiron.v1.SkillDataService.GetSkillSetLoadout:output_type -> apeiron.v1.SkillSetLoadoutResponse
+	3,  // 15: apeiron.v1.SkillDataService.GetSkillMovementEffect:output_type -> apeiron.v1.SkillMovementEffectResponse
+	4,  // 16: apeiron.v1.SkillDataService.GetSkillHitboxProfiles:output_type -> apeiron.v1.SkillHitboxProfilesResponse
+	5,  // 17: apeiron.v1.SkillDataService.GetSkillImpactProfile:output_type -> apeiron.v1.SkillImpactProfileResponse
+	12, // [12:18] is the sub-list for method output_type
+	6,  // [6:12] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_skill_data_service_proto_init() }
@@ -415,7 +485,7 @@ func file_apeiron_v1_skill_data_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_skill_data_service_proto_rawDesc), len(file_apeiron_v1_skill_data_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

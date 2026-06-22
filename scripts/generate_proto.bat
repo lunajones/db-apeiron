@@ -15,7 +15,9 @@ protoc ^
   --go-grpc_opt=paths=source_relative ^
   proto/apeiron/v1/common.proto ^
   proto/apeiron/v1/cache_service.proto ^
-  proto/apeiron/v1/creature_data_service.proto
+  proto/apeiron/v1/creature_data_service.proto ^
+  proto/apeiron/v1/profile_data_service.proto ^
+  proto/apeiron/v1/skill_data_service.proto
 
 if %ERRORLEVEL% neq 0 (
   echo Proto generation failed.

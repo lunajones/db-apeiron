@@ -568,6 +568,43 @@ func (r *SkillRepository) GetAreaEffectProfileBySkillID(ctx context.Context, ski
 	return a, err
 }
 
+func (r *SkillRepository) GetMovementEffectBySkillID(ctx context.Context, skillID string) (SkillMovementEffect, error) {
+	var effect SkillMovementEffect
+
+	err := r.db.QueryRow(ctx, `
+		SELECT
+			id,
+			skill_id,
+			movement_type,
+			distance,
+			speed,
+			duration_ms,
+			windup_lock_ms,
+			recovery_lock_ms,
+			can_rotate,
+			ignores_collision,
+			created_at,
+			updated_at
+		FROM apeiron.skill_movement_effect
+		WHERE skill_id = $1
+	`, skillID).Scan(
+		&effect.ID,
+		&effect.SkillID,
+		&effect.MovementType,
+		&effect.Distance,
+		&effect.Speed,
+		&effect.DurationMS,
+		&effect.WindupLockMS,
+		&effect.RecoveryLockMS,
+		&effect.CanRotate,
+		&effect.IgnoresCollision,
+		&effect.CreatedAt,
+		&effect.UpdatedAt,
+	)
+
+	return effect, err
+}
+
 func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID string) (SkillImpactProfile, error) {
 	var i SkillImpactProfile
 
@@ -874,6 +911,25 @@ type SkillAreaEffectProfile struct {
 	FriendlyFire bool
 
 	StatusEffectID sql.NullString
+
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type SkillMovementEffect struct {
+	ID      string
+	SkillID string
+
+	MovementType string
+	Distance     float64
+	Speed        float64
+	DurationMS   int
+
+	WindupLockMS   int
+	RecoveryLockMS int
+
+	CanRotate        bool
+	IgnoresCollision bool
 
 	CreatedAt time.Time
 	UpdatedAt time.Time

@@ -11,6 +11,7 @@ type SkillReader interface {
 	GetSkill(ctx context.Context, id string) (postgres.Skill, error)
 	GetSkillSet(ctx context.Context, id string) (postgres.SkillSet, error)
 	GetSkillSetLoadout(ctx context.Context, skillSetID string) ([]postgres.SkillLoadoutItem, error)
+	GetMovementEffect(ctx context.Context, skillID string) (postgres.SkillMovementEffect, error)
 	GetHitboxProfiles(ctx context.Context, skillID string) ([]postgres.SkillHitboxProfile, error)
 	GetImpactProfile(ctx context.Context, skillID string) (postgres.SkillImpactProfile, error)
 }
@@ -58,6 +59,15 @@ func (h *SkillDataHandler) GetSkillSetLoadout(ctx context.Context, req *apeironv
 	}
 
 	return &apeironv1.SkillSetLoadoutResponse{Found: true, Items: items}, nil
+}
+
+func (h *SkillDataHandler) GetSkillMovementEffect(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillMovementEffectResponse, error) {
+	effect, err := h.skills.GetMovementEffect(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillMovementEffectResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillMovementEffectResponse{Found: true, Profile: mapSkillMovementEffect(effect)}, nil
 }
 
 func (h *SkillDataHandler) GetSkillHitboxProfiles(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillHitboxProfilesResponse, error) {
@@ -173,6 +183,26 @@ func mapSkillHitboxProfile(p postgres.SkillHitboxProfile) *apeironv1.SkillHitbox
 		RequiresLineOfSight: true,
 		CanHitNeutral:       p.FriendlyFire,
 	}
+}
+
+func mapSkillMovementEffect(e postgres.SkillMovementEffect) *apeironv1.SkillMovementProfile {
+	return &apeironv1.SkillMovementProfile{
+		Id:               e.ID,
+		MovementType:     e.MovementType,
+		Distance:         e.Distance,
+		Speed:            e.Speed,
+		DurationMs:       int32(e.DurationMS),
+		LandingLockMs:    int32(e.RecoveryLockMS),
+		SteeringPolicy:   legacyMovementSteeringPolicy(e),
+		IgnoresCollision: e.IgnoresCollision,
+	}
+}
+
+func legacyMovementSteeringPolicy(e postgres.SkillMovementEffect) string {
+	if e.CanRotate {
+		return "can_rotate"
+	}
+	return "locked_facing"
 }
 
 func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpactProfile {
