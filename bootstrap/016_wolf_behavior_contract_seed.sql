@@ -53,12 +53,18 @@ SET
     updated_at = NOW()
 WHERE id = 'lunge';
 
-UPDATE apeiron.skill
+UPDATE apeiron.skill AS s
 SET
-    base_damage = base_damage * 0.5,
-    posture_damage = posture_damage * 0.8,
+    base_damage = tuned.base_damage,
+    posture_damage = tuned.posture_damage,
     updated_at = NOW()
-WHERE id IN ('bite', 'lunge', 'maul');
+FROM (
+    VALUES
+        ('bite', 9.0::DOUBLE PRECISION, 17.6::DOUBLE PRECISION),
+        ('lunge', 6.5::DOUBLE PRECISION, 19.2::DOUBLE PRECISION),
+        ('maul', 6.5::DOUBLE PRECISION, 19.2::DOUBLE PRECISION)
+) AS tuned(id, base_damage, posture_damage)
+WHERE s.id = tuned.id;
 
 INSERT INTO apeiron.skill_action_timing (
     skill_id, windup_ms, active_ms, recovery_ms, cooldown_ms,
