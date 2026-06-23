@@ -29,7 +29,7 @@ The DB bootstrap must also explicitly bind the active skill runtime:
 - `player_shield_bash` -> `shield_bash_front_push_v1`
 - `player_shield_rush` -> `shield_rush_front_contact_v1`
 - `bite` -> `wolf_bite_melee_commit_v1`
-- `lunge` -> `wolf_lunge_airborne_v1`
+- `lunge` -> `low_fast_lunge_v1`
 - `wolf_dodge` -> `wolf_dodge_lateral_leap_v1`
 - `maul` -> `wolf_maul_lateral_counter_v1`
 

@@ -2,9 +2,9 @@
 -- LEGACY SKILL MOVEMENT EFFECT SEED
 -- Kept for compatibility with GetSkillMovementEffect(skill_id).
 --
--- Recovered databases may already have skill_movement_effect rows referenced
--- by skill_slot through older IDs. Preserve existing IDs by updating by
--- skill_id first; only insert the reconstructed ID when no row exists.
+-- Recovered databases may already have old skill_movement_effect rows keyed by
+-- generic IDs such as leap_default. No current table references those IDs, so
+-- normalize them to the canonical compatibility IDs while updating by skill_id.
 -- =========================================================
 
 WITH desired (
@@ -12,12 +12,13 @@ WITH desired (
     windup_lock_ms, recovery_lock_ms, can_rotate, ignores_collision, metadata
 ) AS (
     VALUES
-    ('leap_default','lunge','leap',620::DOUBLE PRECISION,760::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"wolf_lunge_airborne_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
+    ('low_fast_lunge_effect_v1','lunge','leap',918::DOUBLE PRECISION,940::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"low_fast_lunge_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
     ('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","restored_distance":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_legacy','player_shield_bash','dash',130::DOUBLE PRECISION,280::DOUBLE PRECISION,520,120,180,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","legacy_semantics":"short_charge"}'::jsonb)
 )
 UPDATE apeiron.skill_movement_effect existing
 SET
+    id = desired.id,
     movement_type = desired.movement_type,
     distance = desired.distance,
     speed = desired.speed,
@@ -36,7 +37,7 @@ WITH desired (
     windup_lock_ms, recovery_lock_ms, can_rotate, ignores_collision, metadata
 ) AS (
     VALUES
-    ('leap_default','lunge','leap',620::DOUBLE PRECISION,760::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"wolf_lunge_airborne_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
+    ('low_fast_lunge_effect_v1','lunge','leap',918::DOUBLE PRECISION,940::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"low_fast_lunge_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
     ('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","restored_distance":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_legacy','player_shield_bash','dash',130::DOUBLE PRECISION,280::DOUBLE PRECISION,520,120,180,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","legacy_semantics":"short_charge"}'::jsonb)
 )

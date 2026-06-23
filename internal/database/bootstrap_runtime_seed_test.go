@@ -43,7 +43,7 @@ func TestBootstrapSeedsCoverRequiredRuntimeSkills(t *testing.T) {
 		"shield_bash_front_push_v1",
 		"shield_rush_front_contact_v1",
 		"wolf_bite_melee_commit_v1",
-		"wolf_lunge_airborne_v1",
+		"low_fast_lunge_v1",
 		"wolf_dodge_lateral_leap_v1",
 		"wolf_maul_lateral_counter_v1",
 	} {
@@ -256,12 +256,12 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		},
 		{
 			skillID:          "lunge",
-			actionContractID: "wolf_lunge_airborne_v1",
+			actionContractID: "low_fast_lunge_v1",
 			timing:           "'lunge',3600,430,500,4200",
 			hitbox:           "'hitbox_lunge_0','lunge',0,'temporal_sweep'",
 			motionProfileID:  "motion_wolf_lunge_cross_v1",
 			damageGroupID:    "wolf_lunge_damage",
-			binding:          "('lunge','wolf_lunge_airborne_v1','active','grounded_handoff','blocked_during_airborne'",
+			binding:          "('lunge','low_fast_lunge_v1','active','grounded_handoff','blocked_during_airborne'",
 		},
 		{
 			skillID:          "wolf_dodge",
@@ -349,7 +349,7 @@ func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T
 		"player_basic_attack_3": "basic_attack_3_shield_drive_v1",
 		"player_shield_bash":    "shield_bash_front_push_v1",
 		"player_shield_rush":    "shield_rush_front_contact_v1",
-		"lunge":                 "wolf_lunge_airborne_v1",
+		"lunge":                 "low_fast_lunge_v1",
 		"wolf_dodge":            "wolf_dodge_lateral_leap_v1",
 		"bite":                  "wolf_bite_melee_commit_v1",
 		"maul":                  "wolf_maul_lateral_counter_v1",
@@ -365,7 +365,7 @@ func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T
 func TestLegacySkillMovementEffectsAreCompatibilityOnly(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	requiredLegacyRows := map[string]string{
-		"lunge":              "wolf_lunge_airborne_v1",
+		"lunge":              "low_fast_lunge_v1",
 		"player_shield_rush": "shield_rush_front_contact_v1",
 		"player_shield_bash": "shield_bash_front_push_v1",
 	}
