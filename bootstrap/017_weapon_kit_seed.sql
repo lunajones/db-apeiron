@@ -40,6 +40,9 @@ ON CONFLICT (id) DO UPDATE SET
 DELETE FROM apeiron.weapon_combat_mode_skill_slot
 WHERE combat_mode_id IN ('mode_sword_shield_vanguard','mode_sword_shield_bulwark');
 
+DELETE FROM apeiron.skill
+WHERE id = 'player_fatality_placeholder';
+
 INSERT INTO apeiron.weapon_combat_mode_skill_slot (
     combat_mode_id, input_slot, skill_id, is_basic_attack, is_fatality, is_enabled, metadata
 )
@@ -48,9 +51,9 @@ VALUES
 ('mode_sword_shield_vanguard','Q',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_vanguard','R',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_vanguard','F',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
-('mode_sword_shield_vanguard','G','player_fatality_placeholder',FALSE,TRUE,FALSE,'{"emptyUntilSelected":true}'),
+('mode_sword_shield_vanguard','G',NULL,FALSE,TRUE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_bulwark','M1','player_basic_attack_1',TRUE,FALSE,TRUE,'{"comboGroup":"sword_shield_light_combo"}'),
 ('mode_sword_shield_bulwark','Q',NULL,FALSE,FALSE,FALSE,'{"emptyUntilSelected":true}'),
 ('mode_sword_shield_bulwark','R','player_shield_bash',FALSE,FALSE,TRUE,'{}'),
 ('mode_sword_shield_bulwark','F','player_shield_rush',FALSE,FALSE,TRUE,'{}'),
-('mode_sword_shield_bulwark','G','player_fatality_placeholder',FALSE,TRUE,FALSE,'{"emptyUntilSelected":true}');
+('mode_sword_shield_bulwark','G',NULL,FALSE,TRUE,FALSE,'{"emptyUntilSelected":true}');
