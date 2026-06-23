@@ -14,6 +14,7 @@ type ProfileReader interface {
 	GetCombatDefenseContract(ctx context.Context, id string) (postgres.CombatDefenseContract, error)
 	GetMovementActionContract(ctx context.Context, id string) (postgres.MovementActionContract, error)
 	GetMovementReconciliationContract(ctx context.Context, id string) (postgres.MovementReconciliationContract, error)
+	GetRuntimeMovementReconciliationProfile(ctx context.Context, id string) (postgres.RuntimeMovementReconciliationProfile, error)
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, id string) (postgres.CreatureBehaviorRuntimeContract, error)
 	GetCreatureEvasionPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureEvasionPolicy, error)
 	GetCreatureSkillSetupPolicies(ctx context.Context, behaviorContractID string) ([]postgres.CreatureSkillSetupPolicy, error)
@@ -75,6 +76,15 @@ func (h *ProfileDataHandler) GetMovementReconciliationContract(ctx context.Conte
 	}
 
 	return &apeironv1.MovementReconciliationContractResponse{Found: true, Contract: mapMovementReconciliationContract(contract)}, nil
+}
+
+func (h *ProfileDataHandler) GetRuntimeMovementReconciliationProfile(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.RuntimeMovementReconciliationProfileResponse, error) {
+	profile, err := h.profiles.GetRuntimeMovementReconciliationProfile(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.RuntimeMovementReconciliationProfileResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.RuntimeMovementReconciliationProfileResponse{Found: true, Profile: mapRuntimeMovementReconciliationProfile(profile)}, nil
 }
 
 func (h *ProfileDataHandler) GetCreatureBehaviorRuntimeContract(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.CreatureBehaviorRuntimeContractResponse, error) {
@@ -247,6 +257,69 @@ func mapMovementReconciliationContract(c postgres.MovementReconciliationContract
 		InputPolicy:            c.InputPolicy,
 		HandoffPolicy:          c.HandoffPolicy,
 		MetadataJson:           c.MetadataJSON,
+	}
+}
+
+func mapRuntimeMovementReconciliationProfile(p postgres.RuntimeMovementReconciliationProfile) *apeironv1.RuntimeMovementReconciliationProfile {
+	if p.ProfileID == "" {
+		return nil
+	}
+	return &apeironv1.RuntimeMovementReconciliationProfile{
+		ProfileId:                         p.ProfileID,
+		MaxSpeed:                          p.MaxSpeed,
+		SprintSpeedMultiplier:             p.SprintSpeedMultiplier,
+		Acceleration:                      p.Acceleration,
+		Deceleration:                      p.Deceleration,
+		GroundFriction:                    p.GroundFriction,
+		AirAcceleration:                   p.AirAcceleration,
+		JumpHeight:                        p.JumpHeight,
+		JumpDurationMs:                    int32(p.JumpDurationMS),
+		RotationRateYaw:                   p.RotationRateYaw,
+		GravityScale:                      p.GravityScale,
+		BrakingFrictionFactor:             p.BrakingFrictionFactor,
+		MaxSlopeDeg:                       p.MaxSlopeDeg,
+		StepHeight:                        p.StepHeight,
+		BaseDeadzone:                      p.BaseDeadzone,
+		GroundedSpeedDeadzoneFactor:       p.GroundedSpeedDeadzoneFactor,
+		GroundedSpeedDeadzoneMin:          p.GroundedSpeedDeadzoneMin,
+		GroundedSpeedDeadzoneMax:          p.GroundedSpeedDeadzoneMax,
+		GroundedTransitionDeadzoneMin:     p.GroundedTransitionDeadzoneMin,
+		MoveSustainDeadzone:               p.MoveSustainDeadzone,
+		MoveSustainTransitionDeadzone:     p.MoveSustainTransitionDeadzone,
+		AirborneDeadzone:                  p.AirborneDeadzone,
+		LeapRecentDeadzone:                p.LeapRecentDeadzone,
+		LeapAirborneSnapshotDeadzone:      p.LeapAirborneSnapshotDeadzone,
+		LeapLandingDeadzoneFactor:         p.LeapLandingDeadzoneFactor,
+		LeapLandingDeadzoneMin:            p.LeapLandingDeadzoneMin,
+		LeapLandingDeadzoneMax:            p.LeapLandingDeadzoneMax,
+		LeapLandingClampIgnoreDeadzone:    p.LeapLandingClampIgnoreDeadzone,
+		LeapLandingSoftSnapDeadzone:       p.LeapLandingSoftSnapDeadzone,
+		DodgeRecentDeadzone:               p.DodgeRecentDeadzone,
+		DodgeActiveDeadzone:               p.DodgeActiveDeadzone,
+		DodgeExitDeadzoneFactor:           p.DodgeExitDeadzoneFactor,
+		DodgeExitDeadzoneMin:              p.DodgeExitDeadzoneMin,
+		DodgeExitDeadzoneMax:              p.DodgeExitDeadzoneMax,
+		PostActionGroundedDeadzone:        p.PostActionGroundedDeadzone,
+		CorrectionMaxStep:                 p.CorrectionMaxStep,
+		HardSnapDistance:                  p.HardSnapDistance,
+		SevereDesyncDistance:              p.SevereDesyncDistance,
+		VisualSmoothingMs:                 int32(p.VisualSmoothingMS),
+		VisualSmoothingMaxDistance:        p.VisualSmoothingMaxDistance,
+		RemoteVisualInterpolationMs:       int32(p.RemoteVisualInterpolationMS),
+		RemoteVisualMaxExtrapolationMs:    int32(p.RemoteVisualMaxExtrapolationMS),
+		RemoteVisualHardSnapDistance:      p.RemoteVisualHardSnapDistance,
+		DodgeCarryHandoffMs:               int32(p.DodgeCarryHandoffMS),
+		LeapLandingCorrectionGraceMs:      int32(p.LeapLandingCorrectionGraceMS),
+		LeapGroundedCarryHandoffMs:        int32(p.LeapGroundedCarryHandoffMS),
+		MovementTurnResubmitDotThreshold:  p.MovementTurnResubmitDotThreshold,
+		MovementTurnResubmitMinIntervalMs: int32(p.MovementTurnResubmitMinIntervalMS),
+		MovementSubmitIntervalMs:          int32(p.MovementSubmitIntervalMS),
+		SnapshotPollIntervalMs:            int32(p.SnapshotPollIntervalMS),
+		StrafeSpeedMultiplier:             p.StrafeSpeedMultiplier,
+		BackpedalSpeedMultiplier:          p.BackpedalSpeedMultiplier,
+		StrafeSprintSpeedMultiplier:       p.StrafeSprintSpeedMultiplier,
+		BackpedalSprintSpeedMultiplier:    p.BackpedalSprintSpeedMultiplier,
+		MetadataJson:                      p.MetadataJSON,
 	}
 }
 

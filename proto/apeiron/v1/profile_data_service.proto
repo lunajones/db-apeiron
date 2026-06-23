@@ -12,6 +12,7 @@ service ProfileDataService {
   rpc GetCombatDefenseContract(IdRequest) returns (CombatDefenseContractResponse);
   rpc GetMovementActionContract(IdRequest) returns (MovementActionContractResponse);
   rpc GetMovementReconciliationContract(IdRequest) returns (MovementReconciliationContractResponse);
+  rpc GetRuntimeMovementReconciliationProfile(IdRequest) returns (RuntimeMovementReconciliationProfileResponse);
   rpc GetCreatureBehaviorRuntimeContract(IdRequest) returns (CreatureBehaviorRuntimeContractResponse);
   rpc GetCreatureEvasionPolicies(IdRequest) returns (CreatureEvasionPoliciesResponse);
   rpc GetCreatureSkillSetupPolicies(IdRequest) returns (CreatureSkillSetupPoliciesResponse);
@@ -47,6 +48,12 @@ message MovementActionContractResponse {
 message MovementReconciliationContractResponse {
   bool found = 1;
   MovementReconciliationContract contract = 2;
+  string error = 3;
+}
+
+message RuntimeMovementReconciliationProfileResponse {
+  bool found = 1;
+  RuntimeMovementReconciliationProfile profile = 2;
   string error = 3;
 }
 

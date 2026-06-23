@@ -360,3 +360,29 @@ Observed client-side note:
   cycle chasing creature Z/root-height unless the issue is reproduced again.
 - Keep future creature focus on DB/runtime completeness, skill movement contracts, brain behavior,
   damage/death, and selected skill execution.
+
+## 2026-06-22 - Runtime Movement Reconciliation Profile Recovery
+
+Recovered the rich Unreal-facing movement reconciliation profile as DB authority instead of leaving
+the values embedded in `server-apeiron` recovered runtime fallback.
+
+Implemented:
+
+- `migrations/043_runtime_movement_reconciliation_profile.sql`
+- `bootstrap/020_runtime_movement_reconciliation_profile_seed.sql`
+- `RuntimeMovementReconciliationProfile` proto in `proto/apeiron/v1/common.proto`
+- `ProfileDataService/GetRuntimeMovementReconciliationProfile`
+- repository/cache/handler mapping for `runtime_movement_reconciliation_profile`
+
+Canonical row:
+
+- `player_default_movement_profile`
+
+Decision:
+
+- `movement_reconciliation_contract` remains the per-action ownership/category contract.
+- `runtime_movement_reconciliation_profile` owns the rich snapshot profile consumed by Unreal:
+  movement speed, sprint/strafe/backpedal multipliers, deadzones, dodge/leap handoff tolerances,
+  submit/poll intervals, and visual smoothing.
+- Server strict DB boot must fail if this profile is missing. It must not complete missing profile
+  fields from recovered Go/C++ literals.

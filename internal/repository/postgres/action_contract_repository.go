@@ -25,6 +25,66 @@ type MovementReconciliationContract struct {
 	UpdatedAt              time.Time
 }
 
+type RuntimeMovementReconciliationProfile struct {
+	ProfileID                         string
+	MaxSpeed                          float64
+	SprintSpeedMultiplier             float64
+	Acceleration                      float64
+	Deceleration                      float64
+	GroundFriction                    float64
+	AirAcceleration                   float64
+	JumpHeight                        float64
+	JumpDurationMS                    int
+	RotationRateYaw                   float64
+	GravityScale                      float64
+	BrakingFrictionFactor             float64
+	MaxSlopeDeg                       float64
+	StepHeight                        float64
+	BaseDeadzone                      float64
+	GroundedSpeedDeadzoneFactor       float64
+	GroundedSpeedDeadzoneMin          float64
+	GroundedSpeedDeadzoneMax          float64
+	GroundedTransitionDeadzoneMin     float64
+	MoveSustainDeadzone               float64
+	MoveSustainTransitionDeadzone     float64
+	AirborneDeadzone                  float64
+	LeapRecentDeadzone                float64
+	LeapAirborneSnapshotDeadzone      float64
+	LeapLandingDeadzoneFactor         float64
+	LeapLandingDeadzoneMin            float64
+	LeapLandingDeadzoneMax            float64
+	LeapLandingClampIgnoreDeadzone    float64
+	LeapLandingSoftSnapDeadzone       float64
+	DodgeRecentDeadzone               float64
+	DodgeActiveDeadzone               float64
+	DodgeExitDeadzoneFactor           float64
+	DodgeExitDeadzoneMin              float64
+	DodgeExitDeadzoneMax              float64
+	PostActionGroundedDeadzone        float64
+	CorrectionMaxStep                 float64
+	HardSnapDistance                  float64
+	SevereDesyncDistance              float64
+	VisualSmoothingMS                 int
+	VisualSmoothingMaxDistance        float64
+	RemoteVisualInterpolationMS       int
+	RemoteVisualMaxExtrapolationMS    int
+	RemoteVisualHardSnapDistance      float64
+	DodgeCarryHandoffMS               int
+	LeapLandingCorrectionGraceMS      int
+	LeapGroundedCarryHandoffMS        int
+	MovementTurnResubmitDotThreshold  float64
+	MovementTurnResubmitMinIntervalMS int
+	MovementSubmitIntervalMS          int
+	SnapshotPollIntervalMS            int
+	StrafeSpeedMultiplier             float64
+	BackpedalSpeedMultiplier          float64
+	StrafeSprintSpeedMultiplier       float64
+	BackpedalSprintSpeedMultiplier    float64
+	MetadataJSON                      string
+	CreatedAt                         time.Time
+	UpdatedAt                         time.Time
+}
+
 type MovementActionContract struct {
 	ID                       string
 	ActionType               string
@@ -50,6 +110,131 @@ type MovementActionContract struct {
 	ReconciliationContract   MovementReconciliationContract
 	CreatedAt                time.Time
 	UpdatedAt                time.Time
+}
+
+func getRuntimeMovementReconciliationProfileByID(ctx context.Context, db database.TxManager, id string) (RuntimeMovementReconciliationProfile, error) {
+	var profile RuntimeMovementReconciliationProfile
+	err := db.QueryRow(ctx, `
+		SELECT
+			profile_id,
+			max_speed,
+			sprint_speed_multiplier,
+			acceleration,
+			deceleration,
+			ground_friction,
+			air_acceleration,
+			jump_height,
+			jump_duration_ms,
+			rotation_rate_yaw,
+			gravity_scale,
+			braking_friction_factor,
+			max_slope_deg,
+			step_height,
+			base_deadzone,
+			grounded_speed_deadzone_factor,
+			grounded_speed_deadzone_min,
+			grounded_speed_deadzone_max,
+			grounded_transition_deadzone_min,
+			move_sustain_deadzone,
+			move_sustain_transition_deadzone,
+			airborne_deadzone,
+			leap_recent_deadzone,
+			leap_airborne_snapshot_deadzone,
+			leap_landing_deadzone_factor,
+			leap_landing_deadzone_min,
+			leap_landing_deadzone_max,
+			leap_landing_clamp_ignore_deadzone,
+			leap_landing_soft_snap_deadzone,
+			dodge_recent_deadzone,
+			dodge_active_deadzone,
+			dodge_exit_deadzone_factor,
+			dodge_exit_deadzone_min,
+			dodge_exit_deadzone_max,
+			post_action_grounded_deadzone,
+			correction_max_step,
+			hard_snap_distance,
+			severe_desync_distance,
+			visual_smoothing_ms,
+			visual_smoothing_max_distance,
+			remote_visual_interpolation_ms,
+			remote_visual_max_extrapolation_ms,
+			remote_visual_hard_snap_distance,
+			dodge_carry_handoff_ms,
+			leap_landing_correction_grace_ms,
+			leap_grounded_carry_handoff_ms,
+			movement_turn_resubmit_dot_threshold,
+			movement_turn_resubmit_min_interval_ms,
+			movement_submit_interval_ms,
+			snapshot_poll_interval_ms,
+			strafe_speed_multiplier,
+			backpedal_speed_multiplier,
+			strafe_sprint_speed_multiplier,
+			backpedal_sprint_speed_multiplier,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.runtime_movement_reconciliation_profile
+		WHERE profile_id = $1
+	`, id).Scan(
+		&profile.ProfileID,
+		&profile.MaxSpeed,
+		&profile.SprintSpeedMultiplier,
+		&profile.Acceleration,
+		&profile.Deceleration,
+		&profile.GroundFriction,
+		&profile.AirAcceleration,
+		&profile.JumpHeight,
+		&profile.JumpDurationMS,
+		&profile.RotationRateYaw,
+		&profile.GravityScale,
+		&profile.BrakingFrictionFactor,
+		&profile.MaxSlopeDeg,
+		&profile.StepHeight,
+		&profile.BaseDeadzone,
+		&profile.GroundedSpeedDeadzoneFactor,
+		&profile.GroundedSpeedDeadzoneMin,
+		&profile.GroundedSpeedDeadzoneMax,
+		&profile.GroundedTransitionDeadzoneMin,
+		&profile.MoveSustainDeadzone,
+		&profile.MoveSustainTransitionDeadzone,
+		&profile.AirborneDeadzone,
+		&profile.LeapRecentDeadzone,
+		&profile.LeapAirborneSnapshotDeadzone,
+		&profile.LeapLandingDeadzoneFactor,
+		&profile.LeapLandingDeadzoneMin,
+		&profile.LeapLandingDeadzoneMax,
+		&profile.LeapLandingClampIgnoreDeadzone,
+		&profile.LeapLandingSoftSnapDeadzone,
+		&profile.DodgeRecentDeadzone,
+		&profile.DodgeActiveDeadzone,
+		&profile.DodgeExitDeadzoneFactor,
+		&profile.DodgeExitDeadzoneMin,
+		&profile.DodgeExitDeadzoneMax,
+		&profile.PostActionGroundedDeadzone,
+		&profile.CorrectionMaxStep,
+		&profile.HardSnapDistance,
+		&profile.SevereDesyncDistance,
+		&profile.VisualSmoothingMS,
+		&profile.VisualSmoothingMaxDistance,
+		&profile.RemoteVisualInterpolationMS,
+		&profile.RemoteVisualMaxExtrapolationMS,
+		&profile.RemoteVisualHardSnapDistance,
+		&profile.DodgeCarryHandoffMS,
+		&profile.LeapLandingCorrectionGraceMS,
+		&profile.LeapGroundedCarryHandoffMS,
+		&profile.MovementTurnResubmitDotThreshold,
+		&profile.MovementTurnResubmitMinIntervalMS,
+		&profile.MovementSubmitIntervalMS,
+		&profile.SnapshotPollIntervalMS,
+		&profile.StrafeSpeedMultiplier,
+		&profile.BackpedalSpeedMultiplier,
+		&profile.StrafeSprintSpeedMultiplier,
+		&profile.BackpedalSprintSpeedMultiplier,
+		&profile.MetadataJSON,
+		&profile.CreatedAt,
+		&profile.UpdatedAt,
+	)
+	return profile, err
 }
 
 func getMovementReconciliationContractByID(ctx context.Context, db database.TxManager, id string) (MovementReconciliationContract, error) {
@@ -158,6 +343,10 @@ func getMovementActionContractByID(ctx context.Context, db database.TxManager, i
 		contract.ReconciliationContract = reconciliation
 	}
 	return contract, nil
+}
+
+func (r *ProfileRepository) GetRuntimeMovementReconciliationProfileByID(ctx context.Context, id string) (RuntimeMovementReconciliationProfile, error) {
+	return getRuntimeMovementReconciliationProfileByID(ctx, r.db, id)
 }
 
 func (r *ProfileRepository) GetMovementReconciliationContractByID(ctx context.Context, id string) (MovementReconciliationContract, error) {
