@@ -492,6 +492,17 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 			}
 		}
 	}
+	guardFragments := []string{
+		"RAISE EXCEPTION 'Apeiron bootstrap produced incomplete skill impact control motion contract'",
+		"control_distance_cm <= 0",
+		"control_speed_cm_s <= 0",
+		"COALESCE(control_direction_policy, '') = ''",
+	}
+	for _, fragment := range guardFragments {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("impact control bootstrap completeness guard missing: %s", fragment)
+		}
+	}
 }
 
 func TestBootstrapSeedsUseForwardXAndLateralYForTemporalCreatureHitboxes(t *testing.T) {

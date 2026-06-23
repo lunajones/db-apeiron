@@ -98,3 +98,28 @@ SET
     END,
     control_direction_policy = 'source_forward'
 WHERE skill_id = 'player_shield_rush';
+
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM apeiron.skill_impact_profile
+        WHERE status_effect_id IN (
+            'impact_shield_drive_push',
+            'impact_shield_bash_push',
+            'impact_shield_rush_carry_push'
+        )
+        AND (
+            applies_status_effect IS DISTINCT FROM TRUE
+            OR status_effect_chance <= 0
+            OR COALESCE(control_type, '') = ''
+            OR control_effect_duration_ms <= 0
+            OR COALESCE(control_release_policy_id, '') = ''
+            OR control_distance_cm <= 0
+            OR control_speed_cm_s <= 0
+            OR COALESCE(control_direction_policy, '') = ''
+        )
+    ) THEN
+        RAISE EXCEPTION 'Apeiron bootstrap produced incomplete skill impact control motion contract';
+    END IF;
+END $$;
