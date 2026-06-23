@@ -329,7 +329,7 @@ func mapSkillMovementActionBinding(b postgres.SkillMovementActionBinding) *apeir
 }
 
 func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpactProfile {
-	return &apeironv1.SkillImpactProfile{
+	out := &apeironv1.SkillImpactProfile{
 		SkillId:               p.SkillID,
 		ImpactType:            p.ImpactType,
 		PoiseDamage:           p.PoiseDamage,
@@ -338,4 +338,15 @@ func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpact
 		HitReaction:           p.HitReaction,
 		GuardDamageMultiplier: p.GuardDamageMultiplier,
 	}
+	if p.AppliesStatusEffect && p.StatusEffectID.Valid && p.StatusEffectID.String != "" {
+		out.ControlEffects = append(out.ControlEffects, &apeironv1.SkillControlEffect{
+			Id:              p.SkillID + "_impact_control",
+			Enabled:         true,
+			StatusEffectId:  p.StatusEffectID.String,
+			DurationMs:      int32(p.ControlEffectDurationMS),
+			ControlType:     p.ControlType,
+			ReleasePolicyId: p.ControlReleasePolicyID,
+		})
+	}
+	return out
 }

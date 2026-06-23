@@ -859,6 +859,9 @@ func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID
 			applies_status_effect,
 			status_effect_id,
 			status_effect_chance,
+			control_type,
+			control_effect_duration_ms,
+			control_release_policy_id,
 			created_at,
 			updated_at
 		FROM apeiron.skill_impact_profile
@@ -882,6 +885,9 @@ func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID
 		&i.AppliesStatusEffect,
 		&i.StatusEffectID,
 		&i.StatusEffectChance,
+		&i.ControlType,
+		&i.ControlEffectDurationMS,
+		&i.ControlReleasePolicyID,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -1257,9 +1263,12 @@ type SkillImpactProfile struct {
 	KnockbackUpwardForce float64
 	PullForce            float64
 
-	AppliesStatusEffect bool
-	StatusEffectID      sql.NullString
-	StatusEffectChance  float64
+	AppliesStatusEffect     bool
+	StatusEffectID          sql.NullString
+	StatusEffectChance      float64
+	ControlType             string
+	ControlEffectDurationMS int
+	ControlReleasePolicyID  string
 
 	CreatedAt time.Time
 	UpdatedAt time.Time

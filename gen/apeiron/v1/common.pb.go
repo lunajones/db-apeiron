@@ -1410,6 +1410,7 @@ type SkillImpactProfile struct {
 	InterruptPower        float64                `protobuf:"fixed64,5,opt,name=interrupt_power,json=interruptPower,proto3" json:"interrupt_power,omitempty"`
 	HitReaction           string                 `protobuf:"bytes,6,opt,name=hit_reaction,json=hitReaction,proto3" json:"hit_reaction,omitempty"`
 	GuardDamageMultiplier float64                `protobuf:"fixed64,7,opt,name=guard_damage_multiplier,json=guardDamageMultiplier,proto3" json:"guard_damage_multiplier,omitempty"`
+	ControlEffects        []*SkillControlEffect  `protobuf:"bytes,8,rep,name=control_effects,json=controlEffects,proto3" json:"control_effects,omitempty"`
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
@@ -1491,6 +1492,13 @@ func (x *SkillImpactProfile) GetGuardDamageMultiplier() float64 {
 		return x.GuardDamageMultiplier
 	}
 	return 0
+}
+
+func (x *SkillImpactProfile) GetControlEffects() []*SkillControlEffect {
+	if x != nil {
+		return x.ControlEffects
+	}
+	return nil
 }
 
 type SkillTimingProfile struct {
@@ -5407,7 +5415,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16requires_line_of_sight\x18\x15 \x01(\bR\x13requiresLineOfSight\x12&\n" +
 	"\x0fcan_hit_neutral\x18\x16 \x01(\bR\rcanHitNeutralB\x0e\n" +
 	"\f_target_typeB\x0e\n" +
-	"\f_max_targets\"\x9c\x02\n" +
+	"\f_max_targets\"\xe5\x02\n" +
 	"\x12SkillImpactProfile\x12\x19\n" +
 	"\bskill_id\x18\x01 \x01(\tR\askillId\x12\x1f\n" +
 	"\vimpact_type\x18\x02 \x01(\tR\n" +
@@ -5416,7 +5424,8 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\rstagger_power\x18\x04 \x01(\x01R\fstaggerPower\x12'\n" +
 	"\x0finterrupt_power\x18\x05 \x01(\x01R\x0einterruptPower\x12!\n" +
 	"\fhit_reaction\x18\x06 \x01(\tR\vhitReaction\x126\n" +
-	"\x17guard_damage_multiplier\x18\a \x01(\x01R\x15guardDamageMultiplier\"\xa4\x02\n" +
+	"\x17guard_damage_multiplier\x18\a \x01(\x01R\x15guardDamageMultiplier\x12G\n" +
+	"\x0fcontrol_effects\x18\b \x03(\v2\x1e.apeiron.v1.SkillControlEffectR\x0econtrolEffects\"\xa4\x02\n" +
 	"\x12SkillTimingProfile\x12\x1b\n" +
 	"\twindup_ms\x18\x01 \x01(\x05R\bwindupMs\x12&\n" +
 	"\x0factive_start_ms\x18\x02 \x01(\x05R\ractiveStartMs\x12\"\n" +
@@ -5917,19 +5926,20 @@ var file_apeiron_v1_common_proto_depIdxs = []int32{
 	3,  // 1: apeiron.v1.SkillLoadoutItem.skill:type_name -> apeiron.v1.Skill
 	8,  // 2: apeiron.v1.SkillHitboxMotionProfile.samples:type_name -> apeiron.v1.SkillHitboxMotionSample
 	9,  // 3: apeiron.v1.SkillHitboxProfile.motion_profile:type_name -> apeiron.v1.SkillHitboxMotionProfile
-	13, // 4: apeiron.v1.MovementActionContract.speed_curve:type_name -> apeiron.v1.MovementCurveSample
-	13, // 5: apeiron.v1.MovementActionContract.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
-	14, // 6: apeiron.v1.MovementActionContract.reconciliation_contract:type_name -> apeiron.v1.MovementReconciliationContract
-	16, // 7: apeiron.v1.SkillMovementActionBinding.movement_action_contract:type_name -> apeiron.v1.MovementActionContract
-	22, // 8: apeiron.v1.CreatureBehaviorRuntimeContract.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
-	23, // 9: apeiron.v1.CreatureBehaviorRuntimeContract.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
-	34, // 10: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
-	36, // 11: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	29, // 4: apeiron.v1.SkillImpactProfile.control_effects:type_name -> apeiron.v1.SkillControlEffect
+	13, // 5: apeiron.v1.MovementActionContract.speed_curve:type_name -> apeiron.v1.MovementCurveSample
+	13, // 6: apeiron.v1.MovementActionContract.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
+	14, // 7: apeiron.v1.MovementActionContract.reconciliation_contract:type_name -> apeiron.v1.MovementReconciliationContract
+	16, // 8: apeiron.v1.SkillMovementActionBinding.movement_action_contract:type_name -> apeiron.v1.MovementActionContract
+	22, // 9: apeiron.v1.CreatureBehaviorRuntimeContract.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
+	23, // 10: apeiron.v1.CreatureBehaviorRuntimeContract.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
+	34, // 11: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
+	36, // 12: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_common_proto_init() }

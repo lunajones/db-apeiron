@@ -167,6 +167,7 @@ message SkillImpactProfile {
   double interrupt_power = 5;
   string hit_reaction = 6;
   double guard_damage_multiplier = 7;
+  repeated SkillControlEffect control_effects = 8;
 }
 
 message SkillTimingProfile {

@@ -1,0 +1,82 @@
+-- =========================================================
+-- SKILL IMPACT CONTROL EFFECT SEED
+-- =========================================================
+--
+-- Control effects are gameplay contracts consumed by the combat impact
+-- pipeline. They are intentionally separate from movement_action_contract:
+-- movement contracts own root/position, impact control owns what happens to
+-- the target when a damaging contact lands.
+
+INSERT INTO apeiron.status_effect (
+    id,
+    name,
+    description,
+    effect_type,
+    stacking_mode,
+    max_stacks,
+    duration_ms,
+    tick_interval_ms,
+    is_dispellable,
+    is_pvp_enabled,
+    movement_modifier,
+    damage_dealt_modifier,
+    damage_taken_modifier,
+    healing_received_modifier,
+    stamina_regen_modifier,
+    blocks_movement,
+    blocks_actions,
+    blocks_skills
+)
+VALUES
+('impact_shield_drive_push','Shield Drive Push','Short shield-drive contact displacement/control.', 'crowd_control','refresh',1,180,0,FALSE,TRUE,1,1,1,1,1,TRUE,FALSE,FALSE),
+('impact_shield_bash_push','Shield Bash Push','Bulwark frontal shield bash push/control.', 'crowd_control','refresh',1,220,0,FALSE,TRUE,1,1,1,1,1,TRUE,FALSE,FALSE),
+('impact_shield_rush_carry_push','Shield Rush Carry Push','Committed rush contact carry and push control.', 'crowd_control','refresh',1,430,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE)
+ON CONFLICT (id) DO UPDATE SET
+    name = EXCLUDED.name,
+    description = EXCLUDED.description,
+    effect_type = EXCLUDED.effect_type,
+    stacking_mode = EXCLUDED.stacking_mode,
+    max_stacks = EXCLUDED.max_stacks,
+    duration_ms = EXCLUDED.duration_ms,
+    tick_interval_ms = EXCLUDED.tick_interval_ms,
+    is_dispellable = EXCLUDED.is_dispellable,
+    is_pvp_enabled = EXCLUDED.is_pvp_enabled,
+    movement_modifier = EXCLUDED.movement_modifier,
+    damage_dealt_modifier = EXCLUDED.damage_dealt_modifier,
+    damage_taken_modifier = EXCLUDED.damage_taken_modifier,
+    healing_received_modifier = EXCLUDED.healing_received_modifier,
+    stamina_regen_modifier = EXCLUDED.stamina_regen_modifier,
+    blocks_movement = EXCLUDED.blocks_movement,
+    blocks_actions = EXCLUDED.blocks_actions,
+    blocks_skills = EXCLUDED.blocks_skills,
+    updated_at = NOW();
+
+UPDATE apeiron.skill_impact_profile
+SET
+    applies_status_effect = TRUE,
+    status_effect_id = 'impact_shield_drive_push',
+    status_effect_chance = 1.0,
+    control_type = 'push',
+    control_effect_duration_ms = 180,
+    control_release_policy_id = 'carry_contact_forward_release'
+WHERE skill_id = 'player_basic_attack_3';
+
+UPDATE apeiron.skill_impact_profile
+SET
+    applies_status_effect = TRUE,
+    status_effect_id = 'impact_shield_bash_push',
+    status_effect_chance = 1.0,
+    control_type = 'push',
+    control_effect_duration_ms = 220,
+    control_release_policy_id = 'multi_target_push_forward_release'
+WHERE skill_id = 'player_shield_bash';
+
+UPDATE apeiron.skill_impact_profile
+SET
+    applies_status_effect = TRUE,
+    status_effect_id = 'impact_shield_rush_carry_push',
+    status_effect_chance = 1.0,
+    control_type = 'carry_push',
+    control_effect_duration_ms = 430,
+    control_release_policy_id = 'multi_target_carry_push_forward_release'
+WHERE skill_id = 'player_shield_rush';

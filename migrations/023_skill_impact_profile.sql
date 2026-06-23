@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_impact_profile (
     applies_status_effect BOOLEAN NOT NULL DEFAULT FALSE,
     status_effect_id TEXT,
     status_effect_chance FLOAT NOT NULL DEFAULT 0.0,
+    control_type TEXT NOT NULL DEFAULT '',
+    control_effect_duration_ms INT NOT NULL DEFAULT 0,
+    control_release_policy_id TEXT NOT NULL DEFAULT '',
 
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -73,7 +76,10 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_impact_profile (
         CHECK (status_effect_chance >= 0.0 AND status_effect_chance <= 1.0),
 
     CONSTRAINT chk_skill_hitstop
-        CHECK (hitstop_ms >= 0)
+        CHECK (hitstop_ms >= 0),
+
+    CONSTRAINT chk_skill_impact_control_duration
+        CHECK (control_effect_duration_ms >= 0)
 );
 
 CREATE INDEX IF NOT EXISTS idx_skill_impact_type
@@ -84,3 +90,6 @@ ON apeiron.skill_impact_profile(hit_reaction);
 
 CREATE INDEX IF NOT EXISTS idx_skill_impact_status
 ON apeiron.skill_impact_profile(status_effect_id);
+
+CREATE INDEX IF NOT EXISTS idx_skill_impact_control_type
+ON apeiron.skill_impact_profile(control_type);
