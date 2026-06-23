@@ -56,4 +56,5 @@ message CreatureTemplate {
   string sensory_profile_id = 13;
   string skill_set_id = 14;
   string behavior_contract_id = 15;
+  string impact_response_profile = 16;
 }

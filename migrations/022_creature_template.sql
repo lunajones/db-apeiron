@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS apeiron.creature_template (
     -- =========================
 
     skill_set_id TEXT NOT NULL,
+    impact_response_profile TEXT NOT NULL DEFAULT 'creature_flesh_blood_red',
     -- Conjunto de skills reutilizável:
     -- lista de habilidades + pesos + prioridades
 
@@ -150,6 +151,9 @@ ON apeiron.creature_template(needs_profile_id);
 
 CREATE INDEX IF NOT EXISTS idx_creature_template_skill_set
 ON apeiron.creature_template(skill_set_id);
+
+CREATE INDEX IF NOT EXISTS idx_creature_template_impact_response_profile
+ON apeiron.creature_template(impact_response_profile);
 
 CREATE INDEX IF NOT EXISTS idx_creature_template_spawn_profile
 ON apeiron.creature_template(spawn_profile_id);

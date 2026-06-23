@@ -38,6 +38,10 @@ type SkillDataServiceClient interface {
 	GetSkillSet(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetResponse, error)
 	GetSkillSetLoadout(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillSetLoadoutResponse, error)
 	GetWeaponCombatModeSlots(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*WeaponCombatModeSlotsResponse, error)
+	// Legacy compatibility endpoint for recovered clients/tools.
+	// Normal Apeiron runtime must use GetSkillMovementActionBinding plus
+	// ProfileDataService.GetMovementActionContract as the skill-movement
+	// authority. This endpoint must not be used to tune or resolve root motion.
 	GetSkillMovementEffect(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementEffectResponse, error)
 	GetSkillActionTiming(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillActionTimingResponse, error)
 	GetSkillMovementActionBinding(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillMovementActionBindingResponse, error)
@@ -151,6 +155,10 @@ type SkillDataServiceServer interface {
 	GetSkillSet(context.Context, *IdRequest) (*SkillSetResponse, error)
 	GetSkillSetLoadout(context.Context, *IdRequest) (*SkillSetLoadoutResponse, error)
 	GetWeaponCombatModeSlots(context.Context, *IdRequest) (*WeaponCombatModeSlotsResponse, error)
+	// Legacy compatibility endpoint for recovered clients/tools.
+	// Normal Apeiron runtime must use GetSkillMovementActionBinding plus
+	// ProfileDataService.GetMovementActionContract as the skill-movement
+	// authority. This endpoint must not be used to tune or resolve root motion.
 	GetSkillMovementEffect(context.Context, *IdRequest) (*SkillMovementEffectResponse, error)
 	GetSkillActionTiming(context.Context, *IdRequest) (*SkillActionTimingResponse, error)
 	GetSkillMovementActionBinding(context.Context, *IdRequest) (*SkillMovementActionBindingResponse, error)

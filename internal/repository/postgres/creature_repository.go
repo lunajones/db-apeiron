@@ -34,6 +34,7 @@ func (r *CreatureRepository) GetTemplateByID(ctx context.Context, id string) (Cr
 			sensory_profile_id,
 			needs_profile_id,
 			skill_set_id,
+			impact_response_profile,
 			spawn_profile_id,
 			created_at,
 			updated_at
@@ -53,6 +54,7 @@ func (r *CreatureRepository) GetTemplateByID(ctx context.Context, id string) (Cr
 		&t.SensoryProfileID,
 		&t.NeedsProfileID,
 		&t.SkillSetID,
+		&t.ImpactResponseProfile,
 		&t.SpawnProfileID,
 		&t.CreatedAt,
 		&t.UpdatedAt,
@@ -477,22 +479,23 @@ func (r *CreatureRepository) UpsertSkillState(ctx context.Context, s *CreatureSk
 }
 
 type CreatureTemplate struct {
-	ID                   string
-	Name                 string
-	Faction              string
-	Tier                 int
-	Archetype            string
-	MovementProfileID    string
-	CombatCoreProfileID  string
-	CombatStyleProfileID string
-	AIDecisionProfileID  string
-	PersonalityProfileID string
-	SensoryProfileID     string
-	NeedsProfileID       string
-	SkillSetID           string
-	SpawnProfileID       string
-	CreatedAt            time.Time
-	UpdatedAt            time.Time
+	ID                    string
+	Name                  string
+	Faction               string
+	Tier                  int
+	Archetype             string
+	MovementProfileID     string
+	CombatCoreProfileID   string
+	CombatStyleProfileID  string
+	AIDecisionProfileID   string
+	PersonalityProfileID  string
+	SensoryProfileID      string
+	NeedsProfileID        string
+	SkillSetID            string
+	ImpactResponseProfile string
+	SpawnProfileID        string
+	CreatedAt             time.Time
+	UpdatedAt             time.Time
 }
 
 type CreatureInstance struct {

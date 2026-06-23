@@ -19,6 +19,7 @@ INSERT INTO apeiron.creature_template (
     sensory_profile_id,
     needs_profile_id,
     skill_set_id,
+    impact_response_profile,
     spawn_profile_id
 )
 VALUES (
@@ -36,6 +37,7 @@ VALUES (
     'sensory_steppe_wolf',
     'needs_steppe_wolf',
     'skillset_steppe_wolf',
+    'creature_flesh_blood_red',
     'spawn_steppe_wolf'
 )
 ON CONFLICT (id) DO UPDATE SET
@@ -52,6 +54,7 @@ ON CONFLICT (id) DO UPDATE SET
     sensory_profile_id = EXCLUDED.sensory_profile_id,
     needs_profile_id = EXCLUDED.needs_profile_id,
     skill_set_id = EXCLUDED.skill_set_id,
+    impact_response_profile = EXCLUDED.impact_response_profile,
     spawn_profile_id = EXCLUDED.spawn_profile_id,
 
     updated_at = NOW();
