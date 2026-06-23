@@ -483,14 +483,14 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 
 	for _, requirement := range required {
 		fragments := []string{
-			"WHERE skill_id = '" + requirement.skillID + "'",
-			"status_effect_id = '" + requirement.statusID + "'",
-			"control_type = '" + requirement.controlType + "'",
-			"control_effect_duration_ms = " + requirement.durationMS,
-			"control_release_policy_id = '" + requirement.releasePolicy + "'",
-			"control_distance_cm = COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = '" + requirement.skillID + "'), 0.0)",
+			"'" + requirement.skillID + "'",
+			"'" + requirement.statusID + "'",
+			"'" + requirement.controlType + "'",
+			requirement.durationMS,
+			"'" + requirement.releasePolicy + "'",
+			"COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = '" + requirement.skillID + "'), 0.0)",
 			"COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = '" + requirement.skillID + "'), 0.0) / (" + requirement.durationMS + ".0 / 1000.0)",
-			"control_direction_policy = 'source_forward'",
+			"'source_forward'",
 		}
 		for _, fragment := range fragments {
 			if !strings.Contains(sql, fragment) {
@@ -499,10 +499,14 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 		}
 	}
 	guardFragments := []string{
+		"INSERT INTO apeiron.skill_impact_profile",
+		"ON CONFLICT (skill_id) DO UPDATE SET",
 		"RAISE EXCEPTION 'Apeiron bootstrap produced incomplete skill impact control motion contract'",
-		"control_distance_cm <= 0",
-		"control_speed_cm_s <= 0",
-		"COALESCE(control_direction_policy, '') = ''",
+		") <> 3 THEN",
+		"control_distance_cm > 0",
+		"control_speed_cm_s > 0",
+		"COALESCE(control_direction_policy, '') <> ''",
+		"RAISE EXCEPTION 'Apeiron bootstrap produced mismatched skill impact control contract'",
 	}
 	for _, fragment := range guardFragments {
 		if !strings.Contains(sql, fragment) {
