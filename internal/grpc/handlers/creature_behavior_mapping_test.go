@@ -96,6 +96,58 @@ func TestMapCreatureOrbitPolicyPreservesAntiThrashFields(t *testing.T) {
 	}
 }
 
+func TestMapCreatureEvasionPolicyPreservesDodgeBudgetFields(t *testing.T) {
+	out := mapCreatureEvasionPolicy(postgres.CreatureEvasionPolicy{
+		ID:                      "evasion_wolf_pressure_v1",
+		BehaviorContractID:      "contract_wolf_pack_harasser_v1",
+		DodgeSkillID:            "wolf_dodge",
+		MaxChainCount:           4,
+		StaminaCostMultiplier:   0.5,
+		RetreatChanceMultiplier: 0.7,
+		LateralBias:             0.8,
+		BackstepBias:            0.2,
+		PressureThreshold:       0.62,
+		CooldownMS:              260,
+	})
+
+	if out.GetDodgeSkillId() != "wolf_dodge" {
+		t.Fatalf("dodge skill id = %q", out.GetDodgeSkillId())
+	}
+	if out.GetMaxChainCount() != 4 || out.GetCooldownMs() != 260 {
+		t.Fatalf("dodge budget = chain %d cooldown %d", out.GetMaxChainCount(), out.GetCooldownMs())
+	}
+	if out.GetStaminaCostMultiplier() != 0.5 || out.GetLateralBias() != 0.8 {
+		t.Fatalf("evasion tuning lost: stamina=%.2f lateral=%.2f", out.GetStaminaCostMultiplier(), out.GetLateralBias())
+	}
+}
+
+func TestMapCreatureSkillSetupPolicyPreservesMovingWindupFields(t *testing.T) {
+	out := mapCreatureSkillSetupPolicy(postgres.CreatureSkillSetupPolicy{
+		ID:                  "setup_wolf_lunge_orbit_windup_v1",
+		BehaviorContractID:  "contract_wolf_pack_harasser_v1",
+		SkillID:             "lunge",
+		SetupType:           "moving_windup",
+		MinSetupMS:          2600,
+		MaxSetupMS:          3600,
+		CommitDistanceCM:    620,
+		PreferredMinRangeCM: 180,
+		PreferredMaxRangeCM: 700,
+		MovementTactic:      "circle",
+		LockSideDuringSetup: true,
+		IsEnabled:           true,
+	})
+
+	if out.GetSkillId() != "lunge" || out.GetSetupType() != "moving_windup" {
+		t.Fatalf("setup identity lost: %#v", out)
+	}
+	if out.GetMinSetupMs() != 2600 || out.GetMaxSetupMs() != 3600 {
+		t.Fatalf("setup window = %d..%d", out.GetMinSetupMs(), out.GetMaxSetupMs())
+	}
+	if out.GetMovementTactic() != "circle" || !out.GetLockSideDuringSetup() || !out.GetIsEnabled() {
+		t.Fatalf("setup movement flags lost: tactic=%q lock=%v enabled=%v", out.GetMovementTactic(), out.GetLockSideDuringSetup(), out.GetIsEnabled())
+	}
+}
+
 func TestMapCreatureSkillBehaviorBindingPreservesDecisionBinding(t *testing.T) {
 	out := mapCreatureSkillBehaviorBinding(postgres.CreatureSkillBehaviorBinding{
 		ID:                  "wolf_lunge_circle_reposition_v1",
