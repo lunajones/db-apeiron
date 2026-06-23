@@ -210,6 +210,10 @@ func TestBootstrapSeedsCoverWolfBehaviorOpportunityRuntime(t *testing.T) {
 		"'wolf_dodge_pressure_evasion_v1'",
 		"'observe_only'",
 		`"candidate_skills_diagnostics":true`,
+		`"repeatSkillPenaltyMultiplier":0.65`,
+		`"dodgeCostMultiplier":0.50`,
+		`"regenPerSecond":12`,
+		`"zeroStaminaLockoutUntilFull":true`,
 	}
 	for _, fragment := range required {
 		if !strings.Contains(sql, fragment) {
