@@ -334,12 +334,14 @@ func TestBootstrapSeedsPreservePlayerShieldKitMotionGeometry(t *testing.T) {
 		"('basic_attack_1_forward_cut_v1','grounded_skill','Basic attack 1 short shield jab: one player cylinder forward.',350,140,120,84,240",
 		"('basic_attack_2_cross_cut_v1','grounded_skill','Basic attack 2 short left-to-right shield sweep.',370,150,120,42,114",
 		"('basic_attack_3_shield_drive_v1','grounded_skill','Basic attack 3 committed overhead shield punch with contact carry and interrupt.',620,260,180,252,406.4",
-		"('motion_player_basic_attack_1_forward_v1',0,0.00,'box_strip',0,0,90,42,84,150,42,42",
-		"('motion_player_basic_attack_1_forward_v1',2,1.00,'box_strip',0,0,90,84,84,150,42,84",
+		"('motion_player_basic_attack_1_forward_v1',0,0.00,'box_strip',0,0,90,28,52,150,26,28",
+		"('motion_player_basic_attack_1_forward_v1',2,1.00,'box_strip',0,0,90,64,52,150,26,64",
 		"('motion_player_basic_attack_2_right_to_left_v1',0,0.00,'arc_slice',70,-35,95,0,0,150,50,125,15,45",
 		"('motion_player_basic_attack_2_right_to_left_v1',2,1.00,'arc_slice',70,35,95,0,0,150,50,125,-45,-15",
+		"('motion_player_basic_attack_3_shield_drive_v1',0,0.00,'capsule_strip',0,0,95,84,0,155,42,42",
+		"('motion_player_basic_attack_3_shield_drive_v1',1,0.55,'capsule_strip',0,0,95,84,0,155,42,140",
 		"('motion_player_basic_attack_3_shield_drive_v1',2,1.00,'capsule_strip',0,0,95,84,0,155,42,252",
-		"('hitbox_player_basic_attack_1_0','player_basic_attack_1',0,'temporal_sweep',90,230,0,0,90,84,84,150,42,84",
+		"('hitbox_player_basic_attack_1_0','player_basic_attack_1',0,'temporal_sweep',90,230,0,0,90,64,52,150,26,64",
 		"('hitbox_player_basic_attack_3_0','player_basic_attack_3',0,'temporal_sweep',180,440,0,0,95,84,0,155,42,252",
 	}
 	for _, fragment := range required {
@@ -461,7 +463,8 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 		"1100,720,260,960,1148",
 		"('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260",
 		`"front_contact_offset_cm":8`,
-		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',8,0,100,224,0,160,112,96",
+		`"front_contact_depth_cm":54`,
+		"('motion_player_shield_rush_front_contact_v1',0,0.00,'box_strip',8,0,100,34,224,160,112,34",
 		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
 		"'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact'",
 	}
