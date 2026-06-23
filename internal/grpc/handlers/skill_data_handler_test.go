@@ -9,13 +9,15 @@ import (
 
 func TestMapSkillHitboxProfileIncludesTemporalMotionProfile(t *testing.T) {
 	profile := postgres.SkillHitboxProfile{
-		ID:            "hitbox_bite_0",
-		SkillID:       "bite",
-		HitboxIndex:   0,
-		HitboxShape:   "temporal_sweep",
-		HitboxStartMS: 120,
-		HitboxEndMS:   340,
-		DamageGroupID: sql.NullString{String: "wolf_bite_damage", Valid: true},
+		ID:               "hitbox_bite_0",
+		SkillID:          "bite",
+		HitboxIndex:      0,
+		HitboxShape:      "temporal_sweep",
+		HitboxStartMS:    120,
+		HitboxEndMS:      340,
+		MaxHitsPerTarget: 1,
+		MaxTargets:       4,
+		DamageGroupID:    sql.NullString{String: "wolf_bite_damage", Valid: true},
 		MotionProfile: &postgres.SkillHitboxMotionProfile{
 			ID:            "motion_wolf_bite_melee_v1",
 			Enabled:       true,
@@ -46,6 +48,9 @@ func TestMapSkillHitboxProfileIncludesTemporalMotionProfile(t *testing.T) {
 	}
 	if got := len(out.GetMotionProfile().GetSamples()); got != 2 {
 		t.Fatalf("samples = %d", got)
+	}
+	if out.GetMaxTargets() != 4 {
+		t.Fatalf("hitbox max targets = %d, want skill-level target limit", out.GetMaxTargets())
 	}
 }
 

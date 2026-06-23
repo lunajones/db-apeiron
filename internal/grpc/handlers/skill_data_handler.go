@@ -194,7 +194,10 @@ func mapSkillSlot(s postgres.SkillSlot) *apeironv1.SkillSlot {
 }
 
 func mapSkillHitboxProfile(p postgres.SkillHitboxProfile) *apeironv1.SkillHitboxProfile {
-	maxTargets := int32(p.MaxHitsPerTarget)
+	maxTargets := int32(p.MaxTargets)
+	if maxTargets <= 0 {
+		maxTargets = 1
+	}
 	targetType := ""
 	out := &apeironv1.SkillHitboxProfile{
 		Id:                  p.ID,

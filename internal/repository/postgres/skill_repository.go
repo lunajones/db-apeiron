@@ -506,34 +506,36 @@ func (r *SkillRepository) GetProjectileProfileBySkillID(ctx context.Context, ski
 func (r *SkillRepository) GetHitboxProfilesBySkillID(ctx context.Context, skillID string) ([]SkillHitboxProfile, error) {
 	rows, err := r.db.Query(ctx, `
 		SELECT
-			id,
-			skill_id,
-			hitbox_index,
-			hitbox_shape,
-			hitbox_start_ms,
-			hitbox_end_ms,
-			offset_x,
-			offset_y,
-			offset_z,
-			size_x,
-			size_y,
-			size_z,
-			radius,
-			length,
-			angle,
-			follows_caster,
-			follows_projectile,
-			can_multi_hit,
-			max_hits_per_target,
-			hit_interval_ms,
-			friendly_fire,
-			motion_profile_id,
-			damage_group_id,
-			created_at,
-			updated_at
-		FROM apeiron.skill_hitbox_profile
-		WHERE skill_id = $1
-		ORDER BY hitbox_index ASC
+			h.id,
+			h.skill_id,
+			h.hitbox_index,
+			h.hitbox_shape,
+			h.hitbox_start_ms,
+			h.hitbox_end_ms,
+			h.offset_x,
+			h.offset_y,
+			h.offset_z,
+			h.size_x,
+			h.size_y,
+			h.size_z,
+			h.radius,
+			h.length,
+			h.angle,
+			h.follows_caster,
+			h.follows_projectile,
+			h.can_multi_hit,
+			h.max_hits_per_target,
+			h.hit_interval_ms,
+			COALESCE(s.max_targets, 1),
+			h.friendly_fire,
+			h.motion_profile_id,
+			h.damage_group_id,
+			h.created_at,
+			h.updated_at
+		FROM apeiron.skill_hitbox_profile h
+		LEFT JOIN apeiron.skill s ON s.id = h.skill_id
+		WHERE h.skill_id = $1
+		ORDER BY h.hitbox_index ASC
 	`, skillID)
 	if err != nil {
 		return nil, err
@@ -566,6 +568,7 @@ func (r *SkillRepository) GetHitboxProfilesBySkillID(ctx context.Context, skillI
 			&h.CanMultiHit,
 			&h.MaxHitsPerTarget,
 			&h.HitIntervalMS,
+			&h.MaxTargets,
 			&h.FriendlyFire,
 			&h.MotionProfileID,
 			&h.DamageGroupID,
@@ -1107,6 +1110,7 @@ type SkillHitboxProfile struct {
 	CanMultiHit      bool
 	MaxHitsPerTarget int
 	HitIntervalMS    int
+	MaxTargets       int
 
 	FriendlyFire bool
 
