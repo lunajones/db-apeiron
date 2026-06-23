@@ -12,7 +12,7 @@ func TestMapCreatureBehaviorRuntimeContractPreservesPolicyLinks(t *testing.T) {
 		CreatureTemplateID:        "steppe_wolf",
 		TargetOpportunityPolicyID: "opportunity_wolf_harasser_v1",
 		OrbitPolicyID:             "orbit_wolf_harasser_combat_walk_v1",
-		AggressionCurveJSON:       `{"state":"recovered"}`,
+		AggressionCurveJSON:       `{"state":"mapped"}`,
 		RangePolicyJSON:           `{"desiredRangeCm":420}`,
 		OrbitPolicyJSON:           `{"side":"stable"}`,
 		PressurePolicyJSON:        `{"maulCounter":true}`,

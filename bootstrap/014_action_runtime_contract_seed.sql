@@ -8,12 +8,12 @@ INSERT INTO apeiron.movement_reconciliation_contract (
     allows_client_prediction, input_policy, handoff_policy, metadata
 )
 VALUES
-('grounded_move_reconciliation','grounded_move','Normal grounded walk/run/strafe reconciliation.',35,180,90,8,FALSE,FALSE,TRUE,'normal','continuous','{"source":"reconstructed"}'),
-('grounded_skill_action_reconciliation','grounded_skill_action','Committed grounded skill movement reconciliation with explicit post-action handoff.',25,140,70,10,TRUE,TRUE,TRUE,'blocked_during_owned_root','explicit','{"source":"reconstructed"}'),
-('dodge_reconciliation','dodge','Dodge owns position and iframe window until movement end.',22,130,60,14,TRUE,TRUE,TRUE,'blocked_during_owned_root','explicit','{"source":"reconstructed"}'),
-('leap_reconciliation','leap','Leap owns vertical and horizontal movement until grounded handoff.',30,170,70,12,TRUE,TRUE,TRUE,'blocked_during_airborne','grounded_handoff','{"source":"reconstructed"}'),
-('turn_reconciliation','turn','Rate-limited contextual turn reconciliation.',18,90,45,4,FALSE,TRUE,TRUE,'turn_only','continuous','{"source":"reconstructed"}'),
-('post_action_handoff_reconciliation','post_action_handoff','Recovery phase contract that prevents normal locomotion from racing skill recovery.',20,110,55,8,TRUE,FALSE,TRUE,'buffer_until_handoff','explicit','{"source":"reconstructed"}')
+('grounded_move_reconciliation','grounded_move','Normal grounded walk/run/strafe reconciliation.',35,180,90,8,FALSE,FALSE,TRUE,'normal','continuous','{"source":"canonical_bootstrap"}'),
+('grounded_skill_action_reconciliation','grounded_skill_action','Committed grounded skill movement reconciliation with explicit post-action handoff.',25,140,70,10,TRUE,TRUE,TRUE,'blocked_during_owned_root','explicit','{"source":"canonical_bootstrap"}'),
+('dodge_reconciliation','dodge','Dodge owns position and iframe window until movement end.',22,130,60,14,TRUE,TRUE,TRUE,'blocked_during_owned_root','explicit','{"source":"canonical_bootstrap"}'),
+('leap_reconciliation','leap','Leap owns vertical and horizontal movement until grounded handoff.',30,170,70,12,TRUE,TRUE,TRUE,'blocked_during_airborne','grounded_handoff','{"source":"canonical_bootstrap"}'),
+('turn_reconciliation','turn','Rate-limited contextual turn reconciliation.',18,90,45,4,FALSE,TRUE,TRUE,'turn_only','continuous','{"source":"canonical_bootstrap"}'),
+('post_action_handoff_reconciliation','post_action_handoff','Recovery phase contract that prevents normal locomotion from racing skill recovery.',20,110,55,8,TRUE,FALSE,TRUE,'buffer_until_handoff','explicit','{"source":"canonical_bootstrap"}')
 ON CONFLICT (id) DO UPDATE SET
     category = EXCLUDED.category,
     description = EXCLUDED.description,
@@ -37,17 +37,17 @@ INSERT INTO apeiron.movement_action_contract (
     allow_yaw_adjustment, root_motion_owner, contact_policy, speed_curve, vertical_curve, metadata
 )
 VALUES
-('grounded_move_v1','move','Normal grounded walk/run/strafe authoritative command.',180,120,60,0,470,0,'grounded_move','bounded_smooth_correction','grounded_move_reconciliation',TRUE,TRUE,TRUE,TRUE,'movement','none','[]','[]','{"source":"reconstructed","ability_key":"move"}'),
-('turn_v1_rate_limited_contextual','turn','Rate-limited contextual yaw update.',180,120,60,0,0,720,'turn','bounded_smooth_correction','turn_reconciliation',TRUE,TRUE,TRUE,TRUE,'movement','none','[]','[]','{"source":"reconstructed","ability_key":"turn","yaw_rate_deg_per_sec":720}'),
-('dodge_v1_full_iframe','dodge','Player dodge owns position and iframe until movement handoff.',320,260,60,260,812.5,0,'dodge','bounded_smooth_correction','dodge_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','iframe','[{"t":0,"v":0.35},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[{"t":0,"z":0},{"t":0.4,"z":18},{"t":1,"z":0}]','{"source":"reconstructed","ability_key":"dodge"}'),
-('jump_v1_authoritative_grounded_handoff','leap','Player leap/jump owns airborne movement until grounded handoff.',620,560,60,280,452,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','grounded_handoff','[{"t":0,"v":0.25},{"t":0.35,"v":0.85},{"t":1,"v":0.35}]','[{"t":0,"z":0},{"t":0.5,"z":180},{"t":1,"z":0}]','{"source":"reconstructed","ability_key":"jump","airborne_duration_ms":560,"jump_z_velocity":620,"gravity_scale":1,"expected_apex_ms":310,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":true,"air_control_modifier":0.35}'),
-('basic_attack_1_forward_cut_v1','grounded_skill','Basic attack 1 micro-commit forward cut.',350,140,120,55,190,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','none','[{"t":0,"v":0.35},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[]','{"source":"reconstructed"}'),
-('basic_attack_2_cross_cut_v1','grounded_skill','Basic attack 2 short lateral sword cut.',370,150,120,35,140,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','none','[{"t":0,"v":0.25},{"t":0.5,"v":0.8},{"t":1,"v":0.15}]','[]','{"source":"reconstructed"}'),
-('basic_attack_3_shield_drive_v1','grounded_skill','Basic attack 3 short shield drive with contact carry.',620,260,180,200,330,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','carry_contact','[{"t":0,"v":0.2},{"t":0.25,"v":0.75},{"t":0.65,"v":1.0},{"t":1,"v":0.25}]','[]','{"source":"reconstructed"}'),
-('shield_bash_front_push_v1','grounded_skill','Shield Bash frontal push action.',520,220,180,130,280,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_push','[{"t":0,"v":0.2},{"t":0.4,"v":1.0},{"t":1,"v":0.15}]','[]','{"source":"reconstructed"}'),
-('shield_rush_front_contact_v1','grounded_skill','Shield Rush committed rush with damage beginning half-cylinder in front.',830,430,240,470,620,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_carry_push','[{"t":0,"v":0.1},{"t":0.2,"v":0.85},{"t":0.75,"v":1.0},{"t":1,"v":0.25}]','[]','{"front_contact_offset_cm":45,"source":"reconstructed","restored_distance":"shield rush recovered as longer committed run"}'),
-('wolf_dodge_lateral_leap_v1','dodge','Wolf low fast lateral/back diagonal dodge with full iframe.',520,420,100,210,520,0,'dodge','bounded_smooth_correction','dodge_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','iframe','[{"t":0,"v":0.4},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[{"t":0,"z":0},{"t":0.4,"z":28},{"t":1,"z":0}]','{"source":"reconstructed"}'),
-('low_fast_lunge_v1','leap','Wolf low fast lunge; crosses target without losing air speed unless hard-controlled, then keeps grounded landing inertia.',980,430,260,918,940,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','airborne_passthrough','[{"t":0,"v":0.35},{"t":0.16,"v":1.0},{"t":0.68,"v":0.92},{"t":1,"v":0.38}]','[{"t":0,"z":0},{"t":0.34,"z":120},{"t":1,"z":0}]','{"post_landing_inertia_multiplier":1.1,"source":"reconstructed","canonical_id":"low_fast_lunge_v1","airborne_duration_ms":430,"jump_z_velocity":700,"gravity_scale":1,"expected_apex_ms":350,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":false,"air_control_modifier":0}')
+('grounded_move_v1','move','Normal grounded walk/run/strafe authoritative command.',180,120,60,0,470,0,'grounded_move','bounded_smooth_correction','grounded_move_reconciliation',TRUE,TRUE,TRUE,TRUE,'movement','none','[]','[]','{"source":"canonical_bootstrap","ability_key":"move"}'),
+('turn_v1_rate_limited_contextual','turn','Rate-limited contextual yaw update.',180,120,60,0,0,720,'turn','bounded_smooth_correction','turn_reconciliation',TRUE,TRUE,TRUE,TRUE,'movement','none','[]','[]','{"source":"canonical_bootstrap","ability_key":"turn","yaw_rate_deg_per_sec":720}'),
+('dodge_v1_full_iframe','dodge','Player dodge owns position and iframe until movement handoff.',320,260,60,260,812.5,0,'dodge','bounded_smooth_correction','dodge_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','iframe','[{"t":0,"v":0.35},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[{"t":0,"z":0},{"t":0.4,"z":18},{"t":1,"z":0}]','{"source":"canonical_bootstrap","ability_key":"dodge"}'),
+('jump_v1_authoritative_grounded_handoff','leap','Player leap/jump owns airborne movement until grounded handoff.',620,560,60,280,452,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','grounded_handoff','[{"t":0,"v":0.25},{"t":0.35,"v":0.85},{"t":1,"v":0.35}]','[{"t":0,"z":0},{"t":0.5,"z":180},{"t":1,"z":0}]','{"source":"canonical_bootstrap","ability_key":"jump","airborne_duration_ms":560,"jump_z_velocity":620,"gravity_scale":1,"expected_apex_ms":310,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":true,"air_control_modifier":0.35}'),
+('basic_attack_1_forward_cut_v1','grounded_skill','Basic attack 1 micro-commit forward cut.',350,140,120,55,190,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','none','[{"t":0,"v":0.35},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[]','{"source":"canonical_bootstrap"}'),
+('basic_attack_2_cross_cut_v1','grounded_skill','Basic attack 2 short lateral sword cut.',370,150,120,35,140,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','none','[{"t":0,"v":0.25},{"t":0.5,"v":0.8},{"t":1,"v":0.15}]','[]','{"source":"canonical_bootstrap"}'),
+('basic_attack_3_shield_drive_v1','grounded_skill','Basic attack 3 short shield drive with contact carry.',620,260,180,200,330,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','carry_contact','[{"t":0,"v":0.2},{"t":0.25,"v":0.75},{"t":0.65,"v":1.0},{"t":1,"v":0.25}]','[]','{"source":"canonical_bootstrap"}'),
+('shield_bash_front_push_v1','grounded_skill','Shield Bash frontal push action.',520,220,180,130,280,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_push','[{"t":0,"v":0.2},{"t":0.4,"v":1.0},{"t":1,"v":0.15}]','[]','{"source":"canonical_bootstrap"}'),
+('shield_rush_front_contact_v1','grounded_skill','Shield Rush committed rush with damage beginning half-cylinder in front.',830,430,240,470,620,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_carry_push','[{"t":0,"v":0.1},{"t":0.2,"v":0.85},{"t":0.75,"v":1.0},{"t":1,"v":0.25}]','[]','{"front_contact_offset_cm":45,"source":"canonical_bootstrap","design_note":"shield rush long committed run"}'),
+('wolf_dodge_lateral_leap_v1','dodge','Wolf low fast lateral/back diagonal dodge with full iframe.',520,420,100,210,520,0,'dodge','bounded_smooth_correction','dodge_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','iframe','[{"t":0,"v":0.4},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[{"t":0,"z":0},{"t":0.4,"z":28},{"t":1,"z":0}]','{"source":"canonical_bootstrap"}'),
+('low_fast_lunge_v1','leap','Wolf low fast lunge; crosses target without losing air speed unless hard-controlled, then keeps grounded landing inertia.',980,430,260,918,940,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','airborne_passthrough','[{"t":0,"v":0.35},{"t":0.16,"v":1.0},{"t":0.68,"v":0.92},{"t":1,"v":0.38}]','[{"t":0,"z":0},{"t":0.34,"z":120},{"t":1,"z":0}]','{"post_landing_inertia_multiplier":1.1,"source":"canonical_bootstrap","canonical_id":"low_fast_lunge_v1","airborne_duration_ms":430,"jump_z_velocity":700,"gravity_scale":1,"expected_apex_ms":350,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":false,"air_control_modifier":0}')
 ON CONFLICT (id) DO UPDATE SET
     action_type = EXCLUDED.action_type,
     description = EXCLUDED.description,
@@ -72,12 +72,12 @@ ON CONFLICT (id) DO UPDATE SET
 
 INSERT INTO apeiron.skill_action_timing (skill_id, windup_ms, active_ms, recovery_ms, cooldown_ms, combo_window_ms, movement_lock_policy, queue_policy, cancel_policy, metadata)
 VALUES
-('player_basic_attack_1',90,140,120,0,2000,'contract','basic_combo','short_recovery','{"source":"reconstructed"}'),
-('player_basic_attack_2',100,150,120,0,2000,'contract','basic_combo','short_recovery','{"source":"reconstructed"}'),
-('player_basic_attack_3',180,260,180,0,2000,'contract','basic_combo','short_recovery','{"source":"reconstructed"}'),
-('player_shield_bash',120,220,180,2600,0,'contract','none','recovery_only','{"source":"reconstructed"}'),
-('player_shield_rush',160,430,240,5200,0,'contract','none','recovery_only','{"source":"reconstructed"}'),
-('lunge',3600,430,500,4200,0,'contract','none','none','{"windup_movement":"circle_or_chase_setup","source":"reconstructed"}')
+('player_basic_attack_1',90,140,120,0,2000,'contract','basic_combo','short_recovery','{"source":"canonical_bootstrap"}'),
+('player_basic_attack_2',100,150,120,0,2000,'contract','basic_combo','short_recovery','{"source":"canonical_bootstrap"}'),
+('player_basic_attack_3',180,260,180,0,2000,'contract','basic_combo','short_recovery','{"source":"canonical_bootstrap"}'),
+('player_shield_bash',120,220,180,2600,0,'contract','none','after_recovery','{"source":"canonical_bootstrap"}'),
+('player_shield_rush',160,430,240,5200,0,'contract','none','after_recovery','{"source":"canonical_bootstrap"}'),
+('lunge',3600,430,500,4200,0,'contract','none','none','{"windup_movement":"circle_or_chase_setup","source":"canonical_bootstrap"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     windup_ms = EXCLUDED.windup_ms,
     active_ms = EXCLUDED.active_ms,
@@ -92,12 +92,12 @@ ON CONFLICT (skill_id) DO UPDATE SET
 
 INSERT INTO apeiron.skill_movement_action_binding (skill_id, movement_action_contract_id, starts_at_phase, handoff_policy, normal_input_policy, target_policy, contact_policy, is_enabled, metadata)
 VALUES
-('player_basic_attack_1','basic_attack_1_forward_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','none',TRUE,'{"source":"reconstructed"}'),
-('player_basic_attack_2','basic_attack_2_cross_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','none',TRUE,'{"source":"reconstructed"}'),
-('player_basic_attack_3','basic_attack_3_shield_drive_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','carry_contact',TRUE,'{"source":"reconstructed"}'),
-('player_shield_bash','shield_bash_front_push_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','multi_target_push',TRUE,'{"source":"reconstructed"}'),
-('player_shield_rush','shield_rush_front_contact_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','multi_target_carry_push',TRUE,'{"source":"reconstructed"}'),
-('lunge','low_fast_lunge_v1','active','grounded_handoff','blocked_during_airborne','target_cross_through','airborne_passthrough',TRUE,'{"source":"reconstructed","canonical_movement":"low_fast_lunge_v1"}')
+('player_basic_attack_1','basic_attack_1_forward_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','none',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_basic_attack_2','basic_attack_2_cross_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','none',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_basic_attack_3','basic_attack_3_shield_drive_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','carry_contact',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_shield_bash','shield_bash_front_push_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','multi_target_push',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_shield_rush','shield_rush_front_contact_v1','active','explicit_recovery_handoff','blocked_during_owned_root','aim_direction','multi_target_carry_push',TRUE,'{"source":"canonical_bootstrap"}'),
+('lunge','low_fast_lunge_v1','active','grounded_handoff','blocked_during_airborne','target_cross_through','airborne_passthrough',TRUE,'{"source":"canonical_bootstrap","canonical_movement":"low_fast_lunge_v1"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     movement_action_contract_id = EXCLUDED.movement_action_contract_id,
     starts_at_phase = EXCLUDED.starts_at_phase,

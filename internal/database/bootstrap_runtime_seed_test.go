@@ -364,41 +364,41 @@ func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T
 
 func TestLegacySkillMovementEffectsAreCompatibilityOnly(t *testing.T) {
 	sql := readBootstrapSQL(t)
-	requiredLegacyRows := map[string]string{
+	requiredCompatRows := map[string]string{
 		"lunge":              "low_fast_lunge_v1",
 		"player_shield_rush": "shield_rush_front_contact_v1",
 		"player_shield_bash": "shield_bash_front_push_v1",
 	}
-	for skillID, canonicalContractID := range requiredLegacyRows {
+	for skillID, canonicalContractID := range requiredCompatRows {
 		if !strings.Contains(sql, "'"+skillID+"'") {
-			t.Fatalf("legacy movement compatibility row missing skill %s", skillID)
+			t.Fatalf("skill movement compatibility row missing skill %s", skillID)
 		}
 		if !strings.Contains(sql, `"prefer":"movement_action_contract"`) {
-			t.Fatal("legacy skill movement seed must declare movement_action_contract as preferred authority")
+			t.Fatal("skill movement compatibility seed must declare movement_action_contract as preferred authority")
 		}
 		if !strings.Contains(sql, "'"+canonicalContractID+"'") {
-			t.Fatalf("canonical movement action contract missing for legacy skill %s -> %s", skillID, canonicalContractID)
+			t.Fatalf("canonical movement action contract missing for compatibility skill %s -> %s", skillID, canonicalContractID)
 		}
 		if !strings.Contains(sql, "('"+skillID+"','"+canonicalContractID+"'") {
-			t.Fatalf("legacy skill %s does not have canonical skill_movement_action_binding -> %s", skillID, canonicalContractID)
+			t.Fatalf("compatibility skill %s does not have canonical skill_movement_action_binding -> %s", skillID, canonicalContractID)
 		}
 	}
 }
 
-func TestSkillDataProtoDocumentsLegacyMovementEndpoint(t *testing.T) {
+func TestSkillDataProtoDocumentsSkillMovementCompatibilityEndpoint(t *testing.T) {
 	proto, err := os.ReadFile(filepath.Join("..", "..", "proto", "apeiron", "v1", "skill_data_service.proto"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	content := string(proto)
 	for _, required := range []string{
-		"Legacy compatibility endpoint",
+		"Compatibility endpoint",
 		"GetSkillMovementActionBinding",
 		"GetMovementActionContract",
 		"must not be used to tune or resolve root motion",
 	} {
 		if !strings.Contains(content, required) {
-			t.Fatalf("skill_data_service.proto is missing legacy endpoint documentation fragment %q", required)
+			t.Fatalf("skill_data_service.proto is missing compatibility endpoint documentation fragment %q", required)
 		}
 	}
 }
@@ -436,7 +436,7 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 		"FALSE,4.7, NULL,NULL",
 		"('shield_rush_front_contact_v1','grounded_skill'",
 		"830,430,240,470,620",
-		"('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240",
+		"('player_shield_rush_effect_v1','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240",
 		`"front_contact_offset_cm":45`,
 		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',45,0,100,190,0,160,96,105",
 		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",

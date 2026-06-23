@@ -1,6 +1,6 @@
 -- =========================================================
 -- ACTION RUNTIME CONTRACTS
--- Reconstructed from Apeiron recovery artifacts on 2026-06-22.
+-- Canonical action runtime and reconciliation schema for Apeiron server runtime.
 -- =========================================================
 
 CREATE TABLE IF NOT EXISTS apeiron.movement_reconciliation_contract (

@@ -10,7 +10,7 @@ VALUES (
     'sword',
     'shield',
     TRUE,
-    '{"source":"reconstructed"}'
+    '{"source":"canonical_bootstrap"}'
 )
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
@@ -25,8 +25,8 @@ INSERT INTO apeiron.weapon_combat_mode (
     id, weapon_kit_id, name, description, mode_index, switch_duration_ms, is_enabled, metadata
 )
 VALUES
-('mode_sword_shield_vanguard','weaponkit_sword_shield','Vanguard','Sword-forward pressure mode. Future selectable sword skills live here.',0,250,TRUE,'{"source":"reconstructed"}'),
-('mode_sword_shield_bulwark','weaponkit_sword_shield','Bulwark','Shield-forward control mode. Current active Q/R/F skills live here.',1,250,TRUE,'{"source":"reconstructed"}')
+('mode_sword_shield_vanguard','weaponkit_sword_shield','Vanguard','Sword-forward pressure mode. Future selectable sword skills live here.',0,250,TRUE,'{"source":"canonical_bootstrap"}'),
+('mode_sword_shield_bulwark','weaponkit_sword_shield','Bulwark','Shield-forward control mode. Current active Q/R/F skills live here.',1,250,TRUE,'{"source":"canonical_bootstrap"}')
 ON CONFLICT (id) DO UPDATE SET
     weapon_kit_id = EXCLUDED.weapon_kit_id,
     name = EXCLUDED.name,

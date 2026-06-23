@@ -1,6 +1,6 @@
 -- =========================================================
--- LEGACY SKILL MOVEMENT EFFECT
--- Compatibility layer recovered from Codex DB thread.
+-- SKILL MOVEMENT EFFECT COMPATIBILITY
+-- Compatibility surface for older GetSkillMovementEffect clients/tools.
 -- =========================================================
 
 CREATE TABLE IF NOT EXISTS apeiron.skill_movement_effect (

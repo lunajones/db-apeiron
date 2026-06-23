@@ -78,7 +78,7 @@ func (h *SkillDataHandler) GetWeaponCombatModeSlots(ctx context.Context, req *ap
 }
 
 func (h *SkillDataHandler) GetSkillMovementEffect(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillMovementEffectResponse, error) {
-	// Compatibility endpoint kept for recovered clients/tools. The authoritative
+	// Compatibility endpoint kept for older clients/tools. The authoritative
 	// runtime skill movement path is GetSkillMovementActionBinding plus the nested
 	// movement_action_contract, so gameplay tuning must not be read from this table.
 	effect, err := h.skills.GetMovementEffect(ctx, req.GetId())
@@ -286,12 +286,12 @@ func mapSkillMovementEffect(e postgres.SkillMovementEffect) *apeironv1.SkillMove
 		Speed:            e.Speed,
 		DurationMs:       int32(e.DurationMS),
 		LandingLockMs:    int32(e.RecoveryLockMS),
-		SteeringPolicy:   legacyMovementSteeringPolicy(e),
+		SteeringPolicy:   skillMovementEffectSteeringPolicy(e),
 		IgnoresCollision: e.IgnoresCollision,
 	}
 }
 
-func legacyMovementSteeringPolicy(e postgres.SkillMovementEffect) string {
+func skillMovementEffectSteeringPolicy(e postgres.SkillMovementEffect) string {
 	if e.CanRotate {
 		return "can_rotate"
 	}

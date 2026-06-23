@@ -116,7 +116,7 @@ VALUES (
     0.65,
     0.75,
     0.75,
-    '{"source":"reconstructed","authority":"db","notes":"Recovered from server runtime profile after movement/rubberband reconstruction."}'::jsonb
+    '{"source":"canonical_bootstrap","authority":"db","notes":"Canonical shared movement profile for server-authoritative movement."}'::jsonb
 )
 ON CONFLICT (profile_id) DO UPDATE SET
     max_speed = EXCLUDED.max_speed,

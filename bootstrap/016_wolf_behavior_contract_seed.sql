@@ -129,8 +129,8 @@ INSERT INTO apeiron.movement_action_contract (
     allow_yaw_adjustment, root_motion_owner, contact_policy, speed_curve, vertical_curve, metadata
 )
 VALUES
-('wolf_bite_melee_commit_v1','grounded_skill','Wolf bite close-range committed melee action without displacement.',520,220,180,0,0,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','melee_contact','[]','[]','{"source":"reconstructed","skill":"bite"}'),
-('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that crosses the player side-to-side during pressure punish.',800,260,360,140,420,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.15},{"t":0.25,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.20}]','[]','{"source":"reconstructed","setup_policy":"wolf_maul_pressure_counter_v1"}')
+('wolf_bite_melee_commit_v1','grounded_skill','Wolf bite close-range committed melee action without displacement.',520,220,180,0,0,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','melee_contact','[]','[]','{"source":"canonical_bootstrap","skill":"bite"}'),
+('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that crosses the player side-to-side during pressure punish.',800,260,360,140,420,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.15},{"t":0.25,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.20}]','[]','{"source":"canonical_bootstrap","setup_policy":"wolf_maul_pressure_counter_v1"}')
 ON CONFLICT (id) DO UPDATE SET
     action_type = EXCLUDED.action_type,
     description = EXCLUDED.description,
@@ -171,9 +171,9 @@ INSERT INTO apeiron.skill_action_timing (
     combo_window_ms, movement_lock_policy, queue_policy, cancel_policy, metadata
 )
 VALUES
-('bite',120,220,180,900,0,'contract','none','none','{"source":"reconstructed"}'),
-('wolf_dodge',0,420,100,0,0,'contract','none','none','{"full_iframe":true,"source":"reconstructed"}'),
-('maul',180,260,360,5200,0,'contract','none','none','{"pressureCounter":true,"source":"reconstructed"}')
+('bite',120,220,180,900,0,'contract','none','none','{"source":"canonical_bootstrap"}'),
+('wolf_dodge',0,420,100,0,0,'contract','none','none','{"full_iframe":true,"source":"canonical_bootstrap"}'),
+('maul',180,260,360,5200,0,'contract','none','none','{"pressureCounter":true,"source":"canonical_bootstrap"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     windup_ms = EXCLUDED.windup_ms,
     active_ms = EXCLUDED.active_ms,
@@ -191,9 +191,9 @@ INSERT INTO apeiron.skill_movement_action_binding (
     normal_input_policy, target_policy, contact_policy, is_enabled, metadata
 )
 VALUES
-('bite','wolf_bite_melee_commit_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_direction','melee_contact',TRUE,'{"source":"reconstructed"}'),
-('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root','evasion_direction','iframe',TRUE,'{"source":"reconstructed"}'),
-('maul','wolf_maul_lateral_counter_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_lateral_cross','lateral_counter_contact',TRUE,'{"source":"reconstructed"}')
+('bite','wolf_bite_melee_commit_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_direction','melee_contact',TRUE,'{"source":"canonical_bootstrap"}'),
+('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root','evasion_direction','iframe',TRUE,'{"source":"canonical_bootstrap"}'),
+('maul','wolf_maul_lateral_counter_v1','active','explicit_recovery_handoff','blocked_during_owned_root','target_lateral_cross','lateral_counter_contact',TRUE,'{"source":"canonical_bootstrap"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     movement_action_contract_id = EXCLUDED.movement_action_contract_id,
     starts_at_phase = EXCLUDED.starts_at_phase,
@@ -233,7 +233,7 @@ VALUES (
     '{"preferLongSideCommit":true,"sideFlipChanceMultiplier":0.35,"minimumSideCommitMs":3200,"flankBeforeLunge":true}',
     '{"dodgeUnderPressure":true,"maulCounterUnderPressure":true,"maulCounterChance":0.22,"dodgeRetreatMultiplier":0.70,"globalDodgeMultiplier":0.85,"repeatSkillPenaltyMultiplier":0.65,"commitThreatWeight":0.28,"closingThreatWeight":0.18,"defensiveBiteWeight":0.14,"fleeingLungeWeight":0.20,"lowResourceRiskFloor":0.16,"dodgeCommittedThreatMultiplier":1.12,"vulnerableBiteMultiplier":1.16,"vulnerableMaulMultiplier":1.10,"tacticalDestinationDistanceCm":180}',
     '{"max":100,"dodgeCostMultiplier":0.50,"regenPerSecond":12,"runDrainEnabled":true,"zeroStaminaLockoutUntilFull":true}',
-    '{"source":"reconstructed"}'
+    '{"source":"canonical_bootstrap"}'
 )
 ON CONFLICT (id) DO UPDATE SET
     creature_template_id = EXCLUDED.creature_template_id,
@@ -269,7 +269,7 @@ VALUES (
     'observe_only',
     TRUE,
     TRUE,
-    '{"source":"reconstructed","candidate_skills_diagnostics":true,"cooldown_skills_diagnostics":true}'
+    '{"source":"canonical_bootstrap","candidate_skills_diagnostics":true,"cooldown_skills_diagnostics":true}'
 )
 ON CONFLICT (id) DO UPDATE SET
     description = EXCLUDED.description,
@@ -306,7 +306,7 @@ VALUES (
     TRUE,
     0.35,
     TRUE,
-    '{"source":"reconstructed","server_must_not_pick_side_by_target_id":true}'
+    '{"source":"canonical_bootstrap","server_must_not_pick_side_by_target_id":true}'
 )
 ON CONFLICT (id) DO UPDATE SET
     behavior_contract_id = EXCLUDED.behavior_contract_id,
@@ -346,7 +346,7 @@ VALUES (
     0.28,
     0.42,
     180,
-    '{"source":"reconstructed"}'
+    '{"source":"canonical_bootstrap"}'
 )
 ON CONFLICT (id) DO UPDATE SET
     behavior_contract_id = EXCLUDED.behavior_contract_id,

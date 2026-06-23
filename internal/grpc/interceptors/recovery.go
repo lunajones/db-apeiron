@@ -28,7 +28,7 @@ func RecoveryInterceptor() grpc.UnaryServerInterceptor {
 					Str("method", info.FullMethod).
 					Interface("panic", r).
 					Str("stack", string(debug.Stack())).
-					Msg("panic recovered in grpc handler")
+					Msg("panic handled in grpc handler")
 
 				resp = nil
 				err = status.Errorf(

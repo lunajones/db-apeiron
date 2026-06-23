@@ -11,7 +11,7 @@ service SkillDataService {
   rpc GetSkillSet(IdRequest) returns (SkillSetResponse);
   rpc GetSkillSetLoadout(IdRequest) returns (SkillSetLoadoutResponse);
   rpc GetWeaponCombatModeSlots(IdRequest) returns (WeaponCombatModeSlotsResponse);
-  // Legacy compatibility endpoint for recovered clients/tools.
+  // Compatibility endpoint for older clients/tools.
   // Normal Apeiron runtime must use GetSkillMovementActionBinding plus
   // ProfileDataService.GetMovementActionContract as the skill-movement
   // authority. This endpoint must not be used to tune or resolve root motion.
