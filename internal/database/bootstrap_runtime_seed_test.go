@@ -148,6 +148,37 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	}
 }
 
+func TestRuntimeMovementReconciliationProfileDoesNotDependOnClientFallbacks(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		"    34,\n    45,\n    65,\n    120,",
+		"    180,\n    145,\n    145,\n    90,",
+		"    600,\n    120,\n    120,\n    70,",
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("runtime movement reconciliation profile still leaves fallback-owned values implicit: %s", fragment)
+		}
+	}
+
+	migration, err := os.ReadFile(filepath.Join("..", "..", "migrations", "043_runtime_movement_reconciliation_profile.sql"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, forbidden := range []string{
+		"grounded_transition_deadzone_min FLOAT NOT NULL DEFAULT 0",
+		"leap_landing_clamp_ignore_deadzone FLOAT NOT NULL DEFAULT 0",
+		"leap_landing_soft_snap_deadzone FLOAT NOT NULL DEFAULT 0",
+		"dodge_carry_handoff_ms INT NOT NULL DEFAULT 0",
+		"leap_landing_correction_grace_ms INT NOT NULL DEFAULT 0",
+		"leap_grounded_carry_handoff_ms INT NOT NULL DEFAULT 0",
+	} {
+		if strings.Contains(string(migration), forbidden) {
+			t.Fatalf("runtime movement migration keeps client-fallback default: %s", forbidden)
+		}
+	}
+}
+
 func TestBootstrapSeedsCoverWolfMaulCounterRuntime(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{

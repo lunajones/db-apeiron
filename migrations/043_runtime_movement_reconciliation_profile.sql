@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS apeiron.runtime_movement_reconciliation_profile (
     grounded_speed_deadzone_factor FLOAT NOT NULL,
     grounded_speed_deadzone_min FLOAT NOT NULL,
     grounded_speed_deadzone_max FLOAT NOT NULL,
-    grounded_transition_deadzone_min FLOAT NOT NULL DEFAULT 0,
+    grounded_transition_deadzone_min FLOAT NOT NULL DEFAULT 34,
     move_sustain_deadzone FLOAT NOT NULL,
     move_sustain_transition_deadzone FLOAT NOT NULL,
     airborne_deadzone FLOAT NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS apeiron.runtime_movement_reconciliation_profile (
     leap_landing_deadzone_factor FLOAT NOT NULL,
     leap_landing_deadzone_min FLOAT NOT NULL,
     leap_landing_deadzone_max FLOAT NOT NULL,
-    leap_landing_clamp_ignore_deadzone FLOAT NOT NULL DEFAULT 0,
-    leap_landing_soft_snap_deadzone FLOAT NOT NULL DEFAULT 0,
+    leap_landing_clamp_ignore_deadzone FLOAT NOT NULL DEFAULT 145,
+    leap_landing_soft_snap_deadzone FLOAT NOT NULL DEFAULT 145,
     dodge_recent_deadzone FLOAT NOT NULL,
     dodge_active_deadzone FLOAT NOT NULL,
     dodge_exit_deadzone_factor FLOAT NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS apeiron.runtime_movement_reconciliation_profile (
     remote_visual_interpolation_ms INT NOT NULL,
     remote_visual_max_extrapolation_ms INT NOT NULL,
     remote_visual_hard_snap_distance FLOAT NOT NULL,
-    dodge_carry_handoff_ms INT NOT NULL DEFAULT 0,
-    leap_landing_correction_grace_ms INT NOT NULL DEFAULT 0,
-    leap_grounded_carry_handoff_ms INT NOT NULL DEFAULT 0,
+    dodge_carry_handoff_ms INT NOT NULL DEFAULT 120,
+    leap_landing_correction_grace_ms INT NOT NULL DEFAULT 120,
+    leap_grounded_carry_handoff_ms INT NOT NULL DEFAULT 70,
     movement_turn_resubmit_dot_threshold FLOAT NOT NULL,
     movement_turn_resubmit_min_interval_ms INT NOT NULL,
     movement_submit_interval_ms INT NOT NULL,
@@ -69,6 +69,12 @@ CREATE TABLE IF NOT EXISTS apeiron.runtime_movement_reconciliation_profile (
         AND visual_smoothing_ms >= 0
         AND remote_visual_interpolation_ms >= 0
         AND remote_visual_max_extrapolation_ms >= 0
+        AND grounded_transition_deadzone_min > 0
+        AND leap_landing_clamp_ignore_deadzone > 0
+        AND leap_landing_soft_snap_deadzone > 0
+        AND dodge_carry_handoff_ms > 0
+        AND leap_landing_correction_grace_ms > 0
+        AND leap_grounded_carry_handoff_ms > 0
         AND movement_submit_interval_ms > 0
         AND snapshot_poll_interval_ms > 0
     ),
