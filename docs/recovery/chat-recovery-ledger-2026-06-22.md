@@ -386,3 +386,26 @@ Decision:
   submit/poll intervals, and visual smoothing.
 - Server strict DB boot must fail if this profile is missing. It must not complete missing profile
   fields from recovered Go/C++ literals.
+
+## 2026-06-22 - DB Legacy Compatibility Audit
+
+Created `docs/recovery/db-legacy-compatibility-audit-2026-06-22.md` to classify recovered
+legacy-looking DB surfaces before removal.
+
+Current classification:
+
+- `movement_action_contract`, `skill_movement_action_binding`,
+  temporal hitbox motion profiles, creature behavior/opportunity/orbit contracts, and
+  `runtime_movement_reconciliation_profile` are `final_authority`.
+- `skill_movement_effect` is `compat_runtime_required` while `GetSkillMovementEffect(skill_id)`
+  remains exposed and recovery facts still require `lunge` compatibility.
+- `034`, `035`, `036`, `037`, `038`, `039`, and `042` legacy/finalization migrations are
+  `recovery_only`: they keep older recovered DB shapes bootable, but should not own runtime
+  gameplay rules.
+- `033_schema_compatibility.sql` is also `recovery_only`; its defaults are safety bridges, not
+  tuned gameplay authority.
+
+Next recovery rule:
+
+- Do not delete a legacy path by name alone. First prove runtime usage across DB, server, and
+  Unreal, then isolate or remove it with a focused test and sentinel audit.
