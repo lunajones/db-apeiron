@@ -33,7 +33,7 @@ INSERT INTO apeiron.movement_profile (
 VALUES (
     'movement_steppe_wolf',
 
-    6.8,
+    3.4,
     14.0,
     11.0,
     7.5,

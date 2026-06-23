@@ -229,8 +229,8 @@ VALUES (
     'steppe_wolf',
     'Steppe wolf harasser: evasive, lateral, punishes overcommit, uses lunge setup with moving windup.',
     '{"base":0.68,"pressureRamp":0.22,"defensiveTargetBonus":0.12}',
-    '{"recoverDistanceWithRun":true,"chaseLungeSetup":true,"biteAtCloseRange":true,"preferredMinCm":130,"preferredMaxCm":520,"desiredRangeCm":420,"chaseRangeCm":760,"retreatRangeCm":220,"orbitSpeedCmS":300,"chaseSpeedCmS":620,"lungeSpeedCmS":760,"maulSpeedCmS":690,"retreatSpeedCmS":520}',
-    '{"preferLongSideCommit":true,"sideFlipChanceMultiplier":0.35,"minimumSideCommitMs":3200,"flankBeforeLunge":true}',
+    '{"recoverDistanceWithRun":true,"chaseLungeSetup":true,"biteAtCloseRange":true,"preferredMinCm":220,"preferredMaxCm":680,"desiredRangeCm":560,"chaseRangeCm":860,"retreatRangeCm":340,"orbitSpeedCmS":150,"chaseSpeedCmS":310,"lungeSpeedCmS":380,"maulSpeedCmS":345,"retreatSpeedCmS":260}',
+    '{"preferLongSideCommit":true,"sideFlipChanceMultiplier":0.55,"minimumSideCommitMs":3200,"flankBeforeLunge":true}',
     '{"dodgeUnderPressure":true,"maulCounterUnderPressure":true,"maulCounterChance":0.22,"dodgeRetreatMultiplier":0.70,"globalDodgeMultiplier":0.85,"repeatSkillPenaltyMultiplier":0.65,"commitThreatWeight":0.28,"closingThreatWeight":0.18,"defensiveBiteWeight":0.14,"fleeingLungeWeight":0.20,"lowResourceRiskFloor":0.16,"dodgeCommittedThreatMultiplier":1.12,"vulnerableBiteMultiplier":1.16,"vulnerableMaulMultiplier":1.10,"tacticalDestinationDistanceCm":180}',
     '{"max":100,"dodgeCostMultiplier":0.50,"regenPerSecond":12,"runDrainEnabled":true,"zeroStaminaLockoutUntilFull":true}',
     '{"source":"canonical_bootstrap"}'
@@ -300,11 +300,11 @@ VALUES (
     'Wolf circles in combat-walk/run setup, keeps side long enough to read naturally, and avoids rapid left/right thrashing.',
     'combat_walk',
     0.75,
-    700,
-    900,
+    2600,
+    2600,
     TRUE,
     TRUE,
-    0.35,
+    0.55,
     TRUE,
     '{"source":"canonical_bootstrap","server_must_not_pick_side_by_target_id":true}'
 )
