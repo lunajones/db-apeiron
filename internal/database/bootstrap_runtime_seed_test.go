@@ -108,6 +108,47 @@ func TestBootstrapSeedsBindRequiredSkillsToCanonicalMovementActions(t *testing.T
 	}
 }
 
+func TestLegacySkillMovementEffectsAreCompatibilityOnly(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	requiredLegacyRows := map[string]string{
+		"lunge":              "wolf_lunge_airborne_v1",
+		"player_shield_rush": "shield_rush_front_contact_v1",
+		"player_shield_bash": "shield_bash_front_push_v1",
+	}
+	for skillID, canonicalContractID := range requiredLegacyRows {
+		if !strings.Contains(sql, "'"+skillID+"'") {
+			t.Fatalf("legacy movement compatibility row missing skill %s", skillID)
+		}
+		if !strings.Contains(sql, `"prefer":"movement_action_contract"`) {
+			t.Fatal("legacy skill movement seed must declare movement_action_contract as preferred authority")
+		}
+		if !strings.Contains(sql, "'"+canonicalContractID+"'") {
+			t.Fatalf("canonical movement action contract missing for legacy skill %s -> %s", skillID, canonicalContractID)
+		}
+		if !strings.Contains(sql, "('"+skillID+"','"+canonicalContractID+"'") {
+			t.Fatalf("legacy skill %s does not have canonical skill_movement_action_binding -> %s", skillID, canonicalContractID)
+		}
+	}
+}
+
+func TestSkillDataProtoDocumentsLegacyMovementEndpoint(t *testing.T) {
+	proto, err := os.ReadFile(filepath.Join("..", "..", "proto", "apeiron", "v1", "skill_data_service.proto"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	content := string(proto)
+	for _, required := range []string{
+		"Legacy compatibility endpoint",
+		"GetSkillMovementActionBinding",
+		"GetMovementActionContract",
+		"must not be used to tune or resolve root motion",
+	} {
+		if !strings.Contains(content, required) {
+			t.Fatalf("skill_data_service.proto is missing legacy endpoint documentation fragment %q", required)
+		}
+	}
+}
+
 func TestBootstrapSeedsKeepUnimplementedVanguardSlotsEmpty(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	requiredEmptySlots := []string{

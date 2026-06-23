@@ -53,11 +53,15 @@ migrations are recovery-only schema tolerance.
 
 ### Phase 2 - Runtime Usage Proof
 
-Status: next.
+Status: partial, server normal-runtime proof added on 2026-06-23.
 
 Required checks before any removal:
 
 - Search DB/server/Unreal for legacy fields and endpoint usage.
+- Server proof added:
+  - `server-apeiron/internal/gameapi/legacy_contract_surfaces.go` classifies runtime contract surfaces.
+  - `server-apeiron/internal/gameapi/contracts_test.go` proves `ContractSource` does not expose `GetSkillMovementEffect`.
+  - `RuntimeStats` now reports `contracts.surface.*` statuses so legacy compatibility cannot hide as normal authority.
 - Verify live DB rows for:
   - `skill_movement_effect`
   - `skill_movement_action_binding`
@@ -69,6 +73,13 @@ Required checks before any removal:
   - skill movement action binding/contract fetch paths
   - `GetRuntimeMovementReconciliationProfile(player_default_movement_profile)`
   - wolf behavior runtime contract and tactical bindings.
+
+Current proof result:
+
+- `skill_movement_effect/GetSkillMovementEffect` remains `compat_runtime_required` because DB still exposes it.
+- It is not normal runtime authority for the reconstructed server loader.
+- Canonical player/creature skill movement authority is `skill_movement_action_binding` plus `movement_action_contract`.
+- Removal/quarantine is not approved until Unreal and any external tools are checked the same way.
 
 ### Phase 3 - Isolate Compatibility
 
@@ -98,4 +109,3 @@ Rules:
 - Legacy code/columns either have an explicit compatibility reason or are removed after proof.
 - Fresh DB and recovered DB shapes both migrate successfully.
 - Server and Unreal consume canonical contracts without fallback values inventing gameplay.
-

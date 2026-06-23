@@ -78,6 +78,9 @@ func (h *SkillDataHandler) GetWeaponCombatModeSlots(ctx context.Context, req *ap
 }
 
 func (h *SkillDataHandler) GetSkillMovementEffect(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillMovementEffectResponse, error) {
+	// Compatibility endpoint kept for recovered clients/tools. The authoritative
+	// runtime skill movement path is GetSkillMovementActionBinding plus the nested
+	// movement_action_contract, so gameplay tuning must not be read from this table.
 	effect, err := h.skills.GetMovementEffect(ctx, req.GetId())
 	if err != nil {
 		return &apeironv1.SkillMovementEffectResponse{Found: false, Error: err.Error()}, nil
