@@ -85,9 +85,9 @@ INSERT INTO apeiron.skill_hitbox_motion_sample (
     radius, length, min_angle_deg, max_angle_deg, metadata
 )
 VALUES
-('motion_wolf_maul_lateral_counter_v1',0,0.00,'asymmetric_arc',40,65,95,0,0,125,58,120,-70,-25,'{}'),
-('motion_wolf_maul_lateral_counter_v1',1,0.45,'asymmetric_arc',0,90,100,0,0,130,62,170,-25,25,'{}'),
-('motion_wolf_maul_lateral_counter_v1',2,1.00,'asymmetric_arc',-40,65,95,0,0,125,58,120,25,70,'{}');
+('motion_wolf_maul_lateral_counter_v1',0,0.00,'asymmetric_arc',65,40,95,0,0,125,58,120,-70,-25,'{}'),
+('motion_wolf_maul_lateral_counter_v1',1,0.45,'asymmetric_arc',90,0,100,0,0,130,62,170,-25,25,'{}'),
+('motion_wolf_maul_lateral_counter_v1',2,1.00,'asymmetric_arc',65,-40,95,0,0,125,58,120,25,70,'{}');
 
 INSERT INTO apeiron.skill_hitbox_profile (
     id, skill_id, hitbox_index, hitbox_shape, hitbox_start_ms, hitbox_end_ms,
@@ -97,7 +97,7 @@ INSERT INTO apeiron.skill_hitbox_profile (
     min_angle_deg, max_angle_deg, start_radius, end_radius
 )
 VALUES
-('hitbox_maul_0','maul',0,'temporal_sweep',180,440,0,80,100,0,0,130,62,170,140,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_maul_lateral_counter_v1','wolf_maul_damage',-70,70,58,62)
+('hitbox_maul_0','maul',0,'temporal_sweep',180,440,80,0,100,0,0,130,62,170,140,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_maul_lateral_counter_v1','wolf_maul_damage',-70,70,58,62)
 ON CONFLICT (id) DO UPDATE SET
     skill_id = EXCLUDED.skill_id,
     hitbox_index = EXCLUDED.hitbox_index,

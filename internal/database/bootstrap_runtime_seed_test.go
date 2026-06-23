@@ -148,6 +148,23 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	}
 }
 
+func TestBootstrapSeedsUseForwardXAndLateralYForTemporalCreatureHitboxes(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		"('motion_wolf_bite_melee_v1',0,0.00,'capsule_strip',45,0,85,90,0,115,45,70",
+		"('motion_wolf_lunge_cross_v1',2,1.00,'capsule_strip',210,0,90,100,0,120,50,320",
+		"('motion_wolf_maul_lateral_counter_v1',0,0.00,'asymmetric_arc',65,40,95,0,0,125,58,120",
+		"('hitbox_bite_0','bite',0,'temporal_sweep',120,340,80,0,90,95,0,115,48,145",
+		"('hitbox_lunge_0','lunge',0,'temporal_sweep',3600,4030,130,0,105,100,0,120,50,320",
+		"('hitbox_maul_0','maul',0,'temporal_sweep',180,440,80,0,100,0,0,130,62,170",
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("temporal creature hitbox should use offset_x as forward and offset_y as lateral: %s", fragment)
+		}
+	}
+}
+
 func TestRuntimeMovementReconciliationProfileDoesNotDependOnClientFallbacks(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
