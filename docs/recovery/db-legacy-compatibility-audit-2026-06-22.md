@@ -1,15 +1,16 @@
 # DB Legacy Compatibility Audit - 2026-06-22
 
-This audit exists to stop blind cleanup during recovery. A table or column named
-`legacy` is not automatically trash. It can be a runtime compatibility surface,
-a recovery bridge for older restored databases, or dead data that still needs
-proof before removal.
+This audit exists to stop blind cleanup during recovery. As of 2026-06-23, the
+DB API intentionally rebuilds the `apeiron` schema from a clean baseline on
+startup. Incremental compatibility migrations for partially recovered databases
+are no longer runtime targets. A surface can still be retained only when a
+current server/client/API consumer needs it.
 
 ## Classification
 
 - `final_authority`: current canonical schema/data path. Runtime should consume this.
 - `compat_runtime_required`: old surface still intentionally exposed to server/client/runtime.
-- `recovery_only`: migration bridge for partially recovered or old databases. Not gameplay authority.
+- `recovery_only_retired`: old migration bridge removed from the fresh baseline. Not gameplay authority.
 - `dead_candidate`: no current runtime/reference evidence found, but removal still needs a test pass.
 
 ## Source Precedence
@@ -25,20 +26,20 @@ proof before removal.
 | --- | --- | --- | --- |
 | `movement_action_contract` | `final_authority` | `migrations/027_action_runtime_contracts.sql`, `bootstrap/014_action_runtime_contract_seed.sql`, server runtime contract loading, Unreal movement action manifests | Keep as canonical action movement source. It owns distance, speed, phase windows, reconciliation contract id, and metadata. |
 | `skill_movement_action_binding` | `final_authority` | `migrations/027_action_runtime_contracts.sql`, `bootstrap/014_action_runtime_contract_seed.sql`, server `movement_action_contract_id` ack/test paths | Keep as canonical skill-to-movement binding. Skill movement must prefer this over legacy movement effect rows. |
-| `movement_action_contract.ability_key`, `movement_type`, `contract_version`, `contract_hash` from older schemas | `recovery_only` | `migrations/034_movement_action_legacy_column_compatibility.sql` makes them nullable so restored DBs do not block startup | Do not consume as authority. Keep migration while recovered databases can contain those columns. Later baseline/squash can drop them after fresh DB rebuild tests. |
-| `skill_movement_effect` table and `GetSkillMovementEffect(skill_id)` | `compat_runtime_required` | `migrations/031_legacy_skill_movement_effect.sql`, `migrations/040_skill_movement_effect_legacy_column_compatibility.sql`, `bootstrap/018_legacy_skill_movement_effect_seed.sql`, DB handler maps to `SkillMovementProfile`, recovery ledger says keep `lunge` row until action-contract path fully replaces lookup | Keep for now. It is not the preferred authority, but it is still an exposed compatibility endpoint and seed surface. Exit only after server/client/proto prove no migrated skill depends on this lookup. |
+| `movement_action_contract.ability_key`, `movement_type`, `contract_version`, `contract_hash` from older schemas | `recovery_only_retired` | Fresh baseline in `migrations/027_action_runtime_contracts.sql` owns the final shape. `migrations/034_movement_action_legacy_column_compatibility.sql` was removed. | Do not consume or recreate. Fresh DB startup resets schema instead of tolerating old column shape. |
+| `skill_movement_effect` table and `GetSkillMovementEffect(skill_id)` | `compat_runtime_required` | `migrations/031_legacy_skill_movement_effect.sql`, `bootstrap/018_legacy_skill_movement_effect_seed.sql`, DB handler maps to `SkillMovementProfile`, recovery ledger says keep `lunge` row until action-contract path fully replaces lookup | Keep for now only as exposed compatibility endpoint. It is not preferred authority and has no incremental compatibility migration now; its full shape is in the baseline `CREATE TABLE`. Exit only after server/client/proto prove no migrated skill depends on this lookup. |
 | `skill_movement_effect` gameplay values for migrated skills | `dead_candidate` after proof | Current rows carry metadata `prefer: movement_action_contract`; authoritative data exists in movement action contracts | Do not tune gameplay here except to keep compatibility responses coherent. After runtime proof, detach from gameplay selection or remove seed rows. |
 | Temporal melee hitbox motion profile model | `final_authority` | `migrations/028_temporal_melee_hitbox.sql`, `bootstrap/015_temporal_hitbox_seed.sql`, server/Unreal temporal hitbox debug paths | Keep as canonical hit detection model. Directional melee should use motion samples/profiles, not static full-arc damage when temporal motion is available. |
-| `skill_hitbox_motion_profile.hitbox_profile_id` | `recovery_only` | `migrations/035_temporal_hitbox_legacy_compatibility.sql` preserves old inverse column as nullable compatibility | Do not consume as authority. Current model is profile-to-motion via `skill_hitbox_profile.motion_profile_id` and samples by `motion_profile_id`. |
-| `skill_hitbox_motion_sample.id` text fallback | `recovery_only` | `migrations/036_temporal_hitbox_sample_id_finalization.sql` only normalizes recovered TEXT id shape | Keep until recovery is stable. Fresh schema should use the final sample id model from `028`. |
+| `skill_hitbox_motion_profile.hitbox_profile_id` | `recovery_only_retired` | Old inverse column migration was removed. Current model is profile-to-motion via `skill_hitbox_profile.motion_profile_id` and samples by `motion_profile_id`. | Do not consume or recreate. |
+| `skill_hitbox_motion_sample.id` text fallback | `recovery_only_retired` | Old text id finalization migration was removed. Fresh schema uses `BIGSERIAL` plus `(motion_profile_id, sample_index)`. | Do not consume or recreate. |
 | Creature behavior runtime contract | `final_authority` | `migrations/029_creature_behavior_contracts.sql`, `migrations/041_creature_behavior_opportunity_contracts.sql`, `bootstrap/016_wolf_behavior_contract_seed.sql`, server wolf runtime policy loading | Keep as canonical creature brain contract. It owns runtime behavior links, opportunity policy, orbit policy, skill behavior bindings, and wolf tactical availability. |
-| `creature_behavior_runtime_contract.display_name`, `combat_role_id` legacy requirements | `recovery_only` | `migrations/037_creature_behavior_legacy_column_compatibility.sql` drops old NOT NULL requirements | Do not restore UI/catalog ownership here unless a real runtime use is found. Current behavior is keyed by `creature_template_id` and policy ids. |
+| `creature_behavior_runtime_contract.display_name`, `combat_role_id` legacy requirements | `recovery_only_retired` | Old compatibility migration was removed. Current behavior is keyed by `creature_template_id`, `target_opportunity_policy_id`, `orbit_policy_id`, and policy JSON. | Do not restore UI/catalog ownership here unless a real runtime use is found. |
 | Creature setup `setup_type` and `movement_tactic` | `final_authority` | `migrations/041_creature_behavior_opportunity_contracts.sql`, `bootstrap/016_wolf_behavior_contract_seed.sql` use values such as `moving_windup`, `chase_windup`, `pressure_counter` | Keep as canonical setup model for creature skill preparation. |
-| Creature setup `setup_tactic` and stale setup checks | `recovery_only` | `migrations/038_creature_setup_legacy_column_compatibility.sql`, `migrations/039_creature_setup_check_finalization.sql` | Keep only as migration tolerance. Do not make AI decisions from `setup_tactic`. |
+| Creature setup `setup_tactic` and stale setup checks | `recovery_only_retired` | Old setup compatibility migrations were removed. Runtime setup uses `setup_type` and `movement_tactic`. | Do not make AI decisions from `setup_tactic`; do not recreate it. |
 | Creature orbit modern policy fields | `final_authority` | `migrations/041_creature_behavior_opportunity_contracts.sql`, `bootstrap/016_wolf_behavior_contract_seed.sql` include orbit locomotion mode, side switch and duration rules | Keep as canonical orbit/side-switch tuning. |
-| Creature orbit `preferred_radius_cm`, `min_radius_cm`, `max_radius_cm` from older schemas | `recovery_only` | `migrations/042_creature_orbit_legacy_column_finalization.sql` makes old radius columns non-blocking | Keep nullable for recovered DBs. Do not revive them as runtime authority unless code proves a required consumer. |
+| Creature orbit `preferred_radius_cm`, `min_radius_cm`, `max_radius_cm` from older schemas | `recovery_only_retired` | Old orbit finalization migration was removed. Canonical orbit uses locomotion mode, speed scale, duration, side switch, and metadata. | Do not revive them as runtime authority unless code proves a required consumer. |
 | `runtime_movement_reconciliation_profile` | `final_authority` | `migrations/043_runtime_movement_reconciliation_profile.sql`, `bootstrap/020_runtime_movement_reconciliation_profile_seed.sql`, server strict load of `player_default_movement_profile`, Unreal `MovementReconciliationProfile` fields | Keep as canonical rich movement/reconciliation profile. Server must fail if this profile is missing instead of inventing values. |
-| `033_schema_compatibility.sql` additive movement profile defaults | `recovery_only` | Adds missing columns with old safety defaults for partially recovered DBs | Keep only to unblock old DB shapes. Do not treat its numeric defaults as tuned movement authority. Tuned values must come from seeds/contracts/profile rows. |
+| `033_schema_compatibility.sql` additive movement profile defaults | `recovery_only_retired` | Removed after fresh baseline reset. The final movement profile shape is in `migrations/004_movement_profile.sql`. | Do not treat old numeric defaults as tuned movement authority. Tuned values must come from seeds/contracts/profile rows. |
 | Original modern numbering `051/052/022/023/024` | `dead_candidate` as filenames only | Ledger proves these existed before deletion, but current reconstructed DB uses compact replacement numbering | Do not recreate duplicate migration files solely for numbering. Either recover exact originals or intentionally keep compact numbering with this compatibility map. |
 
 ## Immediate Roadmap
@@ -47,9 +48,11 @@ proof before removal.
 
 Status: done in this document.
 
-The current rule is: do not delete `legacy` paths until each one has a consumer proof and an exit
-test. `skill_movement_effect` is the main active compatibility surface. Most `*_legacy_*`
-migrations are recovery-only schema tolerance.
+The current rule is: do not keep incremental recovery migrations for old database
+shapes. Startup resets the `apeiron` schema, migrations are a fresh baseline, and
+`TestMigrationFilesAreFreshCreateOnlyBaseline` forbids `ALTER TABLE` in migrations.
+`skill_movement_effect` remains the main active compatibility surface because it
+is an exposed API table, not because an old database shape needs migration.
 
 ### Phase 2 - Runtime Usage Proof
 
@@ -98,7 +101,7 @@ Status: pending after Phase 2/3.
 
 Rules:
 
-- `recovery_only` stays until a fresh DB baseline and migrated recovered DB both pass.
+- `recovery_only_retired` stays removed unless a current runtime consumer proves it is required.
 - `compat_runtime_required` can move to `recovery_only` only after no runtime consumer remains.
 - `dead_candidate` can be removed only with a narrow patch, focused tests, and a sentinel audit.
 
@@ -107,5 +110,5 @@ Rules:
 - No duplicated live authority for skill movement, creature behavior, temporal hitbox, or movement reconciliation.
 - Runtime source of truth is clear for every gameplay value.
 - Legacy code/columns either have an explicit compatibility reason or are removed after proof.
-- Fresh DB and recovered DB shapes both migrate successfully.
+- Fresh DB baseline resets, migrates, and seeds successfully.
 - Server and Unreal consume canonical contracts without fallback values inventing gameplay.

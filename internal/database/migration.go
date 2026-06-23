@@ -22,6 +22,13 @@ func RunMigrations(ctx context.Context, pool *pgxpool.Pool) error {
 	migrationLogger := logger.WithComponent("migration")
 
 	migrationLogger.Info().
+		Msg("resetting apeiron schema before database migrations")
+
+	if err := resetApeironSchema(ctx, pool); err != nil {
+		return err
+	}
+
+	migrationLogger.Info().
 		Msg("starting database migrations")
 
 	if err := ensureMigrationTable(ctx, pool); err != nil {
@@ -34,18 +41,6 @@ func RunMigrations(ctx context.Context, pool *pgxpool.Pool) error {
 	}
 
 	for _, file := range files {
-		applied, err := isMigrationApplied(ctx, pool, file)
-		if err != nil {
-			return err
-		}
-
-		if applied {
-			migrationLogger.Info().
-				Str("file", file).
-				Msg("migration skipped")
-			continue
-		}
-
 		if err := executeMigration(ctx, pool, file); err != nil {
 			return fmt.Errorf("migration failed (%s): %w", file, err)
 		}
@@ -59,6 +54,14 @@ func RunMigrations(ctx context.Context, pool *pgxpool.Pool) error {
 		Msg("migrations completed successfully")
 
 	return nil
+}
+
+func resetApeironSchema(ctx context.Context, pool *pgxpool.Pool) error {
+	_, err := pool.Exec(ctx, `
+		DROP SCHEMA IF EXISTS apeiron CASCADE;
+		CREATE SCHEMA apeiron;
+	`)
+	return err
 }
 
 func RunSeeds(ctx context.Context, pool *pgxpool.Pool) error {
@@ -99,22 +102,6 @@ func ensureMigrationTable(ctx context.Context, pool *pgxpool.Pool) error {
 	`)
 
 	return err
-}
-
-func isMigrationApplied(ctx context.Context, pool *pgxpool.Pool, file string) (bool, error) {
-	fileName := filepath.Base(file)
-
-	var exists bool
-
-	err := pool.QueryRow(ctx, `
-		SELECT EXISTS (
-			SELECT 1
-			FROM apeiron.schema_migrations
-			WHERE file_name = $1
-		)
-	`, fileName).Scan(&exists)
-
-	return exists, err
 }
 
 func executeMigration(ctx context.Context, pool *pgxpool.Pool, file string) error {

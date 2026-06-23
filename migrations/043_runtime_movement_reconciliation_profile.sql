@@ -86,8 +86,3 @@ CREATE TABLE IF NOT EXISTS apeiron.runtime_movement_reconciliation_profile (
         AND severe_desync_distance >= hard_snap_distance
     )
 );
-
-ALTER TABLE IF EXISTS apeiron.runtime_movement_reconciliation_profile
-    ADD COLUMN IF NOT EXISTS metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
-    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP NOT NULL DEFAULT NOW();

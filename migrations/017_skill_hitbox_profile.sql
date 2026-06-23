@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_hitbox_profile (
     -- permite múltiplas hitboxes na mesma skill
 
     hitbox_shape TEXT NOT NULL,
-    -- sphere | capsule | box | cone | arc | ray
+    -- sphere | capsule | box | oriented_box | cone | arc | ray | asymmetric_arc | capsule_strip | temporal_sweep
 
     hitbox_start_ms INT NOT NULL,
     hitbox_end_ms INT NOT NULL,
@@ -28,6 +28,13 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_hitbox_profile (
     radius FLOAT NOT NULL DEFAULT 0.5,
     length FLOAT NOT NULL DEFAULT 1.0,
     angle FLOAT NOT NULL DEFAULT 0.0,
+    min_angle_deg FLOAT NOT NULL DEFAULT 0.0,
+    max_angle_deg FLOAT NOT NULL DEFAULT 0.0,
+    start_radius FLOAT NOT NULL DEFAULT 0.0,
+    end_radius FLOAT NOT NULL DEFAULT 0.0,
+
+    motion_profile_id TEXT,
+    damage_group_id TEXT,
 
     follows_caster BOOLEAN NOT NULL DEFAULT TRUE,
     follows_projectile BOOLEAN NOT NULL DEFAULT FALSE,
@@ -54,9 +61,13 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_hitbox_profile (
             'sphere',
             'capsule',
             'box',
+            'oriented_box',
             'cone',
             'arc',
-            'ray'
+            'ray',
+            'asymmetric_arc',
+            'capsule_strip',
+            'temporal_sweep'
         )),
 
     CONSTRAINT chk_skill_hitbox_time

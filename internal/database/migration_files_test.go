@@ -1,6 +1,7 @@
 package database
 
 import (
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -25,5 +26,29 @@ func TestMigrationFilesUseSortableThreeDigitPrefix(t *testing.T) {
 			t.Fatalf("migration prefix %s is duplicated by %q and %q", prefix, previous, name)
 		}
 		seenPrefixes[prefix] = name
+	}
+}
+
+func TestMigrationFilesAreFreshCreateOnlyBaseline(t *testing.T) {
+	files, err := loadSQLFiles(filepath.Join("..", "..", "migrations"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, file := range files {
+		raw, err := os.ReadFile(file)
+		if err != nil {
+			t.Fatal(err)
+		}
+		normalized := strings.ToUpper(string(raw))
+		forbidden := []string{
+			"ALTER TABLE",
+			"ALTER COLUMN",
+		}
+		for _, fragment := range forbidden {
+			if strings.Contains(normalized, fragment) {
+				t.Fatalf("migration %q must be fresh-baseline CREATE/INDEX SQL, found %q", filepath.Base(file), fragment)
+			}
+		}
 	}
 }
