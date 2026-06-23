@@ -13,7 +13,7 @@ WITH desired (
 ) AS (
     VALUES
     ('leap_default','lunge','leap',620::DOUBLE PRECISION,760::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"wolf_lunge_airborne_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
-    ('player_shield_rush_legacy','player_shield_rush','charge',340::DOUBLE PRECISION,470::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract"}'::jsonb),
+    ('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","restored_distance":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_legacy','player_shield_bash','dash',130::DOUBLE PRECISION,280::DOUBLE PRECISION,520,120,180,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","legacy_semantics":"short_charge"}'::jsonb)
 )
 UPDATE apeiron.skill_movement_effect existing
@@ -37,7 +37,7 @@ WITH desired (
 ) AS (
     VALUES
     ('leap_default','lunge','leap',620::DOUBLE PRECISION,760::DOUBLE PRECISION,980,3600,500,TRUE,FALSE,'{"source":"chat_recovery","thread":"DB","compatibility":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"wolf_lunge_airborne_v1","post_landing_inertia_multiplier":1.1,"airborne_passthrough":true}'::jsonb),
-    ('player_shield_rush_legacy','player_shield_rush','charge',340::DOUBLE PRECISION,470::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract"}'::jsonb),
+    ('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","restored_distance":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_legacy','player_shield_bash','dash',130::DOUBLE PRECISION,280::DOUBLE PRECISION,520,120,180,TRUE,FALSE,'{"source":"chat_recovery","prefer":"movement_action_contract","legacy_semantics":"short_charge"}'::jsonb)
 )
 INSERT INTO apeiron.skill_movement_effect (

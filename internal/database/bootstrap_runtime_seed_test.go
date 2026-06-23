@@ -431,6 +431,12 @@ func TestBootstrapSeedsKeepUnimplementedVanguardSlotsEmpty(t *testing.T) {
 func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
+		"'player_shield_rush','Shield Rush'",
+		"0,5.2,0,5,'enemy'",
+		"FALSE,4.7, NULL,NULL",
+		"('shield_rush_front_contact_v1','grounded_skill'",
+		"830,430,240,470,620",
+		"('player_shield_rush_legacy','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240",
 		`"front_contact_offset_cm":45`,
 		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',45,0,100,190,0,160,96,105",
 		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",

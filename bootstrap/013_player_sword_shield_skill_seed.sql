@@ -26,7 +26,7 @@ VALUES
 ('player_shield_bash','Shield Bash','Bulwark close shield strike with wide frontal path and push.', 'sword_shield','shield_attack',
  18,0,0, 120,220,180,0,2600, 0,0,0,0, 0,2.0,0,4,'enemy',FALSE, 10,'physical',NULL,26,0,1,1.25, 0,0,2.4, 1,FALSE,1.3, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE),
 ('player_shield_rush','Shield Rush','Bulwark committed forward rush. Damage begins close to body contact and follows the player front.', 'sword_shield','shield_rush',
- 26,0,0, 160,430,240,0,5200, 0,0,0,0, 0,4.2,0,5,'enemy',FALSE, 14,'physical',NULL,34,0,1,1.35, 0,0,3.2, 1,FALSE,3.4, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE)
+ 26,0,0, 160,430,240,0,5200, 0,0,0,0, 0,5.2,0,5,'enemy',FALSE, 14,'physical',NULL,34,0,1,1.35, 0,0,3.2, 1,FALSE,4.7, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE)
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
