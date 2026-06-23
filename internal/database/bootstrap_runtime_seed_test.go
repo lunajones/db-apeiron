@@ -137,7 +137,7 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
 		`"front_contact_offset_cm":45`,
-		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',0,45,100,0,190,160,96,105",
+		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',45,0,100,190,0,160,96,105",
 		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
 		"'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact'",
 	}

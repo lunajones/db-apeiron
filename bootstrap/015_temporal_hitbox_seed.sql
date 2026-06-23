@@ -54,21 +54,21 @@ INSERT INTO apeiron.skill_hitbox_motion_sample (
     radius, length, min_angle_deg, max_angle_deg, metadata
 )
 VALUES
-('motion_player_basic_attack_1_forward_v1',0,0.00,'capsule_strip',0,35,90,0,95,150,48,70,0,0,'{}'),
-('motion_player_basic_attack_1_forward_v1',1,0.50,'capsule_strip',0,85,90,0,100,150,50,150,0,0,'{}'),
-('motion_player_basic_attack_1_forward_v1',2,1.00,'capsule_strip',0,130,90,0,100,150,50,210,0,0,'{}'),
-('motion_player_basic_attack_2_right_to_left_v1',0,0.00,'asymmetric_arc',35,70,95,0,0,150,55,155,-45,-15,'{}'),
-('motion_player_basic_attack_2_right_to_left_v1',1,0.50,'asymmetric_arc',0,85,95,0,0,150,58,165,-15,15,'{}'),
-('motion_player_basic_attack_2_right_to_left_v1',2,1.00,'asymmetric_arc',-35,70,95,0,0,150,55,155,15,45,'{}'),
-('motion_player_basic_attack_3_shield_drive_v1',0,0.00,'capsule_strip',0,45,95,0,120,155,60,90,0,0,'{}'),
-('motion_player_basic_attack_3_shield_drive_v1',1,0.55,'capsule_strip',0,90,95,0,120,155,60,175,0,0,'{}'),
-('motion_player_basic_attack_3_shield_drive_v1',2,1.00,'capsule_strip',0,115,95,0,120,155,60,210,0,0,'{}'),
-('motion_player_shield_bash_front_push_v1',0,0.00,'capsule_strip',0,45,95,0,190,160,95,95,0,0,'{}'),
-('motion_player_shield_bash_front_push_v1',1,0.50,'capsule_strip',0,85,95,0,190,160,95,160,0,0,'{}'),
-('motion_player_shield_bash_front_push_v1',2,1.00,'capsule_strip',0,120,95,0,190,160,95,210,0,0,'{}'),
-('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',0,45,100,0,190,160,96,105,0,0,'{}'),
-('motion_player_shield_rush_front_contact_v1',1,0.50,'capsule_strip',0,105,100,0,190,160,96,220,0,0,'{}'),
-('motion_player_shield_rush_front_contact_v1',2,1.00,'capsule_strip',0,145,100,0,190,160,96,290,0,0,'{}'),
+('motion_player_basic_attack_1_forward_v1',0,0.00,'capsule_strip',35,0,90,95,0,150,48,70,0,0,'{}'),
+('motion_player_basic_attack_1_forward_v1',1,0.50,'capsule_strip',85,0,90,100,0,150,50,150,0,0,'{}'),
+('motion_player_basic_attack_1_forward_v1',2,1.00,'capsule_strip',130,0,90,100,0,150,50,210,0,0,'{}'),
+('motion_player_basic_attack_2_right_to_left_v1',0,0.00,'asymmetric_arc',70,35,95,0,0,150,55,155,-45,-15,'{}'),
+('motion_player_basic_attack_2_right_to_left_v1',1,0.50,'asymmetric_arc',85,0,95,0,0,150,58,165,-15,15,'{}'),
+('motion_player_basic_attack_2_right_to_left_v1',2,1.00,'asymmetric_arc',70,-35,95,0,0,150,55,155,15,45,'{}'),
+('motion_player_basic_attack_3_shield_drive_v1',0,0.00,'capsule_strip',45,0,95,120,0,155,60,90,0,0,'{}'),
+('motion_player_basic_attack_3_shield_drive_v1',1,0.55,'capsule_strip',90,0,95,120,0,155,60,175,0,0,'{}'),
+('motion_player_basic_attack_3_shield_drive_v1',2,1.00,'capsule_strip',115,0,95,120,0,155,60,210,0,0,'{}'),
+('motion_player_shield_bash_front_push_v1',0,0.00,'capsule_strip',45,0,95,190,0,160,95,95,0,0,'{}'),
+('motion_player_shield_bash_front_push_v1',1,0.50,'capsule_strip',85,0,95,190,0,160,95,160,0,0,'{}'),
+('motion_player_shield_bash_front_push_v1',2,1.00,'capsule_strip',120,0,95,190,0,160,95,210,0,0,'{}'),
+('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',45,0,100,190,0,160,96,105,0,0,'{}'),
+('motion_player_shield_rush_front_contact_v1',1,0.50,'capsule_strip',105,0,100,190,0,160,96,220,0,0,'{}'),
+('motion_player_shield_rush_front_contact_v1',2,1.00,'capsule_strip',145,0,100,190,0,160,96,290,0,0,'{}'),
 ('motion_wolf_bite_melee_v1',0,0.00,'capsule_strip',0,45,85,0,90,115,45,70,0,0,'{}'),
 ('motion_wolf_bite_melee_v1',1,0.55,'capsule_strip',0,80,90,0,95,115,48,125,0,0,'{}'),
 ('motion_wolf_bite_melee_v1',2,1.00,'capsule_strip',0,95,85,0,90,115,45,145,0,0,'{}'),
@@ -84,11 +84,11 @@ INSERT INTO apeiron.skill_hitbox_profile (
     min_angle_deg, max_angle_deg, start_radius, end_radius
 )
 VALUES
-('hitbox_player_basic_attack_1_0','player_basic_attack_1',0,'temporal_sweep',90,230,0,90,90,0,100,150,50,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_1_forward_v1','player_basic_attack_1_damage',0,0,48,50),
-('hitbox_player_basic_attack_2_0','player_basic_attack_2',0,'temporal_sweep',100,250,0,85,95,0,110,150,58,165,90,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_2_right_to_left_v1','player_basic_attack_2_damage',-45,45,55,58),
-('hitbox_player_basic_attack_3_0','player_basic_attack_3',0,'temporal_sweep',180,440,0,95,95,0,120,155,60,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_3_shield_drive_v1','player_basic_attack_3_damage',0,0,60,60),
-('hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep',120,340,0,90,95,0,190,160,95,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_bash_front_push_v1','player_shield_bash_front_push',0,0,95,95),
-('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep',160,590,0,120,100,0,190,160,96,290,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact',0,0,96,96),
+('hitbox_player_basic_attack_1_0','player_basic_attack_1',0,'temporal_sweep',90,230,90,0,90,100,0,150,50,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_1_forward_v1','player_basic_attack_1_damage',0,0,48,50),
+('hitbox_player_basic_attack_2_0','player_basic_attack_2',0,'temporal_sweep',100,250,85,0,95,0,110,150,58,165,90,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_2_right_to_left_v1','player_basic_attack_2_damage',-45,45,55,58),
+('hitbox_player_basic_attack_3_0','player_basic_attack_3',0,'temporal_sweep',180,440,95,0,95,120,0,155,60,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_basic_attack_3_shield_drive_v1','player_basic_attack_3_damage',0,0,60,60),
+('hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep',120,340,90,0,95,190,0,160,95,210,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_bash_front_push_v1','player_shield_bash_front_push',0,0,95,95),
+('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep',160,590,120,0,100,190,0,160,96,290,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_player_shield_rush_front_contact_v1','player_shield_rush_front_contact',0,0,96,96),
 ('hitbox_bite_0','bite',0,'temporal_sweep',120,340,0,80,90,0,95,115,48,145,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_bite_melee_v1','wolf_bite_damage',0,0,45,48),
 ('hitbox_lunge_0','lunge',0,'temporal_sweep',3600,4030,0,130,105,0,100,120,50,320,0,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_lunge_cross_v1','wolf_lunge_damage',0,0,50,50)
 ON CONFLICT (id) DO UPDATE SET
