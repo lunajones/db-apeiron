@@ -327,3 +327,41 @@ Important design decision:
   authoritative relationship is `creature_behavior_runtime_contract.creature_template_id`.
   This avoids a cyclic FK during recovery while still allowing `CreatureRuntimeData` to resolve
   the behavior contract by template id.
+
+## 2026-06-22 - Server Consumption / Client Visual Follow-up
+
+Server-side bridge restored:
+
+- `server-apeiron` commit `4b51ef9 recover wolf behavior runtime contracts` now loads:
+  - `CreatureBehaviorRuntimeContract`
+  - `CreatureTargetOpportunityPolicy`
+  - `CreatureOrbitPolicy`
+  - `CreatureSkillBehaviorBinding`
+- `WolfRuntimePolicy` now carries opportunity/orbit/binding fields instead of leaving them only
+  in DB/proto.
+- Server tests prove DB-loaded wolf runtime includes:
+  - opportunity policy `opportunity_wolf_harasser_v1`;
+  - orbit policy `orbit_wolf_harasser_combat_walk_v1`;
+  - lunge range `180..700`;
+  - lunge `circle/reposition`;
+  - maul `pressure/counter`.
+
+DB safety added:
+
+- `db-apeiron` commit `db6bd08 guard creature behavior proto mapping` adds mapper tests so the
+  recovered behavior fields cannot silently disappear between repository structs and protobuf
+  responses.
+
+Observed client-side follow-up:
+
+- The Unreal creature placeholder normally converts server root to visual ground correctly:
+  server Z `98` -> actor visual root Z `0`, body `VisualZOffset = 40`.
+- If the wolf still appears to float, the strongest current hypothesis is not DB template height;
+  it is the `ApeironCreaturePlaceholder` skill visual lifecycle leaving `SkillVisualZOffset` or
+  predictive leap state active during/after creature skill presentation.
+- Next pass should reproduce with creature logs/screenshot and inspect:
+  - `ObservedCreatureSkillStartedWorldSeconds`
+  - `bObservedCreatureSkillAuthoritative`
+  - `SkillVisualZOffset`
+  - `AuthoritativeLocomotion.DurationMs`
+  - `CreatureAIState.SkillMovementType`
