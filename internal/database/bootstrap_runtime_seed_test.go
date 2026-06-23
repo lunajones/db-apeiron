@@ -100,7 +100,7 @@ func TestBootstrapSeedsMirrorServerRuntimeRequirementManifest(t *testing.T) {
 				"('dodge_v1_full_iframe','dodge'",
 				"'dodge_reconciliation'",
 				"'iframe'",
-				",260,812.5,0,",
+				",360,1125,0,",
 				`"ability_key":"dodge"`,
 				`"speed_semantics":"authored_base_speed_distance_over_duration"`,
 			},
@@ -232,7 +232,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "player_shield_bash",
 			actionContractID: "shield_bash_front_push_v1",
-			timing:           "'player_shield_bash',110,170,120,2600",
+			timing:           "'player_shield_bash',110,170,120,26000",
 			hitbox:           "'hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep'",
 			motionProfileID:  "motion_player_shield_bash_front_push_v1",
 			damageGroupID:    "player_shield_bash_front_push",
@@ -241,7 +241,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "player_shield_rush",
 			actionContractID: "shield_rush_front_contact_v1",
-			timing:           "'player_shield_rush',160,720,260,5200",
+			timing:           "'player_shield_rush',160,720,260,32000",
 			hitbox:           "'hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
 			motionProfileID:  "motion_player_shield_rush_front_contact_v1",
 			damageGroupID:    "player_shield_rush_front_contact",
@@ -457,11 +457,11 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
 		"'player_shield_rush','Shield Rush'",
-		"0,10.2,0,5,'enemy'",
-		"FALSE,9.6, NULL,NULL",
+		"0,9.2,0,5,'enemy'",
+		"FALSE,8.64, NULL,NULL",
 		"('shield_rush_front_contact_v1','grounded_skill'",
-		"1100,720,260,960,1148",
-		"('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260",
+		"1100,720,260,864,1033.2",
+		"('player_shield_rush_effect_v1','player_shield_rush','charge',864::DOUBLE PRECISION,1033.2::DOUBLE PRECISION,1100,160,260",
 		`"front_contact_offset_cm":8`,
 		`"front_contact_depth_cm":54`,
 		"('motion_player_shield_rush_front_contact_v1',0,0.00,'box_strip',8,0,100,34,224,160,112,34",

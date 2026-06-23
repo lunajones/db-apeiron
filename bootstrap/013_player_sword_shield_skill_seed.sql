@@ -24,9 +24,9 @@ VALUES
 ('player_basic_attack_3','Shield Drive','Committed overhead shield-drive finisher that carries contact, interrupts, and pushes enemies with the shield tip.', 'sword_shield','basic_attack',
  0,0,0, 180,260,180,0,0, 0,0,0,0, 0,3.0,0,3,'enemy',FALSE, 6,'physical',NULL,18,0,1,1.1, 0,0,2.5, 1,FALSE,2.52, 'sword_shield_light_combo',3,2000, TRUE,TRUE,TRUE,FALSE,FALSE),
 ('player_shield_bash','Shield Bash','Bulwark close shield strike: short committed step, frontal temporal hit, push and stun.', 'sword_shield','shield_attack',
- 18,0,0, 110,170,120,0,2600, 0,0,0,0, 0,1.6,0,4,'enemy',FALSE, 10,'physical',NULL,26,0,1,1.25, 1500,0,1.1, 1,FALSE,0.95, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE),
+ 18,0,0, 110,170,120,0,26000, 0,0,0,0, 0,1.6,0,4,'enemy',FALSE, 10,'physical',NULL,26,0,1,1.25, 1500,0,1.1, 1,FALSE,0.95, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE),
 ('player_shield_rush','Shield Rush','Bulwark committed forward rush. Damage begins close to body contact and follows the player front.', 'sword_shield','shield_rush',
- 26,0,0, 160,720,260,0,5200, 0,0,0,0, 0,10.2,0,5,'enemy',FALSE, 14,'physical',NULL,34,0,1,1.35, 0,0,5.0, 1,FALSE,9.6, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE)
+ 26,0,0, 160,720,260,0,32000, 0,0,0,0, 0,9.2,0,5,'enemy',FALSE, 14,'physical',NULL,34,0,1,1.35, 0,0,5.0, 1,FALSE,8.64, NULL,NULL,0, TRUE,TRUE,TRUE,FALSE,FALSE)
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
