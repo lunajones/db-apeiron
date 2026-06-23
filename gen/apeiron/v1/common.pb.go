@@ -3562,20 +3562,26 @@ func (x *CreatureSkillBehaviorBinding) GetMetadataJson() string {
 }
 
 type CombatCoreProfile struct {
-	state                   protoimpl.MessageState `protogen:"open.v1"`
-	DamageDealtMultiplier   float64                `protobuf:"fixed64,1,opt,name=damage_dealt_multiplier,json=damageDealtMultiplier,proto3" json:"damage_dealt_multiplier,omitempty"`
-	CanBlock                bool                   `protobuf:"varint,2,opt,name=can_block,json=canBlock,proto3" json:"can_block,omitempty"`
-	BlockDamageReduction    float64                `protobuf:"fixed64,3,opt,name=block_damage_reduction,json=blockDamageReduction,proto3" json:"block_damage_reduction,omitempty"`
-	MaxPosture              float64                `protobuf:"fixed64,4,opt,name=max_posture,json=maxPosture,proto3" json:"max_posture,omitempty"`
-	PostureDamageMultiplier float64                `protobuf:"fixed64,5,opt,name=posture_damage_multiplier,json=postureDamageMultiplier,proto3" json:"posture_damage_multiplier,omitempty"`
-	PostureBreakDurationMs  int32                  `protobuf:"varint,6,opt,name=posture_break_duration_ms,json=postureBreakDurationMs,proto3" json:"posture_break_duration_ms,omitempty"`
-	DamageTakenMultiplier   float64                `protobuf:"fixed64,7,opt,name=damage_taken_multiplier,json=damageTakenMultiplier,proto3" json:"damage_taken_multiplier,omitempty"`
-	CanParry                bool                   `protobuf:"varint,8,opt,name=can_parry,json=canParry,proto3" json:"can_parry,omitempty"`
-	ParryWindowMs           int32                  `protobuf:"varint,9,opt,name=parry_window_ms,json=parryWindowMs,proto3" json:"parry_window_ms,omitempty"`
-	ParryRewardMultiplier   float64                `protobuf:"fixed64,10,opt,name=parry_reward_multiplier,json=parryRewardMultiplier,proto3" json:"parry_reward_multiplier,omitempty"`
-	DodgeIframeMs           int32                  `protobuf:"varint,11,opt,name=dodge_iframe_ms,json=dodgeIframeMs,proto3" json:"dodge_iframe_ms,omitempty"`
-	unknownFields           protoimpl.UnknownFields
-	sizeCache               protoimpl.SizeCache
+	state                      protoimpl.MessageState `protogen:"open.v1"`
+	DamageDealtMultiplier      float64                `protobuf:"fixed64,1,opt,name=damage_dealt_multiplier,json=damageDealtMultiplier,proto3" json:"damage_dealt_multiplier,omitempty"`
+	CanBlock                   bool                   `protobuf:"varint,2,opt,name=can_block,json=canBlock,proto3" json:"can_block,omitempty"`
+	BlockDamageReduction       float64                `protobuf:"fixed64,3,opt,name=block_damage_reduction,json=blockDamageReduction,proto3" json:"block_damage_reduction,omitempty"`
+	MaxPosture                 float64                `protobuf:"fixed64,4,opt,name=max_posture,json=maxPosture,proto3" json:"max_posture,omitempty"`
+	PostureDamageMultiplier    float64                `protobuf:"fixed64,5,opt,name=posture_damage_multiplier,json=postureDamageMultiplier,proto3" json:"posture_damage_multiplier,omitempty"`
+	PostureBreakDurationMs     int32                  `protobuf:"varint,6,opt,name=posture_break_duration_ms,json=postureBreakDurationMs,proto3" json:"posture_break_duration_ms,omitempty"`
+	DamageTakenMultiplier      float64                `protobuf:"fixed64,7,opt,name=damage_taken_multiplier,json=damageTakenMultiplier,proto3" json:"damage_taken_multiplier,omitempty"`
+	CanParry                   bool                   `protobuf:"varint,8,opt,name=can_parry,json=canParry,proto3" json:"can_parry,omitempty"`
+	ParryWindowMs              int32                  `protobuf:"varint,9,opt,name=parry_window_ms,json=parryWindowMs,proto3" json:"parry_window_ms,omitempty"`
+	ParryRewardMultiplier      float64                `protobuf:"fixed64,10,opt,name=parry_reward_multiplier,json=parryRewardMultiplier,proto3" json:"parry_reward_multiplier,omitempty"`
+	DodgeIframeMs              int32                  `protobuf:"varint,11,opt,name=dodge_iframe_ms,json=dodgeIframeMs,proto3" json:"dodge_iframe_ms,omitempty"`
+	MaxStamina                 float64                `protobuf:"fixed64,12,opt,name=max_stamina,json=maxStamina,proto3" json:"max_stamina,omitempty"`
+	StaminaRegenPerSec         float64                `protobuf:"fixed64,13,opt,name=stamina_regen_per_sec,json=staminaRegenPerSec,proto3" json:"stamina_regen_per_sec,omitempty"`
+	DodgeStaminaCost           float64                `protobuf:"fixed64,14,opt,name=dodge_stamina_cost,json=dodgeStaminaCost,proto3" json:"dodge_stamina_cost,omitempty"`
+	BlockStaminaCostPerSec     float64                `protobuf:"fixed64,15,opt,name=block_stamina_cost_per_sec,json=blockStaminaCostPerSec,proto3" json:"block_stamina_cost_per_sec,omitempty"`
+	AttackStaminaCost          float64                `protobuf:"fixed64,16,opt,name=attack_stamina_cost,json=attackStaminaCost,proto3" json:"attack_stamina_cost,omitempty"`
+	StaminaExhaustionThreshold float64                `protobuf:"fixed64,17,opt,name=stamina_exhaustion_threshold,json=staminaExhaustionThreshold,proto3" json:"stamina_exhaustion_threshold,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *CombatCoreProfile) Reset() {
@@ -3681,6 +3687,48 @@ func (x *CombatCoreProfile) GetParryRewardMultiplier() float64 {
 func (x *CombatCoreProfile) GetDodgeIframeMs() int32 {
 	if x != nil {
 		return x.DodgeIframeMs
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetMaxStamina() float64 {
+	if x != nil {
+		return x.MaxStamina
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetStaminaRegenPerSec() float64 {
+	if x != nil {
+		return x.StaminaRegenPerSec
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetDodgeStaminaCost() float64 {
+	if x != nil {
+		return x.DodgeStaminaCost
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetBlockStaminaCostPerSec() float64 {
+	if x != nil {
+		return x.BlockStaminaCostPerSec
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetAttackStaminaCost() float64 {
+	if x != nil {
+		return x.AttackStaminaCost
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetStaminaExhaustionThreshold() float64 {
+	if x != nil {
+		return x.StaminaExhaustionThreshold
 	}
 	return 0
 }
@@ -5693,7 +5741,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16requires_line_of_sight\x18\f \x01(\bR\x13requiresLineOfSight\x12\x1d\n" +
 	"\n" +
 	"is_enabled\x18\r \x01(\bR\tisEnabled\x12#\n" +
-	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\x93\x04\n" +
+	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xc3\x06\n" +
 	"\x11CombatCoreProfile\x126\n" +
 	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
 	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
@@ -5707,7 +5755,14 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x0fparry_window_ms\x18\t \x01(\x05R\rparryWindowMs\x126\n" +
 	"\x17parry_reward_multiplier\x18\n" +
 	" \x01(\x01R\x15parryRewardMultiplier\x12&\n" +
-	"\x0fdodge_iframe_ms\x18\v \x01(\x05R\rdodgeIframeMs\"\xdf\x05\n" +
+	"\x0fdodge_iframe_ms\x18\v \x01(\x05R\rdodgeIframeMs\x12\x1f\n" +
+	"\vmax_stamina\x18\f \x01(\x01R\n" +
+	"maxStamina\x121\n" +
+	"\x15stamina_regen_per_sec\x18\r \x01(\x01R\x12staminaRegenPerSec\x12,\n" +
+	"\x12dodge_stamina_cost\x18\x0e \x01(\x01R\x10dodgeStaminaCost\x12:\n" +
+	"\x1ablock_stamina_cost_per_sec\x18\x0f \x01(\x01R\x16blockStaminaCostPerSec\x12.\n" +
+	"\x13attack_stamina_cost\x18\x10 \x01(\x01R\x11attackStaminaCost\x12@\n" +
+	"\x1cstamina_exhaustion_threshold\x18\x11 \x01(\x01R\x1astaminaExhaustionThreshold\"\xdf\x05\n" +
 	"\x15CombatDefenseContract\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +

@@ -420,6 +420,12 @@ message CombatCoreProfile {
   int32 parry_window_ms = 9;
   double parry_reward_multiplier = 10;
   int32 dodge_iframe_ms = 11;
+  double max_stamina = 12;
+  double stamina_regen_per_sec = 13;
+  double dodge_stamina_cost = 14;
+  double block_stamina_cost_per_sec = 15;
+  double attack_stamina_cost = 16;
+  double stamina_exhaustion_threshold = 17;
 }
 
 message CombatDefenseContract {

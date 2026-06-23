@@ -178,17 +178,23 @@ func mapMovementProfile(p postgres.MovementProfile) *apeironv1.MovementProfile {
 
 func mapCombatCoreProfile(p postgres.CombatCoreProfile) *apeironv1.CombatCoreProfile {
 	return &apeironv1.CombatCoreProfile{
-		DamageDealtMultiplier:   p.DamageDealtMultiplier,
-		CanBlock:                p.CanBlock,
-		BlockDamageReduction:    p.BlockDamageReduction,
-		MaxPosture:              p.MaxPosture,
-		PostureDamageMultiplier: p.PostureDamageMultiplier,
-		PostureBreakDurationMs:  int32(p.PostureBreakDurationMS),
-		DamageTakenMultiplier:   p.DamageTakenMultiplier,
-		CanParry:                p.CanParry,
-		ParryWindowMs:           int32(p.ParryWindowMS),
-		ParryRewardMultiplier:   p.ParryRewardMultiplier,
-		DodgeIframeMs:           int32(p.DodgeIframeMS),
+		DamageDealtMultiplier:      p.DamageDealtMultiplier,
+		CanBlock:                   p.CanBlock,
+		BlockDamageReduction:       p.BlockDamageReduction,
+		MaxPosture:                 p.MaxPosture,
+		PostureDamageMultiplier:    p.PostureDamageMultiplier,
+		PostureBreakDurationMs:     int32(p.PostureBreakDurationMS),
+		DamageTakenMultiplier:      p.DamageTakenMultiplier,
+		CanParry:                   p.CanParry,
+		ParryWindowMs:              int32(p.ParryWindowMS),
+		ParryRewardMultiplier:      p.ParryRewardMultiplier,
+		DodgeIframeMs:              int32(p.DodgeIframeMS),
+		MaxStamina:                 p.MaxStamina,
+		StaminaRegenPerSec:         p.StaminaRegenPerSec,
+		DodgeStaminaCost:           p.DodgeStaminaCost,
+		BlockStaminaCostPerSec:     p.BlockStaminaCostPerSec,
+		AttackStaminaCost:          p.AttackStaminaCost,
+		StaminaExhaustionThreshold: p.StaminaExhaustionThreshold,
 	}
 }
 
