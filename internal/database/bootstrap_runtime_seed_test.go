@@ -53,6 +53,260 @@ func TestBootstrapSeedsCoverRequiredRuntimeSkills(t *testing.T) {
 	}
 }
 
+func TestBootstrapSeedsMirrorServerRuntimeRequirementManifest(t *testing.T) {
+	sql := readBootstrapSQL(t)
+
+	manifest := []runtimeSeedRequirement{
+		{
+			category:    "movement_profile",
+			id:          "player_default_movement_profile",
+			description: "rich runtime movement/reconciliation profile consumed by server and Unreal",
+			fragments: []string{
+				"'player_default_movement_profile'",
+				"grounded_transition_deadzone_min",
+				"leap_landing_clamp_ignore_deadzone",
+				"dodge_carry_handoff_ms",
+				"rotation_rate_yaw",
+				"movement_turn_resubmit_dot_threshold",
+			},
+		},
+		{
+			category:    "base_movement_action",
+			id:          "grounded_move_v1",
+			description: "normal grounded locomotion",
+			fragments: []string{
+				"('grounded_move_v1','move'",
+				"'grounded_move_reconciliation'",
+				"'grounded_move'",
+				"'movement'",
+			},
+		},
+		{
+			category:    "base_movement_action",
+			id:          "turn_v1_rate_limited_contextual",
+			description: "camera/control yaw action",
+			fragments: []string{
+				"('turn_v1_rate_limited_contextual','turn'",
+				"'turn_reconciliation'",
+				"'turn'",
+				`"yaw_rate_deg_per_sec":720`,
+			},
+		},
+		{
+			category:    "base_movement_action",
+			id:          "dodge_v1_full_iframe",
+			description: "protected full-iframe dodge baseline",
+			fragments: []string{
+				"('dodge_v1_full_iframe','dodge'",
+				"'dodge_reconciliation'",
+				"'iframe'",
+				`"ability_key":"dodge"`,
+			},
+		},
+		{
+			category:    "base_movement_action",
+			id:          "jump_v1_authoritative_grounded_handoff",
+			description: "protected leap/jump baseline",
+			fragments: []string{
+				"('jump_v1_authoritative_grounded_handoff','leap'",
+				"'leap_reconciliation'",
+				"'grounded_handoff'",
+				`"landing_detection_policy":"server_grounded_handoff"`,
+			},
+		},
+		{
+			category:    "combat_core_profile",
+			id:          "combat_core_player_sword_shield_v1",
+			description: "player sword-and-shield combat core",
+			fragments: []string{
+				"'combat_core_player_sword_shield_v1'",
+				"block_stamina_cost_per_sec",
+				"can_block",
+				"can_parry",
+			},
+		},
+		{
+			category:    "combat_core_profile",
+			id:          "combat_core_steppe_wolf",
+			description: "steppe wolf combat core",
+			fragments: []string{
+				"'combat_core_steppe_wolf'",
+				"dodge_stamina_cost",
+				"stamina_regen_per_sec",
+				"cc_duration_multiplier",
+			},
+		},
+		{
+			category:    "defense_contract",
+			id:          "player_shield_guard_v1",
+			description: "player shield guard defense contract",
+			fragments: []string{
+				"'player_shield_guard_v1'",
+				"'shield_block'",
+				`"frontFacing":"control_rotation_yaw"`,
+			},
+		},
+		{
+			category:    "defense_contract",
+			id:          "wolf_attack_vs_guard_v1",
+			description: "wolf hit-vs-guard interaction contract",
+			fragments: []string{
+				"'wolf_attack_vs_guard_v1'",
+				"'incoming_melee'",
+				"stamina_damage_only_on_block",
+			},
+		},
+		{
+			category:    "weapon_kit",
+			id:          "weaponkit_sword_shield",
+			description: "current player sword/shield combat mode slots",
+			fragments: []string{
+				"'weaponkit_sword_shield'",
+				"'mode_sword_shield_bulwark'",
+				"'mode_sword_shield_vanguard'",
+				"('mode_sword_shield_bulwark','M1','player_basic_attack_1'",
+				"('mode_sword_shield_bulwark','R','player_shield_bash'",
+				"('mode_sword_shield_bulwark','F','player_shield_rush'",
+				"('mode_sword_shield_vanguard','M1',NULL,FALSE,FALSE,FALSE",
+			},
+		},
+		{
+			category:    "wolf_brain_policy",
+			id:          "contract_wolf_pack_harasser_v1",
+			description: "wolf creature brain runtime contract",
+			fragments: []string{
+				"'contract_wolf_pack_harasser_v1'",
+				"'opportunity_wolf_harasser_v1'",
+				"'orbit_wolf_harasser_combat_walk_v1'",
+				"'wolf_evasion_pressure_v1'",
+				"'wolf_lunge_flank_windup_v1'",
+				"'wolf_lunge_chase_windup_v1'",
+				"'wolf_maul_pressure_counter_v1'",
+				"'wolf_dodge_pressure_evasion_v1'",
+			},
+		},
+	}
+
+	for _, requirement := range manifest {
+		for _, fragment := range requirement.fragments {
+			if !strings.Contains(sql, fragment) {
+				t.Fatalf("bootstrap runtime manifest missing %s %s (%s): %s", requirement.category, requirement.id, requirement.description, fragment)
+			}
+		}
+	}
+}
+
+func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
+	sql := readBootstrapSQL(t)
+
+	manifest := []skillActionSeedRequirement{
+		{
+			skillID:          "player_basic_attack_1",
+			actionContractID: "basic_attack_1_forward_cut_v1",
+			timing:           "'player_basic_attack_1',90,140,120,0,2000",
+			hitbox:           "'hitbox_player_basic_attack_1_0','player_basic_attack_1',0,'temporal_sweep'",
+			motionProfileID:  "motion_player_basic_attack_1_forward_v1",
+			damageGroupID:    "player_basic_attack_1_damage",
+			binding:          "('player_basic_attack_1','basic_attack_1_forward_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "player_basic_attack_2",
+			actionContractID: "basic_attack_2_cross_cut_v1",
+			timing:           "'player_basic_attack_2',100,150,120,0,2000",
+			hitbox:           "'hitbox_player_basic_attack_2_0','player_basic_attack_2',0,'temporal_sweep'",
+			motionProfileID:  "motion_player_basic_attack_2_right_to_left_v1",
+			damageGroupID:    "player_basic_attack_2_damage",
+			binding:          "('player_basic_attack_2','basic_attack_2_cross_cut_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "player_basic_attack_3",
+			actionContractID: "basic_attack_3_shield_drive_v1",
+			timing:           "'player_basic_attack_3',180,260,180,0,2000",
+			hitbox:           "'hitbox_player_basic_attack_3_0','player_basic_attack_3',0,'temporal_sweep'",
+			motionProfileID:  "motion_player_basic_attack_3_shield_drive_v1",
+			damageGroupID:    "player_basic_attack_3_damage",
+			binding:          "('player_basic_attack_3','basic_attack_3_shield_drive_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "player_shield_bash",
+			actionContractID: "shield_bash_front_push_v1",
+			timing:           "'player_shield_bash',120,220,180,2600",
+			hitbox:           "'hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep'",
+			motionProfileID:  "motion_player_shield_bash_front_push_v1",
+			damageGroupID:    "player_shield_bash_front_push",
+			binding:          "('player_shield_bash','shield_bash_front_push_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "player_shield_rush",
+			actionContractID: "shield_rush_front_contact_v1",
+			timing:           "'player_shield_rush',160,430,240,5200",
+			hitbox:           "'hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
+			motionProfileID:  "motion_player_shield_rush_front_contact_v1",
+			damageGroupID:    "player_shield_rush_front_contact",
+			binding:          "('player_shield_rush','shield_rush_front_contact_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "bite",
+			actionContractID: "wolf_bite_melee_commit_v1",
+			timing:           "'bite',120,220,180,900",
+			hitbox:           "'hitbox_bite_0','bite',0,'temporal_sweep'",
+			motionProfileID:  "motion_wolf_bite_melee_v1",
+			damageGroupID:    "wolf_bite_damage",
+			binding:          "('bite','wolf_bite_melee_commit_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "lunge",
+			actionContractID: "wolf_lunge_airborne_v1",
+			timing:           "'lunge',3600,430,500,4200",
+			hitbox:           "'hitbox_lunge_0','lunge',0,'temporal_sweep'",
+			motionProfileID:  "motion_wolf_lunge_cross_v1",
+			damageGroupID:    "wolf_lunge_damage",
+			binding:          "('lunge','wolf_lunge_airborne_v1','active','grounded_handoff','blocked_during_airborne'",
+		},
+		{
+			skillID:          "wolf_dodge",
+			actionContractID: "wolf_dodge_lateral_leap_v1",
+			timing:           "'wolf_dodge',0,420,100,0",
+			hitbox:           "",
+			motionProfileID:  "",
+			damageGroupID:    "",
+			binding:          "('wolf_dodge','wolf_dodge_lateral_leap_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+		{
+			skillID:          "maul",
+			actionContractID: "wolf_maul_lateral_counter_v1",
+			timing:           "'maul',180,260,360,5200",
+			hitbox:           "'hitbox_maul_0','maul',0,'temporal_sweep'",
+			motionProfileID:  "motion_wolf_maul_lateral_counter_v1",
+			damageGroupID:    "wolf_maul_damage",
+			binding:          "('maul','wolf_maul_lateral_counter_v1','active','explicit_recovery_handoff','blocked_during_owned_root'",
+		},
+	}
+
+	for _, requirement := range manifest {
+		required := []string{
+			"'" + requirement.skillID + "'",
+			"'" + requirement.actionContractID + "'",
+			requirement.timing,
+			requirement.binding,
+		}
+		if requirement.hitbox != "" {
+			required = append(required, requirement.hitbox)
+		}
+		if requirement.motionProfileID != "" {
+			required = append(required, "'"+requirement.motionProfileID+"'")
+		}
+		if requirement.damageGroupID != "" {
+			required = append(required, "'"+requirement.damageGroupID+"'")
+		}
+		for _, fragment := range required {
+			if !strings.Contains(sql, fragment) {
+				t.Fatalf("bootstrap skill action manifest missing %s -> %s: %s", requirement.skillID, requirement.actionContractID, fragment)
+			}
+		}
+	}
+}
+
 func TestBootstrapSeedsCoverTemporalHitboxesForCombatRuntime(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	requiredMotionProfiles := []string{
@@ -296,4 +550,21 @@ func readBootstrapSQL(t *testing.T) string {
 		builder.WriteByte('\n')
 	}
 	return builder.String()
+}
+
+type runtimeSeedRequirement struct {
+	category    string
+	id          string
+	description string
+	fragments   []string
+}
+
+type skillActionSeedRequirement struct {
+	skillID          string
+	actionContractID string
+	timing           string
+	hitbox           string
+	motionProfileID  string
+	damageGroupID    string
+	binding          string
 }
