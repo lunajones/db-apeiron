@@ -443,6 +443,57 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	}
 }
 
+func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []struct {
+		skillID       string
+		statusID      string
+		controlType   string
+		durationMS    string
+		releasePolicy string
+	}{
+		{
+			skillID:       "player_basic_attack_3",
+			statusID:      "impact_shield_drive_push",
+			controlType:   "push",
+			durationMS:    "180",
+			releasePolicy: "carry_contact_forward_release",
+		},
+		{
+			skillID:       "player_shield_bash",
+			statusID:      "impact_shield_bash_push",
+			controlType:   "push",
+			durationMS:    "220",
+			releasePolicy: "multi_target_push_forward_release",
+		},
+		{
+			skillID:       "player_shield_rush",
+			statusID:      "impact_shield_rush_carry_push",
+			controlType:   "carry_push",
+			durationMS:    "430",
+			releasePolicy: "multi_target_carry_push_forward_release",
+		},
+	}
+
+	for _, requirement := range required {
+		fragments := []string{
+			"WHERE skill_id = '" + requirement.skillID + "'",
+			"status_effect_id = '" + requirement.statusID + "'",
+			"control_type = '" + requirement.controlType + "'",
+			"control_effect_duration_ms = " + requirement.durationMS,
+			"control_release_policy_id = '" + requirement.releasePolicy + "'",
+			"control_distance_cm = COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = '" + requirement.skillID + "'), 0.0)",
+			"COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = '" + requirement.skillID + "'), 0.0) / (" + requirement.durationMS + ".0 / 1000.0)",
+			"control_direction_policy = 'source_forward'",
+		}
+		for _, fragment := range fragments {
+			if !strings.Contains(sql, fragment) {
+				t.Fatalf("impact control motion contract missing for %s: %s", requirement.skillID, fragment)
+			}
+		}
+	}
+}
+
 func TestBootstrapSeedsUseForwardXAndLateralYForTemporalCreatureHitboxes(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
