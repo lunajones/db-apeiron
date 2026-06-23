@@ -58,7 +58,13 @@ SET
     status_effect_chance = 1.0,
     control_type = 'push',
     control_effect_duration_ms = 180,
-    control_release_policy_id = 'carry_contact_forward_release'
+    control_release_policy_id = 'carry_contact_forward_release',
+    control_distance_cm = COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_basic_attack_3'), 0.0),
+    control_speed_cm_s = CASE
+        WHEN 180 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_basic_attack_3'), 0.0) / (180.0 / 1000.0)
+        ELSE 0.0
+    END,
+    control_direction_policy = 'source_forward'
 WHERE skill_id = 'player_basic_attack_3';
 
 UPDATE apeiron.skill_impact_profile
@@ -68,7 +74,13 @@ SET
     status_effect_chance = 1.0,
     control_type = 'push',
     control_effect_duration_ms = 220,
-    control_release_policy_id = 'multi_target_push_forward_release'
+    control_release_policy_id = 'multi_target_push_forward_release',
+    control_distance_cm = COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0),
+    control_speed_cm_s = CASE
+        WHEN 220 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0) / (220.0 / 1000.0)
+        ELSE 0.0
+    END,
+    control_direction_policy = 'source_forward'
 WHERE skill_id = 'player_shield_bash';
 
 UPDATE apeiron.skill_impact_profile
@@ -78,5 +90,11 @@ SET
     status_effect_chance = 1.0,
     control_type = 'carry_push',
     control_effect_duration_ms = 430,
-    control_release_policy_id = 'multi_target_carry_push_forward_release'
+    control_release_policy_id = 'multi_target_carry_push_forward_release',
+    control_distance_cm = COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0),
+    control_speed_cm_s = CASE
+        WHEN 430 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0) / (430.0 / 1000.0)
+        ELSE 0.0
+    END,
+    control_direction_policy = 'source_forward'
 WHERE skill_id = 'player_shield_rush';

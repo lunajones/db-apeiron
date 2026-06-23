@@ -4161,6 +4161,9 @@ type SkillControlEffect struct {
 	DurationMs      int32                  `protobuf:"varint,4,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
 	ControlType     string                 `protobuf:"bytes,5,opt,name=control_type,json=controlType,proto3" json:"control_type,omitempty"`
 	ReleasePolicyId string                 `protobuf:"bytes,6,opt,name=release_policy_id,json=releasePolicyId,proto3" json:"release_policy_id,omitempty"`
+	DistanceCm      float64                `protobuf:"fixed64,7,opt,name=distance_cm,json=distanceCm,proto3" json:"distance_cm,omitempty"`
+	SpeedCmS        float64                `protobuf:"fixed64,8,opt,name=speed_cm_s,json=speedCmS,proto3" json:"speed_cm_s,omitempty"`
+	DirectionPolicy string                 `protobuf:"bytes,9,opt,name=direction_policy,json=directionPolicy,proto3" json:"direction_policy,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -4233,6 +4236,27 @@ func (x *SkillControlEffect) GetControlType() string {
 func (x *SkillControlEffect) GetReleasePolicyId() string {
 	if x != nil {
 		return x.ReleasePolicyId
+	}
+	return ""
+}
+
+func (x *SkillControlEffect) GetDistanceCm() float64 {
+	if x != nil {
+		return x.DistanceCm
+	}
+	return 0
+}
+
+func (x *SkillControlEffect) GetSpeedCmS() float64 {
+	if x != nil {
+		return x.SpeedCmS
+	}
+	return 0
+}
+
+func (x *SkillControlEffect) GetDirectionPolicy() string {
+	if x != nil {
+		return x.DirectionPolicy
 	}
 	return ""
 }
@@ -5739,7 +5763,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x0fblocks_movement\x18\n" +
 	" \x01(\bR\x0eblocksMovement\x12%\n" +
 	"\x0eblocks_actions\x18\v \x01(\bR\rblocksActions\x12#\n" +
-	"\rblocks_skills\x18\f \x01(\bR\fblocksSkills\"\xd8\x01\n" +
+	"\rblocks_skills\x18\f \x01(\bR\fblocksSkills\"\xc2\x02\n" +
 	"\x12SkillControlEffect\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\aenabled\x18\x02 \x01(\bR\aenabled\x12(\n" +
@@ -5747,7 +5771,12 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\vduration_ms\x18\x04 \x01(\x05R\n" +
 	"durationMs\x12!\n" +
 	"\fcontrol_type\x18\x05 \x01(\tR\vcontrolType\x12*\n" +
-	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\"\xf0\x02\n" +
+	"\x11release_policy_id\x18\x06 \x01(\tR\x0freleasePolicyId\x12\x1f\n" +
+	"\vdistance_cm\x18\a \x01(\x01R\n" +
+	"distanceCm\x12\x1c\n" +
+	"\n" +
+	"speed_cm_s\x18\b \x01(\x01R\bspeedCmS\x12)\n" +
+	"\x10direction_policy\x18\t \x01(\tR\x0fdirectionPolicy\"\xf0\x02\n" +
 	"\vWorldRegion\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +

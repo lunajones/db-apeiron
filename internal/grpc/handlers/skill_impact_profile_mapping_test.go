@@ -23,6 +23,9 @@ func TestMapSkillImpactProfileCarriesControlEffects(t *testing.T) {
 		ControlType:             "carry_push",
 		ControlEffectDurationMS: 430,
 		ControlReleasePolicyID:  "multi_target_carry_push_forward_release",
+		ControlDistanceCM:       340,
+		ControlSpeedCMS:         790.7,
+		ControlDirectionPolicy:  "source_forward",
 	})
 
 	if len(out.GetControlEffects()) != 1 {
@@ -40,5 +43,14 @@ func TestMapSkillImpactProfileCarriesControlEffects(t *testing.T) {
 	}
 	if effect.GetReleasePolicyId() != "multi_target_carry_push_forward_release" {
 		t.Fatalf("release policy = %q", effect.GetReleasePolicyId())
+	}
+	if effect.GetDistanceCm() != 340 {
+		t.Fatalf("distance = %.1f", effect.GetDistanceCm())
+	}
+	if effect.GetSpeedCmS() != 790.7 {
+		t.Fatalf("speed = %.1f", effect.GetSpeedCmS())
+	}
+	if effect.GetDirectionPolicy() != "source_forward" {
+		t.Fatalf("direction policy = %q", effect.GetDirectionPolicy())
 	}
 }

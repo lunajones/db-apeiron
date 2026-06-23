@@ -346,6 +346,9 @@ func mapSkillImpactProfile(p postgres.SkillImpactProfile) *apeironv1.SkillImpact
 			DurationMs:      int32(p.ControlEffectDurationMS),
 			ControlType:     p.ControlType,
 			ReleasePolicyId: p.ControlReleasePolicyID,
+			DistanceCm:      p.ControlDistanceCM,
+			SpeedCmS:        p.ControlSpeedCMS,
+			DirectionPolicy: p.ControlDirectionPolicy,
 		})
 	}
 	return out

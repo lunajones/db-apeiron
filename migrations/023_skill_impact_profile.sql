@@ -36,6 +36,9 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_impact_profile (
     control_type TEXT NOT NULL DEFAULT '',
     control_effect_duration_ms INT NOT NULL DEFAULT 0,
     control_release_policy_id TEXT NOT NULL DEFAULT '',
+    control_distance_cm FLOAT NOT NULL DEFAULT 0.0,
+    control_speed_cm_s FLOAT NOT NULL DEFAULT 0.0,
+    control_direction_policy TEXT NOT NULL DEFAULT '',
 
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -79,7 +82,9 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_impact_profile (
         CHECK (hitstop_ms >= 0),
 
     CONSTRAINT chk_skill_impact_control_duration
-        CHECK (control_effect_duration_ms >= 0)
+        CHECK (control_effect_duration_ms >= 0),
+    CONSTRAINT chk_skill_impact_control_distance
+        CHECK (control_distance_cm >= 0 AND control_speed_cm_s >= 0)
 );
 
 CREATE INDEX IF NOT EXISTS idx_skill_impact_type
@@ -93,3 +98,6 @@ ON apeiron.skill_impact_profile(status_effect_id);
 
 CREATE INDEX IF NOT EXISTS idx_skill_impact_control_type
 ON apeiron.skill_impact_profile(control_type);
+
+CREATE INDEX IF NOT EXISTS idx_skill_impact_control_direction_policy
+ON apeiron.skill_impact_profile(control_direction_policy);

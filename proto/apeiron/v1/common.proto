@@ -483,6 +483,9 @@ message SkillControlEffect {
   int32 duration_ms = 4;
   string control_type = 5;
   string release_policy_id = 6;
+  double distance_cm = 7;
+  double speed_cm_s = 8;
+  string direction_policy = 9;
 }
 
 message WorldRegion {

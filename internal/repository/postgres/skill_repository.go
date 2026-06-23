@@ -862,6 +862,9 @@ func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID
 			control_type,
 			control_effect_duration_ms,
 			control_release_policy_id,
+			control_distance_cm,
+			control_speed_cm_s,
+			control_direction_policy,
 			created_at,
 			updated_at
 		FROM apeiron.skill_impact_profile
@@ -888,6 +891,9 @@ func (r *SkillRepository) GetImpactProfileBySkillID(ctx context.Context, skillID
 		&i.ControlType,
 		&i.ControlEffectDurationMS,
 		&i.ControlReleasePolicyID,
+		&i.ControlDistanceCM,
+		&i.ControlSpeedCMS,
+		&i.ControlDirectionPolicy,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -1269,6 +1275,9 @@ type SkillImpactProfile struct {
 	ControlType             string
 	ControlEffectDurationMS int
 	ControlReleasePolicyID  string
+	ControlDistanceCM       float64
+	ControlSpeedCMS         float64
+	ControlDirectionPolicy  string
 
 	CreatedAt time.Time
 	UpdatedAt time.Time
