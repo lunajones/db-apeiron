@@ -29,8 +29,8 @@ INSERT INTO apeiron.status_effect (
 )
 VALUES
 ('impact_shield_drive_push','Shield Drive Push','Short shield-drive contact displacement/control.', 'crowd_control','refresh',1,180,0,FALSE,TRUE,1,1,1,1,1,TRUE,FALSE,FALSE),
-('impact_shield_bash_push','Shield Bash Push','Bulwark frontal shield bash push/control.', 'crowd_control','refresh',1,220,0,FALSE,TRUE,1,1,1,1,1,TRUE,FALSE,FALSE),
-('impact_shield_rush_carry_push','Shield Rush Carry Push','Committed rush contact carry and push control.', 'crowd_control','refresh',1,430,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE)
+('impact_shield_bash_push','Shield Bash Stun','Bulwark frontal shield bash push and short stun.', 'crowd_control','refresh',1,1500,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE),
+('impact_shield_rush_carry_push','Shield Rush Carry Push','Committed rush contact carry and push control.', 'crowd_control','refresh',1,720,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE)
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
@@ -83,15 +83,15 @@ VALUES
     'normal',
     'stagger',
     COALESCE((SELECT posture_damage FROM apeiron.skill WHERE id = 'player_basic_attack_3'), 0.0),
-    0.0,
-    0.0,
+    0.25,
+    0.20,
     1.0,
     FALSE,
     TRUE,
     FALSE,
     0,
-    0.0,
-    0.0,
+    0.70,
+    0.75,
     0.0,
     0.0,
     TRUE,
@@ -112,26 +112,26 @@ VALUES
     'normal',
     'stagger',
     COALESCE((SELECT posture_damage FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0),
-    0.0,
-    0.0,
+    0.70,
+    0.80,
     1.0,
     FALSE,
     TRUE,
     FALSE,
     0,
-    0.0,
-    0.0,
+    0.45,
+    0.55,
     0.0,
     0.0,
     TRUE,
     'impact_shield_bash_push',
     1.0,
     'push',
-    220,
+    170,
     'multi_target_push_forward_release',
     COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0),
     CASE
-        WHEN 220 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0) / (220.0 / 1000.0)
+        WHEN 170 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_bash'), 0.0) / (170.0 / 1000.0)
         ELSE 0.0
     END,
     'source_forward'
@@ -141,8 +141,8 @@ VALUES
     'normal',
     'stagger',
     COALESCE((SELECT posture_damage FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0),
-    0.0,
-    0.0,
+    0.90,
+    1.00,
     1.0,
     FALSE,
     TRUE,
@@ -156,11 +156,11 @@ VALUES
     'impact_shield_rush_carry_push',
     1.0,
     'carry_push',
-    430,
+    720,
     'multi_target_carry_push_forward_release',
     COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0),
     CASE
-        WHEN 430 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0) / (430.0 / 1000.0)
+        WHEN 720 > 0 THEN COALESCE((SELECT movement_distance * 100.0 FROM apeiron.skill WHERE id = 'player_shield_rush'), 0.0) / (720.0 / 1000.0)
         ELSE 0.0
     END,
     'source_forward'

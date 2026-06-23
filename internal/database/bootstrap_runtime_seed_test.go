@@ -230,7 +230,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "player_shield_bash",
 			actionContractID: "shield_bash_front_push_v1",
-			timing:           "'player_shield_bash',120,220,180,2600",
+			timing:           "'player_shield_bash',110,170,120,2600",
 			hitbox:           "'hitbox_player_shield_bash_0','player_shield_bash',0,'temporal_sweep'",
 			motionProfileID:  "motion_player_shield_bash_front_push_v1",
 			damageGroupID:    "player_shield_bash_front_push",
@@ -239,7 +239,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "player_shield_rush",
 			actionContractID: "shield_rush_front_contact_v1",
-			timing:           "'player_shield_rush',160,430,240,5200",
+			timing:           "'player_shield_rush',160,720,260,5200",
 			hitbox:           "'hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
 			motionProfileID:  "motion_player_shield_rush_front_contact_v1",
 			damageGroupID:    "player_shield_rush_front_contact",
@@ -257,7 +257,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "lunge",
 			actionContractID: "low_fast_lunge_v1",
-			timing:           "'lunge',3600,430,500,4200",
+			timing:           "'lunge',3600,380,520,4200",
 			hitbox:           "'hitbox_lunge_0','lunge',0,'temporal_sweep'",
 			motionProfileID:  "motion_wolf_lunge_cross_v1",
 			damageGroupID:    "wolf_lunge_damage",
@@ -275,7 +275,7 @@ func TestBootstrapSeedsMirrorRequiredSkillActionManifest(t *testing.T) {
 		{
 			skillID:          "maul",
 			actionContractID: "wolf_maul_lateral_counter_v1",
-			timing:           "'maul',180,260,360,5200",
+			timing:           "'maul',220,520,220,5200",
 			hitbox:           "'hitbox_maul_0','maul',0,'temporal_sweep'",
 			motionProfileID:  "motion_wolf_maul_lateral_counter_v1",
 			damageGroupID:    "wolf_maul_damage",
@@ -432,11 +432,11 @@ func TestBootstrapSeedsPreserveShieldRushFrontContactGeometry(t *testing.T) {
 	sql := readBootstrapSQL(t)
 	required := []string{
 		"'player_shield_rush','Shield Rush'",
-		"0,5.2,0,5,'enemy'",
-		"FALSE,4.7, NULL,NULL",
+		"0,10.2,0,5,'enemy'",
+		"FALSE,9.6, NULL,NULL",
 		"('shield_rush_front_contact_v1','grounded_skill'",
-		"830,430,240,470,620",
-		"('player_shield_rush_effect_v1','player_shield_rush','charge',470::DOUBLE PRECISION,620::DOUBLE PRECISION,830,160,240",
+		"1100,720,260,960,1148",
+		"('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260",
 		`"front_contact_offset_cm":45`,
 		"('motion_player_shield_rush_front_contact_v1',0,0.00,'capsule_strip',45,0,100,190,0,160,96,105",
 		"('hitbox_player_shield_rush_0','player_shield_rush',0,'temporal_sweep'",
@@ -469,14 +469,14 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 			skillID:       "player_shield_bash",
 			statusID:      "impact_shield_bash_push",
 			controlType:   "push",
-			durationMS:    "220",
+			durationMS:    "170",
 			releasePolicy: "multi_target_push_forward_release",
 		},
 		{
 			skillID:       "player_shield_rush",
 			statusID:      "impact_shield_rush_carry_push",
 			controlType:   "carry_push",
-			durationMS:    "430",
+			durationMS:    "720",
 			releasePolicy: "multi_target_carry_push_forward_release",
 		},
 	}
@@ -522,8 +522,8 @@ func TestBootstrapSeedsUseForwardXAndLateralYForTemporalCreatureHitboxes(t *test
 		"('motion_wolf_lunge_cross_v1',2,1.00,'capsule_strip',210,0,90,100,0,120,50,320",
 		"('motion_wolf_maul_lateral_counter_v1',0,0.00,'asymmetric_arc',65,40,95,0,0,125,58,120",
 		"('hitbox_bite_0','bite',0,'temporal_sweep',120,340,80,0,90,95,0,115,48,145",
-		"('hitbox_lunge_0','lunge',0,'temporal_sweep',3600,4030,130,0,105,100,0,120,50,320",
-		"('hitbox_maul_0','maul',0,'temporal_sweep',180,440,80,0,100,0,0,130,62,170",
+		"('hitbox_lunge_0','lunge',0,'temporal_sweep',3600,3980,130,0,105,100,0,120,50,320",
+		"('hitbox_maul_0','maul',0,'temporal_sweep',220,740,80,0,100,0,0,130,62,170",
 	}
 	for _, fragment := range required {
 		if !strings.Contains(sql, fragment) {
@@ -570,6 +570,9 @@ func TestBootstrapSeedsCoverWolfMaulCounterRuntime(t *testing.T) {
 		"'motion_wolf_maul_lateral_counter_v1'",
 		"'hitbox_maul_0','maul',0,'temporal_sweep'",
 		"'wolf_maul_lateral_counter_v1','grounded_skill'",
+		"920,520,220,420,690",
+		`"drag_target_until_release":true`,
+		`"randomize_lateral_side":true`,
 		"('maul','wolf_maul_lateral_counter_v1'",
 		"'wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul'",
 	}
@@ -597,10 +600,10 @@ func TestBootstrapSeedsCoverWolfBehaviorOpportunityRuntime(t *testing.T) {
 		`"desiredRangeCm":420`,
 		`"chaseRangeCm":760`,
 		`"retreatRangeCm":220`,
-		`"orbitSpeedCmS":360`,
+		`"orbitSpeedCmS":300`,
 		`"chaseSpeedCmS":620`,
 		`"lungeSpeedCmS":760`,
-		`"maulSpeedCmS":420`,
+		`"maulSpeedCmS":690`,
 		`"retreatSpeedCmS":520`,
 		`"repeatSkillPenaltyMultiplier":0.65`,
 		`"dodgeUnderPressure":true`,

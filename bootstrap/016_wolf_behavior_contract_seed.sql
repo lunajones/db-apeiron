@@ -19,7 +19,7 @@ VALUES
 ('wolf_dodge','Wolf Dodge','Low fast lateral or backward hop with full invulnerability for the whole movement.', 'beast','dodge',
  6,0,0, 0,420,100,0,0, 0,0,0,520, 0,0,0,1,'self',FALSE, 0,'none',NULL,0,0,1,1, 0,0,0, 1,FALSE,2.1, NULL,NULL,0, FALSE,FALSE,FALSE,TRUE,TRUE),
 ('maul','Maul','Pressure counter: lateral mauling slash used when player overcommits.', 'beast','counter_attack',
- 22,0,0, 180,260,360,0,5200, 0,0,0,180, 0,1.8,100,1,'enemy',TRUE, 13,'physical',NULL,24,0.05,1,1.25, 0,0,1.2, 1,FALSE,1.4, 'beast_counter',1,0, TRUE,TRUE,TRUE,FALSE,FALSE)
+ 22,0,0, 220,520,220,0,5200, 0,0,0,220, 0,2.6,100,1,'enemy',TRUE, 13,'physical',NULL,24,0.05,1,1.25, 0,0,2.4, 1,FALSE,4.2, 'beast_counter',1,0, TRUE,TRUE,TRUE,FALSE,FALSE)
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
@@ -43,13 +43,13 @@ ON CONFLICT (id) DO UPDATE SET
 UPDATE apeiron.skill
 SET
     windup_ms = 3600,
-    active_frames_ms = 430,
-    recovery_ms = 500,
+    active_frames_ms = 380,
+    recovery_ms = 520,
     cooldown_ms = 4200,
     stamina_cost = 24,
     base_damage = 13,
     posture_damage = 24,
-    movement_distance = 6.2,
+    movement_distance = 9.18,
     updated_at = NOW()
 WHERE id = 'lunge';
 
@@ -97,7 +97,7 @@ INSERT INTO apeiron.skill_hitbox_profile (
     min_angle_deg, max_angle_deg, start_radius, end_radius
 )
 VALUES
-('hitbox_maul_0','maul',0,'temporal_sweep',180,440,80,0,100,0,0,130,62,170,140,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_maul_lateral_counter_v1','wolf_maul_damage',-70,70,58,62)
+('hitbox_maul_0','maul',0,'temporal_sweep',220,740,80,0,100,0,0,130,62,170,140,TRUE,FALSE,FALSE,1,0,FALSE,'motion_wolf_maul_lateral_counter_v1','wolf_maul_damage',-70,70,58,62)
 ON CONFLICT (id) DO UPDATE SET
     skill_id = EXCLUDED.skill_id,
     hitbox_index = EXCLUDED.hitbox_index,
@@ -130,7 +130,7 @@ INSERT INTO apeiron.movement_action_contract (
 )
 VALUES
 ('wolf_bite_melee_commit_v1','grounded_skill','Wolf bite close-range committed melee action without displacement.',520,220,180,0,0,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','melee_contact','[]','[]','{"source":"canonical_bootstrap","skill":"bite"}'),
-('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that crosses the player side-to-side during pressure punish.',800,260,360,140,420,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.15},{"t":0.25,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.20}]','[]','{"source":"canonical_bootstrap","setup_policy":"wolf_maul_pressure_counter_v1"}')
+('wolf_maul_lateral_counter_v1','grounded_skill','Wolf maul lateral counter dash that accelerates, drags across the player side-to-side, then decelerates.',920,520,220,420,690,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','lateral_counter_contact','[{"t":0,"v":0.05},{"t":0.28,"v":0.85},{"t":0.62,"v":1.0},{"t":1,"v":0.18}]','[]','{"source":"canonical_bootstrap","setup_policy":"wolf_maul_pressure_counter_v1","drag_target_until_release":true,"randomize_lateral_side":true}')
 ON CONFLICT (id) DO UPDATE SET
     action_type = EXCLUDED.action_type,
     description = EXCLUDED.description,
@@ -173,7 +173,7 @@ INSERT INTO apeiron.skill_action_timing (
 VALUES
 ('bite',120,220,180,900,0,'contract','none','none','{"source":"canonical_bootstrap"}'),
 ('wolf_dodge',0,420,100,0,0,'contract','none','none','{"full_iframe":true,"source":"canonical_bootstrap"}'),
-('maul',180,260,360,5200,0,'contract','none','none','{"pressureCounter":true,"source":"canonical_bootstrap"}')
+('maul',220,520,220,5200,0,'contract','none','none','{"pressureCounter":true,"source":"canonical_bootstrap"}')
 ON CONFLICT (skill_id) DO UPDATE SET
     windup_ms = EXCLUDED.windup_ms,
     active_ms = EXCLUDED.active_ms,
@@ -218,7 +218,7 @@ INSERT INTO apeiron.skill_slot (
 VALUES
 ('skillset_steppe_wolf','bite',1,TRUE,70,1.15,NULL,NULL,NULL,0.10,NULL,0.0,1.8,TRUE,0.35,0.35,'wolf_melee',TRUE),
 ('skillset_steppe_wolf','lunge',2,TRUE,90,0.85,NULL,NULL,NULL,0.20,NULL,1.8,7.0,TRUE,0.70,0.25,'wolf_lunge',TRUE),
-('skillset_steppe_wolf','maul',3,TRUE,82,0.55,NULL,NULL,NULL,0.15,NULL,0.0,1.9,TRUE,0.15,0.45,'wolf_counter',TRUE),
+('skillset_steppe_wolf','maul',3,TRUE,82,0.58,NULL,NULL,NULL,0.15,NULL,0.0,2.6,TRUE,0.15,0.45,'wolf_counter',TRUE),
 ('skillset_steppe_wolf','wolf_dodge',4,TRUE,95,1.25,NULL,NULL,NULL,0.05,NULL,0.0,5.5,TRUE,0.05,0.05,'wolf_evasion',TRUE);
 
 INSERT INTO apeiron.creature_behavior_runtime_contract (
@@ -229,7 +229,7 @@ VALUES (
     'steppe_wolf',
     'Steppe wolf harasser: evasive, lateral, punishes overcommit, uses lunge setup with moving windup.',
     '{"base":0.68,"pressureRamp":0.22,"defensiveTargetBonus":0.12}',
-    '{"recoverDistanceWithRun":true,"chaseLungeSetup":true,"biteAtCloseRange":true,"preferredMinCm":130,"preferredMaxCm":520,"desiredRangeCm":420,"chaseRangeCm":760,"retreatRangeCm":220,"orbitSpeedCmS":360,"chaseSpeedCmS":620,"lungeSpeedCmS":760,"maulSpeedCmS":420,"retreatSpeedCmS":520}',
+    '{"recoverDistanceWithRun":true,"chaseLungeSetup":true,"biteAtCloseRange":true,"preferredMinCm":130,"preferredMaxCm":520,"desiredRangeCm":420,"chaseRangeCm":760,"retreatRangeCm":220,"orbitSpeedCmS":300,"chaseSpeedCmS":620,"lungeSpeedCmS":760,"maulSpeedCmS":690,"retreatSpeedCmS":520}',
     '{"preferLongSideCommit":true,"sideFlipChanceMultiplier":0.35,"minimumSideCommitMs":3200,"flankBeforeLunge":true}',
     '{"dodgeUnderPressure":true,"maulCounterUnderPressure":true,"maulCounterChance":0.22,"dodgeRetreatMultiplier":0.70,"globalDodgeMultiplier":0.85,"repeatSkillPenaltyMultiplier":0.65,"commitThreatWeight":0.28,"closingThreatWeight":0.18,"defensiveBiteWeight":0.14,"fleeingLungeWeight":0.20,"lowResourceRiskFloor":0.16,"dodgeCommittedThreatMultiplier":1.12,"vulnerableBiteMultiplier":1.16,"vulnerableMaulMultiplier":1.10,"tacticalDestinationDistanceCm":180}',
     '{"max":100,"dodgeCostMultiplier":0.50,"regenPerSecond":12,"runDrainEnabled":true,"zeroStaminaLockoutUntilFull":true}',
@@ -299,7 +299,7 @@ VALUES (
     'contract_wolf_pack_harasser_v1',
     'Wolf circles in combat-walk/run setup, keeps side long enough to read naturally, and avoids rapid left/right thrashing.',
     'combat_walk',
-    0.55,
+    0.75,
     700,
     900,
     TRUE,
@@ -370,7 +370,7 @@ INSERT INTO apeiron.creature_skill_setup_policy (
 VALUES
 ('wolf_lunge_flank_windup_v1','contract_wolf_pack_harasser_v1','lunge','moving_windup',3000,4200,520,180,700,'circle_then_curve_to_target',TRUE,TRUE,'{"airSpeedMultiplier":1.2,"postLandingInertiaMultiplier":1.1,"targetPassthrough":true}'),
 ('wolf_lunge_chase_windup_v1','contract_wolf_pack_harasser_v1','lunge','chase_windup',1200,2600,640,520,1200,'run_chase_then_jump',FALSE,TRUE,'{"whenTargetFlees":true,"airSpeedMultiplier":1.2}'),
-('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure_counter',120,320,160,0,220,'lateral_counter_dash',TRUE,TRUE,'{"trigger":"player_overcommit"}')
+('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure_counter',160,420,220,0,260,'lateral_counter_dash',TRUE,TRUE,'{"trigger":"player_overcommit","randomize_lateral_side":true}')
 ON CONFLICT (id) DO UPDATE SET
     behavior_contract_id = EXCLUDED.behavior_contract_id,
     skill_id = EXCLUDED.skill_id,
@@ -399,5 +399,5 @@ VALUES
 ('wolf_bite_circle_reposition_v1','contract_wolf_pack_harasser_v1','bite','circle','reposition',NULL,0,260,62,0.85,'wolf_melee',TRUE,TRUE,'{"prevents_orbit_only_loop":true}'),
 ('wolf_lunge_approach_acquire_v1','contract_wolf_pack_harasser_v1','lunge','approach','acquire','wolf_lunge_chase_windup_v1',180,700,92,0.95,'wolf_lunge',TRUE,TRUE,'{"commit_attack":true,"any_target_state_wildcard":true}'),
 ('wolf_lunge_circle_reposition_v1','contract_wolf_pack_harasser_v1','lunge','circle','reposition','wolf_lunge_flank_windup_v1',180,700,90,0.85,'wolf_lunge',TRUE,TRUE,'{"flank_then_curve":true,"commit_angle_max_deg":180}'),
-('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure','counter','wolf_maul_pressure_counter_v1',0,220,86,0.58,'wolf_counter',TRUE,TRUE,'{"counter_player_overcommit":true}'),
+('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure','counter','wolf_maul_pressure_counter_v1',0,260,86,0.58,'wolf_counter',TRUE,TRUE,'{"counter_player_overcommit":true}'),
 ('wolf_dodge_pressure_evasion_v1','contract_wolf_pack_harasser_v1','wolf_dodge','pressure','evade',NULL,0,550,95,1.25,'wolf_evasion',TRUE,TRUE,'{"full_iframe":true,"chain_budget_from_evasion_policy":true}');
