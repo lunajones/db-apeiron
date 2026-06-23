@@ -352,16 +352,11 @@ DB safety added:
   recovered behavior fields cannot silently disappear between repository structs and protobuf
   responses.
 
-Observed client-side follow-up:
+Observed client-side note:
 
 - The Unreal creature placeholder normally converts server root to visual ground correctly:
   server Z `98` -> actor visual root Z `0`, body `VisualZOffset = 40`.
-- If the wolf still appears to float, the strongest current hypothesis is not DB template height;
-  it is the `ApeironCreaturePlaceholder` skill visual lifecycle leaving `SkillVisualZOffset` or
-  predictive leap state active during/after creature skill presentation.
-- Next pass should reproduce with creature logs/screenshot and inspect:
-  - `ObservedCreatureSkillStartedWorldSeconds`
-  - `bObservedCreatureSkillAuthoritative`
-  - `SkillVisualZOffset`
-  - `AuthoritativeLocomotion.DurationMs`
-  - `CreatureAIState.SkillMovementType`
+- User validation after this note: the wolf was no longer floating. Do not spend the next recovery
+  cycle chasing creature Z/root-height unless the issue is reproduced again.
+- Keep future creature focus on DB/runtime completeness, skill movement contracts, brain behavior,
+  damage/death, and selected skill execution.
