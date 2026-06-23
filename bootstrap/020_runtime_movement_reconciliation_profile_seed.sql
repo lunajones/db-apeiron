@@ -113,9 +113,9 @@ VALUES (
     33,
     33,
     0.92,
-    0.65,
+    0.50,
     0.75,
-    0.75,
+    0.50,
     '{"source":"canonical_bootstrap","authority":"db","notes":"Canonical shared movement profile for server-authoritative movement."}'::jsonb
 )
 ON CONFLICT (profile_id) DO UPDATE SET

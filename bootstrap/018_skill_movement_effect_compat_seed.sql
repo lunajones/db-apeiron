@@ -13,7 +13,7 @@ WITH desired (
 ) AS (
     VALUES
     ('low_fast_lunge_effect_v1','lunge','leap',918::DOUBLE PRECISION,1310::DOUBLE PRECISION,860,3600,520,TRUE,FALSE,'{"source":"canonical_bootstrap","thread":"DB","surface":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"low_fast_lunge_v1","post_landing_inertia_multiplier":1.2,"airborne_passthrough":true}'::jsonb),
-    ('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","design_note":"matches shield_rush_front_contact_v1"}'::jsonb),
+    ('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","front_contact_offset_cm":24,"design_note":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_effect_v1','player_shield_bash','dash',95::DOUBLE PRECISION,541::DOUBLE PRECISION,300,110,120,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","compat_semantics":"short_charge"}'::jsonb)
 )
 UPDATE apeiron.skill_movement_effect existing
@@ -38,7 +38,7 @@ WITH desired (
 ) AS (
     VALUES
     ('low_fast_lunge_effect_v1','lunge','leap',918::DOUBLE PRECISION,1310::DOUBLE PRECISION,860,3600,520,TRUE,FALSE,'{"source":"canonical_bootstrap","thread":"DB","surface":"GetSkillMovementEffect(lunge)","prefer":"movement_action_contract","movement_action_contract_id":"low_fast_lunge_v1","post_landing_inertia_multiplier":1.2,"airborne_passthrough":true}'::jsonb),
-    ('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","design_note":"matches shield_rush_front_contact_v1"}'::jsonb),
+    ('player_shield_rush_effect_v1','player_shield_rush','charge',960::DOUBLE PRECISION,1148::DOUBLE PRECISION,1100,160,260,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","front_contact_offset_cm":24,"design_note":"matches shield_rush_front_contact_v1"}'::jsonb),
     ('player_shield_bash_effect_v1','player_shield_bash','dash',95::DOUBLE PRECISION,541::DOUBLE PRECISION,300,110,120,TRUE,FALSE,'{"source":"canonical_bootstrap","prefer":"movement_action_contract","compat_semantics":"short_charge"}'::jsonb)
 )
 INSERT INTO apeiron.skill_movement_effect (
