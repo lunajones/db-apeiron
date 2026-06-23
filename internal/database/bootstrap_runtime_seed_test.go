@@ -587,6 +587,8 @@ func TestBootstrapSeedsCoverWolfBehaviorOpportunityRuntime(t *testing.T) {
 		`"maulCounterChance":0.22`,
 		`"dodgeRetreatMultiplier":0.70`,
 		`"globalDodgeMultiplier":0.85`,
+		"'wolf_evasion_pressure_v1'",
+		"0.72,\n    0.28,\n    0.42,",
 		`"commitThreatWeight":0.28`,
 		`"closingThreatWeight":0.18`,
 		`"defensiveBiteWeight":0.14`,
