@@ -100,7 +100,9 @@ func TestBootstrapSeedsMirrorServerRuntimeRequirementManifest(t *testing.T) {
 				"('dodge_v1_full_iframe','dodge'",
 				"'dodge_reconciliation'",
 				"'iframe'",
+				",260,812.5,0,",
 				`"ability_key":"dodge"`,
+				`"speed_semantics":"authored_base_speed_distance_over_duration"`,
 			},
 		},
 		{
