@@ -30,7 +30,8 @@ INSERT INTO apeiron.status_effect (
 VALUES
 ('impact_shield_drive_push','Shield Drive Push','Short shield-drive contact displacement/control.', 'crowd_control','refresh',1,180,0,FALSE,TRUE,1,1,1,1,1,TRUE,FALSE,FALSE),
 ('impact_shield_bash_push','Shield Bash Stun','Bulwark frontal shield bash push and short stun.', 'crowd_control','refresh',1,1500,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE),
-('impact_shield_rush_carry_push','Shield Rush Carry Push','Committed rush contact carry and push control.', 'crowd_control','refresh',1,720,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE)
+('impact_shield_rush_carry_push','Shield Rush Carry Push','Committed rush contact carry and push control.', 'crowd_control','refresh',1,720,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE),
+('impact_wolf_maul_lateral_grab','Wolf Maul Lateral Grab','Maul catches the target in the lateral counter path and staggers movement/actions until release.', 'crowd_control','refresh',1,520,0,FALSE,TRUE,1,1,1,1,1,TRUE,TRUE,TRUE)
 ON CONFLICT (id) DO UPDATE SET
     name = EXCLUDED.name,
     description = EXCLUDED.description,
@@ -164,6 +165,32 @@ VALUES
         ELSE 0.0
     END,
     'source_forward'
+),
+(
+    'maul',
+    'normal',
+    'stagger',
+    COALESCE((SELECT posture_damage FROM apeiron.skill WHERE id = 'maul'), 0.0),
+    0.85,
+    0.95,
+    1.0,
+    FALSE,
+    TRUE,
+    FALSE,
+    0,
+    0.35,
+    0.0,
+    0.0,
+    0.0,
+    TRUE,
+    'impact_wolf_maul_lateral_grab',
+    1.0,
+    'grab',
+    COALESCE((SELECT active_ms FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0),
+    'lateral_grab_release',
+    COALESCE((SELECT distance_cm FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0.0),
+    COALESCE((SELECT base_speed_cm_s FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0.0),
+    'source_action_direction'
 )
 ON CONFLICT (skill_id) DO UPDATE SET
     impact_type = EXCLUDED.impact_type,
@@ -196,11 +223,12 @@ BEGIN
     IF (
         SELECT COUNT(*)
         FROM apeiron.skill_impact_profile
-        WHERE skill_id IN ('player_basic_attack_3', 'player_shield_bash', 'player_shield_rush')
+        WHERE skill_id IN ('player_basic_attack_3', 'player_shield_bash', 'player_shield_rush', 'maul')
             AND status_effect_id IN (
                 'impact_shield_drive_push',
                 'impact_shield_bash_push',
-                'impact_shield_rush_carry_push'
+                'impact_shield_rush_carry_push',
+                'impact_wolf_maul_lateral_grab'
             )
             AND applies_status_effect IS TRUE
             AND status_effect_chance > 0
@@ -210,18 +238,19 @@ BEGIN
             AND control_distance_cm > 0
             AND control_speed_cm_s > 0
             AND COALESCE(control_direction_policy, '') <> ''
-    ) <> 3 THEN
+    ) <> 4 THEN
         RAISE EXCEPTION 'Apeiron bootstrap produced incomplete skill impact control motion contract';
     END IF;
 
     IF EXISTS (
         SELECT 1
         FROM apeiron.skill_impact_profile
-        WHERE skill_id IN ('player_basic_attack_3', 'player_shield_bash', 'player_shield_rush')
+        WHERE skill_id IN ('player_basic_attack_3', 'player_shield_bash', 'player_shield_rush', 'maul')
         AND (
             (skill_id = 'player_basic_attack_3' AND status_effect_id <> 'impact_shield_drive_push')
             OR (skill_id = 'player_shield_bash' AND status_effect_id <> 'impact_shield_bash_push')
             OR (skill_id = 'player_shield_rush' AND status_effect_id <> 'impact_shield_rush_carry_push')
+            OR (skill_id = 'maul' AND status_effect_id <> 'impact_wolf_maul_lateral_grab')
         )
     ) THEN
         RAISE EXCEPTION 'Apeiron bootstrap produced mismatched skill impact control contract';

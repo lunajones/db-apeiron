@@ -525,7 +525,7 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 		"INSERT INTO apeiron.skill_impact_profile",
 		"ON CONFLICT (skill_id) DO UPDATE SET",
 		"RAISE EXCEPTION 'Apeiron bootstrap produced incomplete skill impact control motion contract'",
-		") <> 3 THEN",
+		") <> 4 THEN",
 		"control_distance_cm > 0",
 		"control_speed_cm_s > 0",
 		"COALESCE(control_direction_policy, '') <> ''",
@@ -534,6 +534,26 @@ func TestBootstrapSeedsCoverPlayerImpactControlMotionContracts(t *testing.T) {
 	for _, fragment := range guardFragments {
 		if !strings.Contains(sql, fragment) {
 			t.Fatalf("impact control bootstrap completeness guard missing: %s", fragment)
+		}
+	}
+}
+
+func TestBootstrapSeedsCoverWolfMaulImpactControlMotionContract(t *testing.T) {
+	sql := readBootstrapSQL(t)
+	required := []string{
+		"'impact_wolf_maul_lateral_grab'",
+		"'maul'",
+		"'grab'",
+		"'lateral_grab_release'",
+		"COALESCE((SELECT active_ms FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0)",
+		"COALESCE((SELECT distance_cm FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0.0)",
+		"COALESCE((SELECT base_speed_cm_s FROM apeiron.movement_action_contract WHERE id = 'wolf_maul_lateral_counter_v1'), 0.0)",
+		"'source_action_direction'",
+		"OR (skill_id = 'maul' AND status_effect_id <> 'impact_wolf_maul_lateral_grab')",
+	}
+	for _, fragment := range required {
+		if !strings.Contains(sql, fragment) {
+			t.Fatalf("wolf maul impact control contract missing fragment: %s", fragment)
 		}
 	}
 }
