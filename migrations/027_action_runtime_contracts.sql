@@ -95,8 +95,82 @@ CREATE TABLE IF NOT EXISTS apeiron.skill_movement_action_binding (
         REFERENCES apeiron.movement_action_contract(id)
 );
 
+CREATE TABLE IF NOT EXISTS apeiron.action_orientation_policy (
+    id TEXT PRIMARY KEY,
+    owner_kind TEXT NOT NULL DEFAULT 'shared',
+    description TEXT NOT NULL DEFAULT '',
+    body_yaw_source TEXT NOT NULL,
+    focus_yaw_source TEXT NOT NULL,
+    attack_yaw_source TEXT NOT NULL,
+    body_turn_rate_deg_s FLOAT NOT NULL DEFAULT 360.0,
+    focus_turn_rate_deg_s FLOAT NOT NULL DEFAULT 720.0,
+    attack_turn_rate_deg_s FLOAT NOT NULL DEFAULT 540.0,
+    commit_align_ms INT NOT NULL DEFAULT 0,
+    attack_yaw_latch_policy TEXT NOT NULL DEFAULT 'none',
+    allow_head_look_while_strafing BOOLEAN NOT NULL DEFAULT TRUE,
+    allow_body_side_on_movement BOOLEAN NOT NULL DEFAULT TRUE,
+    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    CONSTRAINT chk_action_orientation_turn_rates CHECK (
+        body_turn_rate_deg_s >= 0
+        AND focus_turn_rate_deg_s >= 0
+        AND attack_turn_rate_deg_s >= 0
+        AND commit_align_ms >= 0
+    )
+);
+
+CREATE TABLE IF NOT EXISTS apeiron.action_envelope_policy (
+    id TEXT PRIMARY KEY,
+    owner_kind TEXT NOT NULL DEFAULT 'shared',
+    description TEXT NOT NULL DEFAULT '',
+    pre_commit_ms INT NOT NULL DEFAULT 0,
+    airborne_ms INT NOT NULL DEFAULT 0,
+    landing_inertia_ms INT NOT NULL DEFAULT 0,
+    pre_commit_direction_policy TEXT NOT NULL DEFAULT 'none',
+    airborne_direction_policy TEXT NOT NULL DEFAULT 'action_attack_yaw',
+    inertia_direction_policy TEXT NOT NULL DEFAULT 'exit_direction',
+    tactical_reentry_policy TEXT NOT NULL DEFAULT 'after_inertia',
+    speed_curve JSONB NOT NULL DEFAULT '[]'::jsonb,
+    vertical_curve JSONB NOT NULL DEFAULT '[]'::jsonb,
+    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    CONSTRAINT chk_action_envelope_times CHECK (
+        pre_commit_ms >= 0
+        AND airborne_ms >= 0
+        AND landing_inertia_ms >= 0
+    )
+);
+
+CREATE TABLE IF NOT EXISTS apeiron.skill_action_policy_binding (
+    skill_id TEXT PRIMARY KEY,
+    action_orientation_policy_id TEXT,
+    action_envelope_policy_id TEXT,
+    is_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    CONSTRAINT fk_skill_action_policy_binding_skill
+        FOREIGN KEY (skill_id)
+        REFERENCES apeiron.skill(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_skill_action_policy_orientation
+        FOREIGN KEY (action_orientation_policy_id)
+        REFERENCES apeiron.action_orientation_policy(id),
+    CONSTRAINT fk_skill_action_policy_envelope
+        FOREIGN KEY (action_envelope_policy_id)
+        REFERENCES apeiron.action_envelope_policy(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_movement_action_reconciliation
 ON apeiron.movement_action_contract(reconciliation_contract_id);
 
 CREATE INDEX IF NOT EXISTS idx_skill_movement_action_contract
 ON apeiron.skill_movement_action_binding(movement_action_contract_id);
+
+CREATE INDEX IF NOT EXISTS idx_skill_action_policy_orientation
+ON apeiron.skill_action_policy_binding(action_orientation_policy_id);
+
+CREATE INDEX IF NOT EXISTS idx_skill_action_policy_envelope
+ON apeiron.skill_action_policy_binding(action_envelope_policy_id);

@@ -112,6 +112,55 @@ type MovementActionContract struct {
 	UpdatedAt                time.Time
 }
 
+type ActionOrientationPolicy struct {
+	ID                         string
+	OwnerKind                  string
+	Description                string
+	BodyYawSource              string
+	FocusYawSource             string
+	AttackYawSource            string
+	BodyTurnRateDegS           float64
+	FocusTurnRateDegS          float64
+	AttackTurnRateDegS         float64
+	CommitAlignMS              int
+	AttackYawLatchPolicy       string
+	AllowHeadLookWhileStrafing bool
+	AllowBodySideOnMovement    bool
+	MetadataJSON               string
+	CreatedAt                  time.Time
+	UpdatedAt                  time.Time
+}
+
+type ActionEnvelopePolicy struct {
+	ID                       string
+	OwnerKind                string
+	Description              string
+	PreCommitMS              int
+	AirborneMS               int
+	LandingInertiaMS         int
+	PreCommitDirectionPolicy string
+	AirborneDirectionPolicy  string
+	InertiaDirectionPolicy   string
+	TacticalReentryPolicy    string
+	SpeedCurveJSON           string
+	VerticalCurveJSON        string
+	MetadataJSON             string
+	CreatedAt                time.Time
+	UpdatedAt                time.Time
+}
+
+type SkillActionPolicyBinding struct {
+	SkillID                   string
+	ActionOrientationPolicyID string
+	ActionEnvelopePolicyID    string
+	IsEnabled                 bool
+	MetadataJSON              string
+	ActionOrientationPolicy   ActionOrientationPolicy
+	ActionEnvelopePolicy      ActionEnvelopePolicy
+	CreatedAt                 time.Time
+	UpdatedAt                 time.Time
+}
+
 func getRuntimeMovementReconciliationProfileByID(ctx context.Context, db database.TxManager, id string) (RuntimeMovementReconciliationProfile, error) {
 	var profile RuntimeMovementReconciliationProfile
 	err := db.QueryRow(ctx, `
@@ -278,6 +327,133 @@ func getMovementReconciliationContractByID(ctx context.Context, db database.TxMa
 	return contract, err
 }
 
+func getActionOrientationPolicyByID(ctx context.Context, db database.TxManager, id string) (ActionOrientationPolicy, error) {
+	var policy ActionOrientationPolicy
+	err := db.QueryRow(ctx, `
+		SELECT
+			id,
+			owner_kind,
+			description,
+			body_yaw_source,
+			focus_yaw_source,
+			attack_yaw_source,
+			body_turn_rate_deg_s,
+			focus_turn_rate_deg_s,
+			attack_turn_rate_deg_s,
+			commit_align_ms,
+			attack_yaw_latch_policy,
+			allow_head_look_while_strafing,
+			allow_body_side_on_movement,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.action_orientation_policy
+		WHERE id = $1
+	`, id).Scan(
+		&policy.ID,
+		&policy.OwnerKind,
+		&policy.Description,
+		&policy.BodyYawSource,
+		&policy.FocusYawSource,
+		&policy.AttackYawSource,
+		&policy.BodyTurnRateDegS,
+		&policy.FocusTurnRateDegS,
+		&policy.AttackTurnRateDegS,
+		&policy.CommitAlignMS,
+		&policy.AttackYawLatchPolicy,
+		&policy.AllowHeadLookWhileStrafing,
+		&policy.AllowBodySideOnMovement,
+		&policy.MetadataJSON,
+		&policy.CreatedAt,
+		&policy.UpdatedAt,
+	)
+	return policy, err
+}
+
+func getActionEnvelopePolicyByID(ctx context.Context, db database.TxManager, id string) (ActionEnvelopePolicy, error) {
+	var policy ActionEnvelopePolicy
+	err := db.QueryRow(ctx, `
+		SELECT
+			id,
+			owner_kind,
+			description,
+			pre_commit_ms,
+			airborne_ms,
+			landing_inertia_ms,
+			pre_commit_direction_policy,
+			airborne_direction_policy,
+			inertia_direction_policy,
+			tactical_reentry_policy,
+			speed_curve::TEXT,
+			vertical_curve::TEXT,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.action_envelope_policy
+		WHERE id = $1
+	`, id).Scan(
+		&policy.ID,
+		&policy.OwnerKind,
+		&policy.Description,
+		&policy.PreCommitMS,
+		&policy.AirborneMS,
+		&policy.LandingInertiaMS,
+		&policy.PreCommitDirectionPolicy,
+		&policy.AirborneDirectionPolicy,
+		&policy.InertiaDirectionPolicy,
+		&policy.TacticalReentryPolicy,
+		&policy.SpeedCurveJSON,
+		&policy.VerticalCurveJSON,
+		&policy.MetadataJSON,
+		&policy.CreatedAt,
+		&policy.UpdatedAt,
+	)
+	return policy, err
+}
+
+func getSkillActionPolicyBindingBySkillID(ctx context.Context, db database.TxManager, skillID string) (SkillActionPolicyBinding, error) {
+	var binding SkillActionPolicyBinding
+	err := db.QueryRow(ctx, `
+		SELECT
+			skill_id,
+			COALESCE(action_orientation_policy_id, ''),
+			COALESCE(action_envelope_policy_id, ''),
+			is_enabled,
+			metadata::TEXT,
+			created_at,
+			updated_at
+		FROM apeiron.skill_action_policy_binding
+		WHERE skill_id = $1
+		  AND is_enabled = TRUE
+	`, skillID).Scan(
+		&binding.SkillID,
+		&binding.ActionOrientationPolicyID,
+		&binding.ActionEnvelopePolicyID,
+		&binding.IsEnabled,
+		&binding.MetadataJSON,
+		&binding.CreatedAt,
+		&binding.UpdatedAt,
+	)
+	if err != nil {
+		return binding, err
+	}
+	if binding.ActionOrientationPolicyID != "" {
+		orientation, err := getActionOrientationPolicyByID(ctx, db, binding.ActionOrientationPolicyID)
+		if err != nil {
+			return binding, err
+		}
+		binding.ActionOrientationPolicy = orientation
+	}
+	if binding.ActionEnvelopePolicyID != "" {
+		envelope, err := getActionEnvelopePolicyByID(ctx, db, binding.ActionEnvelopePolicyID)
+		if err != nil {
+			return binding, err
+		}
+		binding.ActionEnvelopePolicy = envelope
+	}
+	return binding, nil
+}
+
 func getMovementActionContractByID(ctx context.Context, db database.TxManager, id string) (MovementActionContract, error) {
 	var contract MovementActionContract
 	err := db.QueryRow(ctx, `
@@ -355,4 +531,16 @@ func (r *ProfileRepository) GetMovementReconciliationContractByID(ctx context.Co
 
 func (r *ProfileRepository) GetMovementActionContractByID(ctx context.Context, id string) (MovementActionContract, error) {
 	return getMovementActionContractByID(ctx, r.db, id)
+}
+
+func (r *ProfileRepository) GetActionOrientationPolicyByID(ctx context.Context, id string) (ActionOrientationPolicy, error) {
+	return getActionOrientationPolicyByID(ctx, r.db, id)
+}
+
+func (r *ProfileRepository) GetActionEnvelopePolicyByID(ctx context.Context, id string) (ActionEnvelopePolicy, error) {
+	return getActionEnvelopePolicyByID(ctx, r.db, id)
+}
+
+func (r *ProfileRepository) GetSkillActionPolicyBindingBySkillID(ctx context.Context, skillID string) (SkillActionPolicyBinding, error) {
+	return getSkillActionPolicyBindingBySkillID(ctx, r.db, skillID)
 }

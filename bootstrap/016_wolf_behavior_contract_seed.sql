@@ -368,8 +368,8 @@ INSERT INTO apeiron.creature_skill_setup_policy (
     movement_tactic, lock_side_during_setup, is_enabled, metadata
 )
 VALUES
-('wolf_lunge_flank_windup_v1','contract_wolf_pack_harasser_v1','lunge','moving_windup',3000,4200,980,220,1180,'circle_then_curve_to_target',TRUE,TRUE,'{"airSpeedMultiplier":1.3,"postLandingInertiaMultiplier":0.42,"targetPassthrough":true,"verticalArc":"very_low_long_raking"}'),
-('wolf_lunge_chase_windup_v1','contract_wolf_pack_harasser_v1','lunge','chase_windup',1200,2600,1120,520,1600,'run_chase_then_jump',FALSE,TRUE,'{"whenTargetFlees":true,"airSpeedMultiplier":1.3,"verticalArc":"very_low_long_raking"}'),
+('wolf_lunge_flank_windup_v1','contract_wolf_pack_harasser_v1','lunge','moving_windup',3000,4200,980,220,1180,'circle_then_curve_to_target',TRUE,TRUE,'{"airSpeedMultiplier":1.3,"preCommitMs":100,"airborneMs":520,"landingInertiaMs":200,"orientationPolicyId":"orientation_lunge_flank_commit_v1","envelopePolicyId":"envelope_lunge_low_raking_100_520_200_v1","targetPassthrough":true,"verticalArc":"very_low_long_raking"}'),
+('wolf_lunge_chase_windup_v1','contract_wolf_pack_harasser_v1','lunge','chase_windup',1200,2600,1120,520,1600,'run_chase_then_jump',FALSE,TRUE,'{"whenTargetFlees":true,"airSpeedMultiplier":1.3,"preCommitMs":100,"airborneMs":520,"landingInertiaMs":200,"orientationPolicyId":"orientation_lunge_flank_commit_v1","envelopePolicyId":"envelope_lunge_low_raking_100_520_200_v1","verticalArc":"very_low_long_raking"}'),
 ('wolf_maul_pressure_counter_v1','contract_wolf_pack_harasser_v1','maul','pressure_counter',160,420,260,0,360,'lateral_counter_dash',TRUE,TRUE,'{"trigger":"player_overcommit_or_close_pressure","randomize_lateral_side":true}')
 ON CONFLICT (id) DO UPDATE SET
     behavior_contract_id = EXCLUDED.behavior_contract_id,

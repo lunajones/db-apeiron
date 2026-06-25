@@ -2705,6 +2705,386 @@ func (x *SkillMovementActionBinding) GetMovementActionContract() *MovementAction
 	return nil
 }
 
+type ActionOrientationPolicy struct {
+	state                      protoimpl.MessageState `protogen:"open.v1"`
+	Id                         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerKind                  string                 `protobuf:"bytes,2,opt,name=owner_kind,json=ownerKind,proto3" json:"owner_kind,omitempty"`
+	Description                string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	BodyYawSource              string                 `protobuf:"bytes,4,opt,name=body_yaw_source,json=bodyYawSource,proto3" json:"body_yaw_source,omitempty"`
+	FocusYawSource             string                 `protobuf:"bytes,5,opt,name=focus_yaw_source,json=focusYawSource,proto3" json:"focus_yaw_source,omitempty"`
+	AttackYawSource            string                 `protobuf:"bytes,6,opt,name=attack_yaw_source,json=attackYawSource,proto3" json:"attack_yaw_source,omitempty"`
+	BodyTurnRateDegS           float64                `protobuf:"fixed64,7,opt,name=body_turn_rate_deg_s,json=bodyTurnRateDegS,proto3" json:"body_turn_rate_deg_s,omitempty"`
+	FocusTurnRateDegS          float64                `protobuf:"fixed64,8,opt,name=focus_turn_rate_deg_s,json=focusTurnRateDegS,proto3" json:"focus_turn_rate_deg_s,omitempty"`
+	AttackTurnRateDegS         float64                `protobuf:"fixed64,9,opt,name=attack_turn_rate_deg_s,json=attackTurnRateDegS,proto3" json:"attack_turn_rate_deg_s,omitempty"`
+	CommitAlignMs              int32                  `protobuf:"varint,10,opt,name=commit_align_ms,json=commitAlignMs,proto3" json:"commit_align_ms,omitempty"`
+	AttackYawLatchPolicy       string                 `protobuf:"bytes,11,opt,name=attack_yaw_latch_policy,json=attackYawLatchPolicy,proto3" json:"attack_yaw_latch_policy,omitempty"`
+	AllowHeadLookWhileStrafing bool                   `protobuf:"varint,12,opt,name=allow_head_look_while_strafing,json=allowHeadLookWhileStrafing,proto3" json:"allow_head_look_while_strafing,omitempty"`
+	AllowBodySideOnMovement    bool                   `protobuf:"varint,13,opt,name=allow_body_side_on_movement,json=allowBodySideOnMovement,proto3" json:"allow_body_side_on_movement,omitempty"`
+	MetadataJson               string                 `protobuf:"bytes,14,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
+}
+
+func (x *ActionOrientationPolicy) Reset() {
+	*x = ActionOrientationPolicy{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActionOrientationPolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActionOrientationPolicy) ProtoMessage() {}
+
+func (x *ActionOrientationPolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActionOrientationPolicy.ProtoReflect.Descriptor instead.
+func (*ActionOrientationPolicy) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *ActionOrientationPolicy) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetOwnerKind() string {
+	if x != nil {
+		return x.OwnerKind
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetBodyYawSource() string {
+	if x != nil {
+		return x.BodyYawSource
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetFocusYawSource() string {
+	if x != nil {
+		return x.FocusYawSource
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetAttackYawSource() string {
+	if x != nil {
+		return x.AttackYawSource
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetBodyTurnRateDegS() float64 {
+	if x != nil {
+		return x.BodyTurnRateDegS
+	}
+	return 0
+}
+
+func (x *ActionOrientationPolicy) GetFocusTurnRateDegS() float64 {
+	if x != nil {
+		return x.FocusTurnRateDegS
+	}
+	return 0
+}
+
+func (x *ActionOrientationPolicy) GetAttackTurnRateDegS() float64 {
+	if x != nil {
+		return x.AttackTurnRateDegS
+	}
+	return 0
+}
+
+func (x *ActionOrientationPolicy) GetCommitAlignMs() int32 {
+	if x != nil {
+		return x.CommitAlignMs
+	}
+	return 0
+}
+
+func (x *ActionOrientationPolicy) GetAttackYawLatchPolicy() string {
+	if x != nil {
+		return x.AttackYawLatchPolicy
+	}
+	return ""
+}
+
+func (x *ActionOrientationPolicy) GetAllowHeadLookWhileStrafing() bool {
+	if x != nil {
+		return x.AllowHeadLookWhileStrafing
+	}
+	return false
+}
+
+func (x *ActionOrientationPolicy) GetAllowBodySideOnMovement() bool {
+	if x != nil {
+		return x.AllowBodySideOnMovement
+	}
+	return false
+}
+
+func (x *ActionOrientationPolicy) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
+type ActionEnvelopePolicy struct {
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	Id                       string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerKind                string                 `protobuf:"bytes,2,opt,name=owner_kind,json=ownerKind,proto3" json:"owner_kind,omitempty"`
+	Description              string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	PreCommitMs              int32                  `protobuf:"varint,4,opt,name=pre_commit_ms,json=preCommitMs,proto3" json:"pre_commit_ms,omitempty"`
+	AirborneMs               int32                  `protobuf:"varint,5,opt,name=airborne_ms,json=airborneMs,proto3" json:"airborne_ms,omitempty"`
+	LandingInertiaMs         int32                  `protobuf:"varint,6,opt,name=landing_inertia_ms,json=landingInertiaMs,proto3" json:"landing_inertia_ms,omitempty"`
+	PreCommitDirectionPolicy string                 `protobuf:"bytes,7,opt,name=pre_commit_direction_policy,json=preCommitDirectionPolicy,proto3" json:"pre_commit_direction_policy,omitempty"`
+	AirborneDirectionPolicy  string                 `protobuf:"bytes,8,opt,name=airborne_direction_policy,json=airborneDirectionPolicy,proto3" json:"airborne_direction_policy,omitempty"`
+	InertiaDirectionPolicy   string                 `protobuf:"bytes,9,opt,name=inertia_direction_policy,json=inertiaDirectionPolicy,proto3" json:"inertia_direction_policy,omitempty"`
+	TacticalReentryPolicy    string                 `protobuf:"bytes,10,opt,name=tactical_reentry_policy,json=tacticalReentryPolicy,proto3" json:"tactical_reentry_policy,omitempty"`
+	SpeedCurve               []*MovementCurveSample `protobuf:"bytes,11,rep,name=speed_curve,json=speedCurve,proto3" json:"speed_curve,omitempty"`
+	VerticalCurve            []*MovementCurveSample `protobuf:"bytes,12,rep,name=vertical_curve,json=verticalCurve,proto3" json:"vertical_curve,omitempty"`
+	MetadataJson             string                 `protobuf:"bytes,13,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
+}
+
+func (x *ActionEnvelopePolicy) Reset() {
+	*x = ActionEnvelopePolicy{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActionEnvelopePolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActionEnvelopePolicy) ProtoMessage() {}
+
+func (x *ActionEnvelopePolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActionEnvelopePolicy.ProtoReflect.Descriptor instead.
+func (*ActionEnvelopePolicy) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *ActionEnvelopePolicy) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetOwnerKind() string {
+	if x != nil {
+		return x.OwnerKind
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetPreCommitMs() int32 {
+	if x != nil {
+		return x.PreCommitMs
+	}
+	return 0
+}
+
+func (x *ActionEnvelopePolicy) GetAirborneMs() int32 {
+	if x != nil {
+		return x.AirborneMs
+	}
+	return 0
+}
+
+func (x *ActionEnvelopePolicy) GetLandingInertiaMs() int32 {
+	if x != nil {
+		return x.LandingInertiaMs
+	}
+	return 0
+}
+
+func (x *ActionEnvelopePolicy) GetPreCommitDirectionPolicy() string {
+	if x != nil {
+		return x.PreCommitDirectionPolicy
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetAirborneDirectionPolicy() string {
+	if x != nil {
+		return x.AirborneDirectionPolicy
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetInertiaDirectionPolicy() string {
+	if x != nil {
+		return x.InertiaDirectionPolicy
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetTacticalReentryPolicy() string {
+	if x != nil {
+		return x.TacticalReentryPolicy
+	}
+	return ""
+}
+
+func (x *ActionEnvelopePolicy) GetSpeedCurve() []*MovementCurveSample {
+	if x != nil {
+		return x.SpeedCurve
+	}
+	return nil
+}
+
+func (x *ActionEnvelopePolicy) GetVerticalCurve() []*MovementCurveSample {
+	if x != nil {
+		return x.VerticalCurve
+	}
+	return nil
+}
+
+func (x *ActionEnvelopePolicy) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
+type SkillActionPolicyBinding struct {
+	state                     protoimpl.MessageState   `protogen:"open.v1"`
+	SkillId                   string                   `protobuf:"bytes,1,opt,name=skill_id,json=skillId,proto3" json:"skill_id,omitempty"`
+	ActionOrientationPolicyId string                   `protobuf:"bytes,2,opt,name=action_orientation_policy_id,json=actionOrientationPolicyId,proto3" json:"action_orientation_policy_id,omitempty"`
+	ActionEnvelopePolicyId    string                   `protobuf:"bytes,3,opt,name=action_envelope_policy_id,json=actionEnvelopePolicyId,proto3" json:"action_envelope_policy_id,omitempty"`
+	IsEnabled                 bool                     `protobuf:"varint,4,opt,name=is_enabled,json=isEnabled,proto3" json:"is_enabled,omitempty"`
+	MetadataJson              string                   `protobuf:"bytes,5,opt,name=metadata_json,json=metadataJson,proto3" json:"metadata_json,omitempty"`
+	ActionOrientationPolicy   *ActionOrientationPolicy `protobuf:"bytes,6,opt,name=action_orientation_policy,json=actionOrientationPolicy,proto3" json:"action_orientation_policy,omitempty"`
+	ActionEnvelopePolicy      *ActionEnvelopePolicy    `protobuf:"bytes,7,opt,name=action_envelope_policy,json=actionEnvelopePolicy,proto3" json:"action_envelope_policy,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
+}
+
+func (x *SkillActionPolicyBinding) Reset() {
+	*x = SkillActionPolicyBinding{}
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillActionPolicyBinding) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillActionPolicyBinding) ProtoMessage() {}
+
+func (x *SkillActionPolicyBinding) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillActionPolicyBinding.ProtoReflect.Descriptor instead.
+func (*SkillActionPolicyBinding) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *SkillActionPolicyBinding) GetSkillId() string {
+	if x != nil {
+		return x.SkillId
+	}
+	return ""
+}
+
+func (x *SkillActionPolicyBinding) GetActionOrientationPolicyId() string {
+	if x != nil {
+		return x.ActionOrientationPolicyId
+	}
+	return ""
+}
+
+func (x *SkillActionPolicyBinding) GetActionEnvelopePolicyId() string {
+	if x != nil {
+		return x.ActionEnvelopePolicyId
+	}
+	return ""
+}
+
+func (x *SkillActionPolicyBinding) GetIsEnabled() bool {
+	if x != nil {
+		return x.IsEnabled
+	}
+	return false
+}
+
+func (x *SkillActionPolicyBinding) GetMetadataJson() string {
+	if x != nil {
+		return x.MetadataJson
+	}
+	return ""
+}
+
+func (x *SkillActionPolicyBinding) GetActionOrientationPolicy() *ActionOrientationPolicy {
+	if x != nil {
+		return x.ActionOrientationPolicy
+	}
+	return nil
+}
+
+func (x *SkillActionPolicyBinding) GetActionEnvelopePolicy() *ActionEnvelopePolicy {
+	if x != nil {
+		return x.ActionEnvelopePolicy
+	}
+	return nil
+}
+
 type CreatureBehaviorRuntimeContract struct {
 	state                     protoimpl.MessageState           `protogen:"open.v1"`
 	Id                        string                           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -2726,7 +3106,7 @@ type CreatureBehaviorRuntimeContract struct {
 
 func (x *CreatureBehaviorRuntimeContract) Reset() {
 	*x = CreatureBehaviorRuntimeContract{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2738,7 +3118,7 @@ func (x *CreatureBehaviorRuntimeContract) String() string {
 func (*CreatureBehaviorRuntimeContract) ProtoMessage() {}
 
 func (x *CreatureBehaviorRuntimeContract) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[19]
+	mi := &file_apeiron_v1_common_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2751,7 +3131,7 @@ func (x *CreatureBehaviorRuntimeContract) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureBehaviorRuntimeContract.ProtoReflect.Descriptor instead.
 func (*CreatureBehaviorRuntimeContract) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{19}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *CreatureBehaviorRuntimeContract) GetId() string {
@@ -2865,7 +3245,7 @@ type CreatureEvasionPolicy struct {
 
 func (x *CreatureEvasionPolicy) Reset() {
 	*x = CreatureEvasionPolicy{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2877,7 +3257,7 @@ func (x *CreatureEvasionPolicy) String() string {
 func (*CreatureEvasionPolicy) ProtoMessage() {}
 
 func (x *CreatureEvasionPolicy) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[20]
+	mi := &file_apeiron_v1_common_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2890,7 +3270,7 @@ func (x *CreatureEvasionPolicy) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureEvasionPolicy.ProtoReflect.Descriptor instead.
 func (*CreatureEvasionPolicy) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{20}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *CreatureEvasionPolicy) GetId() string {
@@ -2998,7 +3378,7 @@ type CreatureSkillSetupPolicy struct {
 
 func (x *CreatureSkillSetupPolicy) Reset() {
 	*x = CreatureSkillSetupPolicy{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3010,7 +3390,7 @@ func (x *CreatureSkillSetupPolicy) String() string {
 func (*CreatureSkillSetupPolicy) ProtoMessage() {}
 
 func (x *CreatureSkillSetupPolicy) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[21]
+	mi := &file_apeiron_v1_common_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3023,7 +3403,7 @@ func (x *CreatureSkillSetupPolicy) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureSkillSetupPolicy.ProtoReflect.Descriptor instead.
 func (*CreatureSkillSetupPolicy) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{21}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *CreatureSkillSetupPolicy) GetId() string {
@@ -3141,7 +3521,7 @@ type CreatureTargetOpportunityPolicy struct {
 
 func (x *CreatureTargetOpportunityPolicy) Reset() {
 	*x = CreatureTargetOpportunityPolicy{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3153,7 +3533,7 @@ func (x *CreatureTargetOpportunityPolicy) String() string {
 func (*CreatureTargetOpportunityPolicy) ProtoMessage() {}
 
 func (x *CreatureTargetOpportunityPolicy) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[22]
+	mi := &file_apeiron_v1_common_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3166,7 +3546,7 @@ func (x *CreatureTargetOpportunityPolicy) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureTargetOpportunityPolicy.ProtoReflect.Descriptor instead.
 func (*CreatureTargetOpportunityPolicy) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{22}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *CreatureTargetOpportunityPolicy) GetId() string {
@@ -3301,7 +3681,7 @@ type CreatureOrbitPolicy struct {
 
 func (x *CreatureOrbitPolicy) Reset() {
 	*x = CreatureOrbitPolicy{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3313,7 +3693,7 @@ func (x *CreatureOrbitPolicy) String() string {
 func (*CreatureOrbitPolicy) ProtoMessage() {}
 
 func (x *CreatureOrbitPolicy) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[23]
+	mi := &file_apeiron_v1_common_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3326,7 +3706,7 @@ func (x *CreatureOrbitPolicy) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureOrbitPolicy.ProtoReflect.Descriptor instead.
 func (*CreatureOrbitPolicy) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{23}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *CreatureOrbitPolicy) GetId() string {
@@ -3435,7 +3815,7 @@ type CreatureSkillBehaviorBinding struct {
 
 func (x *CreatureSkillBehaviorBinding) Reset() {
 	*x = CreatureSkillBehaviorBinding{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3447,7 +3827,7 @@ func (x *CreatureSkillBehaviorBinding) String() string {
 func (*CreatureSkillBehaviorBinding) ProtoMessage() {}
 
 func (x *CreatureSkillBehaviorBinding) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[24]
+	mi := &file_apeiron_v1_common_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3460,7 +3840,7 @@ func (x *CreatureSkillBehaviorBinding) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureSkillBehaviorBinding.ProtoReflect.Descriptor instead.
 func (*CreatureSkillBehaviorBinding) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{24}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *CreatureSkillBehaviorBinding) GetId() string {
@@ -3588,7 +3968,7 @@ type CombatCoreProfile struct {
 
 func (x *CombatCoreProfile) Reset() {
 	*x = CombatCoreProfile{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3600,7 +3980,7 @@ func (x *CombatCoreProfile) String() string {
 func (*CombatCoreProfile) ProtoMessage() {}
 
 func (x *CombatCoreProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[25]
+	mi := &file_apeiron_v1_common_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3613,7 +3993,7 @@ func (x *CombatCoreProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CombatCoreProfile.ProtoReflect.Descriptor instead.
 func (*CombatCoreProfile) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{25}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CombatCoreProfile) GetDamageDealtMultiplier() float64 {
@@ -3772,7 +4152,7 @@ type CombatDefenseContract struct {
 
 func (x *CombatDefenseContract) Reset() {
 	*x = CombatDefenseContract{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3784,7 +4164,7 @@ func (x *CombatDefenseContract) String() string {
 func (*CombatDefenseContract) ProtoMessage() {}
 
 func (x *CombatDefenseContract) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[26]
+	mi := &file_apeiron_v1_common_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3797,7 +4177,7 @@ func (x *CombatDefenseContract) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CombatDefenseContract.ProtoReflect.Descriptor instead.
 func (*CombatDefenseContract) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{26}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *CombatDefenseContract) GetId() string {
@@ -3931,7 +4311,7 @@ type MovementProfile struct {
 
 func (x *MovementProfile) Reset() {
 	*x = MovementProfile{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3943,7 +4323,7 @@ func (x *MovementProfile) String() string {
 func (*MovementProfile) ProtoMessage() {}
 
 func (x *MovementProfile) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[27]
+	mi := &file_apeiron_v1_common_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3956,7 +4336,7 @@ func (x *MovementProfile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MovementProfile.ProtoReflect.Descriptor instead.
 func (*MovementProfile) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{27}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *MovementProfile) GetId() string {
@@ -4105,7 +4485,7 @@ type StatusEffect struct {
 
 func (x *StatusEffect) Reset() {
 	*x = StatusEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4117,7 +4497,7 @@ func (x *StatusEffect) String() string {
 func (*StatusEffect) ProtoMessage() {}
 
 func (x *StatusEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[28]
+	mi := &file_apeiron_v1_common_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4130,7 +4510,7 @@ func (x *StatusEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
 func (*StatusEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{28}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *StatusEffect) GetId() string {
@@ -4234,7 +4614,7 @@ type SkillControlEffect struct {
 
 func (x *SkillControlEffect) Reset() {
 	*x = SkillControlEffect{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4246,7 +4626,7 @@ func (x *SkillControlEffect) String() string {
 func (*SkillControlEffect) ProtoMessage() {}
 
 func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[29]
+	mi := &file_apeiron_v1_common_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4259,7 +4639,7 @@ func (x *SkillControlEffect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SkillControlEffect.ProtoReflect.Descriptor instead.
 func (*SkillControlEffect) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{29}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *SkillControlEffect) GetId() string {
@@ -4346,7 +4726,7 @@ type WorldRegion struct {
 
 func (x *WorldRegion) Reset() {
 	*x = WorldRegion{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4358,7 +4738,7 @@ func (x *WorldRegion) String() string {
 func (*WorldRegion) ProtoMessage() {}
 
 func (x *WorldRegion) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[30]
+	mi := &file_apeiron_v1_common_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4371,7 +4751,7 @@ func (x *WorldRegion) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorldRegion.ProtoReflect.Descriptor instead.
 func (*WorldRegion) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{30}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *WorldRegion) GetId() string {
@@ -4485,7 +4865,7 @@ type Biome struct {
 
 func (x *Biome) Reset() {
 	*x = Biome{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4497,7 +4877,7 @@ func (x *Biome) String() string {
 func (*Biome) ProtoMessage() {}
 
 func (x *Biome) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[31]
+	mi := &file_apeiron_v1_common_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4510,7 +4890,7 @@ func (x *Biome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Biome.ProtoReflect.Descriptor instead.
 func (*Biome) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{31}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *Biome) GetId() string {
@@ -4620,7 +5000,7 @@ type SpawnZone struct {
 
 func (x *SpawnZone) Reset() {
 	*x = SpawnZone{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4632,7 +5012,7 @@ func (x *SpawnZone) String() string {
 func (*SpawnZone) ProtoMessage() {}
 
 func (x *SpawnZone) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[32]
+	mi := &file_apeiron_v1_common_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4645,7 +5025,7 @@ func (x *SpawnZone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpawnZone.ProtoReflect.Descriptor instead.
 func (*SpawnZone) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{32}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *SpawnZone) GetId() string {
@@ -4778,7 +5158,7 @@ type Player struct {
 
 func (x *Player) Reset() {
 	*x = Player{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4790,7 +5170,7 @@ func (x *Player) String() string {
 func (*Player) ProtoMessage() {}
 
 func (x *Player) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[33]
+	mi := &file_apeiron_v1_common_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4803,7 +5183,7 @@ func (x *Player) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Player.ProtoReflect.Descriptor instead.
 func (*Player) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{33}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *Player) GetId() string {
@@ -4941,7 +5321,7 @@ type Inventory struct {
 
 func (x *Inventory) Reset() {
 	*x = Inventory{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[34]
+	mi := &file_apeiron_v1_common_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4953,7 +5333,7 @@ func (x *Inventory) String() string {
 func (*Inventory) ProtoMessage() {}
 
 func (x *Inventory) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[34]
+	mi := &file_apeiron_v1_common_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4966,7 +5346,7 @@ func (x *Inventory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Inventory.ProtoReflect.Descriptor instead.
 func (*Inventory) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{34}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *Inventory) GetId() string {
@@ -5043,7 +5423,7 @@ type ItemTemplate struct {
 
 func (x *ItemTemplate) Reset() {
 	*x = ItemTemplate{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[35]
+	mi := &file_apeiron_v1_common_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5055,7 +5435,7 @@ func (x *ItemTemplate) String() string {
 func (*ItemTemplate) ProtoMessage() {}
 
 func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[35]
+	mi := &file_apeiron_v1_common_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5068,7 +5448,7 @@ func (x *ItemTemplate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemTemplate.ProtoReflect.Descriptor instead.
 func (*ItemTemplate) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{35}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ItemTemplate) GetId() string {
@@ -5156,7 +5536,7 @@ type InventoryItem struct {
 
 func (x *InventoryItem) Reset() {
 	*x = InventoryItem{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[36]
+	mi := &file_apeiron_v1_common_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5168,7 +5548,7 @@ func (x *InventoryItem) String() string {
 func (*InventoryItem) ProtoMessage() {}
 
 func (x *InventoryItem) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[36]
+	mi := &file_apeiron_v1_common_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5181,7 +5561,7 @@ func (x *InventoryItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryItem.ProtoReflect.Descriptor instead.
 func (*InventoryItem) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{36}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *InventoryItem) GetId() string {
@@ -5243,7 +5623,7 @@ type InventoryWithItems struct {
 
 func (x *InventoryWithItems) Reset() {
 	*x = InventoryWithItems{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[37]
+	mi := &file_apeiron_v1_common_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5255,7 +5635,7 @@ func (x *InventoryWithItems) String() string {
 func (*InventoryWithItems) ProtoMessage() {}
 
 func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[37]
+	mi := &file_apeiron_v1_common_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5268,7 +5648,7 @@ func (x *InventoryWithItems) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InventoryWithItems.ProtoReflect.Descriptor instead.
 func (*InventoryWithItems) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{37}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *InventoryWithItems) GetInventory() *Inventory {
@@ -5295,7 +5675,7 @@ type Readiness struct {
 
 func (x *Readiness) Reset() {
 	*x = Readiness{}
-	mi := &file_apeiron_v1_common_proto_msgTypes[38]
+	mi := &file_apeiron_v1_common_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5307,7 +5687,7 @@ func (x *Readiness) String() string {
 func (*Readiness) ProtoMessage() {}
 
 func (x *Readiness) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_common_proto_msgTypes[38]
+	mi := &file_apeiron_v1_common_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5320,7 +5700,7 @@ func (x *Readiness) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Readiness.ProtoReflect.Descriptor instead.
 func (*Readiness) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{38}
+	return file_apeiron_v1_common_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *Readiness) GetStatus() string {
@@ -5657,7 +6037,51 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"is_enabled\x18\b \x01(\bR\tisEnabled\x12#\n" +
 	"\rmetadata_json\x18\t \x01(\tR\fmetadataJson\x12\\\n" +
 	"\x18movement_action_contract\x18\n" +
-	" \x01(\v2\".apeiron.v1.MovementActionContractR\x16movementActionContract\"\xae\x05\n" +
+	" \x01(\v2\".apeiron.v1.MovementActionContractR\x16movementActionContract\"\x84\x05\n" +
+	"\x17ActionOrientationPolicy\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"owner_kind\x18\x02 \x01(\tR\townerKind\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12&\n" +
+	"\x0fbody_yaw_source\x18\x04 \x01(\tR\rbodyYawSource\x12(\n" +
+	"\x10focus_yaw_source\x18\x05 \x01(\tR\x0efocusYawSource\x12*\n" +
+	"\x11attack_yaw_source\x18\x06 \x01(\tR\x0fattackYawSource\x12.\n" +
+	"\x14body_turn_rate_deg_s\x18\a \x01(\x01R\x10bodyTurnRateDegS\x120\n" +
+	"\x15focus_turn_rate_deg_s\x18\b \x01(\x01R\x11focusTurnRateDegS\x122\n" +
+	"\x16attack_turn_rate_deg_s\x18\t \x01(\x01R\x12attackTurnRateDegS\x12&\n" +
+	"\x0fcommit_align_ms\x18\n" +
+	" \x01(\x05R\rcommitAlignMs\x125\n" +
+	"\x17attack_yaw_latch_policy\x18\v \x01(\tR\x14attackYawLatchPolicy\x12B\n" +
+	"\x1eallow_head_look_while_strafing\x18\f \x01(\bR\x1aallowHeadLookWhileStrafing\x12<\n" +
+	"\x1ballow_body_side_on_movement\x18\r \x01(\bR\x17allowBodySideOnMovement\x12#\n" +
+	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xf6\x04\n" +
+	"\x14ActionEnvelopePolicy\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"owner_kind\x18\x02 \x01(\tR\townerKind\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\"\n" +
+	"\rpre_commit_ms\x18\x04 \x01(\x05R\vpreCommitMs\x12\x1f\n" +
+	"\vairborne_ms\x18\x05 \x01(\x05R\n" +
+	"airborneMs\x12,\n" +
+	"\x12landing_inertia_ms\x18\x06 \x01(\x05R\x10landingInertiaMs\x12=\n" +
+	"\x1bpre_commit_direction_policy\x18\a \x01(\tR\x18preCommitDirectionPolicy\x12:\n" +
+	"\x19airborne_direction_policy\x18\b \x01(\tR\x17airborneDirectionPolicy\x128\n" +
+	"\x18inertia_direction_policy\x18\t \x01(\tR\x16inertiaDirectionPolicy\x126\n" +
+	"\x17tactical_reentry_policy\x18\n" +
+	" \x01(\tR\x15tacticalReentryPolicy\x12@\n" +
+	"\vspeed_curve\x18\v \x03(\v2\x1f.apeiron.v1.MovementCurveSampleR\n" +
+	"speedCurve\x12F\n" +
+	"\x0evertical_curve\x18\f \x03(\v2\x1f.apeiron.v1.MovementCurveSampleR\rverticalCurve\x12#\n" +
+	"\rmetadata_json\x18\r \x01(\tR\fmetadataJson\"\xae\x03\n" +
+	"\x18SkillActionPolicyBinding\x12\x19\n" +
+	"\bskill_id\x18\x01 \x01(\tR\askillId\x12?\n" +
+	"\x1caction_orientation_policy_id\x18\x02 \x01(\tR\x19actionOrientationPolicyId\x129\n" +
+	"\x19action_envelope_policy_id\x18\x03 \x01(\tR\x16actionEnvelopePolicyId\x12\x1d\n" +
+	"\n" +
+	"is_enabled\x18\x04 \x01(\bR\tisEnabled\x12#\n" +
+	"\rmetadata_json\x18\x05 \x01(\tR\fmetadataJson\x12_\n" +
+	"\x19action_orientation_policy\x18\x06 \x01(\v2#.apeiron.v1.ActionOrientationPolicyR\x17actionOrientationPolicy\x12V\n" +
+	"\x16action_envelope_policy\x18\a \x01(\v2 .apeiron.v1.ActionEnvelopePolicyR\x14actionEnvelopePolicy\"\xae\x05\n" +
 	"\x1fCreatureBehaviorRuntimeContract\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x120\n" +
 	"\x14creature_template_id\x18\x02 \x01(\tR\x12creatureTemplateId\x12 \n" +
@@ -5981,7 +6405,7 @@ func file_apeiron_v1_common_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_common_proto_rawDescData
 }
 
-var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_apeiron_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
 var file_apeiron_v1_common_proto_goTypes = []any{
 	(*Empty)(nil),                                // 0: apeiron.v1.Empty
 	(*OperationResult)(nil),                      // 1: apeiron.v1.OperationResult
@@ -6002,46 +6426,53 @@ var file_apeiron_v1_common_proto_goTypes = []any{
 	(*MovementActionContract)(nil),               // 16: apeiron.v1.MovementActionContract
 	(*SkillActionTimingContract)(nil),            // 17: apeiron.v1.SkillActionTimingContract
 	(*SkillMovementActionBinding)(nil),           // 18: apeiron.v1.SkillMovementActionBinding
-	(*CreatureBehaviorRuntimeContract)(nil),      // 19: apeiron.v1.CreatureBehaviorRuntimeContract
-	(*CreatureEvasionPolicy)(nil),                // 20: apeiron.v1.CreatureEvasionPolicy
-	(*CreatureSkillSetupPolicy)(nil),             // 21: apeiron.v1.CreatureSkillSetupPolicy
-	(*CreatureTargetOpportunityPolicy)(nil),      // 22: apeiron.v1.CreatureTargetOpportunityPolicy
-	(*CreatureOrbitPolicy)(nil),                  // 23: apeiron.v1.CreatureOrbitPolicy
-	(*CreatureSkillBehaviorBinding)(nil),         // 24: apeiron.v1.CreatureSkillBehaviorBinding
-	(*CombatCoreProfile)(nil),                    // 25: apeiron.v1.CombatCoreProfile
-	(*CombatDefenseContract)(nil),                // 26: apeiron.v1.CombatDefenseContract
-	(*MovementProfile)(nil),                      // 27: apeiron.v1.MovementProfile
-	(*StatusEffect)(nil),                         // 28: apeiron.v1.StatusEffect
-	(*SkillControlEffect)(nil),                   // 29: apeiron.v1.SkillControlEffect
-	(*WorldRegion)(nil),                          // 30: apeiron.v1.WorldRegion
-	(*Biome)(nil),                                // 31: apeiron.v1.Biome
-	(*SpawnZone)(nil),                            // 32: apeiron.v1.SpawnZone
-	(*Player)(nil),                               // 33: apeiron.v1.Player
-	(*Inventory)(nil),                            // 34: apeiron.v1.Inventory
-	(*ItemTemplate)(nil),                         // 35: apeiron.v1.ItemTemplate
-	(*InventoryItem)(nil),                        // 36: apeiron.v1.InventoryItem
-	(*InventoryWithItems)(nil),                   // 37: apeiron.v1.InventoryWithItems
-	(*Readiness)(nil),                            // 38: apeiron.v1.Readiness
+	(*ActionOrientationPolicy)(nil),              // 19: apeiron.v1.ActionOrientationPolicy
+	(*ActionEnvelopePolicy)(nil),                 // 20: apeiron.v1.ActionEnvelopePolicy
+	(*SkillActionPolicyBinding)(nil),             // 21: apeiron.v1.SkillActionPolicyBinding
+	(*CreatureBehaviorRuntimeContract)(nil),      // 22: apeiron.v1.CreatureBehaviorRuntimeContract
+	(*CreatureEvasionPolicy)(nil),                // 23: apeiron.v1.CreatureEvasionPolicy
+	(*CreatureSkillSetupPolicy)(nil),             // 24: apeiron.v1.CreatureSkillSetupPolicy
+	(*CreatureTargetOpportunityPolicy)(nil),      // 25: apeiron.v1.CreatureTargetOpportunityPolicy
+	(*CreatureOrbitPolicy)(nil),                  // 26: apeiron.v1.CreatureOrbitPolicy
+	(*CreatureSkillBehaviorBinding)(nil),         // 27: apeiron.v1.CreatureSkillBehaviorBinding
+	(*CombatCoreProfile)(nil),                    // 28: apeiron.v1.CombatCoreProfile
+	(*CombatDefenseContract)(nil),                // 29: apeiron.v1.CombatDefenseContract
+	(*MovementProfile)(nil),                      // 30: apeiron.v1.MovementProfile
+	(*StatusEffect)(nil),                         // 31: apeiron.v1.StatusEffect
+	(*SkillControlEffect)(nil),                   // 32: apeiron.v1.SkillControlEffect
+	(*WorldRegion)(nil),                          // 33: apeiron.v1.WorldRegion
+	(*Biome)(nil),                                // 34: apeiron.v1.Biome
+	(*SpawnZone)(nil),                            // 35: apeiron.v1.SpawnZone
+	(*Player)(nil),                               // 36: apeiron.v1.Player
+	(*Inventory)(nil),                            // 37: apeiron.v1.Inventory
+	(*ItemTemplate)(nil),                         // 38: apeiron.v1.ItemTemplate
+	(*InventoryItem)(nil),                        // 39: apeiron.v1.InventoryItem
+	(*InventoryWithItems)(nil),                   // 40: apeiron.v1.InventoryWithItems
+	(*Readiness)(nil),                            // 41: apeiron.v1.Readiness
 }
 var file_apeiron_v1_common_proto_depIdxs = []int32{
 	5,  // 0: apeiron.v1.SkillLoadoutItem.slot:type_name -> apeiron.v1.SkillSlot
 	3,  // 1: apeiron.v1.SkillLoadoutItem.skill:type_name -> apeiron.v1.Skill
 	8,  // 2: apeiron.v1.SkillHitboxMotionProfile.samples:type_name -> apeiron.v1.SkillHitboxMotionSample
 	9,  // 3: apeiron.v1.SkillHitboxProfile.motion_profile:type_name -> apeiron.v1.SkillHitboxMotionProfile
-	29, // 4: apeiron.v1.SkillImpactProfile.control_effects:type_name -> apeiron.v1.SkillControlEffect
+	32, // 4: apeiron.v1.SkillImpactProfile.control_effects:type_name -> apeiron.v1.SkillControlEffect
 	13, // 5: apeiron.v1.MovementActionContract.speed_curve:type_name -> apeiron.v1.MovementCurveSample
 	13, // 6: apeiron.v1.MovementActionContract.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
 	14, // 7: apeiron.v1.MovementActionContract.reconciliation_contract:type_name -> apeiron.v1.MovementReconciliationContract
 	16, // 8: apeiron.v1.SkillMovementActionBinding.movement_action_contract:type_name -> apeiron.v1.MovementActionContract
-	22, // 9: apeiron.v1.CreatureBehaviorRuntimeContract.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
-	23, // 10: apeiron.v1.CreatureBehaviorRuntimeContract.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
-	34, // 11: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
-	36, // 12: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	13, // 9: apeiron.v1.ActionEnvelopePolicy.speed_curve:type_name -> apeiron.v1.MovementCurveSample
+	13, // 10: apeiron.v1.ActionEnvelopePolicy.vertical_curve:type_name -> apeiron.v1.MovementCurveSample
+	19, // 11: apeiron.v1.SkillActionPolicyBinding.action_orientation_policy:type_name -> apeiron.v1.ActionOrientationPolicy
+	20, // 12: apeiron.v1.SkillActionPolicyBinding.action_envelope_policy:type_name -> apeiron.v1.ActionEnvelopePolicy
+	25, // 13: apeiron.v1.CreatureBehaviorRuntimeContract.target_opportunity_policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
+	26, // 14: apeiron.v1.CreatureBehaviorRuntimeContract.orbit_policy:type_name -> apeiron.v1.CreatureOrbitPolicy
+	37, // 15: apeiron.v1.InventoryWithItems.inventory:type_name -> apeiron.v1.Inventory
+	39, // 16: apeiron.v1.InventoryWithItems.items:type_name -> apeiron.v1.InventoryItem
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_common_proto_init() }
@@ -6056,7 +6487,7 @@ func file_apeiron_v1_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_common_proto_rawDesc), len(file_apeiron_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   39,
+			NumMessages:   42,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

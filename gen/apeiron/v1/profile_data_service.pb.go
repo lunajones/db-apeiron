@@ -261,6 +261,186 @@ func (x *MovementActionContractResponse) GetError() string {
 	return ""
 }
 
+type ActionOrientationPolicyResponse struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	Found         bool                     `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Policy        *ActionOrientationPolicy `protobuf:"bytes,2,opt,name=policy,proto3" json:"policy,omitempty"`
+	Error         string                   `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActionOrientationPolicyResponse) Reset() {
+	*x = ActionOrientationPolicyResponse{}
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActionOrientationPolicyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActionOrientationPolicyResponse) ProtoMessage() {}
+
+func (x *ActionOrientationPolicyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActionOrientationPolicyResponse.ProtoReflect.Descriptor instead.
+func (*ActionOrientationPolicyResponse) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ActionOrientationPolicyResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *ActionOrientationPolicyResponse) GetPolicy() *ActionOrientationPolicy {
+	if x != nil {
+		return x.Policy
+	}
+	return nil
+}
+
+func (x *ActionOrientationPolicyResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type ActionEnvelopePolicyResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Found         bool                   `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Policy        *ActionEnvelopePolicy  `protobuf:"bytes,2,opt,name=policy,proto3" json:"policy,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActionEnvelopePolicyResponse) Reset() {
+	*x = ActionEnvelopePolicyResponse{}
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActionEnvelopePolicyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActionEnvelopePolicyResponse) ProtoMessage() {}
+
+func (x *ActionEnvelopePolicyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActionEnvelopePolicyResponse.ProtoReflect.Descriptor instead.
+func (*ActionEnvelopePolicyResponse) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ActionEnvelopePolicyResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *ActionEnvelopePolicyResponse) GetPolicy() *ActionEnvelopePolicy {
+	if x != nil {
+		return x.Policy
+	}
+	return nil
+}
+
+func (x *ActionEnvelopePolicyResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type SkillActionPolicyBindingResponse struct {
+	state         protoimpl.MessageState    `protogen:"open.v1"`
+	Found         bool                      `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
+	Binding       *SkillActionPolicyBinding `protobuf:"bytes,2,opt,name=binding,proto3" json:"binding,omitempty"`
+	Error         string                    `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SkillActionPolicyBindingResponse) Reset() {
+	*x = SkillActionPolicyBindingResponse{}
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SkillActionPolicyBindingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillActionPolicyBindingResponse) ProtoMessage() {}
+
+func (x *SkillActionPolicyBindingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillActionPolicyBindingResponse.ProtoReflect.Descriptor instead.
+func (*SkillActionPolicyBindingResponse) Descriptor() ([]byte, []int) {
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SkillActionPolicyBindingResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *SkillActionPolicyBindingResponse) GetBinding() *SkillActionPolicyBinding {
+	if x != nil {
+		return x.Binding
+	}
+	return nil
+}
+
+func (x *SkillActionPolicyBindingResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 type MovementReconciliationContractResponse struct {
 	state         protoimpl.MessageState          `protogen:"open.v1"`
 	Found         bool                            `protobuf:"varint,1,opt,name=found,proto3" json:"found,omitempty"`
@@ -272,7 +452,7 @@ type MovementReconciliationContractResponse struct {
 
 func (x *MovementReconciliationContractResponse) Reset() {
 	*x = MovementReconciliationContractResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -284,7 +464,7 @@ func (x *MovementReconciliationContractResponse) String() string {
 func (*MovementReconciliationContractResponse) ProtoMessage() {}
 
 func (x *MovementReconciliationContractResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[4]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -297,7 +477,7 @@ func (x *MovementReconciliationContractResponse) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use MovementReconciliationContractResponse.ProtoReflect.Descriptor instead.
 func (*MovementReconciliationContractResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{4}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *MovementReconciliationContractResponse) GetFound() bool {
@@ -332,7 +512,7 @@ type RuntimeMovementReconciliationProfileResponse struct {
 
 func (x *RuntimeMovementReconciliationProfileResponse) Reset() {
 	*x = RuntimeMovementReconciliationProfileResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -344,7 +524,7 @@ func (x *RuntimeMovementReconciliationProfileResponse) String() string {
 func (*RuntimeMovementReconciliationProfileResponse) ProtoMessage() {}
 
 func (x *RuntimeMovementReconciliationProfileResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[5]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +537,7 @@ func (x *RuntimeMovementReconciliationProfileResponse) ProtoReflect() protorefle
 
 // Deprecated: Use RuntimeMovementReconciliationProfileResponse.ProtoReflect.Descriptor instead.
 func (*RuntimeMovementReconciliationProfileResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{5}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *RuntimeMovementReconciliationProfileResponse) GetFound() bool {
@@ -392,7 +572,7 @@ type CreatureBehaviorRuntimeContractResponse struct {
 
 func (x *CreatureBehaviorRuntimeContractResponse) Reset() {
 	*x = CreatureBehaviorRuntimeContractResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -404,7 +584,7 @@ func (x *CreatureBehaviorRuntimeContractResponse) String() string {
 func (*CreatureBehaviorRuntimeContractResponse) ProtoMessage() {}
 
 func (x *CreatureBehaviorRuntimeContractResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[6]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -417,7 +597,7 @@ func (x *CreatureBehaviorRuntimeContractResponse) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use CreatureBehaviorRuntimeContractResponse.ProtoReflect.Descriptor instead.
 func (*CreatureBehaviorRuntimeContractResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{6}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CreatureBehaviorRuntimeContractResponse) GetFound() bool {
@@ -452,7 +632,7 @@ type CreatureEvasionPoliciesResponse struct {
 
 func (x *CreatureEvasionPoliciesResponse) Reset() {
 	*x = CreatureEvasionPoliciesResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -464,7 +644,7 @@ func (x *CreatureEvasionPoliciesResponse) String() string {
 func (*CreatureEvasionPoliciesResponse) ProtoMessage() {}
 
 func (x *CreatureEvasionPoliciesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[7]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -477,7 +657,7 @@ func (x *CreatureEvasionPoliciesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureEvasionPoliciesResponse.ProtoReflect.Descriptor instead.
 func (*CreatureEvasionPoliciesResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{7}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *CreatureEvasionPoliciesResponse) GetFound() bool {
@@ -512,7 +692,7 @@ type CreatureSkillSetupPoliciesResponse struct {
 
 func (x *CreatureSkillSetupPoliciesResponse) Reset() {
 	*x = CreatureSkillSetupPoliciesResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[8]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -524,7 +704,7 @@ func (x *CreatureSkillSetupPoliciesResponse) String() string {
 func (*CreatureSkillSetupPoliciesResponse) ProtoMessage() {}
 
 func (x *CreatureSkillSetupPoliciesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[8]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -537,7 +717,7 @@ func (x *CreatureSkillSetupPoliciesResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use CreatureSkillSetupPoliciesResponse.ProtoReflect.Descriptor instead.
 func (*CreatureSkillSetupPoliciesResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{8}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CreatureSkillSetupPoliciesResponse) GetFound() bool {
@@ -572,7 +752,7 @@ type CreatureTargetOpportunityPolicyResponse struct {
 
 func (x *CreatureTargetOpportunityPolicyResponse) Reset() {
 	*x = CreatureTargetOpportunityPolicyResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[9]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -584,7 +764,7 @@ func (x *CreatureTargetOpportunityPolicyResponse) String() string {
 func (*CreatureTargetOpportunityPolicyResponse) ProtoMessage() {}
 
 func (x *CreatureTargetOpportunityPolicyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[9]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -597,7 +777,7 @@ func (x *CreatureTargetOpportunityPolicyResponse) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use CreatureTargetOpportunityPolicyResponse.ProtoReflect.Descriptor instead.
 func (*CreatureTargetOpportunityPolicyResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{9}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CreatureTargetOpportunityPolicyResponse) GetFound() bool {
@@ -632,7 +812,7 @@ type CreatureOrbitPolicyResponse struct {
 
 func (x *CreatureOrbitPolicyResponse) Reset() {
 	*x = CreatureOrbitPolicyResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[10]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -644,7 +824,7 @@ func (x *CreatureOrbitPolicyResponse) String() string {
 func (*CreatureOrbitPolicyResponse) ProtoMessage() {}
 
 func (x *CreatureOrbitPolicyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[10]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -657,7 +837,7 @@ func (x *CreatureOrbitPolicyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatureOrbitPolicyResponse.ProtoReflect.Descriptor instead.
 func (*CreatureOrbitPolicyResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{10}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *CreatureOrbitPolicyResponse) GetFound() bool {
@@ -692,7 +872,7 @@ type CreatureSkillBehaviorBindingsResponse struct {
 
 func (x *CreatureSkillBehaviorBindingsResponse) Reset() {
 	*x = CreatureSkillBehaviorBindingsResponse{}
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[11]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -704,7 +884,7 @@ func (x *CreatureSkillBehaviorBindingsResponse) String() string {
 func (*CreatureSkillBehaviorBindingsResponse) ProtoMessage() {}
 
 func (x *CreatureSkillBehaviorBindingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[11]
+	mi := &file_apeiron_v1_profile_data_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -717,7 +897,7 @@ func (x *CreatureSkillBehaviorBindingsResponse) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use CreatureSkillBehaviorBindingsResponse.ProtoReflect.Descriptor instead.
 func (*CreatureSkillBehaviorBindingsResponse) Descriptor() ([]byte, []int) {
-	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{11}
+	return file_apeiron_v1_profile_data_service_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *CreatureSkillBehaviorBindingsResponse) GetFound() bool {
@@ -762,6 +942,18 @@ const file_apeiron_v1_profile_data_service_proto_rawDesc = "" +
 	"\x1eMovementActionContractResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12>\n" +
 	"\bcontract\x18\x02 \x01(\v2\".apeiron.v1.MovementActionContractR\bcontract\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"\x8a\x01\n" +
+	"\x1fActionOrientationPolicyResponse\x12\x14\n" +
+	"\x05found\x18\x01 \x01(\bR\x05found\x12;\n" +
+	"\x06policy\x18\x02 \x01(\v2#.apeiron.v1.ActionOrientationPolicyR\x06policy\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"\x84\x01\n" +
+	"\x1cActionEnvelopePolicyResponse\x12\x14\n" +
+	"\x05found\x18\x01 \x01(\bR\x05found\x128\n" +
+	"\x06policy\x18\x02 \x01(\v2 .apeiron.v1.ActionEnvelopePolicyR\x06policy\x12\x14\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"\x8e\x01\n" +
+	" SkillActionPolicyBindingResponse\x12\x14\n" +
+	"\x05found\x18\x01 \x01(\bR\x05found\x12>\n" +
+	"\abinding\x18\x02 \x01(\v2$.apeiron.v1.SkillActionPolicyBindingR\abinding\x12\x14\n" +
 	"\x05error\x18\x03 \x01(\tR\x05error\"\x9c\x01\n" +
 	"&MovementReconciliationContractResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12F\n" +
@@ -794,12 +986,15 @@ const file_apeiron_v1_profile_data_service_proto_rawDesc = "" +
 	"%CreatureSkillBehaviorBindingsResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12D\n" +
 	"\bbindings\x18\x02 \x03(\v2(.apeiron.v1.CreatureSkillBehaviorBindingR\bbindings\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\tR\x05error2\xdc\t\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error2\xfe\v\n" +
 	"\x12ProfileDataService\x12P\n" +
 	"\x12GetMovementProfile\x12\x15.apeiron.v1.IdRequest\x1a#.apeiron.v1.MovementProfileResponse\x12T\n" +
 	"\x14GetCombatCoreProfile\x12\x15.apeiron.v1.IdRequest\x1a%.apeiron.v1.CombatCoreProfileResponse\x12\\\n" +
 	"\x18GetCombatDefenseContract\x12\x15.apeiron.v1.IdRequest\x1a).apeiron.v1.CombatDefenseContractResponse\x12^\n" +
-	"\x19GetMovementActionContract\x12\x15.apeiron.v1.IdRequest\x1a*.apeiron.v1.MovementActionContractResponse\x12n\n" +
+	"\x19GetMovementActionContract\x12\x15.apeiron.v1.IdRequest\x1a*.apeiron.v1.MovementActionContractResponse\x12`\n" +
+	"\x1aGetActionOrientationPolicy\x12\x15.apeiron.v1.IdRequest\x1a+.apeiron.v1.ActionOrientationPolicyResponse\x12Z\n" +
+	"\x17GetActionEnvelopePolicy\x12\x15.apeiron.v1.IdRequest\x1a(.apeiron.v1.ActionEnvelopePolicyResponse\x12b\n" +
+	"\x1bGetSkillActionPolicyBinding\x12\x15.apeiron.v1.IdRequest\x1a,.apeiron.v1.SkillActionPolicyBindingResponse\x12n\n" +
 	"!GetMovementReconciliationContract\x12\x15.apeiron.v1.IdRequest\x1a2.apeiron.v1.MovementReconciliationContractResponse\x12z\n" +
 	"'GetRuntimeMovementReconciliationProfile\x12\x15.apeiron.v1.IdRequest\x1a8.apeiron.v1.RuntimeMovementReconciliationProfileResponse\x12p\n" +
 	"\"GetCreatureBehaviorRuntimeContract\x12\x15.apeiron.v1.IdRequest\x1a3.apeiron.v1.CreatureBehaviorRuntimeContractResponse\x12`\n" +
@@ -821,76 +1016,91 @@ func file_apeiron_v1_profile_data_service_proto_rawDescGZIP() []byte {
 	return file_apeiron_v1_profile_data_service_proto_rawDescData
 }
 
-var file_apeiron_v1_profile_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_apeiron_v1_profile_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_apeiron_v1_profile_data_service_proto_goTypes = []any{
 	(*MovementProfileResponse)(nil),                      // 0: apeiron.v1.MovementProfileResponse
 	(*CombatCoreProfileResponse)(nil),                    // 1: apeiron.v1.CombatCoreProfileResponse
 	(*CombatDefenseContractResponse)(nil),                // 2: apeiron.v1.CombatDefenseContractResponse
 	(*MovementActionContractResponse)(nil),               // 3: apeiron.v1.MovementActionContractResponse
-	(*MovementReconciliationContractResponse)(nil),       // 4: apeiron.v1.MovementReconciliationContractResponse
-	(*RuntimeMovementReconciliationProfileResponse)(nil), // 5: apeiron.v1.RuntimeMovementReconciliationProfileResponse
-	(*CreatureBehaviorRuntimeContractResponse)(nil),      // 6: apeiron.v1.CreatureBehaviorRuntimeContractResponse
-	(*CreatureEvasionPoliciesResponse)(nil),              // 7: apeiron.v1.CreatureEvasionPoliciesResponse
-	(*CreatureSkillSetupPoliciesResponse)(nil),           // 8: apeiron.v1.CreatureSkillSetupPoliciesResponse
-	(*CreatureTargetOpportunityPolicyResponse)(nil),      // 9: apeiron.v1.CreatureTargetOpportunityPolicyResponse
-	(*CreatureOrbitPolicyResponse)(nil),                  // 10: apeiron.v1.CreatureOrbitPolicyResponse
-	(*CreatureSkillBehaviorBindingsResponse)(nil),        // 11: apeiron.v1.CreatureSkillBehaviorBindingsResponse
-	(*MovementProfile)(nil),                              // 12: apeiron.v1.MovementProfile
-	(*CombatCoreProfile)(nil),                            // 13: apeiron.v1.CombatCoreProfile
-	(*CombatDefenseContract)(nil),                        // 14: apeiron.v1.CombatDefenseContract
-	(*MovementActionContract)(nil),                       // 15: apeiron.v1.MovementActionContract
-	(*MovementReconciliationContract)(nil),               // 16: apeiron.v1.MovementReconciliationContract
-	(*RuntimeMovementReconciliationProfile)(nil),         // 17: apeiron.v1.RuntimeMovementReconciliationProfile
-	(*CreatureBehaviorRuntimeContract)(nil),              // 18: apeiron.v1.CreatureBehaviorRuntimeContract
-	(*CreatureEvasionPolicy)(nil),                        // 19: apeiron.v1.CreatureEvasionPolicy
-	(*CreatureSkillSetupPolicy)(nil),                     // 20: apeiron.v1.CreatureSkillSetupPolicy
-	(*CreatureTargetOpportunityPolicy)(nil),              // 21: apeiron.v1.CreatureTargetOpportunityPolicy
-	(*CreatureOrbitPolicy)(nil),                          // 22: apeiron.v1.CreatureOrbitPolicy
-	(*CreatureSkillBehaviorBinding)(nil),                 // 23: apeiron.v1.CreatureSkillBehaviorBinding
-	(*IdRequest)(nil),                                    // 24: apeiron.v1.IdRequest
+	(*ActionOrientationPolicyResponse)(nil),              // 4: apeiron.v1.ActionOrientationPolicyResponse
+	(*ActionEnvelopePolicyResponse)(nil),                 // 5: apeiron.v1.ActionEnvelopePolicyResponse
+	(*SkillActionPolicyBindingResponse)(nil),             // 6: apeiron.v1.SkillActionPolicyBindingResponse
+	(*MovementReconciliationContractResponse)(nil),       // 7: apeiron.v1.MovementReconciliationContractResponse
+	(*RuntimeMovementReconciliationProfileResponse)(nil), // 8: apeiron.v1.RuntimeMovementReconciliationProfileResponse
+	(*CreatureBehaviorRuntimeContractResponse)(nil),      // 9: apeiron.v1.CreatureBehaviorRuntimeContractResponse
+	(*CreatureEvasionPoliciesResponse)(nil),              // 10: apeiron.v1.CreatureEvasionPoliciesResponse
+	(*CreatureSkillSetupPoliciesResponse)(nil),           // 11: apeiron.v1.CreatureSkillSetupPoliciesResponse
+	(*CreatureTargetOpportunityPolicyResponse)(nil),      // 12: apeiron.v1.CreatureTargetOpportunityPolicyResponse
+	(*CreatureOrbitPolicyResponse)(nil),                  // 13: apeiron.v1.CreatureOrbitPolicyResponse
+	(*CreatureSkillBehaviorBindingsResponse)(nil),        // 14: apeiron.v1.CreatureSkillBehaviorBindingsResponse
+	(*MovementProfile)(nil),                              // 15: apeiron.v1.MovementProfile
+	(*CombatCoreProfile)(nil),                            // 16: apeiron.v1.CombatCoreProfile
+	(*CombatDefenseContract)(nil),                        // 17: apeiron.v1.CombatDefenseContract
+	(*MovementActionContract)(nil),                       // 18: apeiron.v1.MovementActionContract
+	(*ActionOrientationPolicy)(nil),                      // 19: apeiron.v1.ActionOrientationPolicy
+	(*ActionEnvelopePolicy)(nil),                         // 20: apeiron.v1.ActionEnvelopePolicy
+	(*SkillActionPolicyBinding)(nil),                     // 21: apeiron.v1.SkillActionPolicyBinding
+	(*MovementReconciliationContract)(nil),               // 22: apeiron.v1.MovementReconciliationContract
+	(*RuntimeMovementReconciliationProfile)(nil),         // 23: apeiron.v1.RuntimeMovementReconciliationProfile
+	(*CreatureBehaviorRuntimeContract)(nil),              // 24: apeiron.v1.CreatureBehaviorRuntimeContract
+	(*CreatureEvasionPolicy)(nil),                        // 25: apeiron.v1.CreatureEvasionPolicy
+	(*CreatureSkillSetupPolicy)(nil),                     // 26: apeiron.v1.CreatureSkillSetupPolicy
+	(*CreatureTargetOpportunityPolicy)(nil),              // 27: apeiron.v1.CreatureTargetOpportunityPolicy
+	(*CreatureOrbitPolicy)(nil),                          // 28: apeiron.v1.CreatureOrbitPolicy
+	(*CreatureSkillBehaviorBinding)(nil),                 // 29: apeiron.v1.CreatureSkillBehaviorBinding
+	(*IdRequest)(nil),                                    // 30: apeiron.v1.IdRequest
 }
 var file_apeiron_v1_profile_data_service_proto_depIdxs = []int32{
-	12, // 0: apeiron.v1.MovementProfileResponse.profile:type_name -> apeiron.v1.MovementProfile
-	13, // 1: apeiron.v1.CombatCoreProfileResponse.profile:type_name -> apeiron.v1.CombatCoreProfile
-	14, // 2: apeiron.v1.CombatDefenseContractResponse.contract:type_name -> apeiron.v1.CombatDefenseContract
-	15, // 3: apeiron.v1.MovementActionContractResponse.contract:type_name -> apeiron.v1.MovementActionContract
-	16, // 4: apeiron.v1.MovementReconciliationContractResponse.contract:type_name -> apeiron.v1.MovementReconciliationContract
-	17, // 5: apeiron.v1.RuntimeMovementReconciliationProfileResponse.profile:type_name -> apeiron.v1.RuntimeMovementReconciliationProfile
-	18, // 6: apeiron.v1.CreatureBehaviorRuntimeContractResponse.contract:type_name -> apeiron.v1.CreatureBehaviorRuntimeContract
-	19, // 7: apeiron.v1.CreatureEvasionPoliciesResponse.policies:type_name -> apeiron.v1.CreatureEvasionPolicy
-	20, // 8: apeiron.v1.CreatureSkillSetupPoliciesResponse.policies:type_name -> apeiron.v1.CreatureSkillSetupPolicy
-	21, // 9: apeiron.v1.CreatureTargetOpportunityPolicyResponse.policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
-	22, // 10: apeiron.v1.CreatureOrbitPolicyResponse.policy:type_name -> apeiron.v1.CreatureOrbitPolicy
-	23, // 11: apeiron.v1.CreatureSkillBehaviorBindingsResponse.bindings:type_name -> apeiron.v1.CreatureSkillBehaviorBinding
-	24, // 12: apeiron.v1.ProfileDataService.GetMovementProfile:input_type -> apeiron.v1.IdRequest
-	24, // 13: apeiron.v1.ProfileDataService.GetCombatCoreProfile:input_type -> apeiron.v1.IdRequest
-	24, // 14: apeiron.v1.ProfileDataService.GetCombatDefenseContract:input_type -> apeiron.v1.IdRequest
-	24, // 15: apeiron.v1.ProfileDataService.GetMovementActionContract:input_type -> apeiron.v1.IdRequest
-	24, // 16: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:input_type -> apeiron.v1.IdRequest
-	24, // 17: apeiron.v1.ProfileDataService.GetRuntimeMovementReconciliationProfile:input_type -> apeiron.v1.IdRequest
-	24, // 18: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:input_type -> apeiron.v1.IdRequest
-	24, // 19: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:input_type -> apeiron.v1.IdRequest
-	24, // 20: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:input_type -> apeiron.v1.IdRequest
-	24, // 21: apeiron.v1.ProfileDataService.GetCreatureTargetOpportunityPolicy:input_type -> apeiron.v1.IdRequest
-	24, // 22: apeiron.v1.ProfileDataService.GetCreatureOrbitPolicy:input_type -> apeiron.v1.IdRequest
-	24, // 23: apeiron.v1.ProfileDataService.GetCreatureSkillBehaviorBindings:input_type -> apeiron.v1.IdRequest
-	0,  // 24: apeiron.v1.ProfileDataService.GetMovementProfile:output_type -> apeiron.v1.MovementProfileResponse
-	1,  // 25: apeiron.v1.ProfileDataService.GetCombatCoreProfile:output_type -> apeiron.v1.CombatCoreProfileResponse
-	2,  // 26: apeiron.v1.ProfileDataService.GetCombatDefenseContract:output_type -> apeiron.v1.CombatDefenseContractResponse
-	3,  // 27: apeiron.v1.ProfileDataService.GetMovementActionContract:output_type -> apeiron.v1.MovementActionContractResponse
-	4,  // 28: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:output_type -> apeiron.v1.MovementReconciliationContractResponse
-	5,  // 29: apeiron.v1.ProfileDataService.GetRuntimeMovementReconciliationProfile:output_type -> apeiron.v1.RuntimeMovementReconciliationProfileResponse
-	6,  // 30: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:output_type -> apeiron.v1.CreatureBehaviorRuntimeContractResponse
-	7,  // 31: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:output_type -> apeiron.v1.CreatureEvasionPoliciesResponse
-	8,  // 32: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:output_type -> apeiron.v1.CreatureSkillSetupPoliciesResponse
-	9,  // 33: apeiron.v1.ProfileDataService.GetCreatureTargetOpportunityPolicy:output_type -> apeiron.v1.CreatureTargetOpportunityPolicyResponse
-	10, // 34: apeiron.v1.ProfileDataService.GetCreatureOrbitPolicy:output_type -> apeiron.v1.CreatureOrbitPolicyResponse
-	11, // 35: apeiron.v1.ProfileDataService.GetCreatureSkillBehaviorBindings:output_type -> apeiron.v1.CreatureSkillBehaviorBindingsResponse
-	24, // [24:36] is the sub-list for method output_type
-	12, // [12:24] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	15, // 0: apeiron.v1.MovementProfileResponse.profile:type_name -> apeiron.v1.MovementProfile
+	16, // 1: apeiron.v1.CombatCoreProfileResponse.profile:type_name -> apeiron.v1.CombatCoreProfile
+	17, // 2: apeiron.v1.CombatDefenseContractResponse.contract:type_name -> apeiron.v1.CombatDefenseContract
+	18, // 3: apeiron.v1.MovementActionContractResponse.contract:type_name -> apeiron.v1.MovementActionContract
+	19, // 4: apeiron.v1.ActionOrientationPolicyResponse.policy:type_name -> apeiron.v1.ActionOrientationPolicy
+	20, // 5: apeiron.v1.ActionEnvelopePolicyResponse.policy:type_name -> apeiron.v1.ActionEnvelopePolicy
+	21, // 6: apeiron.v1.SkillActionPolicyBindingResponse.binding:type_name -> apeiron.v1.SkillActionPolicyBinding
+	22, // 7: apeiron.v1.MovementReconciliationContractResponse.contract:type_name -> apeiron.v1.MovementReconciliationContract
+	23, // 8: apeiron.v1.RuntimeMovementReconciliationProfileResponse.profile:type_name -> apeiron.v1.RuntimeMovementReconciliationProfile
+	24, // 9: apeiron.v1.CreatureBehaviorRuntimeContractResponse.contract:type_name -> apeiron.v1.CreatureBehaviorRuntimeContract
+	25, // 10: apeiron.v1.CreatureEvasionPoliciesResponse.policies:type_name -> apeiron.v1.CreatureEvasionPolicy
+	26, // 11: apeiron.v1.CreatureSkillSetupPoliciesResponse.policies:type_name -> apeiron.v1.CreatureSkillSetupPolicy
+	27, // 12: apeiron.v1.CreatureTargetOpportunityPolicyResponse.policy:type_name -> apeiron.v1.CreatureTargetOpportunityPolicy
+	28, // 13: apeiron.v1.CreatureOrbitPolicyResponse.policy:type_name -> apeiron.v1.CreatureOrbitPolicy
+	29, // 14: apeiron.v1.CreatureSkillBehaviorBindingsResponse.bindings:type_name -> apeiron.v1.CreatureSkillBehaviorBinding
+	30, // 15: apeiron.v1.ProfileDataService.GetMovementProfile:input_type -> apeiron.v1.IdRequest
+	30, // 16: apeiron.v1.ProfileDataService.GetCombatCoreProfile:input_type -> apeiron.v1.IdRequest
+	30, // 17: apeiron.v1.ProfileDataService.GetCombatDefenseContract:input_type -> apeiron.v1.IdRequest
+	30, // 18: apeiron.v1.ProfileDataService.GetMovementActionContract:input_type -> apeiron.v1.IdRequest
+	30, // 19: apeiron.v1.ProfileDataService.GetActionOrientationPolicy:input_type -> apeiron.v1.IdRequest
+	30, // 20: apeiron.v1.ProfileDataService.GetActionEnvelopePolicy:input_type -> apeiron.v1.IdRequest
+	30, // 21: apeiron.v1.ProfileDataService.GetSkillActionPolicyBinding:input_type -> apeiron.v1.IdRequest
+	30, // 22: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:input_type -> apeiron.v1.IdRequest
+	30, // 23: apeiron.v1.ProfileDataService.GetRuntimeMovementReconciliationProfile:input_type -> apeiron.v1.IdRequest
+	30, // 24: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:input_type -> apeiron.v1.IdRequest
+	30, // 25: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:input_type -> apeiron.v1.IdRequest
+	30, // 26: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:input_type -> apeiron.v1.IdRequest
+	30, // 27: apeiron.v1.ProfileDataService.GetCreatureTargetOpportunityPolicy:input_type -> apeiron.v1.IdRequest
+	30, // 28: apeiron.v1.ProfileDataService.GetCreatureOrbitPolicy:input_type -> apeiron.v1.IdRequest
+	30, // 29: apeiron.v1.ProfileDataService.GetCreatureSkillBehaviorBindings:input_type -> apeiron.v1.IdRequest
+	0,  // 30: apeiron.v1.ProfileDataService.GetMovementProfile:output_type -> apeiron.v1.MovementProfileResponse
+	1,  // 31: apeiron.v1.ProfileDataService.GetCombatCoreProfile:output_type -> apeiron.v1.CombatCoreProfileResponse
+	2,  // 32: apeiron.v1.ProfileDataService.GetCombatDefenseContract:output_type -> apeiron.v1.CombatDefenseContractResponse
+	3,  // 33: apeiron.v1.ProfileDataService.GetMovementActionContract:output_type -> apeiron.v1.MovementActionContractResponse
+	4,  // 34: apeiron.v1.ProfileDataService.GetActionOrientationPolicy:output_type -> apeiron.v1.ActionOrientationPolicyResponse
+	5,  // 35: apeiron.v1.ProfileDataService.GetActionEnvelopePolicy:output_type -> apeiron.v1.ActionEnvelopePolicyResponse
+	6,  // 36: apeiron.v1.ProfileDataService.GetSkillActionPolicyBinding:output_type -> apeiron.v1.SkillActionPolicyBindingResponse
+	7,  // 37: apeiron.v1.ProfileDataService.GetMovementReconciliationContract:output_type -> apeiron.v1.MovementReconciliationContractResponse
+	8,  // 38: apeiron.v1.ProfileDataService.GetRuntimeMovementReconciliationProfile:output_type -> apeiron.v1.RuntimeMovementReconciliationProfileResponse
+	9,  // 39: apeiron.v1.ProfileDataService.GetCreatureBehaviorRuntimeContract:output_type -> apeiron.v1.CreatureBehaviorRuntimeContractResponse
+	10, // 40: apeiron.v1.ProfileDataService.GetCreatureEvasionPolicies:output_type -> apeiron.v1.CreatureEvasionPoliciesResponse
+	11, // 41: apeiron.v1.ProfileDataService.GetCreatureSkillSetupPolicies:output_type -> apeiron.v1.CreatureSkillSetupPoliciesResponse
+	12, // 42: apeiron.v1.ProfileDataService.GetCreatureTargetOpportunityPolicy:output_type -> apeiron.v1.CreatureTargetOpportunityPolicyResponse
+	13, // 43: apeiron.v1.ProfileDataService.GetCreatureOrbitPolicy:output_type -> apeiron.v1.CreatureOrbitPolicyResponse
+	14, // 44: apeiron.v1.ProfileDataService.GetCreatureSkillBehaviorBindings:output_type -> apeiron.v1.CreatureSkillBehaviorBindingsResponse
+	30, // [30:45] is the sub-list for method output_type
+	15, // [15:30] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_apeiron_v1_profile_data_service_proto_init() }
@@ -905,7 +1115,7 @@ func file_apeiron_v1_profile_data_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_apeiron_v1_profile_data_service_proto_rawDesc), len(file_apeiron_v1_profile_data_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

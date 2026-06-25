@@ -47,7 +47,7 @@ VALUES
 ('shield_bash_front_push_v1','grounded_skill','Shield Bash short forward step with temporal frontal stun/push.',300,170,120,95,541,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_push','[{"t":0,"v":0.2},{"t":0.4,"v":1.0},{"t":1,"v":0.15}]','[]','{"source":"canonical_bootstrap","design_note":"short shield step: one player cylinder forward"}'),
 ('shield_rush_front_contact_v1','grounded_skill','Shield Rush committed long rush with damage beginning at shield/body contact.',1100,720,260,864,1033.2,0,'grounded_skill_action','bounded_smooth_correction','grounded_skill_action_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','multi_target_carry_push','[{"t":0,"v":0.1},{"t":0.2,"v":0.85},{"t":0.75,"v":1.0},{"t":1,"v":0.25}]','[]','{"front_contact_offset_cm":8,"source":"canonical_bootstrap","design_note":"nine-cylinder committed shield rush with close curved shield-front contact"}'),
 ('wolf_dodge_lateral_leap_v1','dodge','Wolf low fast lateral/back diagonal dodge with full iframe.',520,420,100,210,520,0,'dodge','bounded_smooth_correction','dodge_reconciliation',FALSE,FALSE,TRUE,TRUE,'movement','iframe','[{"t":0,"v":0.4},{"t":0.35,"v":1.0},{"t":1,"v":0.2}]','[{"t":0,"z":0},{"t":0.4,"z":28},{"t":1,"z":0}]','{"source":"canonical_bootstrap"}'),
-('low_fast_lunge_v1','leap','Wolf low fast raking lunge; after the running setup it skims forward, takes a very low long airborne arc, lands before the endpoint, then carries a short natural inertia tail.',980,820,160,2148,2192,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','airborne_passthrough','[{"t":0,"v":0.58},{"t":0.16,"v":0.90},{"t":0.34,"v":1.0},{"t":0.70,"v":0.82},{"t":0.84,"v":0.38},{"t":1,"v":0.14}]','[{"t":0,"z":0},{"t":0.18,"z":0},{"t":0.36,"z":8},{"t":0.58,"z":6},{"t":0.82,"z":0},{"t":1,"z":0}]','{"post_landing_inertia_multiplier":0.42,"source":"canonical_bootstrap","canonical_id":"low_fast_lunge_v1","airborne_duration_ms":820,"vertical_motion_model":"low_raking_arc","jump_z_velocity":0,"gravity_scale":1,"gravity_z_cm_s2":980,"expected_apex_ms":350,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":false,"air_control_modifier":0}')
+('low_fast_lunge_v1','leap','Wolf low fast raking lunge; after setup it aligns for 100ms, spends 520ms in a low airborne pass-through, then carries 200ms of grounded inertia.',820,620,200,2148,2619.5,0,'leap','bounded_smooth_correction','leap_reconciliation',TRUE,FALSE,TRUE,TRUE,'movement','airborne_passthrough','[{"t":0,"v":0.22},{"t":0.12,"v":0.62},{"t":0.24,"v":0.98},{"t":0.68,"v":1.0},{"t":0.80,"v":0.48},{"t":1,"v":0.20}]','[{"t":0,"z":0},{"t":0.12,"z":0},{"t":0.30,"z":7},{"t":0.52,"z":8},{"t":0.76,"z":0},{"t":1,"z":0}]','{"post_landing_inertia_multiplier":0.62,"source":"canonical_bootstrap","canonical_id":"low_fast_lunge_v1","pre_commit_ms":100,"airborne_duration_ms":520,"landing_inertia_ms":200,"vertical_motion_model":"low_raking_arc","jump_z_velocity":0,"gravity_scale":1,"gravity_z_cm_s2":980,"expected_apex_ms":260,"landing_detection_policy":"server_grounded_handoff","ground_z_policy":"server_position_is_actor_root","capsule_base_offset":0,"allows_air_control":false,"air_control_modifier":0,"orientation_policy_id":"orientation_lunge_flank_commit_v1","envelope_policy_id":"envelope_lunge_low_raking_100_520_200_v1"}')
 ON CONFLICT (id) DO UPDATE SET
     action_type = EXCLUDED.action_type,
     description = EXCLUDED.description,
@@ -70,6 +70,86 @@ ON CONFLICT (id) DO UPDATE SET
     metadata = EXCLUDED.metadata,
     updated_at = NOW();
 
+INSERT INTO apeiron.action_orientation_policy (
+    id, owner_kind, description,
+    body_yaw_source, focus_yaw_source, attack_yaw_source,
+    body_turn_rate_deg_s, focus_turn_rate_deg_s, attack_turn_rate_deg_s,
+    commit_align_ms, attack_yaw_latch_policy,
+    allow_head_look_while_strafing, allow_body_side_on_movement, metadata
+)
+VALUES
+('orientation_lunge_flank_commit_v1','shared','Flank/circle keeps focus on target while root/body follows movement, then body aligns to a latched attack yaw during pre-lunge commit.',
+ 'movement_direction_until_commit','target','commit_target_snapshot',
+ 420,900,720,
+ 100,'latch_at_takeoff',
+ TRUE,TRUE,'{"source":"canonical_bootstrap","supports":"creature_and_player_actions","phase_model":"tactical_setup_to_pre_commit_to_airborne"}'),
+('orientation_forward_commit_v1','shared','Forward committed attack orientation: body and attack yaw follow aim/control direction at commit, then active frames use latched attack yaw.',
+ 'aim_direction','aim_direction','commit_aim_snapshot',
+ 540,720,720,
+ 0,'latch_at_active_start',
+ FALSE,FALSE,'{"source":"canonical_bootstrap","supports":"player_shield_bash_rush_basic"}'),
+('orientation_dodge_exit_v1','shared','Evasive burst orientation: movement direction owns the burst, focus may remain on target/camera, attack yaw is none.',
+ 'movement_direction','focus_or_camera','none',
+ 720,900,0,
+ 0,'none',
+ TRUE,TRUE,'{"source":"canonical_bootstrap","supports":"dodge_exit_transition"}')
+ON CONFLICT (id) DO UPDATE SET
+    owner_kind = EXCLUDED.owner_kind,
+    description = EXCLUDED.description,
+    body_yaw_source = EXCLUDED.body_yaw_source,
+    focus_yaw_source = EXCLUDED.focus_yaw_source,
+    attack_yaw_source = EXCLUDED.attack_yaw_source,
+    body_turn_rate_deg_s = EXCLUDED.body_turn_rate_deg_s,
+    focus_turn_rate_deg_s = EXCLUDED.focus_turn_rate_deg_s,
+    attack_turn_rate_deg_s = EXCLUDED.attack_turn_rate_deg_s,
+    commit_align_ms = EXCLUDED.commit_align_ms,
+    attack_yaw_latch_policy = EXCLUDED.attack_yaw_latch_policy,
+    allow_head_look_while_strafing = EXCLUDED.allow_head_look_while_strafing,
+    allow_body_side_on_movement = EXCLUDED.allow_body_side_on_movement,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+INSERT INTO apeiron.action_envelope_policy (
+    id, owner_kind, description,
+    pre_commit_ms, airborne_ms, landing_inertia_ms,
+    pre_commit_direction_policy, airborne_direction_policy,
+    inertia_direction_policy, tactical_reentry_policy,
+    speed_curve, vertical_curve, metadata
+)
+VALUES
+('envelope_lunge_low_raking_100_520_200_v1','shared','Lunge envelope with short post-flank alignment run, low airborne pass-through, and explicit landing inertia before tactical reentry.',
+ 100,520,200,
+ 'curve_from_setup_to_attack_yaw','latched_attack_yaw','preserve_landing_exit','blend_body_yaw_to_next_tactic',
+ '[{"t":0,"v":0.22},{"t":0.12,"v":0.62},{"t":0.24,"v":0.98},{"t":0.68,"v":1.0},{"t":0.80,"v":0.48},{"t":1,"v":0.20}]',
+ '[{"t":0,"z":0},{"t":0.12,"z":0},{"t":0.30,"z":7},{"t":0.52,"z":8},{"t":0.76,"z":0},{"t":1,"z":0}]',
+ '{"source":"canonical_bootstrap","pre_commit_meaning":"post-flank body alignment and straightening run","airborne_shape":"low_long_raking","landing_inertia_is_action_transition":true}'),
+('envelope_grounded_short_commit_v1','shared','Short grounded commit envelope for bash/basic actions that need compact owned movement and explicit handoff.',
+ 0,0,120,
+ 'none','none','preserve_exit_direction','explicit_handoff_to_grounded_move',
+ '[{"t":0,"v":0.25},{"t":0.45,"v":1.0},{"t":1,"v":0.18}]',
+ '[]',
+ '{"source":"canonical_bootstrap","supports":"basic_attack_1_2_shield_bash"}'),
+('envelope_grounded_rush_contact_v1','shared','Long grounded rush/contact envelope with close front contact and carry push release.',
+ 0,0,260,
+ 'none','none','preserve_contact_push_direction','explicit_handoff_to_grounded_move',
+ '[{"t":0,"v":0.10},{"t":0.20,"v":0.85},{"t":0.75,"v":1.0},{"t":1,"v":0.25}]',
+ '[]',
+ '{"source":"canonical_bootstrap","supports":"shield_rush_and_basic_attack_3_contact_drive"}')
+ON CONFLICT (id) DO UPDATE SET
+    owner_kind = EXCLUDED.owner_kind,
+    description = EXCLUDED.description,
+    pre_commit_ms = EXCLUDED.pre_commit_ms,
+    airborne_ms = EXCLUDED.airborne_ms,
+    landing_inertia_ms = EXCLUDED.landing_inertia_ms,
+    pre_commit_direction_policy = EXCLUDED.pre_commit_direction_policy,
+    airborne_direction_policy = EXCLUDED.airborne_direction_policy,
+    inertia_direction_policy = EXCLUDED.inertia_direction_policy,
+    tactical_reentry_policy = EXCLUDED.tactical_reentry_policy,
+    speed_curve = EXCLUDED.speed_curve,
+    vertical_curve = EXCLUDED.vertical_curve,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
 INSERT INTO apeiron.skill_action_timing (skill_id, windup_ms, active_ms, recovery_ms, cooldown_ms, combo_window_ms, movement_lock_policy, queue_policy, cancel_policy, metadata)
 VALUES
 ('player_basic_attack_1',90,140,120,0,2000,'contract','basic_combo','short_recovery','{"source":"canonical_bootstrap"}'),
@@ -77,7 +157,7 @@ VALUES
 ('player_basic_attack_3',180,260,180,0,2000,'contract','basic_combo','short_recovery','{"source":"canonical_bootstrap"}'),
 ('player_shield_bash',110,170,120,26000,0,'contract','none','after_recovery','{"source":"canonical_bootstrap"}'),
 ('player_shield_rush',160,720,260,32000,0,'contract','none','after_recovery','{"source":"canonical_bootstrap"}'),
-('lunge',3600,820,160,9000,0,'contract','none','none','{"windup_movement":"circle_or_chase_setup","source":"canonical_bootstrap","airborne_damage_window":true,"grounded_inertia_tail":true}')
+('lunge',3600,620,200,9000,0,'contract','none','none','{"windup_movement":"circle_or_chase_setup","source":"canonical_bootstrap","pre_commit_ms":100,"airborne_damage_window":true,"grounded_inertia_tail":true}')
 ON CONFLICT (skill_id) DO UPDATE SET
     windup_ms = EXCLUDED.windup_ms,
     active_ms = EXCLUDED.active_ms,
@@ -105,6 +185,23 @@ ON CONFLICT (skill_id) DO UPDATE SET
     normal_input_policy = EXCLUDED.normal_input_policy,
     target_policy = EXCLUDED.target_policy,
     contact_policy = EXCLUDED.contact_policy,
+    is_enabled = EXCLUDED.is_enabled,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
+INSERT INTO apeiron.skill_action_policy_binding (
+    skill_id, action_orientation_policy_id, action_envelope_policy_id, is_enabled, metadata
+)
+VALUES
+('player_basic_attack_1','orientation_forward_commit_v1','envelope_grounded_short_commit_v1',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_basic_attack_2','orientation_forward_commit_v1','envelope_grounded_short_commit_v1',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_basic_attack_3','orientation_forward_commit_v1','envelope_grounded_rush_contact_v1',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_shield_bash','orientation_forward_commit_v1','envelope_grounded_short_commit_v1',TRUE,'{"source":"canonical_bootstrap"}'),
+('player_shield_rush','orientation_forward_commit_v1','envelope_grounded_rush_contact_v1',TRUE,'{"source":"canonical_bootstrap"}'),
+('lunge','orientation_lunge_flank_commit_v1','envelope_lunge_low_raking_100_520_200_v1',TRUE,'{"source":"canonical_bootstrap","post_flank_pre_lunge_commit":true}')
+ON CONFLICT (skill_id) DO UPDATE SET
+    action_orientation_policy_id = EXCLUDED.action_orientation_policy_id,
+    action_envelope_policy_id = EXCLUDED.action_envelope_policy_id,
     is_enabled = EXCLUDED.is_enabled,
     metadata = EXCLUDED.metadata,
     updated_at = NOW();

@@ -13,6 +13,9 @@ type ProfileReader interface {
 	GetCombatCoreProfile(ctx context.Context, id string) (postgres.CombatCoreProfile, error)
 	GetCombatDefenseContract(ctx context.Context, id string) (postgres.CombatDefenseContract, error)
 	GetMovementActionContract(ctx context.Context, id string) (postgres.MovementActionContract, error)
+	GetActionOrientationPolicy(ctx context.Context, id string) (postgres.ActionOrientationPolicy, error)
+	GetActionEnvelopePolicy(ctx context.Context, id string) (postgres.ActionEnvelopePolicy, error)
+	GetSkillActionPolicyBinding(ctx context.Context, skillID string) (postgres.SkillActionPolicyBinding, error)
 	GetMovementReconciliationContract(ctx context.Context, id string) (postgres.MovementReconciliationContract, error)
 	GetRuntimeMovementReconciliationProfile(ctx context.Context, id string) (postgres.RuntimeMovementReconciliationProfile, error)
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, id string) (postgres.CreatureBehaviorRuntimeContract, error)
@@ -67,6 +70,33 @@ func (h *ProfileDataHandler) GetMovementActionContract(ctx context.Context, req 
 	}
 
 	return &apeironv1.MovementActionContractResponse{Found: true, Contract: mapMovementActionContract(contract)}, nil
+}
+
+func (h *ProfileDataHandler) GetActionOrientationPolicy(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.ActionOrientationPolicyResponse, error) {
+	policy, err := h.profiles.GetActionOrientationPolicy(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.ActionOrientationPolicyResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.ActionOrientationPolicyResponse{Found: true, Policy: mapActionOrientationPolicy(policy)}, nil
+}
+
+func (h *ProfileDataHandler) GetActionEnvelopePolicy(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.ActionEnvelopePolicyResponse, error) {
+	policy, err := h.profiles.GetActionEnvelopePolicy(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.ActionEnvelopePolicyResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.ActionEnvelopePolicyResponse{Found: true, Policy: mapActionEnvelopePolicy(policy)}, nil
+}
+
+func (h *ProfileDataHandler) GetSkillActionPolicyBinding(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.SkillActionPolicyBindingResponse, error) {
+	binding, err := h.profiles.GetSkillActionPolicyBinding(ctx, req.GetId())
+	if err != nil {
+		return &apeironv1.SkillActionPolicyBindingResponse{Found: false, Error: err.Error()}, nil
+	}
+
+	return &apeironv1.SkillActionPolicyBindingResponse{Found: true, Binding: mapSkillActionPolicyBinding(binding)}, nil
 }
 
 func (h *ProfileDataHandler) GetMovementReconciliationContract(ctx context.Context, req *apeironv1.IdRequest) (*apeironv1.MovementReconciliationContractResponse, error) {
@@ -244,6 +274,64 @@ func mapMovementActionContract(c postgres.MovementActionContract) *apeironv1.Mov
 		VerticalCurve:            mapMovementCurveSamples(c.VerticalCurveJSON),
 		MetadataJson:             c.MetadataJSON,
 		ReconciliationContract:   mapMovementReconciliationContract(c.ReconciliationContract),
+	}
+}
+
+func mapActionOrientationPolicy(p postgres.ActionOrientationPolicy) *apeironv1.ActionOrientationPolicy {
+	if p.ID == "" {
+		return nil
+	}
+	return &apeironv1.ActionOrientationPolicy{
+		Id:                         p.ID,
+		OwnerKind:                  p.OwnerKind,
+		Description:                p.Description,
+		BodyYawSource:              p.BodyYawSource,
+		FocusYawSource:             p.FocusYawSource,
+		AttackYawSource:            p.AttackYawSource,
+		BodyTurnRateDegS:           p.BodyTurnRateDegS,
+		FocusTurnRateDegS:          p.FocusTurnRateDegS,
+		AttackTurnRateDegS:         p.AttackTurnRateDegS,
+		CommitAlignMs:              int32(p.CommitAlignMS),
+		AttackYawLatchPolicy:       p.AttackYawLatchPolicy,
+		AllowHeadLookWhileStrafing: p.AllowHeadLookWhileStrafing,
+		AllowBodySideOnMovement:    p.AllowBodySideOnMovement,
+		MetadataJson:               p.MetadataJSON,
+	}
+}
+
+func mapActionEnvelopePolicy(p postgres.ActionEnvelopePolicy) *apeironv1.ActionEnvelopePolicy {
+	if p.ID == "" {
+		return nil
+	}
+	return &apeironv1.ActionEnvelopePolicy{
+		Id:                       p.ID,
+		OwnerKind:                p.OwnerKind,
+		Description:              p.Description,
+		PreCommitMs:              int32(p.PreCommitMS),
+		AirborneMs:               int32(p.AirborneMS),
+		LandingInertiaMs:         int32(p.LandingInertiaMS),
+		PreCommitDirectionPolicy: p.PreCommitDirectionPolicy,
+		AirborneDirectionPolicy:  p.AirborneDirectionPolicy,
+		InertiaDirectionPolicy:   p.InertiaDirectionPolicy,
+		TacticalReentryPolicy:    p.TacticalReentryPolicy,
+		SpeedCurve:               mapMovementCurveSamples(p.SpeedCurveJSON),
+		VerticalCurve:            mapMovementCurveSamples(p.VerticalCurveJSON),
+		MetadataJson:             p.MetadataJSON,
+	}
+}
+
+func mapSkillActionPolicyBinding(b postgres.SkillActionPolicyBinding) *apeironv1.SkillActionPolicyBinding {
+	if b.SkillID == "" {
+		return nil
+	}
+	return &apeironv1.SkillActionPolicyBinding{
+		SkillId:                   b.SkillID,
+		ActionOrientationPolicyId: b.ActionOrientationPolicyID,
+		ActionEnvelopePolicyId:    b.ActionEnvelopePolicyID,
+		IsEnabled:                 b.IsEnabled,
+		MetadataJson:              b.MetadataJSON,
+		ActionOrientationPolicy:   mapActionOrientationPolicy(b.ActionOrientationPolicy),
+		ActionEnvelopePolicy:      mapActionEnvelopePolicy(b.ActionEnvelopePolicy),
 	}
 }
 

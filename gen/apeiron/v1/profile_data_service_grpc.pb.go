@@ -23,6 +23,9 @@ const (
 	ProfileDataService_GetCombatCoreProfile_FullMethodName                    = "/apeiron.v1.ProfileDataService/GetCombatCoreProfile"
 	ProfileDataService_GetCombatDefenseContract_FullMethodName                = "/apeiron.v1.ProfileDataService/GetCombatDefenseContract"
 	ProfileDataService_GetMovementActionContract_FullMethodName               = "/apeiron.v1.ProfileDataService/GetMovementActionContract"
+	ProfileDataService_GetActionOrientationPolicy_FullMethodName              = "/apeiron.v1.ProfileDataService/GetActionOrientationPolicy"
+	ProfileDataService_GetActionEnvelopePolicy_FullMethodName                 = "/apeiron.v1.ProfileDataService/GetActionEnvelopePolicy"
+	ProfileDataService_GetSkillActionPolicyBinding_FullMethodName             = "/apeiron.v1.ProfileDataService/GetSkillActionPolicyBinding"
 	ProfileDataService_GetMovementReconciliationContract_FullMethodName       = "/apeiron.v1.ProfileDataService/GetMovementReconciliationContract"
 	ProfileDataService_GetRuntimeMovementReconciliationProfile_FullMethodName = "/apeiron.v1.ProfileDataService/GetRuntimeMovementReconciliationProfile"
 	ProfileDataService_GetCreatureBehaviorRuntimeContract_FullMethodName      = "/apeiron.v1.ProfileDataService/GetCreatureBehaviorRuntimeContract"
@@ -41,6 +44,9 @@ type ProfileDataServiceClient interface {
 	GetCombatCoreProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatCoreProfileResponse, error)
 	GetCombatDefenseContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CombatDefenseContractResponse, error)
 	GetMovementActionContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementActionContractResponse, error)
+	GetActionOrientationPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*ActionOrientationPolicyResponse, error)
+	GetActionEnvelopePolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*ActionEnvelopePolicyResponse, error)
+	GetSkillActionPolicyBinding(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillActionPolicyBindingResponse, error)
 	GetMovementReconciliationContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*MovementReconciliationContractResponse, error)
 	GetRuntimeMovementReconciliationProfile(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*RuntimeMovementReconciliationProfileResponse, error)
 	GetCreatureBehaviorRuntimeContract(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*CreatureBehaviorRuntimeContractResponse, error)
@@ -93,6 +99,36 @@ func (c *profileDataServiceClient) GetMovementActionContract(ctx context.Context
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(MovementActionContractResponse)
 	err := c.cc.Invoke(ctx, ProfileDataService_GetMovementActionContract_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetActionOrientationPolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*ActionOrientationPolicyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionOrientationPolicyResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetActionOrientationPolicy_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetActionEnvelopePolicy(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*ActionEnvelopePolicyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionEnvelopePolicyResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetActionEnvelopePolicy_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileDataServiceClient) GetSkillActionPolicyBinding(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*SkillActionPolicyBindingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SkillActionPolicyBindingResponse)
+	err := c.cc.Invoke(ctx, ProfileDataService_GetSkillActionPolicyBinding_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +223,9 @@ type ProfileDataServiceServer interface {
 	GetCombatCoreProfile(context.Context, *IdRequest) (*CombatCoreProfileResponse, error)
 	GetCombatDefenseContract(context.Context, *IdRequest) (*CombatDefenseContractResponse, error)
 	GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error)
+	GetActionOrientationPolicy(context.Context, *IdRequest) (*ActionOrientationPolicyResponse, error)
+	GetActionEnvelopePolicy(context.Context, *IdRequest) (*ActionEnvelopePolicyResponse, error)
+	GetSkillActionPolicyBinding(context.Context, *IdRequest) (*SkillActionPolicyBindingResponse, error)
 	GetMovementReconciliationContract(context.Context, *IdRequest) (*MovementReconciliationContractResponse, error)
 	GetRuntimeMovementReconciliationProfile(context.Context, *IdRequest) (*RuntimeMovementReconciliationProfileResponse, error)
 	GetCreatureBehaviorRuntimeContract(context.Context, *IdRequest) (*CreatureBehaviorRuntimeContractResponse, error)
@@ -216,6 +255,15 @@ func (UnimplementedProfileDataServiceServer) GetCombatDefenseContract(context.Co
 }
 func (UnimplementedProfileDataServiceServer) GetMovementActionContract(context.Context, *IdRequest) (*MovementActionContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMovementActionContract not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetActionOrientationPolicy(context.Context, *IdRequest) (*ActionOrientationPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActionOrientationPolicy not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetActionEnvelopePolicy(context.Context, *IdRequest) (*ActionEnvelopePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActionEnvelopePolicy not implemented")
+}
+func (UnimplementedProfileDataServiceServer) GetSkillActionPolicyBinding(context.Context, *IdRequest) (*SkillActionPolicyBindingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSkillActionPolicyBinding not implemented")
 }
 func (UnimplementedProfileDataServiceServer) GetMovementReconciliationContract(context.Context, *IdRequest) (*MovementReconciliationContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMovementReconciliationContract not implemented")
@@ -330,6 +378,60 @@ func _ProfileDataService_GetMovementActionContract_Handler(srv interface{}, ctx 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProfileDataServiceServer).GetMovementActionContract(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetActionOrientationPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetActionOrientationPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetActionOrientationPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetActionOrientationPolicy(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetActionEnvelopePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetActionEnvelopePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetActionEnvelopePolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetActionEnvelopePolicy(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileDataService_GetSkillActionPolicyBinding_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileDataServiceServer).GetSkillActionPolicyBinding(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileDataService_GetSkillActionPolicyBinding_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileDataServiceServer).GetSkillActionPolicyBinding(ctx, req.(*IdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -500,6 +602,18 @@ var ProfileDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMovementActionContract",
 			Handler:    _ProfileDataService_GetMovementActionContract_Handler,
+		},
+		{
+			MethodName: "GetActionOrientationPolicy",
+			Handler:    _ProfileDataService_GetActionOrientationPolicy_Handler,
+		},
+		{
+			MethodName: "GetActionEnvelopePolicy",
+			Handler:    _ProfileDataService_GetActionEnvelopePolicy_Handler,
+		},
+		{
+			MethodName: "GetSkillActionPolicyBinding",
+			Handler:    _ProfileDataService_GetSkillActionPolicyBinding_Handler,
 		},
 		{
 			MethodName: "GetMovementReconciliationContract",

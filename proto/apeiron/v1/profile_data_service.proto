@@ -11,6 +11,9 @@ service ProfileDataService {
   rpc GetCombatCoreProfile(IdRequest) returns (CombatCoreProfileResponse);
   rpc GetCombatDefenseContract(IdRequest) returns (CombatDefenseContractResponse);
   rpc GetMovementActionContract(IdRequest) returns (MovementActionContractResponse);
+  rpc GetActionOrientationPolicy(IdRequest) returns (ActionOrientationPolicyResponse);
+  rpc GetActionEnvelopePolicy(IdRequest) returns (ActionEnvelopePolicyResponse);
+  rpc GetSkillActionPolicyBinding(IdRequest) returns (SkillActionPolicyBindingResponse);
   rpc GetMovementReconciliationContract(IdRequest) returns (MovementReconciliationContractResponse);
   rpc GetRuntimeMovementReconciliationProfile(IdRequest) returns (RuntimeMovementReconciliationProfileResponse);
   rpc GetCreatureBehaviorRuntimeContract(IdRequest) returns (CreatureBehaviorRuntimeContractResponse);
@@ -42,6 +45,24 @@ message CombatDefenseContractResponse {
 message MovementActionContractResponse {
   bool found = 1;
   MovementActionContract contract = 2;
+  string error = 3;
+}
+
+message ActionOrientationPolicyResponse {
+  bool found = 1;
+  ActionOrientationPolicy policy = 2;
+  string error = 3;
+}
+
+message ActionEnvelopePolicyResponse {
+  bool found = 1;
+  ActionEnvelopePolicy policy = 2;
+  string error = 3;
+}
+
+message SkillActionPolicyBindingResponse {
+  bool found = 1;
+  SkillActionPolicyBinding binding = 2;
   string error = 3;
 }
 

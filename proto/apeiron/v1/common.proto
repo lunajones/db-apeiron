@@ -310,6 +310,49 @@ message SkillMovementActionBinding {
   MovementActionContract movement_action_contract = 10;
 }
 
+message ActionOrientationPolicy {
+  string id = 1;
+  string owner_kind = 2;
+  string description = 3;
+  string body_yaw_source = 4;
+  string focus_yaw_source = 5;
+  string attack_yaw_source = 6;
+  double body_turn_rate_deg_s = 7;
+  double focus_turn_rate_deg_s = 8;
+  double attack_turn_rate_deg_s = 9;
+  int32 commit_align_ms = 10;
+  string attack_yaw_latch_policy = 11;
+  bool allow_head_look_while_strafing = 12;
+  bool allow_body_side_on_movement = 13;
+  string metadata_json = 14;
+}
+
+message ActionEnvelopePolicy {
+  string id = 1;
+  string owner_kind = 2;
+  string description = 3;
+  int32 pre_commit_ms = 4;
+  int32 airborne_ms = 5;
+  int32 landing_inertia_ms = 6;
+  string pre_commit_direction_policy = 7;
+  string airborne_direction_policy = 8;
+  string inertia_direction_policy = 9;
+  string tactical_reentry_policy = 10;
+  repeated MovementCurveSample speed_curve = 11;
+  repeated MovementCurveSample vertical_curve = 12;
+  string metadata_json = 13;
+}
+
+message SkillActionPolicyBinding {
+  string skill_id = 1;
+  string action_orientation_policy_id = 2;
+  string action_envelope_policy_id = 3;
+  bool is_enabled = 4;
+  string metadata_json = 5;
+  ActionOrientationPolicy action_orientation_policy = 6;
+  ActionEnvelopePolicy action_envelope_policy = 7;
+}
+
 message CreatureBehaviorRuntimeContract {
   string id = 1;
   string creature_template_id = 2;
