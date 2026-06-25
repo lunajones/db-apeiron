@@ -3580,6 +3580,8 @@ type CombatCoreProfile struct {
 	BlockStaminaCostPerSec     float64                `protobuf:"fixed64,15,opt,name=block_stamina_cost_per_sec,json=blockStaminaCostPerSec,proto3" json:"block_stamina_cost_per_sec,omitempty"`
 	AttackStaminaCost          float64                `protobuf:"fixed64,16,opt,name=attack_stamina_cost,json=attackStaminaCost,proto3" json:"attack_stamina_cost,omitempty"`
 	StaminaExhaustionThreshold float64                `protobuf:"fixed64,17,opt,name=stamina_exhaustion_threshold,json=staminaExhaustionThreshold,proto3" json:"stamina_exhaustion_threshold,omitempty"`
+	SprintStaminaCostPerSec    float64                `protobuf:"fixed64,18,opt,name=sprint_stamina_cost_per_sec,json=sprintStaminaCostPerSec,proto3" json:"sprint_stamina_cost_per_sec,omitempty"`
+	StaminaZeroRegenMultiplier float64                `protobuf:"fixed64,19,opt,name=stamina_zero_regen_multiplier,json=staminaZeroRegenMultiplier,proto3" json:"stamina_zero_regen_multiplier,omitempty"`
 	unknownFields              protoimpl.UnknownFields
 	sizeCache                  protoimpl.SizeCache
 }
@@ -3729,6 +3731,20 @@ func (x *CombatCoreProfile) GetAttackStaminaCost() float64 {
 func (x *CombatCoreProfile) GetStaminaExhaustionThreshold() float64 {
 	if x != nil {
 		return x.StaminaExhaustionThreshold
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetSprintStaminaCostPerSec() float64 {
+	if x != nil {
+		return x.SprintStaminaCostPerSec
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetStaminaZeroRegenMultiplier() float64 {
+	if x != nil {
+		return x.StaminaZeroRegenMultiplier
 	}
 	return 0
 }
@@ -5741,7 +5757,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16requires_line_of_sight\x18\f \x01(\bR\x13requiresLineOfSight\x12\x1d\n" +
 	"\n" +
 	"is_enabled\x18\r \x01(\bR\tisEnabled\x12#\n" +
-	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xc3\x06\n" +
+	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xc4\a\n" +
 	"\x11CombatCoreProfile\x126\n" +
 	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
 	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
@@ -5762,7 +5778,9 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x12dodge_stamina_cost\x18\x0e \x01(\x01R\x10dodgeStaminaCost\x12:\n" +
 	"\x1ablock_stamina_cost_per_sec\x18\x0f \x01(\x01R\x16blockStaminaCostPerSec\x12.\n" +
 	"\x13attack_stamina_cost\x18\x10 \x01(\x01R\x11attackStaminaCost\x12@\n" +
-	"\x1cstamina_exhaustion_threshold\x18\x11 \x01(\x01R\x1astaminaExhaustionThreshold\"\xdf\x05\n" +
+	"\x1cstamina_exhaustion_threshold\x18\x11 \x01(\x01R\x1astaminaExhaustionThreshold\x12<\n" +
+	"\x1bsprint_stamina_cost_per_sec\x18\x12 \x01(\x01R\x17sprintStaminaCostPerSec\x12A\n" +
+	"\x1dstamina_zero_regen_multiplier\x18\x13 \x01(\x01R\x1astaminaZeroRegenMultiplier\"\xdf\x05\n" +
 	"\x15CombatDefenseContract\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +

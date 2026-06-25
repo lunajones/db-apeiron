@@ -20,10 +20,12 @@ INSERT INTO apeiron.combat_core_profile (
     stamina_regen_per_sec,
 
     dodge_stamina_cost,
+    sprint_stamina_cost_per_sec,
     block_stamina_cost_per_sec,
     attack_stamina_cost,
 
     stamina_exhaustion_threshold,
+    stamina_zero_regen_multiplier,
 
     max_posture,
     posture_recovery_rate,
@@ -64,10 +66,12 @@ VALUES (
     16.0,
 
     28.0,
+    5.0,
     0.0,
     14.0,
 
     0.18,
+    0.5,
 
     65.0,
     18.0,
@@ -102,9 +106,11 @@ ON CONFLICT (id) DO UPDATE SET
     max_stamina = EXCLUDED.max_stamina,
     stamina_regen_per_sec = EXCLUDED.stamina_regen_per_sec,
     dodge_stamina_cost = EXCLUDED.dodge_stamina_cost,
+    sprint_stamina_cost_per_sec = EXCLUDED.sprint_stamina_cost_per_sec,
     block_stamina_cost_per_sec = EXCLUDED.block_stamina_cost_per_sec,
     attack_stamina_cost = EXCLUDED.attack_stamina_cost,
     stamina_exhaustion_threshold = EXCLUDED.stamina_exhaustion_threshold,
+    stamina_zero_regen_multiplier = EXCLUDED.stamina_zero_regen_multiplier,
     max_posture = EXCLUDED.max_posture,
     posture_recovery_rate = EXCLUDED.posture_recovery_rate,
     posture_damage_multiplier = EXCLUDED.posture_damage_multiplier,
@@ -148,10 +154,12 @@ INSERT INTO apeiron.combat_core_profile (
     stamina_regen_per_sec,
 
     dodge_stamina_cost,
+    sprint_stamina_cost_per_sec,
     block_stamina_cost_per_sec,
     attack_stamina_cost,
 
     stamina_exhaustion_threshold,
+    stamina_zero_regen_multiplier,
 
     max_posture,
     posture_recovery_rate,
@@ -192,10 +200,12 @@ VALUES (
     14.0,
 
     24.0,
+    24.0,
     2.0,
     0.0,
 
     0.0,
+    0.5,
 
     100.0,
     14.0,
@@ -230,9 +240,11 @@ ON CONFLICT (id) DO UPDATE SET
     max_stamina = EXCLUDED.max_stamina,
     stamina_regen_per_sec = EXCLUDED.stamina_regen_per_sec,
     dodge_stamina_cost = EXCLUDED.dodge_stamina_cost,
+    sprint_stamina_cost_per_sec = EXCLUDED.sprint_stamina_cost_per_sec,
     block_stamina_cost_per_sec = EXCLUDED.block_stamina_cost_per_sec,
     attack_stamina_cost = EXCLUDED.attack_stamina_cost,
     stamina_exhaustion_threshold = EXCLUDED.stamina_exhaustion_threshold,
+    stamina_zero_regen_multiplier = EXCLUDED.stamina_zero_regen_multiplier,
     max_posture = EXCLUDED.max_posture,
     posture_recovery_rate = EXCLUDED.posture_recovery_rate,
     posture_damage_multiplier = EXCLUDED.posture_damage_multiplier,

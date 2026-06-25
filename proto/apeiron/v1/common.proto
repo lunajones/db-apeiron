@@ -426,6 +426,8 @@ message CombatCoreProfile {
   double block_stamina_cost_per_sec = 15;
   double attack_stamina_cost = 16;
   double stamina_exhaustion_threshold = 17;
+  double sprint_stamina_cost_per_sec = 18;
+  double stamina_zero_regen_multiplier = 19;
 }
 
 message CombatDefenseContract {

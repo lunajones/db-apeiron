@@ -27,10 +27,12 @@ CREATE TABLE IF NOT EXISTS apeiron.combat_core_profile (
     stamina_regen_per_sec FLOAT NOT NULL DEFAULT 10.0,
 
     dodge_stamina_cost FLOAT NOT NULL DEFAULT 25.0,
+    sprint_stamina_cost_per_sec FLOAT NOT NULL DEFAULT 6.0,
     block_stamina_cost_per_sec FLOAT NOT NULL DEFAULT 8.0,
     attack_stamina_cost FLOAT NOT NULL DEFAULT 15.0,
 
     stamina_exhaustion_threshold FLOAT NOT NULL DEFAULT 0.15,
+    stamina_zero_regen_multiplier FLOAT NOT NULL DEFAULT 0.5,
 
     -- =========================
     -- POSTURE SYSTEM

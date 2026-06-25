@@ -132,9 +132,11 @@ func (r *ProfileRepository) GetCombatCoreProfileByID(ctx context.Context, id str
 			max_stamina,
 			stamina_regen_per_sec,
 			dodge_stamina_cost,
+			sprint_stamina_cost_per_sec,
 			block_stamina_cost_per_sec,
 			attack_stamina_cost,
 			stamina_exhaustion_threshold,
+			stamina_zero_regen_multiplier,
 			max_posture,
 			posture_recovery_rate,
 			posture_damage_multiplier,
@@ -167,9 +169,11 @@ func (r *ProfileRepository) GetCombatCoreProfileByID(ctx context.Context, id str
 		&p.MaxStamina,
 		&p.StaminaRegenPerSec,
 		&p.DodgeStaminaCost,
+		&p.SprintStaminaCostPerSec,
 		&p.BlockStaminaCostPerSec,
 		&p.AttackStaminaCost,
 		&p.StaminaExhaustionThreshold,
+		&p.StaminaZeroRegenMultiplier,
 		&p.MaxPosture,
 		&p.PostureRecoveryRate,
 		&p.PostureDamageMultiplier,
@@ -600,11 +604,13 @@ type CombatCoreProfile struct {
 	MaxStamina         float64
 	StaminaRegenPerSec float64
 
-	DodgeStaminaCost       float64
-	BlockStaminaCostPerSec float64
-	AttackStaminaCost      float64
+	DodgeStaminaCost        float64
+	SprintStaminaCostPerSec float64
+	BlockStaminaCostPerSec  float64
+	AttackStaminaCost       float64
 
 	StaminaExhaustionThreshold float64
+	StaminaZeroRegenMultiplier float64
 
 	MaxPosture              float64
 	PostureRecoveryRate     float64

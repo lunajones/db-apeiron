@@ -192,9 +192,11 @@ func mapCombatCoreProfile(p postgres.CombatCoreProfile) *apeironv1.CombatCorePro
 		MaxStamina:                 p.MaxStamina,
 		StaminaRegenPerSec:         p.StaminaRegenPerSec,
 		DodgeStaminaCost:           p.DodgeStaminaCost,
+		SprintStaminaCostPerSec:    p.SprintStaminaCostPerSec,
 		BlockStaminaCostPerSec:     p.BlockStaminaCostPerSec,
 		AttackStaminaCost:          p.AttackStaminaCost,
 		StaminaExhaustionThreshold: p.StaminaExhaustionThreshold,
+		StaminaZeroRegenMultiplier: p.StaminaZeroRegenMultiplier,
 	}
 }
 
