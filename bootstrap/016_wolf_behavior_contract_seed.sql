@@ -233,7 +233,7 @@ VALUES (
     '{"preferLongSideCommit":true,"sideFlipChanceMultiplier":0.55,"minimumSideCommitMs":3200,"flankBeforeLunge":true}',
     '{"dodgeUnderPressure":true,"maulCounterUnderPressure":true,"maulCounterChance":0.46,"dodgeRetreatMultiplier":0.72,"globalDodgeMultiplier":0.95,"repeatSkillPenaltyMultiplier":0.28,"commitThreatWeight":0.34,"closingThreatWeight":0.22,"defensiveBiteWeight":0.24,"fleeingLungeWeight":0.10,"lowResourceRiskFloor":0.16,"dodgeCommittedThreatMultiplier":1.22,"vulnerableBiteMultiplier":1.22,"vulnerableMaulMultiplier":1.28,"tacticalDestinationDistanceCm":220}',
     '{"max":100,"dodgeCostMultiplier":0.50,"regenPerSecond":12,"runDrainEnabled":true,"zeroStaminaLockoutUntilFull":true}',
-    '{"source":"canonical_bootstrap"}'
+    '{"source":"canonical_bootstrap","threat":{"damageThreatPerPoint":1.0,"postureThreatPerPoint":0.8,"proximityThreatPerSec":2.0,"proximityRangeCm":400,"firstAggroBonus":25,"decayPerSec":6.0,"losBreakDecayMultiplier":3.0,"outOfRangeDecayMultiplier":2.0,"switchThresholdRatio":1.25,"switchCooldownMs":1500,"leashDistanceCm":3500}}'
 )
 ON CONFLICT (id) DO UPDATE SET
     creature_template_id = EXCLUDED.creature_template_id,
