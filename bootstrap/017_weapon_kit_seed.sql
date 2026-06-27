@@ -21,6 +21,67 @@ ON CONFLICT (id) DO UPDATE SET
     metadata = EXCLUDED.metadata,
     updated_at = NOW();
 
+-- =========================================================
+-- INITIAL WEAPON KITS (data only — NO combat modes, NO skills yet).
+-- role + theme live in metadata; each weapon's combat modes/skills are added when that
+-- weapon is developed. English-only per project rule.
+-- =========================================================
+INSERT INTO apeiron.weapon_kit (id, name, description, primary_weapon_type, offhand_weapon_type, is_enabled, metadata)
+VALUES
+(
+    'weaponkit_bow',
+    'Bow',
+    'Ranged bow kit. Safe distance damage, poke and execution. Piercing arrows; special ammo can carry poison or fire.',
+    'bow',
+    NULL,
+    TRUE,
+    '{"source":"canonical_bootstrap","role":"ranged_dps","theme":"hunter_marksman"}'
+),
+(
+    'weaponkit_warhammer',
+    'Warhammer',
+    'Heavy two-handed warhammer. Breaker: blunt impact that shatters guard, armor, poise and posture. Slow, high impact.',
+    'warhammer',
+    NULL,
+    TRUE,
+    '{"source":"canonical_bootstrap","role":"breaker","theme":"heavy_breaker"}'
+),
+(
+    'weaponkit_alchemical_censer',
+    'Alchemical Censer',
+    'Technical alchemist censer. Area control via fire, poison, smoke and debuff zones. A field alchemist tool, never a mystic staff.',
+    'censer',
+    NULL,
+    TRUE,
+    '{"source":"canonical_bootstrap","role":"area_control","theme":"alchemist_not_mystic"}'
+),
+(
+    'weaponkit_bone_bronze_needles',
+    'Bone and Bronze Needles',
+    'Field-medic needle kit. Heals, applies antidotes, debuffs and precise trauma. Needles, moxa, herbs, bandages and cautery — a battlefield doctor, not a mystic.',
+    'needles',
+    NULL,
+    TRUE,
+    '{"source":"canonical_bootstrap","role":"healer","theme":"field_medic_not_mystic"}'
+),
+(
+    'weaponkit_caustic_siphon',
+    'Caustic Siphon',
+    'Offensive alchemist siphon: tank, hose, hand pump and bronze nozzle. Corrosive anti-tank that melts armor and shields. No mystic staff.',
+    'siphon',
+    NULL,
+    TRUE,
+    '{"source":"canonical_bootstrap","role":"anti_tank","theme":"alchemist_not_mystic"}'
+)
+ON CONFLICT (id) DO UPDATE SET
+    name = EXCLUDED.name,
+    description = EXCLUDED.description,
+    primary_weapon_type = EXCLUDED.primary_weapon_type,
+    offhand_weapon_type = EXCLUDED.offhand_weapon_type,
+    is_enabled = EXCLUDED.is_enabled,
+    metadata = EXCLUDED.metadata,
+    updated_at = NOW();
+
 INSERT INTO apeiron.weapon_combat_mode (
     id, weapon_kit_id, name, description, mode_index, switch_duration_ms, is_enabled, metadata
 )
