@@ -422,3 +422,7 @@ VALUES
     'steppe_wolf_utility',
     TRUE
 );
+
+-- Slice 2 demo: the wolf lunge is a piercing pounce that bypasses part of physical resistance
+-- (armor penetration, in resistance-rating units). Tune per-weapon later.
+UPDATE apeiron.skill SET armor_penetration = 40 WHERE id = 'lunge';

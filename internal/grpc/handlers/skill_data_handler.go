@@ -159,6 +159,7 @@ func mapSkill(s postgres.Skill) *apeironv1.Skill {
 		Interruptible:       s.IsInterruptible,
 		DamageType:          s.DamageType,
 		ElementalType:       nullString(s.ElementalType),
+		ArmorPenetration:    s.ArmorPenetration,
 	}
 }
 

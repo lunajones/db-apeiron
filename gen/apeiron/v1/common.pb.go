@@ -183,6 +183,7 @@ type Skill struct {
 	Tags                []string               `protobuf:"bytes,26,rep,name=tags,proto3" json:"tags,omitempty"`
 	DamageType          string                 `protobuf:"bytes,27,opt,name=damage_type,json=damageType,proto3" json:"damage_type,omitempty"`
 	ElementalType       string                 `protobuf:"bytes,28,opt,name=elemental_type,json=elementalType,proto3" json:"elemental_type,omitempty"`
+	ArmorPenetration    float64                `protobuf:"fixed64,29,opt,name=armor_penetration,json=armorPenetration,proto3" json:"armor_penetration,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -411,6 +412,13 @@ func (x *Skill) GetElementalType() string {
 		return x.ElementalType
 	}
 	return ""
+}
+
+func (x *Skill) GetArmorPenetration() float64 {
+	if x != nil {
+		return x.ArmorPenetration
+	}
+	return 0
 }
 
 type SkillSet struct {
@@ -5760,7 +5768,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\x1b\n" +
 	"\tIdRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"\xec\a\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\x99\b\n" +
 	"\x05Skill\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
 	"\vbase_damage\x18\x02 \x01(\x01R\n" +
@@ -5799,7 +5807,8 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x04tags\x18\x1a \x03(\tR\x04tags\x12\x1f\n" +
 	"\vdamage_type\x18\x1b \x01(\tR\n" +
 	"damageType\x12%\n" +
-	"\x0eelemental_type\x18\x1c \x01(\tR\relementalType\"\x9e\x01\n" +
+	"\x0eelemental_type\x18\x1c \x01(\tR\relementalType\x12+\n" +
+	"\x11armor_penetration\x18\x1d \x01(\x01R\x10armorPenetration\"\x9e\x01\n" +
 	"\bSkillSet\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +

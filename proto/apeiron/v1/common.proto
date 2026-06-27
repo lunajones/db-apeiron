@@ -44,6 +44,7 @@ message Skill {
   repeated string tags = 26;
   string damage_type = 27;
   string elemental_type = 28;
+  double armor_penetration = 29;
 }
 
 message SkillSet {
