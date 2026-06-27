@@ -3962,6 +3962,10 @@ type CombatCoreProfile struct {
 	StaminaExhaustionThreshold float64                `protobuf:"fixed64,17,opt,name=stamina_exhaustion_threshold,json=staminaExhaustionThreshold,proto3" json:"stamina_exhaustion_threshold,omitempty"`
 	SprintStaminaCostPerSec    float64                `protobuf:"fixed64,18,opt,name=sprint_stamina_cost_per_sec,json=sprintStaminaCostPerSec,proto3" json:"sprint_stamina_cost_per_sec,omitempty"`
 	StaminaZeroRegenMultiplier float64                `protobuf:"fixed64,19,opt,name=stamina_zero_regen_multiplier,json=staminaZeroRegenMultiplier,proto3" json:"stamina_zero_regen_multiplier,omitempty"`
+	PhysicalResistanceRating   float64                `protobuf:"fixed64,20,opt,name=physical_resistance_rating,json=physicalResistanceRating,proto3" json:"physical_resistance_rating,omitempty"`
+	ChemicalResistanceRating   float64                `protobuf:"fixed64,21,opt,name=chemical_resistance_rating,json=chemicalResistanceRating,proto3" json:"chemical_resistance_rating,omitempty"`
+	BiologicalResistanceRating float64                `protobuf:"fixed64,22,opt,name=biological_resistance_rating,json=biologicalResistanceRating,proto3" json:"biological_resistance_rating,omitempty"`
+	ResistanceCap              float64                `protobuf:"fixed64,23,opt,name=resistance_cap,json=resistanceCap,proto3" json:"resistance_cap,omitempty"`
 	unknownFields              protoimpl.UnknownFields
 	sizeCache                  protoimpl.SizeCache
 }
@@ -4125,6 +4129,34 @@ func (x *CombatCoreProfile) GetSprintStaminaCostPerSec() float64 {
 func (x *CombatCoreProfile) GetStaminaZeroRegenMultiplier() float64 {
 	if x != nil {
 		return x.StaminaZeroRegenMultiplier
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetPhysicalResistanceRating() float64 {
+	if x != nil {
+		return x.PhysicalResistanceRating
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetChemicalResistanceRating() float64 {
+	if x != nil {
+		return x.ChemicalResistanceRating
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetBiologicalResistanceRating() float64 {
+	if x != nil {
+		return x.BiologicalResistanceRating
+	}
+	return 0
+}
+
+func (x *CombatCoreProfile) GetResistanceCap() float64 {
+	if x != nil {
+		return x.ResistanceCap
 	}
 	return 0
 }
@@ -6181,7 +6213,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x16requires_line_of_sight\x18\f \x01(\bR\x13requiresLineOfSight\x12\x1d\n" +
 	"\n" +
 	"is_enabled\x18\r \x01(\bR\tisEnabled\x12#\n" +
-	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xc4\a\n" +
+	"\rmetadata_json\x18\x0e \x01(\tR\fmetadataJson\"\xa9\t\n" +
 	"\x11CombatCoreProfile\x126\n" +
 	"\x17damage_dealt_multiplier\x18\x01 \x01(\x01R\x15damageDealtMultiplier\x12\x1b\n" +
 	"\tcan_block\x18\x02 \x01(\bR\bcanBlock\x124\n" +
@@ -6204,7 +6236,11 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\x13attack_stamina_cost\x18\x10 \x01(\x01R\x11attackStaminaCost\x12@\n" +
 	"\x1cstamina_exhaustion_threshold\x18\x11 \x01(\x01R\x1astaminaExhaustionThreshold\x12<\n" +
 	"\x1bsprint_stamina_cost_per_sec\x18\x12 \x01(\x01R\x17sprintStaminaCostPerSec\x12A\n" +
-	"\x1dstamina_zero_regen_multiplier\x18\x13 \x01(\x01R\x1astaminaZeroRegenMultiplier\"\xdf\x05\n" +
+	"\x1dstamina_zero_regen_multiplier\x18\x13 \x01(\x01R\x1astaminaZeroRegenMultiplier\x12<\n" +
+	"\x1aphysical_resistance_rating\x18\x14 \x01(\x01R\x18physicalResistanceRating\x12<\n" +
+	"\x1achemical_resistance_rating\x18\x15 \x01(\x01R\x18chemicalResistanceRating\x12@\n" +
+	"\x1cbiological_resistance_rating\x18\x16 \x01(\x01R\x1abiologicalResistanceRating\x12%\n" +
+	"\x0eresistance_cap\x18\x17 \x01(\x01R\rresistanceCap\"\xdf\x05\n" +
 	"\x15CombatDefenseContract\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +

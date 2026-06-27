@@ -471,6 +471,10 @@ message CombatCoreProfile {
   double stamina_exhaustion_threshold = 17;
   double sprint_stamina_cost_per_sec = 18;
   double stamina_zero_regen_multiplier = 19;
+  double physical_resistance_rating = 20;
+  double chemical_resistance_rating = 21;
+  double biological_resistance_rating = 22;
+  double resistance_cap = 23;
 }
 
 message CombatDefenseContract {

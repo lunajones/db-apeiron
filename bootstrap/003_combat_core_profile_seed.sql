@@ -48,7 +48,12 @@ INSERT INTO apeiron.combat_core_profile (
     cc_duration_multiplier,
 
     is_boss,
-    is_pvp_immune
+    is_pvp_immune,
+
+    physical_resistance_rating,
+    chemical_resistance_rating,
+    biological_resistance_rating,
+    resistance_cap
 )
 VALUES (
     'combat_core_steppe_wolf',
@@ -94,7 +99,13 @@ VALUES (
     1.05,
 
     FALSE,
-    FALSE
+    FALSE,
+
+    -- resistance ratings (Physical / Chemical / Biological) + cap
+    40.0,
+    30.0,
+    45.0,
+    0.85
 )
 ON CONFLICT (id) DO UPDATE SET
     physical_defense = EXCLUDED.physical_defense,
@@ -128,6 +139,10 @@ ON CONFLICT (id) DO UPDATE SET
     cc_duration_multiplier = EXCLUDED.cc_duration_multiplier,
     is_boss = EXCLUDED.is_boss,
     is_pvp_immune = EXCLUDED.is_pvp_immune,
+    physical_resistance_rating = EXCLUDED.physical_resistance_rating,
+    chemical_resistance_rating = EXCLUDED.chemical_resistance_rating,
+    biological_resistance_rating = EXCLUDED.biological_resistance_rating,
+    resistance_cap = EXCLUDED.resistance_cap,
     updated_at = NOW();
 
 -- =========================================================
@@ -182,7 +197,12 @@ INSERT INTO apeiron.combat_core_profile (
     cc_duration_multiplier,
 
     is_boss,
-    is_pvp_immune
+    is_pvp_immune,
+
+    physical_resistance_rating,
+    chemical_resistance_rating,
+    biological_resistance_rating,
+    resistance_cap
 )
 VALUES (
     'combat_core_player_sword_shield_v1',
@@ -228,7 +248,13 @@ VALUES (
     1.0,
 
     FALSE,
-    FALSE
+    FALSE,
+
+    -- resistance ratings (Physical / Chemical / Biological) + cap
+    80.0,
+    25.0,
+    30.0,
+    0.85
 )
 ON CONFLICT (id) DO UPDATE SET
     physical_defense = EXCLUDED.physical_defense,
@@ -262,4 +288,8 @@ ON CONFLICT (id) DO UPDATE SET
     cc_duration_multiplier = EXCLUDED.cc_duration_multiplier,
     is_boss = EXCLUDED.is_boss,
     is_pvp_immune = EXCLUDED.is_pvp_immune,
+    physical_resistance_rating = EXCLUDED.physical_resistance_rating,
+    chemical_resistance_rating = EXCLUDED.chemical_resistance_rating,
+    biological_resistance_rating = EXCLUDED.biological_resistance_rating,
+    resistance_cap = EXCLUDED.resistance_cap,
     updated_at = NOW();

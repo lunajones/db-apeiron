@@ -13,6 +13,14 @@ CREATE TABLE IF NOT EXISTS apeiron.combat_core_profile (
     physical_defense FLOAT NOT NULL DEFAULT 0.0,
     magic_defense FLOAT NOT NULL DEFAULT 0.0,
 
+    -- 3-resistance model (ratings, mitigated via rating/(rating+K) curve). Replaces the two
+    -- defenses above (kept until callers are migrated). See
+    -- server-apeiron/docs/roadmap/aaa-damage-types-resistances-weapons-roadmap.md
+    physical_resistance_rating FLOAT NOT NULL DEFAULT 0.0,
+    chemical_resistance_rating FLOAT NOT NULL DEFAULT 0.0,
+    biological_resistance_rating FLOAT NOT NULL DEFAULT 0.0,
+    resistance_cap FLOAT NOT NULL DEFAULT 0.85,
+
     critical_chance FLOAT NOT NULL DEFAULT 0.05,
     critical_multiplier FLOAT NOT NULL DEFAULT 1.5,
 

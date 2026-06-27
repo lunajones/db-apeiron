@@ -154,6 +154,10 @@ func (r *ProfileRepository) GetCombatCoreProfileByID(ctx context.Context, id str
 			cc_duration_multiplier,
 			is_boss,
 			is_pvp_immune,
+			physical_resistance_rating,
+			chemical_resistance_rating,
+			biological_resistance_rating,
+			resistance_cap,
 			created_at,
 			updated_at
 		FROM apeiron.combat_core_profile
@@ -191,6 +195,10 @@ func (r *ProfileRepository) GetCombatCoreProfileByID(ctx context.Context, id str
 		&p.CCDurationMultiplier,
 		&p.IsBoss,
 		&p.IsPVPImmune,
+		&p.PhysicalResistanceRating,
+		&p.ChemicalResistanceRating,
+		&p.BiologicalResistanceRating,
+		&p.ResistanceCap,
 		&p.CreatedAt,
 		&p.UpdatedAt,
 	)
@@ -594,6 +602,11 @@ type CombatCoreProfile struct {
 
 	PhysicalDefense float64
 	MagicDefense    float64
+
+	PhysicalResistanceRating   float64
+	ChemicalResistanceRating   float64
+	BiologicalResistanceRating float64
+	ResistanceCap              float64
 
 	CriticalChance     float64
 	CriticalMultiplier float64
