@@ -24,7 +24,7 @@ func (r *PlayerRepository) GetByID(ctx context.Context, id string) (Player, erro
 			id,
 			account_id,
 			name,
-			creature_instance_id,
+			COALESCE(creature_instance_id, '') AS creature_instance_id,
 			level,
 			experience,
 			attribute_points,

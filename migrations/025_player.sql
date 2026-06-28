@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS apeiron.player (
     -- CREATURE RUNTIME BASE
     -- =========================
 
-    creature_instance_id TEXT NOT NULL UNIQUE,
+    -- Nullable: the persistent player record does not require a permanent live-world body row.
+    -- The runtime body (creature_instance) is spawned at login; see aaa-character-progression-roadmap.md.
+    creature_instance_id TEXT UNIQUE,
 
     -- =========================
     -- PROGRESSION
