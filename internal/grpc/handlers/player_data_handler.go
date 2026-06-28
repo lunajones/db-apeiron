@@ -9,6 +9,8 @@ import (
 
 type PlayerReader interface {
 	GetByID(ctx context.Context, id string) (postgres.Player, error)
+	UpdateProgression(ctx context.Context, id string, level int, experience int64, attributePoints int) error
+	UpdateAttributes(ctx context.Context, id string, strength, dexterity, intelligence, endurance float64) error
 }
 
 type PlayerDataHandler struct {
@@ -28,6 +30,22 @@ func (h *PlayerDataHandler) GetPlayer(ctx context.Context, req *apeironv1.IdRequ
 	}
 
 	return &apeironv1.PlayerResponse{Found: true, Player: mapPlayer(player)}, nil
+}
+
+// UpdatePlayer persists a player's progression (level/experience/attribute_points) and attributes
+// (strength/dexterity/intelligence/endurance). Used by the game server to write progression back.
+// Coin is not written here (runtime has no coin-set path yet).
+func (h *PlayerDataHandler) UpdatePlayer(ctx context.Context, p *apeironv1.Player) (*apeironv1.OperationResult, error) {
+	if p.GetId() == "" {
+		return &apeironv1.OperationResult{Success: false, Message: "player id required"}, nil
+	}
+	if err := h.players.UpdateProgression(ctx, p.GetId(), int(p.GetLevel()), p.GetExperience(), int(p.GetAttributePoints())); err != nil {
+		return &apeironv1.OperationResult{Success: false, Message: err.Error()}, nil
+	}
+	if err := h.players.UpdateAttributes(ctx, p.GetId(), p.GetStrength(), p.GetDexterity(), p.GetIntelligence(), p.GetEndurance()); err != nil {
+		return &apeironv1.OperationResult{Success: false, Message: err.Error()}, nil
+	}
+	return &apeironv1.OperationResult{Success: true}, nil
 }
 
 func mapPlayer(player postgres.Player) *apeironv1.Player {

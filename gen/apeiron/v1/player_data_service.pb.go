@@ -90,9 +90,10 @@ const file_apeiron_v1_player_data_service_proto_rawDesc = "" +
 	"\x0ePlayerResponse\x12\x14\n" +
 	"\x05found\x18\x01 \x01(\bR\x05found\x12*\n" +
 	"\x06player\x18\x02 \x01(\v2\x12.apeiron.v1.PlayerR\x06player\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\tR\x05error2S\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error2\x94\x01\n" +
 	"\x11PlayerDataService\x12>\n" +
-	"\tGetPlayer\x12\x15.apeiron.v1.IdRequest\x1a\x1a.apeiron.v1.PlayerResponseB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
+	"\tGetPlayer\x12\x15.apeiron.v1.IdRequest\x1a\x1a.apeiron.v1.PlayerResponse\x12?\n" +
+	"\fUpdatePlayer\x12\x12.apeiron.v1.Player\x1a\x1b.apeiron.v1.OperationResultB%Z#db-apeiron/gen/apeiron/v1;apeironv1b\x06proto3"
 
 var (
 	file_apeiron_v1_player_data_service_proto_rawDescOnce sync.Once
@@ -108,16 +109,19 @@ func file_apeiron_v1_player_data_service_proto_rawDescGZIP() []byte {
 
 var file_apeiron_v1_player_data_service_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_apeiron_v1_player_data_service_proto_goTypes = []any{
-	(*PlayerResponse)(nil), // 0: apeiron.v1.PlayerResponse
-	(*Player)(nil),         // 1: apeiron.v1.Player
-	(*IdRequest)(nil),      // 2: apeiron.v1.IdRequest
+	(*PlayerResponse)(nil),  // 0: apeiron.v1.PlayerResponse
+	(*Player)(nil),          // 1: apeiron.v1.Player
+	(*IdRequest)(nil),       // 2: apeiron.v1.IdRequest
+	(*OperationResult)(nil), // 3: apeiron.v1.OperationResult
 }
 var file_apeiron_v1_player_data_service_proto_depIdxs = []int32{
 	1, // 0: apeiron.v1.PlayerResponse.player:type_name -> apeiron.v1.Player
 	2, // 1: apeiron.v1.PlayerDataService.GetPlayer:input_type -> apeiron.v1.IdRequest
-	0, // 2: apeiron.v1.PlayerDataService.GetPlayer:output_type -> apeiron.v1.PlayerResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	1, // 2: apeiron.v1.PlayerDataService.UpdatePlayer:input_type -> apeiron.v1.Player
+	0, // 3: apeiron.v1.PlayerDataService.GetPlayer:output_type -> apeiron.v1.PlayerResponse
+	3, // 4: apeiron.v1.PlayerDataService.UpdatePlayer:output_type -> apeiron.v1.OperationResult
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name

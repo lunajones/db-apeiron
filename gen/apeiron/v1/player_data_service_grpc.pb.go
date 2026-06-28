@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PlayerDataService_GetPlayer_FullMethodName = "/apeiron.v1.PlayerDataService/GetPlayer"
+	PlayerDataService_GetPlayer_FullMethodName    = "/apeiron.v1.PlayerDataService/GetPlayer"
+	PlayerDataService_UpdatePlayer_FullMethodName = "/apeiron.v1.PlayerDataService/UpdatePlayer"
 )
 
 // PlayerDataServiceClient is the client API for PlayerDataService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerDataServiceClient interface {
 	GetPlayer(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*PlayerResponse, error)
+	UpdatePlayer(ctx context.Context, in *Player, opts ...grpc.CallOption) (*OperationResult, error)
 }
 
 type playerDataServiceClient struct {
@@ -47,11 +49,22 @@ func (c *playerDataServiceClient) GetPlayer(ctx context.Context, in *IdRequest, 
 	return out, nil
 }
 
+func (c *playerDataServiceClient) UpdatePlayer(ctx context.Context, in *Player, opts ...grpc.CallOption) (*OperationResult, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OperationResult)
+	err := c.cc.Invoke(ctx, PlayerDataService_UpdatePlayer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PlayerDataServiceServer is the server API for PlayerDataService service.
 // All implementations must embed UnimplementedPlayerDataServiceServer
 // for forward compatibility.
 type PlayerDataServiceServer interface {
 	GetPlayer(context.Context, *IdRequest) (*PlayerResponse, error)
+	UpdatePlayer(context.Context, *Player) (*OperationResult, error)
 	mustEmbedUnimplementedPlayerDataServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedPlayerDataServiceServer struct{}
 
 func (UnimplementedPlayerDataServiceServer) GetPlayer(context.Context, *IdRequest) (*PlayerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayer not implemented")
+}
+func (UnimplementedPlayerDataServiceServer) UpdatePlayer(context.Context, *Player) (*OperationResult, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePlayer not implemented")
 }
 func (UnimplementedPlayerDataServiceServer) mustEmbedUnimplementedPlayerDataServiceServer() {}
 func (UnimplementedPlayerDataServiceServer) testEmbeddedByValue()                           {}
@@ -104,6 +120,24 @@ func _PlayerDataService_GetPlayer_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlayerDataService_UpdatePlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Player)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerDataServiceServer).UpdatePlayer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PlayerDataService_UpdatePlayer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerDataServiceServer).UpdatePlayer(ctx, req.(*Player))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PlayerDataService_ServiceDesc is the grpc.ServiceDesc for PlayerDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var PlayerDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPlayer",
 			Handler:    _PlayerDataService_GetPlayer_Handler,
+		},
+		{
+			MethodName: "UpdatePlayer",
+			Handler:    _PlayerDataService_UpdatePlayer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

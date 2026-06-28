@@ -8,6 +8,7 @@ import "apeiron/v1/common.proto";
 
 service PlayerDataService {
   rpc GetPlayer(IdRequest) returns (PlayerResponse);
+  rpc UpdatePlayer(Player) returns (OperationResult);
 }
 
 message PlayerResponse {
