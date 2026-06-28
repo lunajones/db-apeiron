@@ -33,10 +33,11 @@ CREATE TABLE IF NOT EXISTS apeiron.player (
     -- CORE ATTRIBUTES
     -- =========================
 
-    strength FLOAT NOT NULL DEFAULT 1.0,
-    dexterity FLOAT NOT NULL DEFAULT 1.0,
-    intelligence FLOAT NOT NULL DEFAULT 1.0,
-    endurance FLOAT NOT NULL DEFAULT 1.0,
+    muscles FLOAT NOT NULL DEFAULT 1.0,
+    nerves FLOAT NOT NULL DEFAULT 1.0,
+    cruelty FLOAT NOT NULL DEFAULT 1.0,
+    kindness FLOAT NOT NULL DEFAULT 1.0,
+    resilience FLOAT NOT NULL DEFAULT 1.0,
 
     -- =========================
     -- COMBAT FLAGS

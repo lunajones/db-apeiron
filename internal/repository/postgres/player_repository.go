@@ -28,10 +28,11 @@ func (r *PlayerRepository) GetByID(ctx context.Context, id string) (Player, erro
 			level,
 			experience,
 			attribute_points,
-			strength,
-			dexterity,
-			intelligence,
-			endurance,
+			muscles,
+			nerves,
+			cruelty,
+			kindness,
+			resilience,
 			pvp_enabled,
 			is_in_safe_zone,
 			guild_id,
@@ -50,10 +51,11 @@ func (r *PlayerRepository) GetByID(ctx context.Context, id string) (Player, erro
 		&p.Level,
 		&p.Experience,
 		&p.AttributePoints,
-		&p.Strength,
-		&p.Dexterity,
-		&p.Intelligence,
-		&p.Endurance,
+		&p.Muscles,
+		&p.Nerves,
+		&p.Cruelty,
+		&p.Kindness,
+		&p.Resilience,
 		&p.PVPEnabled,
 		&p.IsInSafeZone,
 		&p.GuildID,
@@ -77,10 +79,11 @@ func (r *PlayerRepository) Create(ctx context.Context, p *Player) error {
 			level,
 			experience,
 			attribute_points,
-			strength,
-			dexterity,
-			intelligence,
-			endurance,
+			muscles,
+			nerves,
+			cruelty,
+			kindness,
+			resilience,
 			pvp_enabled,
 			is_in_safe_zone,
 			guild_id,
@@ -92,7 +95,7 @@ func (r *PlayerRepository) Create(ctx context.Context, p *Player) error {
 		)
 		VALUES (
 			$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
-			$11,$12,$13,$14,$15,$16,$17,$18,$19
+			$11,$12,$13,$14,$15,$16,$17,$18,$19,$20
 		)
 	`,
 		p.ID,
@@ -102,10 +105,11 @@ func (r *PlayerRepository) Create(ctx context.Context, p *Player) error {
 		p.Level,
 		p.Experience,
 		p.AttributePoints,
-		p.Strength,
-		p.Dexterity,
-		p.Intelligence,
-		p.Endurance,
+		p.Muscles,
+		p.Nerves,
+		p.Cruelty,
+		p.Kindness,
+		p.Resilience,
 		p.PVPEnabled,
 		p.IsInSafeZone,
 		p.GuildID,
@@ -147,25 +151,28 @@ func (r *PlayerRepository) UpdateProgression(
 func (r *PlayerRepository) UpdateAttributes(
 	ctx context.Context,
 	id string,
-	strength float64,
-	dexterity float64,
-	intelligence float64,
-	endurance float64,
+	muscles float64,
+	nerves float64,
+	cruelty float64,
+	kindness float64,
+	resilience float64,
 ) error {
 	_, err := r.db.Exec(ctx, `
 		UPDATE apeiron.player
 		SET
-			strength = $1,
-			dexterity = $2,
-			intelligence = $3,
-			endurance = $4,
+			muscles = $1,
+			nerves = $2,
+			cruelty = $3,
+			kindness = $4,
+			resilience = $5,
 			updated_at = NOW()
-		WHERE id = $5
+		WHERE id = $6
 	`,
-		strength,
-		dexterity,
-		intelligence,
-		endurance,
+		muscles,
+		nerves,
+		cruelty,
+		kindness,
+		resilience,
 		id,
 	)
 
@@ -250,10 +257,11 @@ type Player struct {
 	Experience      int64
 	AttributePoints int
 
-	Strength     float64
-	Dexterity    float64
-	Intelligence float64
-	Endurance    float64
+	Muscles    float64
+	Nerves     float64
+	Cruelty    float64
+	Kindness   float64
+	Resilience float64
 
 	PVPEnabled   bool
 	IsInSafeZone bool

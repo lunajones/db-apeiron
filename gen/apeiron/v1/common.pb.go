@@ -5182,16 +5182,17 @@ type Player struct {
 	Level              int32                  `protobuf:"varint,5,opt,name=level,proto3" json:"level,omitempty"`
 	Experience         int64                  `protobuf:"varint,6,opt,name=experience,proto3" json:"experience,omitempty"`
 	AttributePoints    int32                  `protobuf:"varint,7,opt,name=attribute_points,json=attributePoints,proto3" json:"attribute_points,omitempty"`
-	Strength           float64                `protobuf:"fixed64,8,opt,name=strength,proto3" json:"strength,omitempty"`
-	Dexterity          float64                `protobuf:"fixed64,9,opt,name=dexterity,proto3" json:"dexterity,omitempty"`
-	Intelligence       float64                `protobuf:"fixed64,10,opt,name=intelligence,proto3" json:"intelligence,omitempty"`
-	Endurance          float64                `protobuf:"fixed64,11,opt,name=endurance,proto3" json:"endurance,omitempty"`
+	Muscles            float64                `protobuf:"fixed64,8,opt,name=muscles,proto3" json:"muscles,omitempty"`
+	Nerves             float64                `protobuf:"fixed64,9,opt,name=nerves,proto3" json:"nerves,omitempty"`
+	Cruelty            float64                `protobuf:"fixed64,10,opt,name=cruelty,proto3" json:"cruelty,omitempty"`
+	Resilience         float64                `protobuf:"fixed64,11,opt,name=resilience,proto3" json:"resilience,omitempty"`
 	PvpEnabled         bool                   `protobuf:"varint,12,opt,name=pvp_enabled,json=pvpEnabled,proto3" json:"pvp_enabled,omitempty"`
 	IsInSafeZone       bool                   `protobuf:"varint,13,opt,name=is_in_safe_zone,json=isInSafeZone,proto3" json:"is_in_safe_zone,omitempty"`
 	GuildId            string                 `protobuf:"bytes,14,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
 	PartyId            string                 `protobuf:"bytes,15,opt,name=party_id,json=partyId,proto3" json:"party_id,omitempty"`
 	Reputation         float64                `protobuf:"fixed64,16,opt,name=reputation,proto3" json:"reputation,omitempty"`
 	Coin               int64                  `protobuf:"varint,17,opt,name=coin,proto3" json:"coin,omitempty"`
+	Kindness           float64                `protobuf:"fixed64,18,opt,name=kindness,proto3" json:"kindness,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -5275,30 +5276,30 @@ func (x *Player) GetAttributePoints() int32 {
 	return 0
 }
 
-func (x *Player) GetStrength() float64 {
+func (x *Player) GetMuscles() float64 {
 	if x != nil {
-		return x.Strength
+		return x.Muscles
 	}
 	return 0
 }
 
-func (x *Player) GetDexterity() float64 {
+func (x *Player) GetNerves() float64 {
 	if x != nil {
-		return x.Dexterity
+		return x.Nerves
 	}
 	return 0
 }
 
-func (x *Player) GetIntelligence() float64 {
+func (x *Player) GetCruelty() float64 {
 	if x != nil {
-		return x.Intelligence
+		return x.Cruelty
 	}
 	return 0
 }
 
-func (x *Player) GetEndurance() float64 {
+func (x *Player) GetResilience() float64 {
 	if x != nil {
-		return x.Endurance
+		return x.Resilience
 	}
 	return 0
 }
@@ -5341,6 +5342,13 @@ func (x *Player) GetReputation() float64 {
 func (x *Player) GetCoin() int64 {
 	if x != nil {
 		return x.Coin
+	}
+	return 0
+}
+
+func (x *Player) GetKindness() float64 {
+	if x != nil {
+		return x.Kindness
 	}
 	return 0
 }
@@ -6368,7 +6376,7 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\rspawn_density\x18\f \x01(\x01R\fspawnDensity\x12-\n" +
 	"\x12allowed_archetypes\x18\r \x01(\tR\x11allowedArchetypes\x12)\n" +
 	"\x10aggression_level\x18\x0e \x01(\x01R\x0faggressionLevel\x12#\n" +
-	"\rleash_enabled\x18\x0f \x01(\bR\fleashEnabled\"\x8c\x04\n" +
+	"\rleash_enabled\x18\x0f \x01(\bR\fleashEnabled\"\x98\x04\n" +
 	"\x06Player\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +
@@ -6379,12 +6387,14 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\n" +
 	"experience\x18\x06 \x01(\x03R\n" +
 	"experience\x12)\n" +
-	"\x10attribute_points\x18\a \x01(\x05R\x0fattributePoints\x12\x1a\n" +
-	"\bstrength\x18\b \x01(\x01R\bstrength\x12\x1c\n" +
-	"\tdexterity\x18\t \x01(\x01R\tdexterity\x12\"\n" +
-	"\fintelligence\x18\n" +
-	" \x01(\x01R\fintelligence\x12\x1c\n" +
-	"\tendurance\x18\v \x01(\x01R\tendurance\x12\x1f\n" +
+	"\x10attribute_points\x18\a \x01(\x05R\x0fattributePoints\x12\x18\n" +
+	"\amuscles\x18\b \x01(\x01R\amuscles\x12\x16\n" +
+	"\x06nerves\x18\t \x01(\x01R\x06nerves\x12\x18\n" +
+	"\acruelty\x18\n" +
+	" \x01(\x01R\acruelty\x12\x1e\n" +
+	"\n" +
+	"resilience\x18\v \x01(\x01R\n" +
+	"resilience\x12\x1f\n" +
 	"\vpvp_enabled\x18\f \x01(\bR\n" +
 	"pvpEnabled\x12%\n" +
 	"\x0fis_in_safe_zone\x18\r \x01(\bR\fisInSafeZone\x12\x19\n" +
@@ -6393,7 +6403,8 @@ const file_apeiron_v1_common_proto_rawDesc = "" +
 	"\n" +
 	"reputation\x18\x10 \x01(\x01R\n" +
 	"reputation\x12\x12\n" +
-	"\x04coin\x18\x11 \x01(\x03R\x04coin\"\xfc\x01\n" +
+	"\x04coin\x18\x11 \x01(\x03R\x04coin\x12\x1a\n" +
+	"\bkindness\x18\x12 \x01(\x01R\bkindness\"\xfc\x01\n" +
 	"\tInventory\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +

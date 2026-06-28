@@ -10,7 +10,7 @@ import (
 type PlayerReader interface {
 	GetByID(ctx context.Context, id string) (postgres.Player, error)
 	UpdateProgression(ctx context.Context, id string, level int, experience int64, attributePoints int) error
-	UpdateAttributes(ctx context.Context, id string, strength, dexterity, intelligence, endurance float64) error
+	UpdateAttributes(ctx context.Context, id string, muscles, nerves, cruelty, kindness, resilience float64) error
 }
 
 type PlayerDataHandler struct {
@@ -33,7 +33,7 @@ func (h *PlayerDataHandler) GetPlayer(ctx context.Context, req *apeironv1.IdRequ
 }
 
 // UpdatePlayer persists a player's progression (level/experience/attribute_points) and attributes
-// (strength/dexterity/intelligence/endurance). Used by the game server to write progression back.
+// (muscles/nerves/cruelty/kindness/resilience). Used by the game server to write progression back.
 // Coin is not written here (runtime has no coin-set path yet).
 func (h *PlayerDataHandler) UpdatePlayer(ctx context.Context, p *apeironv1.Player) (*apeironv1.OperationResult, error) {
 	if p.GetId() == "" {
@@ -42,7 +42,7 @@ func (h *PlayerDataHandler) UpdatePlayer(ctx context.Context, p *apeironv1.Playe
 	if err := h.players.UpdateProgression(ctx, p.GetId(), int(p.GetLevel()), p.GetExperience(), int(p.GetAttributePoints())); err != nil {
 		return &apeironv1.OperationResult{Success: false, Message: err.Error()}, nil
 	}
-	if err := h.players.UpdateAttributes(ctx, p.GetId(), p.GetStrength(), p.GetDexterity(), p.GetIntelligence(), p.GetEndurance()); err != nil {
+	if err := h.players.UpdateAttributes(ctx, p.GetId(), p.GetMuscles(), p.GetNerves(), p.GetCruelty(), p.GetKindness(), p.GetResilience()); err != nil {
 		return &apeironv1.OperationResult{Success: false, Message: err.Error()}, nil
 	}
 	return &apeironv1.OperationResult{Success: true}, nil
@@ -57,10 +57,11 @@ func mapPlayer(player postgres.Player) *apeironv1.Player {
 		Level:              int32(player.Level),
 		Experience:         player.Experience,
 		AttributePoints:    int32(player.AttributePoints),
-		Strength:           player.Strength,
-		Dexterity:          player.Dexterity,
-		Intelligence:       player.Intelligence,
-		Endurance:          player.Endurance,
+		Muscles:            player.Muscles,
+		Nerves:             player.Nerves,
+		Cruelty:            player.Cruelty,
+		Kindness:           player.Kindness,
+		Resilience:         player.Resilience,
 		PvpEnabled:         player.PVPEnabled,
 		IsInSafeZone:       player.IsInSafeZone,
 		GuildId:            nullString(player.GuildID),

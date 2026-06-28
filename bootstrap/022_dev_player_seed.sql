@@ -10,9 +10,9 @@
 -- db-api restart. Progression persists across client reconnects and game-server restarts while db-api
 -- stays up. A proper account/character-creation flow replaces this dev seed later.
 
--- strength 6 is a DEMO value so Slice 5 (attribute scaling) is visible immediately: 150 max health,
--- +25% physical damage, +10 physical resistance. A real new character starts at strength 1.0; this
--- is replaced once the attribute-point spend command exists.
-INSERT INTO apeiron.player (id, account_id, name, strength)
-VALUES ('local_player', 'account_dev_local', 'Wanderer', 6.0)
+-- muscles 6 + resilience 6 are DEMO values so attribute scaling is visible immediately: Muscles → +25%
+-- physical damage; Resilience → 150 max health and +10 physical resistance. A real new character starts
+-- at 1.0; this is replaced once the attribute UI drives spending in PIE.
+INSERT INTO apeiron.player (id, account_id, name, muscles, resilience)
+VALUES ('local_player', 'account_dev_local', 'Wanderer', 6.0, 6.0)
 ON CONFLICT (id) DO NOTHING;

@@ -601,16 +601,17 @@ message Player {
   int32 level = 5;
   int64 experience = 6;
   int32 attribute_points = 7;
-  double strength = 8;
-  double dexterity = 9;
-  double intelligence = 10;
-  double endurance = 11;
+  double muscles = 8;
+  double nerves = 9;
+  double cruelty = 10;
+  double resilience = 11;
   bool pvp_enabled = 12;
   bool is_in_safe_zone = 13;
   string guild_id = 14;
   string party_id = 15;
   double reputation = 16;
   int64 coin = 17;
+  double kindness = 18;
 }
 
 message Inventory {
